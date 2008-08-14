@@ -3,13 +3,15 @@ vec2.h
 vec3.h
 vec4.h
 mat4.h
+mat3.h
 plane.h
 utility.h
 quaternion.h
 )
 
 SET(KAZMATH_SRCS
-mat4.c    
+mat4.c
+mat3.c    
 plane.c      
 vec4.c
 quaternion.c 
