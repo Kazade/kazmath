@@ -95,9 +95,9 @@ bool  kmMat3IsIdentity(const kmMat3* pIn)
 /** Sets pOut to the transpose of pIn, returns pOut */
 kmMat3* kmMat3Transpose(kmMat3* pOut, const kmMat3* pIn)
 {
-	for (int z = 0; z < 4; ++z)
-		for (int x = 0; x < 4; ++x)
-			pOut->m_Mat[(z * 4) + x] = pIn->m_Mat[(x * 4) + z];
+	for (int z = 0; z < 3; ++z)
+		for (int x = 0; x < 3; ++x)
+			pOut->m_Mat[(z * 3) + x] = pIn->m_Mat[(x * 3) + z];
 
 	return pOut;
 }
