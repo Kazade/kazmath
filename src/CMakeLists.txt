@@ -7,6 +7,7 @@ mat3.h
 plane.h
 utility.h
 quaternion.h
+aabb.h
 )
 
 SET(KAZMATH_SRCS
@@ -18,6 +19,7 @@ quaternion.c
 vec2.c
 vec3.c
 utility.c
+aabb.c
 )
 
 #ADD_LIBRARY(Kazmath STATIC ${KAZMATH_SRCS})
