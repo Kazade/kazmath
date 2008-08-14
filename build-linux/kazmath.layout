@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="../src/mat4.c" open="1" top="0" tabpos="4">
+		<Cursor position="9261" topLine="288" />
+	</File>
+	<File name="../src/mat4.h" open="1" top="0" tabpos="3">
+		<Cursor position="1945" topLine="3" />
+	</File>
+	<File name="../src/plane.c" open="1" top="0" tabpos="1">
+		<Cursor position="3334" topLine="93" />
+	</File>
+	<File name="../src/plane.h" open="1" top="0" tabpos="2">
+		<Cursor position="984" topLine="6" />
+	</File>
+</CodeBlocks_layout_file>

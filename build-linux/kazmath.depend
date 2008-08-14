@@ -1,0 +1,68 @@
+# depslib dependency file v1.0
+1207417327 source:/home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/mat4.c
+	"utility.h"
+	"vec3.h"
+	"mat4.h"
+	"quaternion.h"
+	<memory.h>
+	<assert.h>
+
+1217749462 /home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/utility.h
+	<math.h>
+	<stdbool.h>
+
+1217749537 /home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/vec3.h
+	<assert.h>
+
+1217797533 /home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/mat4.h
+	"utility.h"
+
+1207504867 /home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/quaternion.h
+	"utility.h"
+
+1217796589 source:/home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/plane.c
+	<assert.h>
+	"vec3.h"
+	"vec4.h"
+	"plane.h"
+
+1207417327 /home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/vec4.h
+	"utility.h"
+
+1217796426 /home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/plane.h
+	"utility.h"
+
+1207417327 source:/home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/quaternion.c
+	<assert.h>
+	<memory.h>
+	"utility.h"
+	"mat4.h"
+	"vec3.h"
+	"quaternion.h"
+
+1207505105 source:/home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/utility.c
+	"utility.h"
+
+1207417327 source:/home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/vec2.c
+	<assert.h>
+	"mat4.h"
+	"vec2.h"
+	"utility.h"
+
+1207501857 /home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/vec2.h
+
+1207417327 source:/home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/vec3.c
+	<assert.h>
+	<memory.h>
+	"utility.h"
+	"vec4.h"
+	"mat4.h"
+	"vec3.h"
+
+1207417327 source:/home/luke/Projects/KazEngine3/kazengine/src/kazmath/src/vec4.c
+	<memory.h>
+	<assert.h>
+	"utility.h"
+	"vec4.h"
+	"mat4.h"
+
