@@ -36,6 +36,14 @@
 			<Add option="-Wall" />
 			<Add option="-std=c99" />
 		</Compiler>
+		<Unit filename="../src/aabb.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/aabb.h" />
+		<Unit filename="../src/mat3.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/mat3.h" />
 		<Unit filename="../src/mat4.c">
 			<Option compilerVar="CC" />
 		</Unit>

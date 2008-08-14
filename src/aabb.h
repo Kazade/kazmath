@@ -18,17 +18,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef AABB_H_INCLUDED
-#define AABB_H_INCLUDED
+#ifndef KAZMATH_AABB_H_INCLUDED
+#define KAZMATH_AABB_H_INCLUDED
+
+#include "vec3.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct kmAABB {
-	kmVec3 m_Min; /** The max corner of the box */
-	kmVec3 m_Max; /** The min corner of the box */
+	kmVec3 min; /** The max corner of the box */
+	kmVec3 max; /** The min corner of the box */
 } kmAABB;
 
-bool kmAABBPointInBox(const kmVec3* point);
+int kmAABBPointInBox(const kmVec3* point);
 
 kmAABB* kmAABBAssign(kmAABB* pOut, const kmAABB* pIn);
 kmAABB* kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s);
-
-#endif AABB_H_INCLUDED
+#ifdef __cplusplus
+}
+#endif
+#endif
