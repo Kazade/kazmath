@@ -397,12 +397,12 @@ kmMat4* kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y, const km
 kmMat4* kmMat4Translation(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z)
 {
 	//FIXME: Write a test for this
-	//assert(0);
 	memset(pOut->m_Mat, 0, sizeof(float) * 16);
 
 	pOut->m_Mat[12] = x;
 	pOut->m_Mat[13] = y;
 	pOut->m_Mat[14] = z;
+	pOut->m_Mat[15] = 1.0f;
 
 	return pOut;
 }
