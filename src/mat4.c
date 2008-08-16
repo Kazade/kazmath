@@ -440,3 +440,44 @@ kmVec3* kmMat4GetForwardVec3(kmVec3* pOut, const kmMat4* pIn)
 	return pOut;
 }
 
+/** Creates a perspective projection matrix in the same way as gluPerspective */
+kmMat4* kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY, kmScalar aspect, kmScalar zNear, kmScalar zFar)
+{
+	kmScalar r = kmDegreesToRadians(fovY / 2);
+	kmScalar deltaZ = zFar - zNear;
+	kmScalar s = sin(r);
+
+	if (deltaZ == 0 || s == 0 || aspect == 0) {
+		return NULL;
+	}
+
+	kmScalar cotangent = cos(r) / s;
+
+	kmMat4Identity(pOut);
+	pOut->m_Mat[0] = cotangent / aspect;
+	pOut->m_Mat[5] = cotangent;
+	pOut->m_Mat[10] = -(zFar + zNear) / deltaZ;
+	pOut->m_Mat[11] = -1;
+	pOut->m_Mat[14] = -2 * zNear * zFar / deltaZ;
+	pOut->m_Mat[15] = 0;
+
+	return pOut;
+}
+
+/** Creates an orthographic projection matrix like glOrtho */
+kmMat4* kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left, kmScalar right, kmScalar bottom, kmScalar top, kmScalar nearVal, kmScalar farVal) 
+{
+	kmScalar tx = -((right + left) / (right - left));
+	kmScalar ty = -((top + bottom) / (top - bottom));
+	kmScalar tz = -((farVal + nearVal) / (farVal - nearVal));
+
+	kmMat4Identity(pOut);
+	pOut->m_Mat[0] = 2 / (right - left);
+	pOut->m_Mat[5] = 2 / (top - bottom);
+	pOut->m_Mat[10] = -2 / (farVal - nearVal);
+	pOut->m_Mat[12] = tx;
+	pOut->m_Mat[13] = ty;
+	pOut->m_Mat[14] = tz;
+
+	return pOut;
+} 
