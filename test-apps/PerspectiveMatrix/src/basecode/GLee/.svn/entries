@@ -1,0 +1,54 @@
+8
+
+dir
+41
+svn://kazade.co.uk/nehe/trunk/basecode/GLee
+svn://kazade.co.uk/nehe
+
+
+
+2008-02-23T15:38:10.190435Z
+4
+carsten
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+bea59044-9fdd-4d24-9f5d-1bbb70a73ad1
+
+GLee.h
+file
+
+
+
+
+2008-04-01T21:04:07.000000Z
+f0206b726638ad7ee62570214c0aae1a
+2008-02-23T15:38:10.190435Z
+4
+carsten
+has-props
+
+GLee.cpp
+file
+
+
+
+
+2008-04-01T21:04:07.000000Z
+68d873b2cfa3608a63d4b8b864925cdc
+2008-02-23T15:38:10.190435Z
+4
+carsten
+has-props
+

@@ -1,0 +1,56 @@
+# depslib dependency file v1.0
+1207083847 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/PerspectiveMatrix/src/basecode/GLee/GLee.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GLee.h"
+	<Carbon/Carbon.h>
+
+1207083847 /home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/PerspectiveMatrix/src/basecode/GLee/GLee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1217100682 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/PerspectiveMatrix/src/basecode/input.cpp
+	"input.h"
+
+1217879974 /home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/PerspectiveMatrix/src/basecode/input.h
+	<SDL/SDL.h>
+
+1219006993 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/PerspectiveMatrix/src/basecode/lesson.cpp
+	"lesson.h"
+
+1217936250 /home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/PerspectiveMatrix/src/basecode/lesson.h
+	"window.h"
+	<SDL/SDL.h>
+	"input.h"
+
+1217100537 /home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/PerspectiveMatrix/src/basecode/window.h
+	<string>
+	<iostream>
+	"GLee/GLee.h"
+	<SDL/SDL.h>
+	<SDL/SDL_opengl.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1217936250 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/PerspectiveMatrix/src/basecode/window.cpp
+	"window.h"
+
+1219005959 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/PerspectiveMatrix/src/main.cpp
+	"perspective_test.h"
+
+1219007425 /home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/PerspectiveMatrix/src/perspective_test.h
+	"basecode/lesson.h"
+	<kazmath/mat4.h>
+	<kazmath/vec3.h>
+	<iostream>
+	<iomanip>
+	<vector>
+
+1219006140 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/PerspectiveMatrix/src/perspective_test.cpp
+	"perspective_test.h"
+

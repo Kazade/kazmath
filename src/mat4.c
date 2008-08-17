@@ -84,7 +84,7 @@ kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
 		{
 			// Singular matrix - can't invert
 
-			return pOut;
+			return NULL;
 		}
 
         for(int k = 0; k < 4; k++)
@@ -162,12 +162,6 @@ kmMat4* kmMat4Multiply(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2)
 
 	memcpy(pOut->m_Mat, mat, sizeof(float)*16);
 
-	return pOut;
-}
-
-kmMat4* kmMat4MultiplyTranspose(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2)
-{
-	assert(0);
 	return pOut;
 }
 
@@ -452,11 +446,11 @@ kmMat4* kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY, kmScalar aspect
 	}
 
     //cos(r) / sin(r) = cot(r)
-	kmScalar cotangens = cos(r) / s;
+	kmScalar cotangent = cos(r) / s;
 
 	kmMat4Identity(pOut);
-	pOut->m_Mat[0] = cotangens / aspect;
-	pOut->m_Mat[5] = cotangens;
+	pOut->m_Mat[0] = cotangent / aspect;
+	pOut->m_Mat[5] = cotangent;
 	pOut->m_Mat[10] = -(zFar + zNear) / deltaZ;
 	pOut->m_Mat[11] = -1;
 	pOut->m_Mat[14] = -2 * zNear * zFar / deltaZ;

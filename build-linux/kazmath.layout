@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="../src/aabb.c" open="1" top="0" tabpos="6">
+	<File name="../src/aabb.c" open="0" top="0" tabpos="6">
 		<Cursor position="686" topLine="0" />
 	</File>
-	<File name="../src/aabb.h" open="1" top="0" tabpos="5">
+	<File name="../src/aabb.h" open="0" top="0" tabpos="5">
 		<Cursor position="663" topLine="0" />
 	</File>
-	<File name="../src/mat3.c" open="1" top="0" tabpos="7">
+	<File name="../src/mat3.c" open="0" top="0" tabpos="7">
 		<Cursor position="0" topLine="171" />
 	</File>
-	<File name="../src/mat4.c" open="1" top="1" tabpos="4">
-		<Cursor position="11707" topLine="442" />
+	<File name="../src/mat4.c" open="1" top="0" tabpos="8">
+		<Cursor position="5532" topLine="184" />
 	</File>
-	<File name="../src/mat4.h" open="1" top="0" tabpos="3">
-		<Cursor position="2232" topLine="21" />
+	<File name="../src/mat4.h" open="0" top="0" tabpos="3">
+		<Cursor position="2574" topLine="32" />
 	</File>
-	<File name="../src/plane.c" open="1" top="0" tabpos="1">
+	<File name="../src/plane.c" open="0" top="0" tabpos="1">
 		<Cursor position="3334" topLine="93" />
 	</File>
-	<File name="../src/plane.h" open="1" top="0" tabpos="2">
+	<File name="../src/plane.h" open="0" top="0" tabpos="2">
 		<Cursor position="984" topLine="6" />
+	</File>
+	<File name="../src/utility.c" open="1" top="0" tabpos="9">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../src/vec3.c" open="1" top="0" tabpos="7">
+		<Cursor position="0" topLine="171" />
 	</File>
 </CodeBlocks_layout_file>

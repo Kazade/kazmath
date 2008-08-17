@@ -26,6 +26,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 struct kmVec3;
 struct kmQuaternion;
 
+/*
+A 4x4 matrix
+
+        | 0   4   8  12 |
+m_Mat = | 1   5   9  13 |
+        | 2   6  10  14 |
+        | 3   7  11  15 |
+*/
+
 typedef struct kmMat4{
 	kmScalar m_Mat[16];
 } kmMat4;
@@ -39,7 +48,6 @@ kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM);
 bool  kmMat4IsIdentity(const kmMat4* pIn);
 kmMat4* kmMat4Transpose(kmMat4* pOut, const kmMat4* pIn);
 kmMat4* kmMat4Multiply(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2);
-kmMat4* kmMat4MultiplyTranspose(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2);
 
 kmMat4* kmMat4Assign(kmMat4* pOut, const kmMat4* pIn);
 bool  kmMat4AreEqual(const kmMat4* pM1, const kmMat4* pM2);
@@ -63,4 +71,4 @@ kmMat4* kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left, kmScalar right
 #ifdef __cplusplus
 }
 #endif
-#endif // MAT4_H_INCLUDED
+#endif /* MAT4_H_INCLUDED */

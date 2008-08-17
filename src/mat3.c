@@ -38,9 +38,9 @@ kmScalar kmMat3Determinant(const kmMat3* pIn)
     kmScalar output;
     /*
     calculating the determinant following the rule of sarus,
-        | 0  1  2 | 0  1 |
-    m = | 3  4  5 | 3  5 |
-        | 6  7  8 | 6  7 |
+        | 0  3  6 | 0  3 |
+    m = | 1  4  7 | 1  4 |
+        | 2  5  8 | 2  5 |
     now sum up the products of the diagonals going to the right (i.e. 0,4,8)
     and substract the products of the other diagonals (i.e. 2,4,6)
     */
@@ -203,8 +203,8 @@ kmMat3* kmMat3Scaling(kmMat3* pOut, const kmScalar x, const kmScalar y)
 kmMat3* kmMat3Translation(kmMat3* pOut, const kmScalar x, const kmScalar y)
 {
     memset(pOut->m_Mat, 0, sizeof(float) * 9);
-    pOut->m_Mat[2] = x;
-    pOut->m_Mat[5] = y;
+    pOut->m_Mat[6] = x;
+    pOut->m_Mat[7] = y;
     pOut->m_Mat[8] = 1.0;
 
     return pOut;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="src/basecode/GLee/GLee.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="596640" topLine="8821" />
+	</File>
+	<File name="src/basecode/lesson.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="359" topLine="21" />
+	</File>
+	<File name="src/basecode/lesson.h" open="1" top="0" tabpos="6">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="137" topLine="0" />
+	</File>
+	<File name="src/perspective_test.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="2290" topLine="84" />
+	</File>
+	<File name="src/perspective_test.h" open="1" top="0" tabpos="3">
+		<Cursor position="127" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>
