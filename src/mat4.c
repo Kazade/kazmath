@@ -451,11 +451,12 @@ kmMat4* kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY, kmScalar aspect
 		return NULL;
 	}
 
-	kmScalar cotangent = cos(r) / s;
+    //cos(r) / sin(r) = cot(r)
+	kmScalar cotangens = cos(r) / s;
 
 	kmMat4Identity(pOut);
-	pOut->m_Mat[0] = cotangent / aspect;
-	pOut->m_Mat[5] = cotangent;
+	pOut->m_Mat[0] = cotangens / aspect;
+	pOut->m_Mat[5] = cotangens;
 	pOut->m_Mat[10] = -(zFar + zNear) / deltaZ;
 	pOut->m_Mat[11] = -1;
 	pOut->m_Mat[14] = -2 * zNear * zFar / deltaZ;
@@ -465,7 +466,7 @@ kmMat4* kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY, kmScalar aspect
 }
 
 /** Creates an orthographic projection matrix like glOrtho */
-kmMat4* kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left, kmScalar right, kmScalar bottom, kmScalar top, kmScalar nearVal, kmScalar farVal) 
+kmMat4* kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left, kmScalar right, kmScalar bottom, kmScalar top, kmScalar nearVal, kmScalar farVal)
 {
 	kmScalar tx = -((right + left) / (right - left));
 	kmScalar ty = -((top + bottom) / (top - bottom));
@@ -480,4 +481,4 @@ kmMat4* kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left, kmScalar right
 	pOut->m_Mat[14] = tz;
 
 	return pOut;
-} 
+}
