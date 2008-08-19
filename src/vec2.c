@@ -61,7 +61,7 @@ kmVec2* kmVec2Scale(kmVec2* pOut, const kmVec2* pIn, const kmScalar s)
 	assert(0);
 }
 
-bool kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2)
+int kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2)
 {
 	return (
 				(p1->x < p2->x + kmEpsilon && p1->x > p2->x - kmEpsilon) &&

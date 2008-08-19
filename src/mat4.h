@@ -45,12 +45,12 @@ extern "C" {
 
 kmMat4* kmMat4Identity(kmMat4* pOut);
 kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM);
-bool  kmMat4IsIdentity(const kmMat4* pIn);
+int  kmMat4IsIdentity(const kmMat4* pIn);
 kmMat4* kmMat4Transpose(kmMat4* pOut, const kmMat4* pIn);
 kmMat4* kmMat4Multiply(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2);
 
 kmMat4* kmMat4Assign(kmMat4* pOut, const kmMat4* pIn);
-bool  kmMat4AreEqual(const kmMat4* pM1, const kmMat4* pM2);
+int  kmMat4AreEqual(const kmMat4* pM1, const kmMat4* pM2);
 
 kmMat4* kmMat4RotationAxis(kmMat4* pOut, const struct kmVec3* axis, kmScalar radians);
 kmMat4* kmMat4RotationX(kmMat4* pOut, const float radians);

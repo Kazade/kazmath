@@ -135,7 +135,7 @@ kmVec4* kmVec4TransformArray(kmVec4* pOut, unsigned int outStride,
     return pOut;
 }
 
-bool kmVec4AreEqual(const kmVec4* p1, const kmVec4* p2) {
+int kmVec4AreEqual(const kmVec4* p1, const kmVec4* p2) {
 	return (
 		(p1->x < p2->x + kmEpsilon && p1->x > p2->x - kmEpsilon) &&
 		(p1->y < p2->y + kmEpsilon && p1->y > p2->y - kmEpsilon) &&

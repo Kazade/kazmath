@@ -83,7 +83,6 @@ kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
 		if (!mat[j*4 + j])
 		{
 			// Singular matrix - can't invert
-
 			return NULL;
 		}
 
@@ -111,7 +110,7 @@ kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
 }
 
 /** Returns true if pIn is an identity matrix */
-bool  kmMat4IsIdentity(const kmMat4* pIn)
+int  kmMat4IsIdentity(const kmMat4* pIn)
 {
 	static const float identity [] = { 	1.0f, 0.0f, 0.0f, 0.0f,
 	                                    0.0f, 1.0f, 0.0f, 0.0f,
@@ -176,7 +175,7 @@ kmMat4* kmMat4Assign(kmMat4* pOut, const kmMat4* pIn)
 }
 
 /** Returns true if the 2 matrices are equal (approximately) */
-bool kmMat4AreEqual(const kmMat4* pMat1, const kmMat4* pMat2)
+int kmMat4AreEqual(const kmMat4* pMat1, const kmMat4* pMat2)
 {
 	assert(pMat1 != pMat2); //You are comparing the same thing!
 

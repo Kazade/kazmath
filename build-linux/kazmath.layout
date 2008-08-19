@@ -7,14 +7,17 @@
 	<File name="../src/aabb.h" open="0" top="0" tabpos="5">
 		<Cursor position="663" topLine="0" />
 	</File>
-	<File name="../src/mat3.c" open="0" top="0" tabpos="7">
-		<Cursor position="0" topLine="171" />
+	<File name="../src/mat3.c" open="1" top="0" tabpos="2">
+		<Cursor position="4293" topLine="108" />
 	</File>
-	<File name="../src/mat4.c" open="1" top="0" tabpos="8">
-		<Cursor position="5532" topLine="184" />
+	<File name="../src/mat3.h" open="1" top="1" tabpos="1">
+		<Cursor position="0" topLine="15" />
 	</File>
-	<File name="../src/mat4.h" open="0" top="0" tabpos="3">
-		<Cursor position="2574" topLine="32" />
+	<File name="../src/mat4.c" open="1" top="0" tabpos="4">
+		<Cursor position="4580" topLine="132" />
+	</File>
+	<File name="../src/mat4.h" open="1" top="0" tabpos="3">
+		<Cursor position="2573" topLine="32" />
 	</File>
 	<File name="../src/plane.c" open="0" top="0" tabpos="1">
 		<Cursor position="3334" topLine="93" />
@@ -22,10 +25,10 @@
 	<File name="../src/plane.h" open="0" top="0" tabpos="2">
 		<Cursor position="984" topLine="6" />
 	</File>
-	<File name="../src/utility.c" open="1" top="0" tabpos="9">
+	<File name="../src/utility.c" open="0" top="0" tabpos="9">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="../src/vec3.c" open="1" top="0" tabpos="7">
+	<File name="../src/vec3.c" open="0" top="0" tabpos="7">
 		<Cursor position="0" topLine="171" />
 	</File>
 </CodeBlocks_layout_file>

@@ -28,7 +28,7 @@ kmVec2* kmVec2Subtract(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2); ///<
 kmVec2* kmVec2Transform(kmVec2* pOut, const kmVec2* pV1, const struct kmMat4* pM); /** Transform the Vector */
 kmVec2* kmVec2TransformCoord(kmVec2* pOut, const kmVec2* pV, const struct kmMat4* pM); ///<Transforms a 3D vector by a given matrix, projecting the result back into w = 1.
 kmVec2* kmVec2Scale(kmVec2* pOut, const kmVec2* pIn, const kmScalar s); ///< Scales a vector to length s
-bool	kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2); ///< Returns true if both vectors are equal
+int	kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2); ///< Returns 1 if both vectors are equal
 
 #ifdef __cplusplus
 }

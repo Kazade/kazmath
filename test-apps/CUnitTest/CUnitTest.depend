@@ -1,0 +1,36 @@
+# depslib dependency file v1.0
+1219164135 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/main.c
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+
+1219168044 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testMat3.c
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+	<kazmath/mat3.h>
+
+1219168075 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testMat4.c
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+	<kazmath/mat4.h>
+
+1219164226 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testVec2.c
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+	<kazmath/vec2.h>
+
+1219164983 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testVec4.c
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+	<kazmath/vec4.h>
+
+1219165796 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testVec3.c
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+	<kazmath/vec3.h>
+

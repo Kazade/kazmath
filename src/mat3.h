@@ -37,14 +37,14 @@ extern "C" {
 kmMat3* kmMat3Adjugate(kmMat3* pOut, const kmMat3* pIn);
 kmMat3* kmMat3Identity(kmMat3* pOut);
 kmMat3* kmMat3Inverse(kmMat3* pOut, const kmScalar pDeterminate, const kmMat3* pM);
-bool  kmMat3IsIdentity(const kmMat3* pIn);
+int  kmMat3IsIdentity(const kmMat3* pIn);
 kmMat3* kmMat3Transpose(kmMat3* pOut, const kmMat3* pIn);
 kmScalar kmMat3Determinant(const kmMat3* pIn);
 kmMat3* kmMat3Multiply(kmMat3* pOut, const kmMat3* pM1, const kmMat3* pM2);
 kmMat3* kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, kmScalar pFactor);
 
 kmMat3* kmMat3Assign(kmMat3* pOut, const kmMat3* pIn);
-bool  kmMat3AreEqual(const kmMat3* pM1, const kmMat3* pM2);
+int  kmMat3AreEqual(const kmMat3* pM1, const kmMat3* pM2);
 
 kmMat3* kmMat3Rotation(kmMat3* pOut, const kmScalar radians);
 kmMat3* kmMat3Scaling(kmMat3* pOut, const kmScalar x, const kmScalar y);

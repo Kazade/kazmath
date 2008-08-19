@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 kmMat3* kmMat3Identity(kmMat3* pOut)
 {
 	memset(pOut->m_Mat, 0, sizeof(float) * 9);
-	pOut->m_Mat[0] = pOut->m_Mat[3] = pOut->m_Mat[8] = 1.0f;
+	pOut->m_Mat[0] = pOut->m_Mat[4] = pOut->m_Mat[8] = 1.0f;
 	return pOut;
 }
 
@@ -83,7 +83,7 @@ kmMat3* kmMat3Inverse(kmMat3* pOut, kmScalar pDeterminate, const kmMat3* pM)
 }
 
 /** Returns true if pIn is an identity matrix */
-bool  kmMat3IsIdentity(const kmMat3* pIn)
+int  kmMat3IsIdentity(const kmMat3* pIn)
 {
 	static const float identity [] = { 	1.0f, 0.0f, 0.0f,
 										0.0f, 1.0f, 0.0f,
@@ -132,7 +132,7 @@ kmMat3* kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, const kmScalar pFac
 
     for(int i = 0; i < 9; i++)
     {
-        mat[0] = pM->m_Mat[9] * pFactor;
+        mat[i] = pM->m_Mat[i] * pFactor;
     }
 
     memcpy(pOut->m_Mat, mat, sizeof(float)*9);
@@ -151,7 +151,7 @@ kmMat3* kmMat3Assign(kmMat3* pOut, const kmMat3* pIn)
 }
 
 /** Returns true if the 2 matrices are equal (approximately) */
-bool kmMat3AreEqual(const kmMat3* pMat1, const kmMat3* pMat2)
+int kmMat3AreEqual(const kmMat3* pMat1, const kmMat3* pMat2)
 {
 	assert(pMat1 != pMat2); //You are comparing the same thing!
 

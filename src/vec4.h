@@ -52,7 +52,7 @@ kmVec4* kmVec4Subtract(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2);
 kmVec4* kmVec4Transform(kmVec4* pOut, const kmVec4* pV, const struct kmMat4* pM);
 kmVec4* kmVec4TransformArray(kmVec4* pOut, unsigned int outStride,
 			const kmVec4* pV, unsigned int vStride, const struct kmMat4* pM, unsigned int count);
-bool 	kmVec4AreEqual(const kmVec4* p1, const kmVec4* p2);
+int 	kmVec4AreEqual(const kmVec4* p1, const kmVec4* p2);
 kmVec4* kmVec4Assign(kmVec4* pOut, const kmVec4* pIn);
 
 #ifdef __cplusplus
