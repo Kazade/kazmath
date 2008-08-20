@@ -34,6 +34,8 @@ typedef struct kmMat3{
 extern "C" {
 #endif
 
+kmMat3* kmMat3Fill(kmMat3* pOut, const kmScalar* pMat);
+
 kmMat3* kmMat3Adjugate(kmMat3* pOut, const kmMat3* pIn);
 kmMat3* kmMat3Identity(kmMat3* pOut);
 kmMat3* kmMat3Inverse(kmMat3* pOut, const kmScalar pDeterminate, const kmMat3* pM);

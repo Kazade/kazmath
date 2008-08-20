@@ -39,6 +39,7 @@ typedef struct kmVec3 {
 extern "C" {
 #endif
 
+kmVec3* kmVec3Fill(kmVec3* pOut, kmScalar x, kmScalar y, kmScalar z);
 kmScalar kmVec3Length(const kmVec3* pIn); /** Returns the length of the vector */
 kmScalar kmVec3LengthSq(const kmVec3* pIn); /** Returns the square of the length of the vector */
 kmVec3* kmVec3Normalize(kmVec3* pOut, const kmVec3* pIn); /** Returns the vector passed in set to unit length */

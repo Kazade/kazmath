@@ -5,6 +5,13 @@
 #include "vec2.h"
 #include "utility.h"
 
+kmVec2* kmVec2Fill(kmVec2* pOut, kmScalar x, kmScalar y)
+{
+    pOut->x = x;
+    pOut->y = y;
+    return pOut;
+}
+
 kmScalar kmVec2Length(const kmVec2* pIn)
 {
     return sqrtf(kmSQR(pIn->x) + kmSQR(pIn->y));

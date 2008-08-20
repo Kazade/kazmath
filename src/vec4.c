@@ -25,6 +25,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "vec4.h"
 #include "mat4.h"
 
+
+kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w)
+{
+    pOut->x = x;
+    pOut->y = y;
+    pOut->z = z;
+    pOut->w = w;
+    return pOut;
+}
+
+
 /// Adds 2 4D vectors together. The result is store in pOut, the function returns
 /// pOut so that it can be nested in another function.
 kmVec4* kmVec4Add(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2) {

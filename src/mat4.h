@@ -43,6 +43,8 @@ typedef struct kmMat4{
 extern "C" {
 #endif
 
+kmMat4* kmMat4Fill(kmMat4* pOut, const kmScalar* pMat);
+
 kmMat4* kmMat4Identity(kmMat4* pOut);
 kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM);
 int  kmMat4IsIdentity(const kmMat4* pIn);

@@ -41,6 +41,7 @@ typedef struct kmVec4 {
 extern "C" {
 #endif
 
+kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w);
 kmVec4* kmVec4Add(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2);
 kmScalar kmVec4Dot(const kmVec4* pV1, const kmVec4* pV2);
 kmScalar kmVec4Length(const kmVec4* pIn);

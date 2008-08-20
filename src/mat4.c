@@ -25,6 +25,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <memory.h>
 #include <assert.h>
 
+kmMat4* kmMat4Fill(kmMat4* pOut, const kmScalar* pMat)
+{
+    memcpy(pOut->m_Mat, pMat, sizeof(kmScalar) * 16);
+    return pOut;
+}
+
 /** Sets pOut to an identity matrix returns pOut*/
 kmMat4* kmMat4Identity(kmMat4* pOut)
 {

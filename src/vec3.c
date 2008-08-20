@@ -26,6 +26,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "mat4.h"
 #include "vec3.h"
 
+
+kmVec3* kmVec3Fill(kmVec3* pOut, kmScalar x, kmScalar y, kmScalar z)
+{
+    pOut->x = x;
+    pOut->y = y;
+    pOut->z = z;
+    return pOut;
+}
+
+
 ///< Returns the length of the vector
 kmScalar kmVec3Length(const kmVec3* pIn)
 {
@@ -218,9 +228,9 @@ int kmVec3AreEqual(const kmVec3* p1, const kmVec3* p2)
 	if ((p1->x < (p2->x + kmEpsilon) && p1->x > (p2->x - kmEpsilon)) &&
 		(p1->y < (p2->y + kmEpsilon) && p1->y > (p2->y - kmEpsilon)) &&
 		(p1->z < (p2->z + kmEpsilon) && p1->z > (p2->z - kmEpsilon))) {
-		return 1;		
+		return 1;
 	}
-	
+
 	return 0;
 }
 
