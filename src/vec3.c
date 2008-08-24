@@ -216,9 +216,9 @@ kmVec3* kmVec3TransformNormal(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 ///< Scales a vector to length s
 kmVec3* kmVec3Scale(kmVec3* pOut, const kmVec3* pIn, const kmScalar s)
 {
-	pOut->x *= s;
-	pOut->y *= s;
-	pOut->z *= s;
+	pOut->x = pIn->x * s;
+	pOut->y = pIn->y * s;
+	pOut->z = pIn->z * s;
 
 	return pOut;
 }

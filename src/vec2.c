@@ -65,7 +65,10 @@ kmVec2* kmVec2TransformCoord(kmVec2* pOut, const kmVec2* pV, const kmMat4* pM)
 
 kmVec2* kmVec2Scale(kmVec2* pOut, const kmVec2* pIn, const kmScalar s)
 {
-	assert(0);
+	pOut->x = pIn->x * s;
+	pOut->y = pIn->y * s;
+	
+	return pOut;
 }
 
 int kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2)
