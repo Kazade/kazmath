@@ -398,6 +398,10 @@ kmMat4* kmMat4Translation(kmMat4* pOut, const kmScalar x, const kmScalar y, cons
 	//FIXME: Write a test for this
 	memset(pOut->m_Mat, 0, sizeof(float) * 16);
 
+    pOut->m_Mat[0] = 1.0f;
+    pOut->m_Mat[5] = 1.0f;
+    pOut->m_Mat[10] = 1.0f;
+
 	pOut->m_Mat[12] = x;
 	pOut->m_Mat[13] = y;
 	pOut->m_Mat[14] = z;
@@ -480,4 +484,42 @@ kmMat4* kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left, kmScalar right
 	pOut->m_Mat[14] = tz;
 
 	return pOut;
+}
+
+kmMat4* kmMat4LookAt(kmMat4* pOut, const kmVec3* pEye, const kmVec3* pCenter, const kmVec3* pUp)
+{
+    kmVec3 f;
+    kmVec3Subtract(&f, pCenter, pEye);
+    kmVec3Normalize(&f, &f);
+
+    kmVec3 up;
+    kmVec3Assign(&up, pUp);
+    kmVec3Normalize(&up, &up);
+
+    kmVec3 s;
+    kmVec3Cross(&s, &f, &up);
+
+    kmVec3 u;
+    kmVec3Cross(&u, &s, &f);
+
+    kmMat4Identity(pOut);
+
+    pOut->m_Mat[0] = s.x;
+    pOut->m_Mat[4] = s.y;
+    pOut->m_Mat[8] = s.z;
+
+    pOut->m_Mat[1] = u.x;
+    pOut->m_Mat[5] = u.y;
+    pOut->m_Mat[9] = u.z;
+
+    pOut->m_Mat[2] = -f.x;
+    pOut->m_Mat[6] = -f.y;
+    pOut->m_Mat[10] = -f.z;
+
+    kmMat4 translate;
+    kmMat4Translation(&translate, -pEye->x, -pEye->y, -pEye->z);
+
+    kmMat4Multiply(pOut, pOut, &translate);
+
+    return pOut;
 }

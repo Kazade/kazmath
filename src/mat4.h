@@ -55,9 +55,9 @@ kmMat4* kmMat4Assign(kmMat4* pOut, const kmMat4* pIn);
 int  kmMat4AreEqual(const kmMat4* pM1, const kmMat4* pM2);
 
 kmMat4* kmMat4RotationAxis(kmMat4* pOut, const struct kmVec3* axis, kmScalar radians);
-kmMat4* kmMat4RotationX(kmMat4* pOut, const float radians);
-kmMat4* kmMat4RotationY(kmMat4* pOut, const float radians);
-kmMat4* kmMat4RotationZ(kmMat4* pOut, const float radians);
+kmMat4* kmMat4RotationX(kmMat4* pOut, const kmScalar radians);
+kmMat4* kmMat4RotationY(kmMat4* pOut, const kmScalar radians);
+kmMat4* kmMat4RotationZ(kmMat4* pOut, const kmScalar radians);
 kmMat4* kmMat4RotationPitchYawRoll(kmMat4* pOut, const kmScalar pitch, const kmScalar yaw, const kmScalar roll);
 kmMat4* kmMat4RotationQuaternion(kmMat4* pOut, const struct kmQuaternion* pQ);
 kmMat4* kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z);
@@ -69,6 +69,7 @@ struct kmVec3* kmMat4GetForwardVec3(struct kmVec3* pOut, const kmMat4* pIn);
 
 kmMat4* kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY, kmScalar aspect, kmScalar zNear, kmScalar zFar);
 kmMat4* kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left, kmScalar right, kmScalar bottom, kmScalar top, kmScalar nearVal, kmScalar farVal);
+kmMat4* kmMat4LookAt(kmMat4* pOut, const struct kmVec3* pEye, const struct kmVec3* pCnter, const struct kmVec3* pUp);
 
 #ifdef __cplusplus
 }

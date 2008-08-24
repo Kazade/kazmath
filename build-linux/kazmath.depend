@@ -99,7 +99,7 @@
 	"vec3.h"
 	"quaternion.h"
 
-1219223798 /home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/mat4.h
+1219608360 /home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/mat4.h
 	"utility.h"
 
 1218980935 /home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/quaternion.h
@@ -131,4 +131,23 @@
 	"utility.h"
 	"vec4.h"
 	"mat4.h"
+
+1219223811 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/mat3.c
+	"utility.h"
+	"vec3.h"
+	"mat3.h"
+	"quaternion.h"
+	<memory.h>
+	<assert.h>
+
+1219223326 /home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/mat3.h
+	"utility.h"
+
+1219608260 source:/home/dumbo/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/mat4.c
+	"utility.h"
+	"vec3.h"
+	"mat4.h"
+	"quaternion.h"
+	<memory.h>
+	<assert.h>
 
