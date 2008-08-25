@@ -13,11 +13,11 @@
 	<File name="../src/mat3.h" open="0" top="0" tabpos="9">
 		<Cursor position="870" topLine="15" />
 	</File>
-	<File name="../src/mat4.c" open="1" top="1" tabpos="1">
-		<Cursor position="10726" topLine="390" />
+	<File name="../src/mat4.c" open="1" top="0" tabpos="2">
+		<Cursor position="13433" topLine="483" />
 	</File>
-	<File name="../src/mat4.h" open="1" top="0" tabpos="2">
-		<Cursor position="1269" topLine="34" />
+	<File name="../src/mat4.h" open="1" top="0" tabpos="1">
+		<Cursor position="2667" topLine="35" />
 	</File>
 	<File name="../src/plane.c" open="0" top="0" tabpos="1">
 		<Cursor position="3334" topLine="93" />
