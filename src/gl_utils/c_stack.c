@@ -3,8 +3,8 @@
 #include <assert.h>
 #include <stdio.h>
 
-#define INITIAL_SIZE 1
-#define INCREMENT 1
+#define INITIAL_SIZE 30
+#define INCREMENT 50
 
 #include "c_stack.h"
 
