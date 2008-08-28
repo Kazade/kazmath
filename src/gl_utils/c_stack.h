@@ -10,9 +10,17 @@ typedef struct km_c_stack {
 	void* stack;
 } km_c_stack;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void km_c_stack_initialize(km_c_stack* stack, unsigned int item_size);
 void km_c_stack_push(km_c_stack* stack, const void* item);
 void km_c_stack_pop(km_c_stack* stack, void* pOut);
 void km_c_stack_release(km_c_stack* stack);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // C_STACK_H_INCLUDED
