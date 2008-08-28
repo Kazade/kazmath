@@ -1,5 +1,6 @@
 
 #include "../mat4.h"
+#include "../vec3.h"
 #include "matrix_stack.h"
 #include "c_stack.h"
 
@@ -66,6 +67,15 @@ void kmGLTranslate(float x, float y, float z) {
 	kmMat4 trans;
 	kmMat4Translation(&trans, x, y, z);
 	kmMat4Multiply(&s_matrices[s_current_mode], &trans, &s_matrices[s_current_mode]);
+}
+
+void kmGLRotate(float angle, float x, float y, float z)
+{
+	kmMat4 rotation;
+	kmVec3 axis;
+	kmVec3Fill(&axis, x,y,z);
+	kmMat4RotationAxis(&rotation, &axis, kmDegreesToRadians(angle));
+	kmMat4Multiply(&s_matrices[s_current_mode], &rotation, &s_matrices[s_current_mode]);
 }
 
 /**

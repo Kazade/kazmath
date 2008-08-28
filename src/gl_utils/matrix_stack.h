@@ -20,6 +20,7 @@ void kmGLLoadIdentity(void);
 void kmGLLoadMatrix(const kmMat4* pIn);
 void kmGLMultMatrix(const kmMat4* pIn);
 void kmGLTranslate(float x, float y, float z);
+void kmGLRotate(float angle, float x, float y, float z);
 void kmGLGetMatrix(KM_GL_ENUM mode, kmMat4* pOut);
 
 #ifdef __cplusplus
