@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
+<<<<<<< HEAD:test-apps/CUnitTest/CUnitTest.layout
 	<File name="main.c" open="0" top="0" tabpos="1">
 		<Cursor position="121" topLine="0" />
+=======
+	<File name="main.c" open="1" top="0" tabpos="7">
+		<Cursor position="2105" topLine="29" />
+>>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.layout
 	</File>
 	<File name="testMat3.c" open="0" top="0" tabpos="2">
+<<<<<<< HEAD:test-apps/CUnitTest/CUnitTest.layout
 		<Cursor position="39" topLine="59" />
+=======
+		<Cursor position="0" topLine="16" />
+>>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.layout
 	</File>
+<<<<<<< HEAD:test-apps/CUnitTest/CUnitTest.layout
 	<File name="testMat4.c" open="0" top="0" tabpos="5">
 		<Cursor position="638" topLine="28" />
+=======
+	<File name="testMat4.c" open="0" top="0" tabpos="3">
+		<Cursor position="471" topLine="0" />
+>>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.layout
 	</File>
+<<<<<<< HEAD:test-apps/CUnitTest/CUnitTest.layout
 	<File name="testVec3.c" open="1" top="1" tabpos="1">
 		<Cursor position="1434" topLine="71" />
+=======
+	<File name="testMatrixStack.c" open="1" top="0" tabpos="3">
+		<Cursor position="837" topLine="0" />
+>>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.layout
 	</File>
 </CodeBlocks_layout_file>

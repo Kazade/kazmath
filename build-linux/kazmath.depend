@@ -246,6 +246,7 @@
 1225016073 /home/luke/Projects/BOGLGP/Kazmath/kazmath/src/GL/mat4stack.h
 	"../mat4.h"
 
+<<<<<<< HEAD:build-linux/kazmath.depend
 1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/aabb.c
 	"aabb.h"
 
@@ -286,11 +287,21 @@
 	<assert.h>
 
 1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/plane.c
+=======
+1225027035 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/src/GL/matrix.c
+	<stdlib.h>
+>>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:build-linux/kazmath.depend
 	<assert.h>
+<<<<<<< HEAD:build-linux/kazmath.depend
 	"vec3.h"
 	"vec4.h"
 	"plane.h"
+=======
+	"mat4stack.h"
+	"matrix.h"
+>>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:build-linux/kazmath.depend
 
+<<<<<<< HEAD:build-linux/kazmath.depend
 1225046220 /ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/vec4.h
 	"utility.h"
 
@@ -330,4 +341,7 @@
 	"utility.h"
 	"vec4.h"
 	"mat4.h"
+=======
+1225051476 /home/luke/Projects/BOGLGP/Kazmath/kazmath/src/GL/matrix.h
+>>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:build-linux/kazmath.depend
 

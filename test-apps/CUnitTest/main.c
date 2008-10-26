@@ -27,6 +27,7 @@ extern int addVec3Tests(CU_pSuite suite);
 extern int addVec4Tests(CU_pSuite suite);
 extern int addMat3Tests(CU_pSuite suite);
 extern int addMat4Tests(CU_pSuite suite);
+extern int addMat4StackTests(CU_pSuite suite);
 
 /* The main() function for setting up and running the tests.
  * Returns a CUE_SUCCESS on successful running, another
@@ -75,6 +76,12 @@ int main()
 	}
 	addMat4Tests(mat4testSuite);
 
+	CU_pSuite mat4stackTestSuite = CU_add_suite("Mat4 Stack - Test - Suite", init_suite1, clean_suite1);
+	if (NULL == mat4stackTestSuite) {
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
+	addMat4StackTests(mat4stackTestSuite);
 
 	/* Run all tests using the CUnit Basic interface */
 	CU_basic_set_mode(CU_BRM_VERBOSE);
