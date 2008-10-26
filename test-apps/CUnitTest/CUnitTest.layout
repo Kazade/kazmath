@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="main.c" open="1" top="0" tabpos="1">
+	<File name="main.c" open="0" top="0" tabpos="1">
 		<Cursor position="121" topLine="0" />
 	</File>
-	<File name="testMat3.c" open="1" top="0" tabpos="2">
-		<Cursor position="1226" topLine="31" />
+	<File name="testMat3.c" open="0" top="0" tabpos="2">
+		<Cursor position="39" topLine="59" />
 	</File>
-	<File name="testMat4.c" open="1" top="0" tabpos="5">
-		<Cursor position="640" topLine="6" />
+	<File name="testMat4.c" open="0" top="0" tabpos="5">
+		<Cursor position="638" topLine="28" />
+	</File>
+	<File name="testVec3.c" open="1" top="1" tabpos="1">
+		<Cursor position="1434" topLine="71" />
 	</File>
 </CodeBlocks_layout_file>

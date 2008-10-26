@@ -69,7 +69,7 @@ int addMat3Tests(CU_pSuite suite)
       return CU_get_error();
    }
 
-   if ((NULL == CU_add_test(suite, "kmMat3Transpise - test", testMat3Transpose)))
+   if ((NULL == CU_add_test(suite, "kmMat3Transpose - test", testMat3Transpose)))
    {
       CU_cleanup_registry();
       return CU_get_error();

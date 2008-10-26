@@ -246,3 +246,88 @@
 1225016073 /home/luke/Projects/BOGLGP/Kazmath/kazmath/src/GL/mat4stack.h
 	"../mat4.h"
 
+1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/aabb.c
+	"aabb.h"
+
+1225046220 /ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/aabb.h
+	"vec3.h"
+
+1225046220 /ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/vec3.h
+	<assert.h>
+
+1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/mat3.c
+	"utility.h"
+	"vec3.h"
+	"mat3.h"
+	"quaternion.h"
+	<memory.h>
+	<assert.h>
+
+1225046220 /ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/utility.h
+	<math.h>
+	<stdbool.h>
+
+1225046220 /ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/mat3.h
+	"utility.h"
+
+1225046220 /ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/quaternion.h
+	"utility.h"
+	"mat4.h"
+
+1225046220 /ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/mat4.h
+	"utility.h"
+
+1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/mat4.c
+	"utility.h"
+	"vec3.h"
+	"mat4.h"
+	"quaternion.h"
+	<memory.h>
+	<assert.h>
+
+1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/plane.c
+	<assert.h>
+	"vec3.h"
+	"vec4.h"
+	"plane.h"
+
+1225046220 /ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/vec4.h
+	"utility.h"
+
+1225046220 /ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/plane.h
+	"utility.h"
+
+1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/quaternion.c
+	<assert.h>
+	<memory.h>
+	"utility.h"
+	"mat4.h"
+	"vec3.h"
+	"quaternion.h"
+
+1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/utility.c
+	"utility.h"
+
+1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/vec2.c
+	<assert.h>
+	"mat4.h"
+	"vec2.h"
+	"utility.h"
+
+1225046220 /ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/vec2.h
+
+1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/vec3.c
+	<assert.h>
+	<memory.h>
+	"utility.h"
+	"vec4.h"
+	"mat4.h"
+	"vec3.h"
+
+1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/vec4.c
+	<memory.h>
+	<assert.h>
+	"utility.h"
+	"vec4.h"
+	"mat4.h"
+

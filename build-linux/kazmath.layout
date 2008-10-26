@@ -14,10 +14,10 @@
 		<Cursor position="870" topLine="15" />
 	</File>
 	<File name="../src/mat4.c" open="0" top="0" tabpos="2">
-		<Cursor position="13084" topLine="483" />
+		<Cursor position="13084" topLine="201" />
 	</File>
-	<File name="../src/mat4.h" open="1" top="1" tabpos="1">
-		<Cursor position="732" topLine="35" />
+	<File name="../src/mat4.h" open="0" top="0" tabpos="1">
+		<Cursor position="732" topLine="12" />
 	</File>
 	<File name="../src/plane.c" open="0" top="0" tabpos="1">
 		<Cursor position="3334" topLine="93" />
@@ -31,8 +31,8 @@
 	<File name="../src/utility.c" open="0" top="0" tabpos="9">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="../src/utility.h" open="0" top="0" tabpos="2">
-		<Cursor position="0" topLine="8" />
+	<File name="../src/utility.h" open="1" top="0" tabpos="3">
+		<Cursor position="0" topLine="24" />
 	</File>
 	<File name="../src/vec2.c" open="0" top="0" tabpos="4">
 		<Cursor position="189" topLine="0" />
@@ -43,8 +43,8 @@
 	<File name="../src/vec3.c" open="0" top="0" tabpos="5">
 		<Cursor position="924" topLine="0" />
 	</File>
-	<File name="../src/vec3.h" open="0" top="0" tabpos="2">
-		<Cursor position="916" topLine="6" />
+	<File name="../src/vec3.h" open="1" top="0" tabpos="1">
+		<Cursor position="916" topLine="39" />
 	</File>
 	<File name="../src/vec4.c" open="0" top="0" tabpos="6">
 		<Cursor position="935" topLine="12" />
