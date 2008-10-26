@@ -39,7 +39,7 @@ void testMat4Inverse1(void)
 int addMat4Tests(CU_pSuite suite)
 {
     /* add the tests to the suite */
-   if ((NULL == CU_add_test(suite, "kmMat4Invertse Identity - test", testMat4Inverse1)))
+   if ((NULL == CU_add_test(suite, "kmMat4Inverse Identity - test", testMat4Inverse1)))
    {
       CU_cleanup_registry();
       return CU_get_error();

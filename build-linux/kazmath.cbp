@@ -36,6 +36,14 @@
 			<Add option="-Wall" />
 			<Add option="-std=c99" />
 		</Compiler>
+		<Unit filename="../src/GL/mat4stack.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/GL/mat4stack.h" />
+		<Unit filename="../src/GL/matrix.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/GL/matrix.h" />
 		<Unit filename="../src/aabb.c">
 			<Option compilerVar="CC" />
 		</Unit>

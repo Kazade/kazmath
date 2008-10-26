@@ -8,11 +8,12 @@ plane.h
 utility.h
 quaternion.h
 aabb.h
+kazmath.h
 )
 
 SET(GL_UTILS_HEADERS
-gl_utils/c_stack.h
-gl_utils/matrix_stack.h
+GL/mat4stack.h
+GL/matrix.h
 )
 
 SET(KAZMATH_SRCS
@@ -28,8 +29,8 @@ aabb.c
 )
 
 SET(GL_UTILS_SRCS
-gl_utils/c_stack.c
-gl_utils/matrix_stack.c
+GL/mat4stack.c
+GL/matrix.c
 )
 
 #ADD_LIBRARY(Kazmath STATIC ${KAZMATH_SRCS})
@@ -42,5 +43,5 @@ ADD_LIBRARY(KazmathGL SHARED ${GL_UTILS_SRCS})
 INSTALL(TARGETS KazmathGL LIBRARY DESTINATION lib)
 
 INSTALL(FILES ${KAZMATH_HEADERS} DESTINATION include/kazmath)
-INSTALL(FILES ${GL_UTILS_HEADERS} DESTINATION include/kazmath/gl_utils)
+INSTALL(FILES ${GL_UTILS_HEADERS} DESTINATION include/kazmath/GL)
 

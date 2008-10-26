@@ -45,6 +45,9 @@
 		<Unit filename="testMat4.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="testMatrixStack.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="testVec2.c">
 			<Option compilerVar="CC" />
 		</Unit>

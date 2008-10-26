@@ -246,3 +246,11 @@
 1225016073 /home/luke/Projects/BOGLGP/Kazmath/kazmath/src/GL/mat4stack.h
 	"../mat4.h"
 
+1225027035 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/src/GL/matrix.c
+	<stdlib.h>
+	<assert.h>
+	"mat4stack.h"
+	"matrix.h"
+
+1225051476 /home/luke/Projects/BOGLGP/Kazmath/kazmath/src/GL/matrix.h
+
