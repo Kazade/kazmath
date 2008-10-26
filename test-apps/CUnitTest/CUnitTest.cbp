@@ -33,8 +33,9 @@
 			<Add option="-std=c99" />
 		</Compiler>
 		<Linker>
-			<Add library="Kazmath" />
 			<Add library="cunit" />
+			<Add library="/usr/local/lib/libKazmath.a" />
+			<Add library="/usr/local/lib/libKazmathGL.a" />
 		</Linker>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
