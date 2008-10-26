@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <CUnit/Basic.h>
-#include <kazmath/kazmath.h>
 #include <kazmath/GL/matrix.h>
+#include <kazmath/kazmath.h>
 
 void testMatrixMode(void)
 {
@@ -17,6 +17,13 @@ void testMatrixMode(void)
 	kmGLGetMatrix(KM_GL_MODELVIEW, &out);
 
 	CU_ASSERT(kmMat4AreEqual(&modelview, &out));
+
+	kmGLMatrixMode(KM_GL_PROJECTION);
+	kmMat4 identity;
+	kmMat4Identity(&identity);
+
+	kmGLGetMatrix(KM_GL_PROJECTION, &out);
+	CU_ASSERT(kmMat4AreEqual(&identity, &out));
 }
 
 int addMat4StackTests(CU_pSuite suite)

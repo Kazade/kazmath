@@ -97,3 +97,30 @@ void kmGLFreeAll()
 
 	current_stack = NULL; //Set the current stack to point nowhere
 }
+
+void kmGLMultMatrix(const kmMat4* pIn)
+{
+	lazyInitialize();
+	kmMat4Multiply(current_stack->top, pIn, current_stack->top);
+}
+
+void kmGLGetMatrix(kmGLEnum mode, kmMat4* pOut)
+{
+	lazyInitialize();
+
+	switch(mode)
+	{
+		case KM_GL_MODELVIEW:
+			kmMat4Assign(pOut, modelview_matrix_stack->top);
+		break;
+		case KM_GL_PROJECTION:
+			kmMat4Assign(pOut, projection_matrix_stack->top);
+		break;
+		case KM_GL_TEXTURE:
+			kmMat4Assign(pOut, texture_matrix_stack->top);
+		break;
+		default:
+			assert(1 && "Invalid matrix mode specified"); //TODO: Proper error handling
+		break;
+	}
+}
