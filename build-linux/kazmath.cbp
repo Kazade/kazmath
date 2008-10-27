@@ -48,6 +48,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../src/aabb.h" />
+		<Unit filename="../src/kazmath.h" />
 		<Unit filename="../src/mat3.c">
 			<Option compilerVar="CC" />
 		</Unit>
