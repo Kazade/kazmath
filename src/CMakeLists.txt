@@ -9,6 +9,9 @@ utility.h
 quaternion.h
 aabb.h
 kazmath.h
+)
+
+SET(GL_UTILS_HEADERS
 GL/mat4stack.h
 GL/matrix.h
 )
@@ -37,5 +40,5 @@ INSTALL(TARGETS Kazmath ARCHIVE DESTINATION lib)
 #INSTALL(TARGETS KazmathGL ARCHIVE DESTINATION lib)
 
 INSTALL(FILES ${KAZMATH_HEADERS} DESTINATION include/kazmath)
-#INSTALL(FILES ${GL_UTILS_HEADERS} DESTINATION include/kazmath/GL)
+INSTALL(FILES ${GL_UTILS_HEADERS} DESTINATION include/kazmath/GL)
 
