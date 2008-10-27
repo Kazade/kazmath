@@ -24,65 +24,67 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <memory.h>
 #include <assert.h>
+#include <stdlib.h>
 
 kmMat4* kmMat4Fill(kmMat4* pOut, const kmScalar* pMat)
 {
-    memcpy(pOut->m_Mat, pMat, sizeof(kmScalar) * 16);
+    memcpy(pOut->mat, pMat, sizeof(kmScalar) * 16);
     return pOut;
 }
 
 /** Sets pOut to an identity matrix returns pOut*/
 kmMat4* kmMat4Identity(kmMat4* pOut)
 {
-	memset(pOut->m_Mat, 0, sizeof(float) * 16);
-	pOut->m_Mat[0] = pOut->m_Mat[5] = pOut->m_Mat[10] = pOut->m_Mat[15] = 1.0f;
+	memset(pOut->mat, 0, sizeof(float) * 16);
+	pOut->mat[0] = pOut->mat[5] = pOut->mat[10] = pOut->mat[15] = 1.0f;
 	return pOut;
 }
 
 kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
 {
+    float temp[4];
 	float mat[16];
+    int i, j, k;
 
-	for (int i = 0; i < 16; i++)
+	for (i = 0; i < 16; i++)
 	{
-		mat[i] = pM->m_Mat[i];
+		mat[i] = pM->mat[i];
 	}
 
 	kmMat4Identity(pOut);
 
-
-	for (int j = 0; j < 4; ++j) // Find largest pivot in column j among rows j..3
+	for (j = 0; j < 4; ++j) // Find largest pivot in column j among rows j..3
 	{
 		int i1 = j;		 // Row with largest pivot candidate
 
-		for (int i = j + 1; i < 4; ++i)
+		for (i = j + 1; i < 4; ++i)
 		{
-			if (fabs(mat[i*4 + j]) > fabs(mat[i1*4 + j]))
+            if (fabs(mat[i*4 + j]) > fabs(mat[i1*4 + j])) {
 				i1 = i;
+            }
 		}
 
 		// Swap rows i1 and j in a and b to put pivot on diagonal
-		float temp[4];
-		for(int k = 0; k < 4; k++)
+		for(k = 0; k < 4; k++)
 		{
 		    temp[k] = mat[i1 * 4 + k];
 		}
 
-		for(int k = 0; k < 4; k++)
+		for(k = 0; k < 4; k++)
 		{
 		    mat[i1 * 4 + k] = mat[j * 4 + k];
 		    mat[j * 4 + k] = temp[k];
 		}
 
-        for(int k = 0; k < 4; k++)
+        for(k = 0; k < 4; k++)
 		{
-		    temp[k] = pOut->m_Mat[i1 * 4 + k];
+		    temp[k] = pOut->mat[i1 * 4 + k];
 		}
 
-		for(int k = 0; k < 4; k++)
+		for(k = 0; k < 4; k++)
 		{
-		    pOut->m_Mat[i1 * 4 + k] = pOut->m_Mat[j * 4 + k];
-		    pOut->m_Mat[j * 4 + k] = temp[k];
+		    pOut->mat[i1 * 4 + k] = pOut->mat[j * 4 + k];
+		    pOut->mat[j * 4 + k] = temp[k];
 		}
 
 		// Scale row j to have a unit diagonal
@@ -92,20 +94,20 @@ kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
 			return NULL;
 		}
 
-        for(int k = 0; k < 4; k++)
+        for(k = 0; k < 4; k++)
 		{
-            pOut->m_Mat[j * 4 + k] /= mat[j * 4 + j];
+            pOut->mat[j * 4 + k] /= mat[j * 4 + j];
             mat[j * 4 + k] /= mat[j * 4 + j];
 		}
 
 		// Eliminate off-diagonal elems in col j of a, doing identical ops to b
-		for (int i = 0; i < 4; ++i)
+		for (i = 0; i < 4; ++i)
 		{
 			if (i != j)
 			{
-				for(int k = 0; k < 4; k++)
+				for(k = 0; k < 4; k++)
 				{
-                    pOut->m_Mat[i*4 + k] -= mat[i*4 + j] * pOut->m_Mat[j*4 + k];
+                    pOut->mat[i*4 + k] -= mat[i*4 + j] * pOut->mat[j*4 + k];
                     mat[i*4 + k] -= mat[i*4 + j] * mat[j*4 + k];
 				}
 			}
@@ -124,15 +126,19 @@ int  kmMat4IsIdentity(const kmMat4* pIn)
 	                                    0.0f, 0.0f, 0.0f, 1.0f
 	                                 };
 
-	return (memcmp(identity, pIn->m_Mat, sizeof(float) * 16) == 0);
+	return (memcmp(identity, pIn->mat, sizeof(float) * 16) == 0);
 }
 
 /** Sets pOut to the transpose of pIn, returns pOut */
 kmMat4* kmMat4Transpose(kmMat4* pOut, const kmMat4* pIn)
 {
-	for (int z = 0; z < 4; ++z)
-		for (int x = 0; x < 4; ++x)
-			pOut->m_Mat[(z * 4) + x] = pIn->m_Mat[(x * 4) + z];
+    int x, z;
+
+    for (z = 0; z < 4; ++z) {
+        for (x = 0; x < 4; ++x) {
+			pOut->mat[(z * 4) + x] = pIn->mat[(x * 4) + z];
+        }
+    }
 
 	return pOut;
 }
@@ -142,7 +148,7 @@ kmMat4* kmMat4Multiply(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2)
 {
 	float mat[16];
 
-	const float *m1 = pM1->m_Mat, *m2 = pM2->m_Mat;
+	const float *m1 = pM1->mat, *m2 = pM2->mat;
 
 	mat[0] = m1[0] * m2[0] + m1[4] * m2[1] + m1[8] * m2[2] + m1[12] * m2[3];
 	mat[1] = m1[1] * m2[0] + m1[5] * m2[1] + m1[9] * m2[2] + m1[13] * m2[3];
@@ -165,7 +171,7 @@ kmMat4* kmMat4Multiply(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2)
 	mat[15] = m1[3] * m2[12] + m1[7] * m2[13] + m1[11] * m2[14] + m1[15] * m2[15];
 
 
-	memcpy(pOut->m_Mat, mat, sizeof(float)*16);
+	memcpy(pOut->mat, mat, sizeof(float)*16);
 
 	return pOut;
 }
@@ -175,7 +181,7 @@ kmMat4* kmMat4Assign(kmMat4* pOut, const kmMat4* pIn)
 {
 	assert(pOut != pIn); //You have tried to self-assign!!
 
-	memcpy(pOut->m_Mat, pIn->m_Mat, sizeof(float)*16);
+	memcpy(pOut->mat, pIn->mat, sizeof(float)*16);
 
 	return pOut;
 }
@@ -183,16 +189,19 @@ kmMat4* kmMat4Assign(kmMat4* pOut, const kmMat4* pIn)
 /** Returns true if the 2 matrices are equal (approximately) */
 int kmMat4AreEqual(const kmMat4* pMat1, const kmMat4* pMat2)
 {
+    int i = 0;
+
 	assert(pMat1 != pMat2); //You are comparing the same thing!
 
-	for (int i = 0; i < 16; ++i)
+	for (i = 0; i < 16; ++i)
 	{
-		if (!(pMat1->m_Mat[i] + kmEpsilon > pMat2->m_Mat[i] &&
-		        pMat1->m_Mat[i] - kmEpsilon < pMat2->m_Mat[i]))
-			return false;
+		if (!(pMat1->mat[i] + kmEpsilon > pMat2->mat[i] &&
+            pMat1->mat[i] - kmEpsilon < pMat2->mat[i])) {
+			return KM_FALSE;
+        }
 	}
 
-	return true;
+	return KM_TRUE;
 }
 
 /// Build a matrix from an axis and an angle. Result is stored in pOut. pOut is returned.
@@ -201,25 +210,25 @@ kmMat4* kmMat4RotationAxis(kmMat4* pOut, const kmVec3* axis, kmScalar radians)
 	float rcos = cosf(radians);
 	float rsin = sinf(radians);
 
-	pOut->m_Mat[0] = rcos + axis->x * axis->x * (1 - rcos);
-	pOut->m_Mat[1] = axis->z * rsin + axis->y * axis->x * (1 - rcos);
-	pOut->m_Mat[2] = -axis->y * rsin + axis->z * axis->x * (1 - rcos);
-	pOut->m_Mat[3] = 0.0f;
+	pOut->mat[0] = rcos + axis->x * axis->x * (1 - rcos);
+	pOut->mat[1] = axis->z * rsin + axis->y * axis->x * (1 - rcos);
+	pOut->mat[2] = -axis->y * rsin + axis->z * axis->x * (1 - rcos);
+	pOut->mat[3] = 0.0f;
 
-	pOut->m_Mat[4] = -axis->z * rsin + axis->x * axis->y * (1 - rcos);
-	pOut->m_Mat[5] = rcos + axis->y * axis->y * (1 - rcos);
-	pOut->m_Mat[6] = axis->x * rsin + axis->z * axis->y * (1 - rcos);
-	pOut->m_Mat[7] = 0.0f;
+	pOut->mat[4] = -axis->z * rsin + axis->x * axis->y * (1 - rcos);
+	pOut->mat[5] = rcos + axis->y * axis->y * (1 - rcos);
+	pOut->mat[6] = axis->x * rsin + axis->z * axis->y * (1 - rcos);
+	pOut->mat[7] = 0.0f;
 
-	pOut->m_Mat[8] = axis->y * rsin + axis->x * axis->z * (1 - rcos);
-	pOut->m_Mat[9] = -axis->x * rsin + axis->y * axis->z * (1 - rcos);
-	pOut->m_Mat[10] = rcos + axis->z * axis->z * (1 - rcos);
-	pOut->m_Mat[11] = 0.0f;
+	pOut->mat[8] = axis->y * rsin + axis->x * axis->z * (1 - rcos);
+	pOut->mat[9] = -axis->x * rsin + axis->y * axis->z * (1 - rcos);
+	pOut->mat[10] = rcos + axis->z * axis->z * (1 - rcos);
+	pOut->mat[11] = 0.0f;
 
-	pOut->m_Mat[12] = 0.0f;
-	pOut->m_Mat[13] = 0.0f;
-	pOut->m_Mat[14] = 0.0f;
-	pOut->m_Mat[15] = 1.0f;
+	pOut->mat[12] = 0.0f;
+	pOut->mat[13] = 0.0f;
+	pOut->mat[14] = 0.0f;
+	pOut->mat[15] = 1.0f;
 
 	return pOut;
 }
@@ -235,25 +244,25 @@ kmMat4* kmMat4RotationX(kmMat4* pOut, const float radians)
 
 	*/
 
-	pOut->m_Mat[0] = 1.0f;
-	pOut->m_Mat[1] = 0.0f;
-	pOut->m_Mat[2] = 0.0f;
-	pOut->m_Mat[3] = 0.0f;
+	pOut->mat[0] = 1.0f;
+	pOut->mat[1] = 0.0f;
+	pOut->mat[2] = 0.0f;
+	pOut->mat[3] = 0.0f;
 
-	pOut->m_Mat[4] = 0.0f;
-	pOut->m_Mat[5] = cosf(radians);
-	pOut->m_Mat[6] = sinf(radians);
-	pOut->m_Mat[7] = 0.0f;
+	pOut->mat[4] = 0.0f;
+	pOut->mat[5] = cosf(radians);
+	pOut->mat[6] = sinf(radians);
+	pOut->mat[7] = 0.0f;
 
-	pOut->m_Mat[8] = 0.0f;
-	pOut->m_Mat[9] = -sinf(radians);
-	pOut->m_Mat[10] = cosf(radians);
-	pOut->m_Mat[11] = 0.0f;
+	pOut->mat[8] = 0.0f;
+	pOut->mat[9] = -sinf(radians);
+	pOut->mat[10] = cosf(radians);
+	pOut->mat[11] = 0.0f;
 
-	pOut->m_Mat[12] = 0.0f;
-	pOut->m_Mat[13] = 0.0f;
-	pOut->m_Mat[14] = 0.0f;
-	pOut->m_Mat[15] = 1.0f;
+	pOut->mat[12] = 0.0f;
+	pOut->mat[13] = 0.0f;
+	pOut->mat[14] = 0.0f;
+	pOut->mat[15] = 1.0f;
 
 	return pOut;
 }
@@ -267,25 +276,25 @@ kmMat4* kmMat4RotationY(kmMat4* pOut, const float radians)
 	     |  0       0   0       1 |
 	*/
 
-	pOut->m_Mat[0] = cosf(radians);
-	pOut->m_Mat[1] = 0.0f;
-	pOut->m_Mat[2] = -sinf(radians);
-	pOut->m_Mat[3] = 0.0f;
+	pOut->mat[0] = cosf(radians);
+	pOut->mat[1] = 0.0f;
+	pOut->mat[2] = -sinf(radians);
+	pOut->mat[3] = 0.0f;
 
-	pOut->m_Mat[4] = 0.0f;
-	pOut->m_Mat[5] = 1.0f;
-	pOut->m_Mat[6] = 0.0f;
-	pOut->m_Mat[7] = 0.0f;
+	pOut->mat[4] = 0.0f;
+	pOut->mat[5] = 1.0f;
+	pOut->mat[6] = 0.0f;
+	pOut->mat[7] = 0.0f;
 
-	pOut->m_Mat[8] = sinf(radians);
-	pOut->m_Mat[9] = 0.0f;
-	pOut->m_Mat[10] = cosf(radians);
-	pOut->m_Mat[11] = 0.0f;
+	pOut->mat[8] = sinf(radians);
+	pOut->mat[9] = 0.0f;
+	pOut->mat[10] = cosf(radians);
+	pOut->mat[11] = 0.0f;
 
-	pOut->m_Mat[12] = 0.0f;
-	pOut->m_Mat[13] = 0.0f;
-	pOut->m_Mat[14] = 0.0f;
-	pOut->m_Mat[15] = 1.0f;
+	pOut->mat[12] = 0.0f;
+	pOut->mat[13] = 0.0f;
+	pOut->mat[14] = 0.0f;
+	pOut->mat[15] = 1.0f;
 
 	return pOut;
 }
@@ -299,25 +308,25 @@ kmMat4* kmMat4RotationZ(kmMat4* pOut, const float radians)
 	     |  0        0        0   1 |
 	*/
 
-	pOut->m_Mat[0] = cosf(radians);
-	pOut->m_Mat[1] = sinf(radians);
-	pOut->m_Mat[2] = 0.0f;
-	pOut->m_Mat[3] = 0.0f;
+	pOut->mat[0] = cosf(radians);
+	pOut->mat[1] = sinf(radians);
+	pOut->mat[2] = 0.0f;
+	pOut->mat[3] = 0.0f;
 
-	pOut->m_Mat[4] = -sinf(radians);;
-	pOut->m_Mat[5] = cosf(radians);
-	pOut->m_Mat[6] = 0.0f;
-	pOut->m_Mat[7] = 0.0f;
+	pOut->mat[4] = -sinf(radians);;
+	pOut->mat[5] = cosf(radians);
+	pOut->mat[6] = 0.0f;
+	pOut->mat[7] = 0.0f;
 
-	pOut->m_Mat[8] = 0.0f;
-	pOut->m_Mat[9] = 0.0f;
-	pOut->m_Mat[10] = 1.0f;
-	pOut->m_Mat[11] = 0.0f;
+	pOut->mat[8] = 0.0f;
+	pOut->mat[9] = 0.0f;
+	pOut->mat[10] = 1.0f;
+	pOut->mat[11] = 0.0f;
 
-	pOut->m_Mat[12] = 0.0f;
-	pOut->m_Mat[13] = 0.0f;
-	pOut->m_Mat[14] = 0.0f;
-	pOut->m_Mat[15] = 1.0f;
+	pOut->mat[12] = 0.0f;
+	pOut->mat[13] = 0.0f;
+	pOut->mat[14] = 0.0f;
+	pOut->mat[15] = 1.0f;
 
 	return pOut;
 }
@@ -330,24 +339,23 @@ kmMat4* kmMat4RotationPitchYawRoll(kmMat4* pOut, const kmScalar pitch, const kmS
 	double sp = sin(yaw);
 	double cy = cos(roll);
 	double sy = sin(roll);
-
-	pOut->m_Mat[0] = (kmScalar) cp * cy;
-	pOut->m_Mat[4] = (kmScalar) cp * sy;
-	pOut->m_Mat[8] = (kmScalar) - sp;
-
 	double srsp = sr * sp;
 	double crsp = cr * sp;
 
-	pOut->m_Mat[1] = (kmScalar) srsp * cy - cr * sy;
-	pOut->m_Mat[5] = (kmScalar) srsp * sy + cr * cy;
-	pOut->m_Mat[9] = (kmScalar) sr * cp;
+	pOut->mat[0] = (kmScalar) cp * cy;
+	pOut->mat[4] = (kmScalar) cp * sy;
+	pOut->mat[8] = (kmScalar) - sp;
 
-	pOut->m_Mat[2] = (kmScalar) crsp * cy + sr * sy;
-	pOut->m_Mat[6] = (kmScalar) crsp * sy - sr * cy;
-	pOut->m_Mat[10] = (kmScalar) cr * cp;
+	pOut->mat[1] = (kmScalar) srsp * cy - cr * sy;
+	pOut->mat[5] = (kmScalar) srsp * sy + cr * cy;
+	pOut->mat[9] = (kmScalar) sr * cp;
 
-	pOut->m_Mat[3] = pOut->m_Mat[7] = pOut->m_Mat[11] = 0.0;
-	pOut->m_Mat[15] = 1.0;
+	pOut->mat[2] = (kmScalar) crsp * cy + sr * sy;
+	pOut->mat[6] = (kmScalar) crsp * sy - sr * cy;
+	pOut->mat[10] = (kmScalar) cr * cp;
+
+	pOut->mat[3] = pOut->mat[7] = pOut->mat[11] = 0.0;
+	pOut->mat[15] = 1.0;
 
 	return pOut;
 }
@@ -355,28 +363,28 @@ kmMat4* kmMat4RotationPitchYawRoll(kmMat4* pOut, const kmScalar pitch, const kmS
 /** Converts a quaternion to a rotation matrix, stored in pOut, returns pOut */
 kmMat4* kmMat4RotationQuaternion(kmMat4* pOut, const kmQuaternion* pQ)
 {
-	pOut->m_Mat[ 0] = 1.0f - 2.0f * (pQ->y * pQ->y + pQ->z * pQ->z );
-	pOut->m_Mat[ 4] = 2.0f * (pQ->x * pQ->y + pQ->z * pQ->w);
-	pOut->m_Mat[ 8] = 2.0f * (pQ->x * pQ->z - pQ->y * pQ->w);
-	pOut->m_Mat[12] = 0.0f;
+	pOut->mat[ 0] = 1.0f - 2.0f * (pQ->y * pQ->y + pQ->z * pQ->z );
+	pOut->mat[ 4] = 2.0f * (pQ->x * pQ->y + pQ->z * pQ->w);
+	pOut->mat[ 8] = 2.0f * (pQ->x * pQ->z - pQ->y * pQ->w);
+	pOut->mat[12] = 0.0f;
 
 	// Second row
-	pOut->m_Mat[ 1] = 2.0f * ( pQ->x * pQ->y - pQ->z * pQ->w );
-	pOut->m_Mat[ 5] = 1.0f - 2.0f * ( pQ->x * pQ->x + pQ->z * pQ->z );
-	pOut->m_Mat[ 9] = 2.0f * (pQ->z * pQ->y + pQ->x * pQ->w );
-	pOut->m_Mat[13] = 0.0f;
+	pOut->mat[ 1] = 2.0f * ( pQ->x * pQ->y - pQ->z * pQ->w );
+	pOut->mat[ 5] = 1.0f - 2.0f * ( pQ->x * pQ->x + pQ->z * pQ->z );
+	pOut->mat[ 9] = 2.0f * (pQ->z * pQ->y + pQ->x * pQ->w );
+	pOut->mat[13] = 0.0f;
 
 	// Third row
-	pOut->m_Mat[ 2] = 2.0f * ( pQ->x * pQ->z + pQ->y * pQ->w );
-	pOut->m_Mat[ 6] = 2.0f * ( pQ->y * pQ->z - pQ->x * pQ->w );
-	pOut->m_Mat[10] = 1.0f - 2.0f * ( pQ->x * pQ->x + pQ->y * pQ->y );
-	pOut->m_Mat[14] = 0.0f;
+	pOut->mat[ 2] = 2.0f * ( pQ->x * pQ->z + pQ->y * pQ->w );
+	pOut->mat[ 6] = 2.0f * ( pQ->y * pQ->z - pQ->x * pQ->w );
+	pOut->mat[10] = 1.0f - 2.0f * ( pQ->x * pQ->x + pQ->y * pQ->y );
+	pOut->mat[14] = 0.0f;
 
 	// Fourth row
-	pOut->m_Mat[ 3] = 0;
-	pOut->m_Mat[ 7] = 0;
-	pOut->m_Mat[11] = 0;
-	pOut->m_Mat[15] = 1.0f;
+	pOut->mat[ 3] = 0;
+	pOut->mat[ 7] = 0;
+	pOut->mat[11] = 0;
+	pOut->mat[15] = 1.0f;
 
 	return pOut;
 }
@@ -384,11 +392,11 @@ kmMat4* kmMat4RotationQuaternion(kmMat4* pOut, const kmQuaternion* pQ)
 /** Builds a scaling matrix */
 kmMat4* kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z)
 {
-	memset(pOut->m_Mat, 0, sizeof(float) * 16);
-	pOut->m_Mat[0] = x;
-	pOut->m_Mat[5] = y;
-	pOut->m_Mat[10] = z;
-	pOut->m_Mat[15] = 1.0f;
+	memset(pOut->mat, 0, sizeof(float) * 16);
+	pOut->mat[0] = x;
+	pOut->mat[5] = y;
+	pOut->mat[10] = z;
+	pOut->mat[15] = 1.0f;
 
 	return pOut;
 }
@@ -396,25 +404,25 @@ kmMat4* kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y, const km
 kmMat4* kmMat4Translation(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z)
 {
 	//FIXME: Write a test for this
-	memset(pOut->m_Mat, 0, sizeof(float) * 16);
+	memset(pOut->mat, 0, sizeof(float) * 16);
 
-    pOut->m_Mat[0] = 1.0f;
-    pOut->m_Mat[5] = 1.0f;
-    pOut->m_Mat[10] = 1.0f;
+    pOut->mat[0] = 1.0f;
+    pOut->mat[5] = 1.0f;
+    pOut->mat[10] = 1.0f;
 
-	pOut->m_Mat[12] = x;
-	pOut->m_Mat[13] = y;
-	pOut->m_Mat[14] = z;
-	pOut->m_Mat[15] = 1.0f;
+	pOut->mat[12] = x;
+	pOut->mat[13] = y;
+	pOut->mat[14] = z;
+	pOut->mat[15] = 1.0f;
 
 	return pOut;
 }
 
 kmVec3* kmMat4GetUpVec3(kmVec3* pOut, const kmMat4* pIn)
 {
-	pOut->x = pIn->m_Mat[4];
-	pOut->y = pIn->m_Mat[5];
-	pOut->z = pIn->m_Mat[6];
+	pOut->x = pIn->mat[4];
+	pOut->y = pIn->mat[5];
+	pOut->z = pIn->mat[6];
 
 	kmVec3Normalize(pOut, pOut);
 
@@ -423,9 +431,9 @@ kmVec3* kmMat4GetUpVec3(kmVec3* pOut, const kmMat4* pIn)
 
 kmVec3* kmMat4GetRightVec3(kmVec3* pOut, const kmMat4* pIn)
 {
-	pOut->x = pIn->m_Mat[0];
-	pOut->y = pIn->m_Mat[1];
-	pOut->z = pIn->m_Mat[2];
+	pOut->x = pIn->mat[0];
+	pOut->y = pIn->mat[1];
+	pOut->z = pIn->mat[2];
 
 	kmVec3Normalize(pOut, pOut);
 
@@ -434,9 +442,9 @@ kmVec3* kmMat4GetRightVec3(kmVec3* pOut, const kmMat4* pIn)
 
 kmVec3* kmMat4GetForwardVec3(kmVec3* pOut, const kmMat4* pIn)
 {
-	pOut->x = pIn->m_Mat[8];
-	pOut->y = pIn->m_Mat[9];
-	pOut->z = pIn->m_Mat[10];
+	pOut->x = pIn->mat[8];
+	pOut->y = pIn->mat[9];
+	pOut->z = pIn->mat[10];
 
 	kmVec3Normalize(pOut, pOut);
 
@@ -449,21 +457,22 @@ kmMat4* kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY, kmScalar aspect
 	kmScalar r = kmDegreesToRadians(fovY / 2);
 	kmScalar deltaZ = zFar - zNear;
 	kmScalar s = sin(r);
+    kmScalar cotangent = 0;
 
 	if (deltaZ == 0 || s == 0 || aspect == 0) {
 		return NULL;
 	}
 
     //cos(r) / sin(r) = cot(r)
-	kmScalar cotangent = cos(r) / s;
+	cotangent = cos(r) / s;
 
 	kmMat4Identity(pOut);
-	pOut->m_Mat[0] = cotangent / aspect;
-	pOut->m_Mat[5] = cotangent;
-	pOut->m_Mat[10] = -(zFar + zNear) / deltaZ;
-	pOut->m_Mat[11] = -1;
-	pOut->m_Mat[14] = -2 * zNear * zFar / deltaZ;
-	pOut->m_Mat[15] = 0;
+	pOut->mat[0] = cotangent / aspect;
+	pOut->mat[5] = cotangent;
+	pOut->mat[10] = -(zFar + zNear) / deltaZ;
+	pOut->mat[11] = -1;
+	pOut->mat[14] = -2 * zNear * zFar / deltaZ;
+	pOut->mat[15] = 0;
 
 	return pOut;
 }
@@ -476,51 +485,48 @@ kmMat4* kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left, kmScalar right
 	kmScalar tz = -((farVal + nearVal) / (farVal - nearVal));
 
 	kmMat4Identity(pOut);
-	pOut->m_Mat[0] = 2 / (right - left);
-	pOut->m_Mat[5] = 2 / (top - bottom);
-	pOut->m_Mat[10] = -2 / (farVal - nearVal);
-	pOut->m_Mat[12] = tx;
-	pOut->m_Mat[13] = ty;
-	pOut->m_Mat[14] = tz;
+	pOut->mat[0] = 2 / (right - left);
+	pOut->mat[5] = 2 / (top - bottom);
+	pOut->mat[10] = -2 / (farVal - nearVal);
+	pOut->mat[12] = tx;
+	pOut->mat[13] = ty;
+	pOut->mat[14] = tz;
 
 	return pOut;
 }
 
 kmMat4* kmMat4LookAt(kmMat4* pOut, const kmVec3* pEye, const kmVec3* pCenter, const kmVec3* pUp)
 {
-    kmVec3 f;
+    kmVec3 f, up, s, u;
+    kmMat4 translate;
+
     kmVec3Subtract(&f, pCenter, pEye);
     kmVec3Normalize(&f, &f);
 
-    kmVec3 up;
     kmVec3Assign(&up, pUp);
     kmVec3Normalize(&up, &up);
 
-    kmVec3 s;
     kmVec3Cross(&s, &f, &up);
     kmVec3Normalize(&s, &s);
 
-    kmVec3 u;
     kmVec3Cross(&u, &s, &f);
     kmVec3Normalize(&s, &s);
 
     kmMat4Identity(pOut);
 
-    pOut->m_Mat[0] = s.x;
-    pOut->m_Mat[4] = s.y;
-    pOut->m_Mat[8] = s.z;
+    pOut->mat[0] = s.x;
+    pOut->mat[4] = s.y;
+    pOut->mat[8] = s.z;
 
-    pOut->m_Mat[1] = u.x;
-    pOut->m_Mat[5] = u.y;
-    pOut->m_Mat[9] = u.z;
+    pOut->mat[1] = u.x;
+    pOut->mat[5] = u.y;
+    pOut->mat[9] = u.z;
 
-    pOut->m_Mat[2] = -f.x;
-    pOut->m_Mat[6] = -f.y;
-    pOut->m_Mat[10] = -f.z;
-
-    kmMat4 translate;
+    pOut->mat[2] = -f.x;
+    pOut->mat[6] = -f.y;
+    pOut->mat[10] = -f.z;
+    
     kmMat4Translation(&translate, -pEye->x, -pEye->y, -pEye->z);
-
     kmMat4Multiply(pOut, pOut, &translate);
 
     return pOut;

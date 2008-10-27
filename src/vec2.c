@@ -1,5 +1,6 @@
 
 #include <assert.h>
+#include <stdlib.h>
 
 #include "mat4.h"
 #include "vec2.h"
@@ -24,7 +25,7 @@ kmScalar kmVec2LengthSq(const kmVec2* pIn)
 
 kmVec2* kmVec2Normalize(kmVec2* pOut, const kmVec2* pIn)
 {
-	kmScalar l = 1.0 / kmVec2Length(pIn);
+	kmScalar l = 1.0f / kmVec2Length(pIn);
 
 	pOut->x *= l;
 	pOut->y *= l;
@@ -56,11 +57,13 @@ kmVec2* kmVec2Subtract(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2)
 kmVec2* kmVec2Transform(kmVec2* pOut, const kmVec2* pV1, const kmMat4* pM)
 {
 	assert(0);
+    return NULL;
 }
 
 kmVec2* kmVec2TransformCoord(kmVec2* pOut, const kmVec2* pV, const kmMat4* pM)
 {
 	assert(0);
+    return NULL;
 }
 
 kmVec2* kmVec2Scale(kmVec2* pOut, const kmVec2* pIn, const kmScalar s)

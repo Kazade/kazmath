@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <assert.h>
+#include <stdlib.h>
 
 #include "vec3.h"
 #include "vec4.h"
@@ -99,10 +100,10 @@ kmVec3*  kmPlaneIntersectLine(kmVec3* pOut, const kmPlane* pP, const kmVec3* pV1
 		d = V − U
 		Out = U − d⋅(Pd + n⋅U)⁄(d⋅n) [iff d⋅n ≠ 0]
 	*/
-
+    kmVec3 d;
 	assert(0);
 
-	kmVec3 d;
+	
 	kmVec3Subtract(&d, pV2, pV1); //Get the direction vector
 
 
@@ -114,16 +115,20 @@ kmVec3*  kmPlaneIntersectLine(kmVec3* pOut, const kmPlane* pP, const kmVec3* pV1
 
 		return pOut;
 	} */
+
+    return NULL;
 }
 
 kmPlane* kmPlaneNormalize(kmPlane* pOut, const kmPlane* pP)
 {
 	kmVec3 n;
+    kmScalar l = 0;
+
 	n.x = pP->a;
 	n.y = pP->b;
 	n.z = pP->c;
 
-	kmScalar l = 1.0 / kmVec3Length(&n); //Get 1/length
+	l = 1.0f / kmVec3Length(&n); //Get 1/length
 	kmVec3Normalize(&n, &n); //Normalize the vector and assign to pOut
 
 	pOut->a = n.x;
@@ -138,6 +143,7 @@ kmPlane* kmPlaneNormalize(kmPlane* pOut, const kmPlane* pP)
 kmPlane* kmPlaneScale(kmPlane* pOut, const kmPlane* pP, kmScalar s)
 {
 	assert(0);
+    return NULL;
 }
 
 POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane* pIn, const kmVec3* pP)

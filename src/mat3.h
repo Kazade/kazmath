@@ -26,16 +26,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 struct kmVec3;
 struct kmQuaternion;
 
-typedef struct kmMat3{
-	kmScalar m_Mat[9];
-} kmMat3;
+struct tagkmMat3{
+	kmScalar mat[9];
+};
+
+typedef struct tagkmMat3 kmMat3;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 kmMat3* kmMat3Fill(kmMat3* pOut, const kmScalar* pMat);
-
 kmMat3* kmMat3Adjugate(kmMat3* pOut, const kmMat3* pIn);
 kmMat3* kmMat3Identity(kmMat3* pOut);
 kmMat3* kmMat3Inverse(kmMat3* pOut, const kmScalar pDeterminate, const kmMat3* pM);
@@ -43,7 +44,7 @@ int  kmMat3IsIdentity(const kmMat3* pIn);
 kmMat3* kmMat3Transpose(kmMat3* pOut, const kmMat3* pIn);
 kmScalar kmMat3Determinant(const kmMat3* pIn);
 kmMat3* kmMat3Multiply(kmMat3* pOut, const kmMat3* pM1, const kmMat3* pM2);
-kmMat3* kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, kmScalar pFactor);
+kmMat3* kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, const kmScalar pFactor);
 
 kmMat3* kmMat3Assign(kmMat3* pOut, const kmMat3* pIn);
 int  kmMat3AreEqual(const kmMat3* pM1, const kmMat3* pM2);

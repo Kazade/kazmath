@@ -62,7 +62,7 @@ kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
 
 ///< Returns true if the quaternion is an identity quaternion
 
-bool kmQuaternionIsIdentity(const kmQuaternion* pIn);
+int kmQuaternionIsIdentity(const kmQuaternion* pIn);
 
 ///< Returns the length of the quaternion
 

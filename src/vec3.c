@@ -51,7 +51,7 @@ kmScalar kmVec3LengthSq(const kmVec3* pIn)
  ///< Returns the vector passed in set to unit length
 kmVec3* kmVec3Normalize(kmVec3* pOut, const kmVec3* pIn)
 {
-	kmScalar l = 1.0 / kmVec3Length(pIn);
+	kmScalar l = 1.0f / kmVec3Length(pIn);
 
 	kmVec3 v;
 	v.x = pIn->x * l;
@@ -133,9 +133,9 @@ kmVec3* kmVec3Transform(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 
 	kmVec3 v;
 
-	v.x = pV->x * pM->m_Mat[0] + pV->y * pM->m_Mat[4] + pV->z * pM->m_Mat[8] + pM->m_Mat[12];
-	v.y = pV->x * pM->m_Mat[1] + pV->y * pM->m_Mat[5] + pV->z * pM->m_Mat[9] + pM->m_Mat[13];
-	v.z = pV->x * pM->m_Mat[2] + pV->y * pM->m_Mat[6] + pV->z * pM->m_Mat[10] + pM->m_Mat[14];
+	v.x = pV->x * pM->mat[0] + pV->y * pM->mat[4] + pV->z * pM->mat[8] + pM->mat[12];
+	v.y = pV->x * pM->mat[1] + pV->y * pM->mat[5] + pV->z * pM->mat[9] + pM->mat[13];
+	v.z = pV->x * pM->mat[2] + pV->y * pM->mat[6] + pV->z * pM->mat[10] + pM->mat[14];
 
 	pOut->x = v.x;
 	pOut->y = v.y;
@@ -148,13 +148,13 @@ kmVec3* kmVec3InverseTransform(kmVec3* pOut, const kmVec3* pVect, const kmMat4* 
 {
 	kmVec3 v1, v2;
 
-	v1.x = pVect->x - pM->m_Mat[12];
-	v1.y = pVect->y - pM->m_Mat[13];
-	v1.z = pVect->z - pM->m_Mat[14];
+	v1.x = pVect->x - pM->mat[12];
+	v1.y = pVect->y - pM->mat[13];
+	v1.z = pVect->z - pM->mat[14];
 
-	v2.x = v1.x * pM->m_Mat[0] + v1.y * pM->m_Mat[1] + v1.z * pM->m_Mat[2];
-	v2.y = v1.x * pM->m_Mat[4] + v1.y * pM->m_Mat[5] + v1.z * pM->m_Mat[6];
-	v2.z = v1.x * pM->m_Mat[8] + v1.y * pM->m_Mat[9] + v1.z * pM->m_Mat[10];
+	v2.x = v1.x * pM->mat[0] + v1.y * pM->mat[1] + v1.z * pM->mat[2];
+	v2.y = v1.x * pM->mat[4] + v1.y * pM->mat[5] + v1.z * pM->mat[6];
+	v2.z = v1.x * pM->mat[8] + v1.y * pM->mat[9] + v1.z * pM->mat[10];
 
 	pOut->x = v2.x;
 	pOut->y = v2.y;
@@ -167,9 +167,9 @@ kmVec3* kmVec3InverseTransformNormal(kmVec3* pOut, const kmVec3* pVect, const km
 {
 	kmVec3 v;
 
-	v.x = pVect->x * pM->m_Mat[0] + pVect->y * pM->m_Mat[1] + pVect->z * pM->m_Mat[2];
-	v.y = pVect->x * pM->m_Mat[4] + pVect->y * pM->m_Mat[5] + pVect->z * pM->m_Mat[6];
-	v.z = pVect->x * pM->m_Mat[8] + pVect->y * pM->m_Mat[9] + pVect->z * pM->m_Mat[10];
+	v.x = pVect->x * pM->mat[0] + pVect->y * pM->mat[1] + pVect->z * pM->mat[2];
+	v.y = pVect->x * pM->mat[4] + pVect->y * pM->mat[5] + pVect->z * pM->mat[6];
+	v.z = pVect->x * pM->mat[8] + pVect->y * pM->mat[9] + pVect->z * pM->mat[10];
 
 	pOut->x = v.x;
 	pOut->y = v.y;
@@ -201,9 +201,9 @@ kmVec3* kmVec3TransformNormal(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 
 	kmVec3 v;
 
-	v.x = pV->x * pM->m_Mat[0] + pV->y * pM->m_Mat[4] + pV->z * pM->m_Mat[8];
-	v.y = pV->x * pM->m_Mat[1] + pV->y * pM->m_Mat[5] + pV->z * pM->m_Mat[9];
-	v.z = pV->x * pM->m_Mat[2] + pV->y * pM->m_Mat[6] + pV->z * pM->m_Mat[10];
+	v.x = pV->x * pM->mat[0] + pV->y * pM->mat[4] + pV->z * pM->mat[8];
+	v.y = pV->x * pM->mat[1] + pV->y * pM->mat[5] + pV->z * pM->mat[9];
+	v.z = pV->x * pM->mat[2] + pV->y * pM->mat[6] + pV->z * pM->mat[10];
 
 	pOut->x = v.x;
 	pOut->y = v.y;

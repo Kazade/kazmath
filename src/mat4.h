@@ -30,13 +30,13 @@ struct kmQuaternion;
 A 4x4 matrix
 
         | 0   4   8  12 |
-m_Mat = | 1   5   9  13 |
+mat = | 1   5   9  13 |
         | 2   6  10  14 |
         | 3   7  11  15 |
 */
 
 typedef struct kmMat4{
-	kmScalar m_Mat[16];
+	kmScalar mat[16];
 } kmMat4;
 
 #ifdef __cplusplus

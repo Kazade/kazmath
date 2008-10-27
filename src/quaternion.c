@@ -72,6 +72,7 @@ kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
 											const kmQuaternion* pIn)
 {
 	kmScalar l = kmQuaternionLength(pIn);
+    kmQuaternion tmp;
 
 	if (fabs(l) > kmEpsilon)
 	{
@@ -83,17 +84,17 @@ kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
 		return pOut;
 	}
 
-	kmQuaternion* tmp = 0;
+	
 
 	///Get the conjugute and divide by the length
 	kmQuaternionScale(pOut,
-				kmQuaternionConjugate(tmp, pIn), 1.0 / l);
+				kmQuaternionConjugate(&tmp, pIn), 1.0f / l);
 
 	return pOut;
 }
 
 ///< Returns true if the quaternion is an identity quaternion
-bool kmQuaternionIsIdentity(const kmQuaternion* pIn)
+int kmQuaternionIsIdentity(const kmQuaternion* pIn)
 {
 	return (pIn->x == 0.0 && pIn->y == 0.0 && pIn->z == 0.0 &&
 				pIn->w == 1.0);
@@ -197,7 +198,7 @@ taken from the Matrix and Quaternion FAQ
     }
 */
 
-	kmScalar T = pIn->m_Mat[0] + pIn->m_Mat[5] + pIn->m_Mat[10];
+	kmScalar T = pIn->mat[0] + pIn->mat[5] + pIn->mat[10];
 
 	if (T > kmEpsilon) {
 		//If the trace is greater than zero we always use this calculation:
@@ -208,10 +209,10 @@ taken from the Matrix and Quaternion FAQ
 		  W = 0.25 * S;*/
 
 		kmScalar s = sqrtf(T) * 2;
-		pOut->x = (pIn->m_Mat[9] - pIn->m_Mat[6]) / s;
-		pOut->y = (pIn->m_Mat[8] - pIn->m_Mat[2]) / s;
-		pOut->z = (pIn->m_Mat[1] - pIn->m_Mat[4]) / s;
-		pOut->w = 0.25 * s;
+		pOut->x = (pIn->mat[9] - pIn->mat[6]) / s;
+		pOut->y = (pIn->mat[8] - pIn->mat[2]) / s;
+		pOut->z = (pIn->mat[1] - pIn->mat[4]) / s;
+		pOut->w = 0.25f * s;
 
 		kmQuaternionNormalize(pOut, pOut);
 		return pOut;
@@ -219,26 +220,26 @@ taken from the Matrix and Quaternion FAQ
 
 	//Otherwise the calculation depends on which major diagonal element has the greatest value.
 
-	if (pIn->m_Mat[0] > pIn->m_Mat[5] && pIn->m_Mat[0] > pIn->m_Mat[10]) {
-		kmScalar s = sqrtf(1 + pIn->m_Mat[0] - pIn->m_Mat[5] - pIn->m_Mat[10]) * 2;
-		pOut->x = 0.25 * s;
-		pOut->y = (pIn->m_Mat[1] + pIn->m_Mat[4]) / s;
-		pOut->z = (pIn->m_Mat[8] + pIn->m_Mat[2]) / s;
-		pOut->w = (pIn->m_Mat[9] - pIn->m_Mat[6]) / s;
+	if (pIn->mat[0] > pIn->mat[5] && pIn->mat[0] > pIn->mat[10]) {
+		kmScalar s = sqrtf(1 + pIn->mat[0] - pIn->mat[5] - pIn->mat[10]) * 2;
+		pOut->x = 0.25f * s;
+		pOut->y = (pIn->mat[1] + pIn->mat[4]) / s;
+		pOut->z = (pIn->mat[8] + pIn->mat[2]) / s;
+		pOut->w = (pIn->mat[9] - pIn->mat[6]) / s;
 	}
-	else if (pIn->m_Mat[5] > pIn->m_Mat[10]) {
-		kmScalar s = sqrtf(1 + pIn->m_Mat[5] - pIn->m_Mat[0] - pIn->m_Mat[10]) * 2;
-		pOut->x = (pIn->m_Mat[1] + pIn->m_Mat[4]) / s;
-		pOut->y = 0.25 * s;
-		pOut->z = (pIn->m_Mat[9] + pIn->m_Mat[6]) / s;
-		pOut->w = (pIn->m_Mat[8] - pIn->m_Mat[2]) / s;
+	else if (pIn->mat[5] > pIn->mat[10]) {
+		kmScalar s = sqrtf(1 + pIn->mat[5] - pIn->mat[0] - pIn->mat[10]) * 2;
+		pOut->x = (pIn->mat[1] + pIn->mat[4]) / s;
+		pOut->y = 0.25f * s;
+		pOut->z = (pIn->mat[9] + pIn->mat[6]) / s;
+		pOut->w = (pIn->mat[8] - pIn->mat[2]) / s;
 	}
 	else {
-		kmScalar s = sqrt(1 + pIn->m_Mat[10] - pIn->m_Mat[0] - pIn->m_Mat[5]) * 2;
-        pOut->x = (pIn->m_Mat[8] + pIn->m_Mat[2] ) / s;
-        pOut->y = (pIn->m_Mat[6] + pIn->m_Mat[9] ) / s;
-        pOut->z = 0.25 * s;
-        pOut->w = (pIn->m_Mat[1] - pIn->m_Mat[4] ) / s;
+		kmScalar s = sqrt(1.0f + pIn->mat[10] - pIn->mat[0] - pIn->mat[5]) * 2.0f;
+        pOut->x = (pIn->mat[8] + pIn->mat[2] ) / s;
+        pOut->y = (pIn->mat[6] + pIn->mat[9] ) / s;
+        pOut->z = 0.25f * s;
+        pOut->w = (pIn->mat[1] - pIn->mat[4] ) / s;
 	}
 
 	kmQuaternionNormalize(pOut, pOut);
@@ -254,9 +255,9 @@ kmQuaternion* kmQuaternionRotationYawPitchRoll(kmQuaternion* pOut,
 	kmScalar	ex, ey, ez;		// temp half euler angles
 	kmScalar	cr, cp, cy, sr, sp, sy, cpcy, spsy;		// temp vars in roll,pitch yaw
 
-	ex = kmDegreesToRadians(pitch) / 2.0;	// convert to rads and half them
-	ey = kmDegreesToRadians(yaw) / 2.0;
-	ez = kmDegreesToRadians(roll) / 2.0;
+	ex = kmDegreesToRadians(pitch) / 2.0f;	// convert to rads and half them
+	ey = kmDegreesToRadians(yaw) / 2.0f;
+	ez = kmDegreesToRadians(roll) / 2.0f;
 
 	cr = cosf(ex);
 	cp = cosf(ey);
@@ -336,7 +337,7 @@ void kmQuaternionToAxisAngle(const kmQuaternion* pIn,
 	}
 	else
 	{
-		*pAngle = tempAngle * 2.0;		// angle in radians
+		*pAngle = tempAngle * 2.0f;		// angle in radians
 
 		pAxis->x = pIn->x / scale;
 		pAxis->y = pIn->y / scale;
@@ -388,13 +389,15 @@ kmQuaternion* kmQuaternionAdd(kmQuaternion* pOut, const kmQuaternion* pQ1, const
 kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const kmVec3* vec1, const kmVec3* vec2, const kmVec3* fallback) {
 
 	kmVec3 v1, v2;
+    kmScalar a;
+
 	kmVec3Assign(&v1, vec1);
 	kmVec3Assign(&v2, vec2);
 
 	kmVec3Normalize(&v1, &v1);
 	kmVec3Normalize(&v2, &v2);
 
-	kmScalar a = kmVec3Dot(&v1, &v2);
+	a = kmVec3Dot(&v1, &v2);
 
 	if (a >= 1.0) {
 		kmQuaternionIdentity(pOut);
@@ -438,7 +441,7 @@ kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const kmVec3* 
 		pOut->x = c.x * invs;
 		pOut->y = c.y * invs;
         pOut->z = c.z * invs;
-        pOut->w = s * 0.5;
+        pOut->w = s * 0.5f;
 
 		kmQuaternionNormalize(pOut, pOut);
 	}
@@ -457,8 +460,8 @@ kmVec3* kmQuaternionMultiplyVec3(kmVec3* pOut, const kmQuaternion* q, const kmVe
 	kmVec3Cross(&uv, &qvec, v);
 	kmVec3Cross(&uuv, &qvec, &uv);
 
-	kmVec3Scale(&uv, &uv, (2.0 * q->w));
-	kmVec3Scale(&uuv, &uuv, 2.0);
+	kmVec3Scale(&uv, &uv, (2.0f * q->w));
+	kmVec3Scale(&uuv, &uuv, 2.0f);
 
 	kmVec3Add(pOut, v, &uv);
 	kmVec3Add(pOut, pOut, &uuv);
