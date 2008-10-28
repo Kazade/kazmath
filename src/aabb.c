@@ -23,5 +23,32 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/**
+ * Returns KM_TRUE if point is in the specified AABB, returns
+ * KM_FALSE otherwise.
+ */
+int kmAABBPointInBox(const kmVec3* pPoint, const kmAABB* pBox)
+{
+	assert(0 && "Not implemented");
+	return KM_FALSE;
+}
+
+/**
+ * Assigns pIn to pOut, returns pOut.
+ */
+kmAABB* kmAABBAssign(kmAABB* pOut, const kmAABB* pIn)
+{
+	assert(0 && "Not implemented");
+	return pOut;
+}
+
+/**
+ * Scales pIn by s, stores the resulting AABB in pOut. Returns pOut
+ */
+kmAABB* kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s)
+{
+	assert(0 && "Not implemented");
+}
+
 
 #include "aabb.h"

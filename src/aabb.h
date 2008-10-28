@@ -32,16 +32,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
+/**
+ * A struture that represents an axis-aligned
+ * bounding box.
+ */
 typedef struct kmAABB {
 	kmVec3 min; /** The max corner of the box */
 	kmVec3 max; /** The min corner of the box */
 } kmAABB;
 
-int kmAABBPointInBox(const kmVec3* point);
-
+int kmAABBPointInBox(const kmVec3* pPoint, const kmAABB* pBox)
 kmAABB* kmAABBAssign(kmAABB* pOut, const kmAABB* pIn);
 kmAABB* kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s);
+
 #ifdef __cplusplus
 }
 #endif
+
 #endif
