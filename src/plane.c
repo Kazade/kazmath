@@ -72,6 +72,10 @@ kmPlane* kmPlaneFromPointNormal(kmPlane* pOut, const kmVec3* pPoint, const kmVec
 	return pOut;
 }
 
+/**
+ * Creates a plane from 3 points. The result is stored in pOut.
+ * pOut is returned.
+ */
 kmPlane* kmPlaneFromPoints(kmPlane* pOut, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3)
 {
 	/*
@@ -98,7 +102,7 @@ kmPlane* kmPlaneFromPoints(kmPlane* pOut, const kmVec3* p1, const kmVec3* p2, co
 	return pOut;
 }
 
-kmVec3*  kmPlaneIntersectLine(kmVec3* pOut, const kmPlane* pP, const kmVec3* pV1, const kmVec3* pV2)
+kmVec3* kmPlaneIntersectLine(kmVec3* pOut, const kmPlane* pP, const kmVec3* pV1, const kmVec3* pV2)
 {
 	/*
 		n = (Planea, Planeb, Planec)
@@ -106,7 +110,7 @@ kmVec3*  kmPlaneIntersectLine(kmVec3* pOut, const kmPlane* pP, const kmVec3* pV1
 		Out = U − d⋅(Pd + n⋅U)⁄(d⋅n) [iff d⋅n ≠ 0]
 	*/
     kmVec3 d;
-	assert(0);
+	assert(0 && "Not implemented");
 
 
 	kmVec3Subtract(&d, pV2, pV1); //Get the direction vector
@@ -147,10 +151,14 @@ kmPlane* kmPlaneNormalize(kmPlane* pOut, const kmPlane* pP)
 
 kmPlane* kmPlaneScale(kmPlane* pOut, const kmPlane* pP, kmScalar s)
 {
-	assert(0);
+	assert(0 && "Not implemented");
     return NULL;
 }
 
+/** 
+ * Returns POINT_INFRONT_OF_PLANE if pP is infront of pIn. Returns
+ * POINT_BEHIND_PLANE if it is behind. Returns POINT_ON_PLANE otherwise
+ */
 POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane* pIn, const kmVec3* pP)
 {
    // This function will determine if a point is on, in front of, or behind
