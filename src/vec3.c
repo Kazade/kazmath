@@ -32,7 +32,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mat4.h"
 #include "vec3.h"
 
-
+/**
+ * Fill a kmVec3 structure using 3 floating point values
+ * The result is store in pOut, returns pOut
+ */
 kmVec3* kmVec3Fill(kmVec3* pOut, kmScalar x, kmScalar y, kmScalar z)
 {
     pOut->x = x;
@@ -42,19 +45,26 @@ kmVec3* kmVec3Fill(kmVec3* pOut, kmScalar x, kmScalar y, kmScalar z)
 }
 
 
-///< Returns the length of the vector
+/** 
+ * Returns the length of the vector
+ */
 kmScalar kmVec3Length(const kmVec3* pIn)
 {
 	return sqrtf(kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z));
 }
 
-///< Returns the square of the length of the vector
+/** 
+ * Returns the square of the length of the vector
+ */
 kmScalar kmVec3LengthSq(const kmVec3* pIn)
 {
 	return kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z);
 }
 
- ///< Returns the vector passed in set to unit length
+ /**
+  * Returns the vector passed in set to unit length
+  * the result is stored in pOut.
+  */
 kmVec3* kmVec3Normalize(kmVec3* pOut, const kmVec3* pIn)
 {
 	kmScalar l = 1.0f / kmVec3Length(pIn);
@@ -71,7 +81,10 @@ kmVec3* kmVec3Normalize(kmVec3* pOut, const kmVec3* pIn)
 	return pOut;
 }
 
-///< Returns a vector perpendicular to 2 other vectors
+/** 
+ * Returns a vector perpendicular to 2 other vectors.
+ * The result is stored in pOut.
+ */
 kmVec3* kmVec3Cross(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 {
 
@@ -88,7 +101,9 @@ kmVec3* kmVec3Cross(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 	return pOut;
 }
 
-///< Returns the cosine of the angle between 2 vectors
+/** 
+ * Returns the cosine of the angle between 2 vectors 
+ */
 kmScalar kmVec3Dot(const kmVec3* pV1, const kmVec3* pV2)
 {
 	return (  pV1->x * pV2->x
@@ -96,7 +111,10 @@ kmScalar kmVec3Dot(const kmVec3* pV1, const kmVec3* pV2)
 			+ pV1->z * pV2->z );
 }
 
-///< Adds 2 vectors and returns the result
+/** 
+ * Adds 2 vectors and returns the result. The resulting
+ * vector is stored in pOut.
+ */
 kmVec3* kmVec3Add(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 {
 	kmVec3 v;
@@ -112,7 +130,10 @@ kmVec3* kmVec3Add(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 	return pOut;
 }
 
- ///< Subtracts 2 vectors and returns the result
+ /**
+  * Subtracts 2 vectors and returns the result. The result is stored in
+  * pOut.
+  */
 kmVec3* kmVec3Subtract(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 {
 	kmVec3 v;
@@ -128,7 +149,10 @@ kmVec3* kmVec3Subtract(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 	return pOut;
 }
 
- ///< Transforms vector (x, y, z, 1) by a given matrix.
+ /**
+  * Transforms vector (x, y, z, 1) by a given matrix. The result
+  * is stored in pOut. pOut is returned.
+  */
 kmVec3* kmVec3Transform(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 {
 	/*
@@ -184,6 +208,9 @@ kmVec3* kmVec3InverseTransformNormal(kmVec3* pOut, const kmVec3* pVect, const km
 	return pOut;
 }
 
+/**
+ * NOT COMPLETE, DO NOT USE!
+ */
 kmVec3* kmVec3TransformCoord(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 {
 	/*
@@ -192,7 +219,7 @@ kmVec3* kmVec3TransformCoord(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
         Out = 1⁄bw(bx, by, bz)
 	*/
 
-    assert(0);
+    assert(0 && "Not implemented!");
 
 	return pOut;
 }
@@ -219,7 +246,10 @@ kmVec3* kmVec3TransformNormal(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 
 }
 
-///< Scales a vector to length s
+/** 
+ * Scales a vector to length s. Does not normalize first, 
+ * you should do that!
+ */
 kmVec3* kmVec3Scale(kmVec3* pOut, const kmVec3* pIn, const kmScalar s)
 {
 	pOut->x = pIn->x * s;
@@ -229,6 +259,9 @@ kmVec3* kmVec3Scale(kmVec3* pOut, const kmVec3* pIn, const kmScalar s)
 	return pOut;
 }
 
+/**
+ * Returns KM_TRUE if the 2 vectors are approximately equal
+ */
 int kmVec3AreEqual(const kmVec3* p1, const kmVec3* p2)
 {
 	if ((p1->x < (p2->x + kmEpsilon) && p1->x > (p2->x - kmEpsilon)) &&
@@ -240,6 +273,10 @@ int kmVec3AreEqual(const kmVec3* p1, const kmVec3* p2)
 	return 0;
 }
 
+/**
+ * Assigns pIn to pOut. Returns pOut. If pIn and pOut are the same
+ * then nothing happens but pOut is still returned
+ */
 kmVec3* kmVec3Assign(kmVec3* pOut, const kmVec3* pIn) {
 	if (pOut == pIn) {
 		return pOut;
@@ -252,6 +289,9 @@ kmVec3* kmVec3Assign(kmVec3* pOut, const kmVec3* pIn) {
 	return pOut;
 }
 
+/**
+ * Sets all the elements of pOut to zero. Returns pOut.
+ */
 kmVec3* kmVec3Zero(kmVec3* pOut) {
 	pOut->x = 0.0f;
 	pOut->y = 0.0f;
