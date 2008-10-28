@@ -25,14 +25,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "utility.h"
 
+/**
+ * Returns the square of s (e.g. s*s)
+ */
 kmScalar kmSQR(kmScalar s) {
 	return s*s;
 }
 
+/**
+ * Returns degrees as radians.
+ */
 kmScalar kmDegreesToRadians(kmScalar degrees) {
 	return degrees * kmPIOver180;
 }
 
+/**
+ * Returns radians as degrees
+ */
 kmScalar kmRadiansToDegrees(kmScalar radians) {
 	return radians * kmPIUnder180;
 }
