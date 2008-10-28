@@ -51,6 +51,7 @@
 		<Unit filename="..\src\gl_utils\stack_test.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="..\src\kazmathxx.h" />
 		<Unit filename="..\src\mat3.c">
 			<Option compilerVar="CC" />
 		</Unit>
