@@ -1,0 +1,108 @@
+\hypertarget{mat4stack_8c}{
+\section{C:/Users/luke/Desktop/KazMath/kazmath/src/GL/mat4stack.c File Reference}
+\label{mat4stack_8c}\index{C:/Users/luke/Desktop/KazMath/kazmath/src/GL/mat4stack.c@{C:/Users/luke/Desktop/KazMath/kazmath/src/GL/mat4stack.c}}
+}
+{\tt \#include $<$malloc.h$>$}\par
+{\tt \#include $<$memory.h$>$}\par
+{\tt \#include $<$assert.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include \char`\"{}mat4stack.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \hyperlink{mat4stack_8c_40958a1382463445e451148e3a93e049}{INITIAL\_\-SIZE}~30
+\item 
+\#define \hyperlink{mat4stack_8c_d99a3089c13b6f47b26b218a997fad73}{INCREMENT}~50
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{mat4stack_8c_28c78081958c5f669277420782f33d4e}{km\_\-mat4\_\-stack\_\-initialize} (\hyperlink{structkm__mat4__stack}{km\_\-mat4\_\-stack} $\ast$stack)
+\item 
+void \hyperlink{mat4stack_8c_05d52e68a5b0f99c5db5cdb20df650a3}{km\_\-mat4\_\-stack\_\-push} (\hyperlink{structkm__mat4__stack}{km\_\-mat4\_\-stack} $\ast$stack, const \hyperlink{structkm_mat4}{kmMat4} $\ast$item)
+\item 
+void \hyperlink{mat4stack_8c_8d7c8e5b9b183aa81111b2fe51b2a545}{km\_\-mat4\_\-stack\_\-pop} (\hyperlink{structkm__mat4__stack}{km\_\-mat4\_\-stack} $\ast$stack, \hyperlink{structkm_mat4}{kmMat4} $\ast$pOut)
+\item 
+void \hyperlink{mat4stack_8c_c4bac745dfa4c1cc379992ed4ed83683}{km\_\-mat4\_\-stack\_\-release} (\hyperlink{structkm__mat4__stack}{km\_\-mat4\_\-stack} $\ast$stack)
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{mat4stack_8c_d99a3089c13b6f47b26b218a997fad73}{
+\index{mat4stack.c@{mat4stack.c}!INCREMENT@{INCREMENT}}
+\index{INCREMENT@{INCREMENT}!mat4stack.c@{mat4stack.c}}
+\subsubsection[{INCREMENT}]{\setlength{\rightskip}{0pt plus 5cm}\#define INCREMENT~50}}
+\label{mat4stack_8c_d99a3089c13b6f47b26b218a997fad73}
+
+
+
+
+Definition at line 32 of file mat4stack.c.
+
+Referenced by km\_\-mat4\_\-stack\_\-push().\hypertarget{mat4stack_8c_40958a1382463445e451148e3a93e049}{
+\index{mat4stack.c@{mat4stack.c}!INITIAL\_\-SIZE@{INITIAL\_\-SIZE}}
+\index{INITIAL\_\-SIZE@{INITIAL\_\-SIZE}!mat4stack.c@{mat4stack.c}}
+\subsubsection[{INITIAL\_\-SIZE}]{\setlength{\rightskip}{0pt plus 5cm}\#define INITIAL\_\-SIZE~30}}
+\label{mat4stack_8c_40958a1382463445e451148e3a93e049}
+
+
+
+
+Definition at line 31 of file mat4stack.c.
+
+Referenced by km\_\-mat4\_\-stack\_\-initialize().
+
+\subsection{Function Documentation}
+\hypertarget{mat4stack_8c_28c78081958c5f669277420782f33d4e}{
+\index{mat4stack.c@{mat4stack.c}!km\_\-mat4\_\-stack\_\-initialize@{km\_\-mat4\_\-stack\_\-initialize}}
+\index{km\_\-mat4\_\-stack\_\-initialize@{km\_\-mat4\_\-stack\_\-initialize}!mat4stack.c@{mat4stack.c}}
+\subsubsection[{km\_\-mat4\_\-stack\_\-initialize}]{\setlength{\rightskip}{0pt plus 5cm}void km\_\-mat4\_\-stack\_\-initialize ({\bf km\_\-mat4\_\-stack} $\ast$ {\em stack})}}
+\label{mat4stack_8c_28c78081958c5f669277420782f33d4e}
+
+
+
+
+Definition at line 36 of file mat4stack.c.
+
+References km\_\-mat4\_\-stack::capacity, INITIAL\_\-SIZE, km\_\-mat4\_\-stack::item\_\-count, km\_\-mat4\_\-stack::stack, and km\_\-mat4\_\-stack::top.
+
+Referenced by lazyInitialize().\hypertarget{mat4stack_8c_8d7c8e5b9b183aa81111b2fe51b2a545}{
+\index{mat4stack.c@{mat4stack.c}!km\_\-mat4\_\-stack\_\-pop@{km\_\-mat4\_\-stack\_\-pop}}
+\index{km\_\-mat4\_\-stack\_\-pop@{km\_\-mat4\_\-stack\_\-pop}!mat4stack.c@{mat4stack.c}}
+\subsubsection[{km\_\-mat4\_\-stack\_\-pop}]{\setlength{\rightskip}{0pt plus 5cm}void km\_\-mat4\_\-stack\_\-pop ({\bf km\_\-mat4\_\-stack} $\ast$ {\em stack}, \/  {\bf kmMat4} $\ast$ {\em pOut})}}
+\label{mat4stack_8c_8d7c8e5b9b183aa81111b2fe51b2a545}
+
+
+
+
+Definition at line 62 of file mat4stack.c.
+
+References km\_\-mat4\_\-stack::item\_\-count, km\_\-mat4\_\-stack::stack, and km\_\-mat4\_\-stack::top.
+
+Referenced by kmGLPopMatrix().\hypertarget{mat4stack_8c_05d52e68a5b0f99c5db5cdb20df650a3}{
+\index{mat4stack.c@{mat4stack.c}!km\_\-mat4\_\-stack\_\-push@{km\_\-mat4\_\-stack\_\-push}}
+\index{km\_\-mat4\_\-stack\_\-push@{km\_\-mat4\_\-stack\_\-push}!mat4stack.c@{mat4stack.c}}
+\subsubsection[{km\_\-mat4\_\-stack\_\-push}]{\setlength{\rightskip}{0pt plus 5cm}void km\_\-mat4\_\-stack\_\-push ({\bf km\_\-mat4\_\-stack} $\ast$ {\em stack}, \/  const {\bf kmMat4} $\ast$ {\em item})}}
+\label{mat4stack_8c_05d52e68a5b0f99c5db5cdb20df650a3}
+
+
+
+
+Definition at line 43 of file mat4stack.c.
+
+References km\_\-mat4\_\-stack::capacity, INCREMENT, km\_\-mat4\_\-stack::item\_\-count, km\_\-mat4\_\-stack::stack, and km\_\-mat4\_\-stack::top.
+
+Referenced by kmGLPushMatrix(), and lazyInitialize().\hypertarget{mat4stack_8c_c4bac745dfa4c1cc379992ed4ed83683}{
+\index{mat4stack.c@{mat4stack.c}!km\_\-mat4\_\-stack\_\-release@{km\_\-mat4\_\-stack\_\-release}}
+\index{km\_\-mat4\_\-stack\_\-release@{km\_\-mat4\_\-stack\_\-release}!mat4stack.c@{mat4stack.c}}
+\subsubsection[{km\_\-mat4\_\-stack\_\-release}]{\setlength{\rightskip}{0pt plus 5cm}void km\_\-mat4\_\-stack\_\-release ({\bf km\_\-mat4\_\-stack} $\ast$ {\em stack})}}
+\label{mat4stack_8c_c4bac745dfa4c1cc379992ed4ed83683}
+
+
+
+
+Definition at line 75 of file mat4stack.c.
+
+References km\_\-mat4\_\-stack::capacity, km\_\-mat4\_\-stack::item\_\-count, km\_\-mat4\_\-stack::stack, and km\_\-mat4\_\-stack::top.
+
+Referenced by kmGLFreeAll().

@@ -23,6 +23,9 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/**
+ * @file mat4.c
+ */
 #include <memory.h>
 #include <assert.h>
 #include <stdlib.h>
@@ -138,7 +141,6 @@ kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
 
 	return pOut;
 }
-
 /** 
  * Returns KM_TRUE if pIn is an identity matrix 
  * KM_FALSE otherwise 

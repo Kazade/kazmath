@@ -1,0 +1,171 @@
+\hypertarget{matrix_8c}{
+\section{C:/Users/luke/Desktop/KazMath/kazmath/src/GL/matrix.c File Reference}
+\label{matrix_8c}\index{C:/Users/luke/Desktop/KazMath/kazmath/src/GL/matrix.c@{C:/Users/luke/Desktop/KazMath/kazmath/src/GL/matrix.c}}
+}
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$assert.h$>$}\par
+{\tt \#include \char`\"{}mat4stack.h\char`\"{}}\par
+{\tt \#include \char`\"{}matrix.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{matrix_8c_88150226104da75a6527e87603b3ee42}{lazyInitialize} ()
+\item 
+void \hyperlink{matrix_8c_cc07f172084ef11c02b00c0723f59933}{kmGLMatrixMode} (\hyperlink{matrix_8h_b9c6ec8f9c3035c828ce9f38b5f41c42}{kmGLEnum} mode)
+\item 
+void \hyperlink{matrix_8c_eb340bd8568b3e1e81968d5e98e8660f}{kmGLPushMatrix} (void)
+\item 
+void \hyperlink{matrix_8c_72513f0c36911034fbde99337d02f9c3}{kmGLPopMatrix} (void)
+\item 
+void \hyperlink{matrix_8c_f7b1b51e9e12db6b0bdf0b087641b5cd}{kmGLLoadIdentity} ()
+\item 
+void \hyperlink{matrix_8c_75e7e6cc5dd7445db1ac4747a41ec0f4}{kmGLFreeAll} ()
+\item 
+void \hyperlink{matrix_8c_38c1ac69d5c71294f033cb057f9c00ab}{kmGLMultMatrix} (const \hyperlink{structkm_mat4}{kmMat4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\item 
+void \hyperlink{matrix_8c_5745f3fc0d9e2abb10275750d7f5fa88}{kmGLGetMatrix} (\hyperlink{matrix_8h_b9c6ec8f9c3035c828ce9f38b5f41c42}{kmGLEnum} mode, \hyperlink{structkm_mat4}{kmMat4} $\ast$pOut)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hyperlink{structkm__mat4__stack}{km\_\-mat4\_\-stack} $\ast$ \hyperlink{matrix_8c_fc20e196a67c619c6fdc72afc88584eb}{modelview\_\-matrix\_\-stack} = NULL
+\item 
+\hyperlink{structkm__mat4__stack}{km\_\-mat4\_\-stack} $\ast$ \hyperlink{matrix_8c_2e03ac11be3a9b1ffdc702f173ed276c}{projection\_\-matrix\_\-stack} = NULL
+\item 
+\hyperlink{structkm__mat4__stack}{km\_\-mat4\_\-stack} $\ast$ \hyperlink{matrix_8c_99bc95e931ade9718d2c0d50de60c0bf}{texture\_\-matrix\_\-stack} = NULL
+\item 
+\hyperlink{structkm__mat4__stack}{km\_\-mat4\_\-stack} $\ast$ \hyperlink{matrix_8c_cefc50668d23d3c4c936b7d54f488214}{current\_\-stack} = NULL
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{matrix_8c_75e7e6cc5dd7445db1ac4747a41ec0f4}{
+\index{matrix.c@{matrix.c}!kmGLFreeAll@{kmGLFreeAll}}
+\index{kmGLFreeAll@{kmGLFreeAll}!matrix.c@{matrix.c}}
+\subsubsection[{kmGLFreeAll}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLFreeAll ()}}
+\label{matrix_8c_75e7e6cc5dd7445db1ac4747a41ec0f4}
+
+
+
+
+Definition at line 109 of file matrix.c.
+
+References km\_\-mat4\_\-stack\_\-release().\hypertarget{matrix_8c_5745f3fc0d9e2abb10275750d7f5fa88}{
+\index{matrix.c@{matrix.c}!kmGLGetMatrix@{kmGLGetMatrix}}
+\index{kmGLGetMatrix@{kmGLGetMatrix}!matrix.c@{matrix.c}}
+\subsubsection[{kmGLGetMatrix}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLGetMatrix ({\bf kmGLEnum} {\em mode}, \/  {\bf kmMat4} $\ast$ {\em pOut})}}
+\label{matrix_8c_5745f3fc0d9e2abb10275750d7f5fa88}
+
+
+
+
+Definition at line 132 of file matrix.c.
+
+References KM\_\-GL\_\-MODELVIEW, KM\_\-GL\_\-PROJECTION, KM\_\-GL\_\-TEXTURE, kmMat4Assign(), lazyInitialize(), and km\_\-mat4\_\-stack::top.\hypertarget{matrix_8c_f7b1b51e9e12db6b0bdf0b087641b5cd}{
+\index{matrix.c@{matrix.c}!kmGLLoadIdentity@{kmGLLoadIdentity}}
+\index{kmGLLoadIdentity@{kmGLLoadIdentity}!matrix.c@{matrix.c}}
+\subsubsection[{kmGLLoadIdentity}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLLoadIdentity (void)}}
+\label{matrix_8c_f7b1b51e9e12db6b0bdf0b087641b5cd}
+
+
+
+
+Definition at line 102 of file matrix.c.
+
+References kmMat4Identity(), lazyInitialize(), and km\_\-mat4\_\-stack::top.\hypertarget{matrix_8c_cc07f172084ef11c02b00c0723f59933}{
+\index{matrix.c@{matrix.c}!kmGLMatrixMode@{kmGLMatrixMode}}
+\index{kmGLMatrixMode@{kmGLMatrixMode}!matrix.c@{matrix.c}}
+\subsubsection[{kmGLMatrixMode}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLMatrixMode ({\bf kmGLEnum} {\em mode})}}
+\label{matrix_8c_cc07f172084ef11c02b00c0723f59933}
+
+
+
+
+Definition at line 67 of file matrix.c.
+
+References KM\_\-GL\_\-MODELVIEW, KM\_\-GL\_\-PROJECTION, KM\_\-GL\_\-TEXTURE, and lazyInitialize().\hypertarget{matrix_8c_38c1ac69d5c71294f033cb057f9c00ab}{
+\index{matrix.c@{matrix.c}!kmGLMultMatrix@{kmGLMultMatrix}}
+\index{kmGLMultMatrix@{kmGLMultMatrix}!matrix.c@{matrix.c}}
+\subsubsection[{kmGLMultMatrix}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLMultMatrix (const {\bf kmMat4} $\ast$ {\em pIn})}}
+\label{matrix_8c_38c1ac69d5c71294f033cb057f9c00ab}
+
+
+
+
+Definition at line 126 of file matrix.c.
+
+References kmMat4Multiply(), lazyInitialize(), and km\_\-mat4\_\-stack::top.\hypertarget{matrix_8c_72513f0c36911034fbde99337d02f9c3}{
+\index{matrix.c@{matrix.c}!kmGLPopMatrix@{kmGLPopMatrix}}
+\index{kmGLPopMatrix@{kmGLPopMatrix}!matrix.c@{matrix.c}}
+\subsubsection[{kmGLPopMatrix}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLPopMatrix (void)}}
+\label{matrix_8c_72513f0c36911034fbde99337d02f9c3}
+
+
+
+
+Definition at line 96 of file matrix.c.
+
+References km\_\-mat4\_\-stack\_\-pop().\hypertarget{matrix_8c_eb340bd8568b3e1e81968d5e98e8660f}{
+\index{matrix.c@{matrix.c}!kmGLPushMatrix@{kmGLPushMatrix}}
+\index{kmGLPushMatrix@{kmGLPushMatrix}!matrix.c@{matrix.c}}
+\subsubsection[{kmGLPushMatrix}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLPushMatrix (void)}}
+\label{matrix_8c_eb340bd8568b3e1e81968d5e98e8660f}
+
+
+
+
+Definition at line 88 of file matrix.c.
+
+References km\_\-mat4\_\-stack\_\-push(), lazyInitialize(), and km\_\-mat4\_\-stack::top.\hypertarget{matrix_8c_88150226104da75a6527e87603b3ee42}{
+\index{matrix.c@{matrix.c}!lazyInitialize@{lazyInitialize}}
+\index{lazyInitialize@{lazyInitialize}!matrix.c@{matrix.c}}
+\subsubsection[{lazyInitialize}]{\setlength{\rightskip}{0pt plus 5cm}void lazyInitialize ()}}
+\label{matrix_8c_88150226104da75a6527e87603b3ee42}
+
+
+
+
+Definition at line 40 of file matrix.c.
+
+References km\_\-mat4\_\-stack\_\-initialize(), km\_\-mat4\_\-stack\_\-push(), and kmMat4Identity().
+
+Referenced by kmGLGetMatrix(), kmGLLoadIdentity(), kmGLMatrixMode(), kmGLMultMatrix(), and kmGLPushMatrix().
+
+\subsection{Variable Documentation}
+\hypertarget{matrix_8c_cefc50668d23d3c4c936b7d54f488214}{
+\index{matrix.c@{matrix.c}!current\_\-stack@{current\_\-stack}}
+\index{current\_\-stack@{current\_\-stack}!matrix.c@{matrix.c}}
+\subsubsection[{current\_\-stack}]{\setlength{\rightskip}{0pt plus 5cm}{\bf km\_\-mat4\_\-stack}$\ast$ {\bf current\_\-stack} = NULL}}
+\label{matrix_8c_cefc50668d23d3c4c936b7d54f488214}
+
+
+
+
+Definition at line 36 of file matrix.c.\hypertarget{matrix_8c_fc20e196a67c619c6fdc72afc88584eb}{
+\index{matrix.c@{matrix.c}!modelview\_\-matrix\_\-stack@{modelview\_\-matrix\_\-stack}}
+\index{modelview\_\-matrix\_\-stack@{modelview\_\-matrix\_\-stack}!matrix.c@{matrix.c}}
+\subsubsection[{modelview\_\-matrix\_\-stack}]{\setlength{\rightskip}{0pt plus 5cm}{\bf km\_\-mat4\_\-stack}$\ast$ {\bf modelview\_\-matrix\_\-stack} = NULL}}
+\label{matrix_8c_fc20e196a67c619c6fdc72afc88584eb}
+
+
+
+
+Definition at line 32 of file matrix.c.\hypertarget{matrix_8c_2e03ac11be3a9b1ffdc702f173ed276c}{
+\index{matrix.c@{matrix.c}!projection\_\-matrix\_\-stack@{projection\_\-matrix\_\-stack}}
+\index{projection\_\-matrix\_\-stack@{projection\_\-matrix\_\-stack}!matrix.c@{matrix.c}}
+\subsubsection[{projection\_\-matrix\_\-stack}]{\setlength{\rightskip}{0pt plus 5cm}{\bf km\_\-mat4\_\-stack}$\ast$ {\bf projection\_\-matrix\_\-stack} = NULL}}
+\label{matrix_8c_2e03ac11be3a9b1ffdc702f173ed276c}
+
+
+
+
+Definition at line 33 of file matrix.c.\hypertarget{matrix_8c_99bc95e931ade9718d2c0d50de60c0bf}{
+\index{matrix.c@{matrix.c}!texture\_\-matrix\_\-stack@{texture\_\-matrix\_\-stack}}
+\index{texture\_\-matrix\_\-stack@{texture\_\-matrix\_\-stack}!matrix.c@{matrix.c}}
+\subsubsection[{texture\_\-matrix\_\-stack}]{\setlength{\rightskip}{0pt plus 5cm}{\bf km\_\-mat4\_\-stack}$\ast$ {\bf texture\_\-matrix\_\-stack} = NULL}}
+\label{matrix_8c_99bc95e931ade9718d2c0d50de60c0bf}
+
+
+
+
+Definition at line 34 of file matrix.c.

@@ -32,11 +32,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct kmVec3;
 struct kmQuaternion;
 
-struct tagkmMat3{
+struct kmMat3{
 	kmScalar mat[9];
-};
-
-typedef struct tagkmMat3 kmMat3;
+} kmMat3;
 
 #ifdef __cplusplus
 extern "C" {

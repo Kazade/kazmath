@@ -1,0 +1,146 @@
+\hypertarget{plane_8h}{
+\section{C:/Users/luke/Desktop/KazMath/kazmath/src/plane.h File Reference}
+\label{plane_8h}\index{C:/Users/luke/Desktop/KazMath/kazmath/src/plane.h@{C:/Users/luke/Desktop/KazMath/kazmath/src/plane.h}}
+}
+{\tt \#include \char`\"{}utility.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \hyperlink{structkm_plane}{kmPlane}
+\end{CompactItemize}
+\subsection*{Enumerations}
+\begin{CompactItemize}
+\item 
+enum \hyperlink{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59ab}{POINT\_\-CLASSIFICATION} \{ \hyperlink{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59ab672074965b7457560d39872373e3cf34}{POINT\_\-INFRONT\_\-OF\_\-PLANE} =  0, 
+\hyperlink{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59abd2d0e166fa9b7426f36abb8120e0acaa}{POINT\_\-BEHIND\_\-PLANE}, 
+\hyperlink{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59ab5673c0312975039ba8547e7e20fcf3e2}{POINT\_\-ON\_\-PLANE}
+ \}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+kmScalar \hyperlink{plane_8h_a9dc79e2809bb5a6ff45e4f7d813c779}{kmPlaneDot} (const \hyperlink{structkm_plane}{kmPlane} $\ast$pP, const struct \hyperlink{structkm_vec4}{kmVec4} $\ast$pV)
+\item 
+kmScalar \hyperlink{plane_8h_65a8250717dc3b7f9bb66cd7e7aafebc}{kmPlaneDotCoord} (const \hyperlink{structkm_plane}{kmPlane} $\ast$pP, const struct \hyperlink{structkm_vec3}{kmVec3} $\ast$pV)
+\item 
+kmScalar \hyperlink{plane_8h_cc0ca5bfdc3a3b70da9d9596e0bfb47b}{kmPlaneDotNormal} (const \hyperlink{structkm_plane}{kmPlane} $\ast$pP, const struct \hyperlink{structkm_vec3}{kmVec3} $\ast$pV)
+\item 
+\hyperlink{structkm_plane}{kmPlane} $\ast$ \hyperlink{plane_8h_ab83fca236238518cc9c3527b2b47ddb}{kmPlaneFromPointNormal} (\hyperlink{structkm_plane}{kmPlane} $\ast$pOut, const struct \hyperlink{structkm_vec3}{kmVec3} $\ast$pPoint, const struct \hyperlink{structkm_vec3}{kmVec3} $\ast$pNormal)
+\item 
+\hyperlink{structkm_plane}{kmPlane} $\ast$ \hyperlink{plane_8h_afbb9683488a4ce131e375a1145afd75}{kmPlaneFromPoints} (\hyperlink{structkm_plane}{kmPlane} $\ast$pOut, const struct \hyperlink{structkm_vec3}{kmVec3} $\ast$p1, const struct \hyperlink{structkm_vec3}{kmVec3} $\ast$p2, const struct \hyperlink{structkm_vec3}{kmVec3} $\ast$p3)
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{plane_8h_449bf2cea9bb36981c345b69048e0df3}{kmPlaneIntersectLine} (struct \hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_plane}{kmPlane} $\ast$pP, const struct \hyperlink{structkm_vec3}{kmVec3} $\ast$pV1, const struct \hyperlink{structkm_vec3}{kmVec3} $\ast$pV2)
+\item 
+\hyperlink{structkm_plane}{kmPlane} $\ast$ \hyperlink{plane_8h_550d82a8899910ba8d58209c308aa59d}{kmPlaneNormalize} (\hyperlink{structkm_plane}{kmPlane} $\ast$pOut, const \hyperlink{structkm_plane}{kmPlane} $\ast$pP)
+\item 
+\hyperlink{structkm_plane}{kmPlane} $\ast$ \hyperlink{plane_8h_85beb0fc4846b401cebf6d95114dd871}{kmPlaneScale} (\hyperlink{structkm_plane}{kmPlane} $\ast$pOut, const \hyperlink{structkm_plane}{kmPlane} $\ast$pP, kmScalar s)
+\item 
+\hyperlink{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59ab}{POINT\_\-CLASSIFICATION} \hyperlink{plane_8h_8a74a1d649bcd7438e83e38d8b1640a0}{kmPlaneClassifyPoint} (const \hyperlink{structkm_plane}{kmPlane} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn}, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pP)
+\end{CompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59ab}{
+\index{plane.h@{plane.h}!POINT\_\-CLASSIFICATION@{POINT\_\-CLASSIFICATION}}
+\index{POINT\_\-CLASSIFICATION@{POINT\_\-CLASSIFICATION}!plane.h@{plane.h}}
+\subsubsection[{POINT\_\-CLASSIFICATION}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf POINT\_\-CLASSIFICATION}}}
+\label{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59ab}
+
+
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{POINT\_\-INFRONT\_\-OF\_\-PLANE@{POINT\_\-INFRONT\_\-OF\_\-PLANE}!plane.h@{plane.h}}\index{plane.h@{plane.h}!POINT\_\-INFRONT\_\-OF\_\-PLANE@{POINT\_\-INFRONT\_\-OF\_\-PLANE}}\item[{\em 
+\hypertarget{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59ab672074965b7457560d39872373e3cf34}{
+POINT\_\-INFRONT\_\-OF\_\-PLANE}
+\label{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59ab672074965b7457560d39872373e3cf34}
+}]\index{POINT\_\-BEHIND\_\-PLANE@{POINT\_\-BEHIND\_\-PLANE}!plane.h@{plane.h}}\index{plane.h@{plane.h}!POINT\_\-BEHIND\_\-PLANE@{POINT\_\-BEHIND\_\-PLANE}}\item[{\em 
+\hypertarget{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59abd2d0e166fa9b7426f36abb8120e0acaa}{
+POINT\_\-BEHIND\_\-PLANE}
+\label{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59abd2d0e166fa9b7426f36abb8120e0acaa}
+}]\index{POINT\_\-ON\_\-PLANE@{POINT\_\-ON\_\-PLANE}!plane.h@{plane.h}}\index{plane.h@{plane.h}!POINT\_\-ON\_\-PLANE@{POINT\_\-ON\_\-PLANE}}\item[{\em 
+\hypertarget{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59ab5673c0312975039ba8547e7e20fcf3e2}{
+POINT\_\-ON\_\-PLANE}
+\label{plane_8h_81a1a7c372b7e9de0d7b70e56c0e59ab5673c0312975039ba8547e7e20fcf3e2}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 41 of file plane.h.
+
+\subsection{Function Documentation}
+\hypertarget{plane_8h_8a74a1d649bcd7438e83e38d8b1640a0}{
+\index{plane.h@{plane.h}!kmPlaneClassifyPoint@{kmPlaneClassifyPoint}}
+\index{kmPlaneClassifyPoint@{kmPlaneClassifyPoint}!plane.h@{plane.h}}
+\subsubsection[{kmPlaneClassifyPoint}]{\setlength{\rightskip}{0pt plus 5cm}{\bf POINT\_\-CLASSIFICATION} kmPlaneClassifyPoint (const {\bf kmPlane} $\ast$ {\em pIn}, \/  const {\bf kmVec3} $\ast$ {\em pP})}}
+\label{plane_8h_8a74a1d649bcd7438e83e38d8b1640a0}
+
+
+Returns POINT\_\-INFRONT\_\-OF\_\-PLANE if pP is infront of pIn. Returns POINT\_\-BEHIND\_\-PLANE if it is behind. Returns POINT\_\-ON\_\-PLANE otherwise 
+
+Definition at line 162 of file plane.c.
+
+References kmPlane::a, kmPlane::b, kmPlane::c, kmPlane::d, POINT\_\-BEHIND\_\-PLANE, POINT\_\-INFRONT\_\-OF\_\-PLANE, POINT\_\-ON\_\-PLANE, kmVec3::x, kmVec3::y, and kmVec3::z.\hypertarget{plane_8h_a9dc79e2809bb5a6ff45e4f7d813c779}{
+\index{plane.h@{plane.h}!kmPlaneDot@{kmPlaneDot}}
+\index{kmPlaneDot@{kmPlaneDot}!plane.h@{plane.h}}
+\subsubsection[{kmPlaneDot}]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmPlaneDot (const {\bf kmPlane} $\ast$ {\em pP}, \/  const struct {\bf kmVec4} $\ast$ {\em pV})}}
+\label{plane_8h_a9dc79e2809bb5a6ff45e4f7d813c779}
+
+
+\hypertarget{plane_8h_65a8250717dc3b7f9bb66cd7e7aafebc}{
+\index{plane.h@{plane.h}!kmPlaneDotCoord@{kmPlaneDotCoord}}
+\index{kmPlaneDotCoord@{kmPlaneDotCoord}!plane.h@{plane.h}}
+\subsubsection[{kmPlaneDotCoord}]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmPlaneDotCoord (const {\bf kmPlane} $\ast$ {\em pP}, \/  const struct {\bf kmVec3} $\ast$ {\em pV})}}
+\label{plane_8h_65a8250717dc3b7f9bb66cd7e7aafebc}
+
+
+\hypertarget{plane_8h_cc0ca5bfdc3a3b70da9d9596e0bfb47b}{
+\index{plane.h@{plane.h}!kmPlaneDotNormal@{kmPlaneDotNormal}}
+\index{kmPlaneDotNormal@{kmPlaneDotNormal}!plane.h@{plane.h}}
+\subsubsection[{kmPlaneDotNormal}]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmPlaneDotNormal (const {\bf kmPlane} $\ast$ {\em pP}, \/  const struct {\bf kmVec3} $\ast$ {\em pV})}}
+\label{plane_8h_cc0ca5bfdc3a3b70da9d9596e0bfb47b}
+
+
+\hypertarget{plane_8h_ab83fca236238518cc9c3527b2b47ddb}{
+\index{plane.h@{plane.h}!kmPlaneFromPointNormal@{kmPlaneFromPointNormal}}
+\index{kmPlaneFromPointNormal@{kmPlaneFromPointNormal}!plane.h@{plane.h}}
+\subsubsection[{kmPlaneFromPointNormal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmPlane}$\ast$ kmPlaneFromPointNormal ({\bf kmPlane} $\ast$ {\em pOut}, \/  const struct {\bf kmVec3} $\ast$ {\em pPoint}, \/  const struct {\bf kmVec3} $\ast$ {\em pNormal})}}
+\label{plane_8h_ab83fca236238518cc9c3527b2b47ddb}
+
+
+\hypertarget{plane_8h_afbb9683488a4ce131e375a1145afd75}{
+\index{plane.h@{plane.h}!kmPlaneFromPoints@{kmPlaneFromPoints}}
+\index{kmPlaneFromPoints@{kmPlaneFromPoints}!plane.h@{plane.h}}
+\subsubsection[{kmPlaneFromPoints}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmPlane}$\ast$ kmPlaneFromPoints ({\bf kmPlane} $\ast$ {\em pOut}, \/  const struct {\bf kmVec3} $\ast$ {\em p1}, \/  const struct {\bf kmVec3} $\ast$ {\em p2}, \/  const struct {\bf kmVec3} $\ast$ {\em p3})}}
+\label{plane_8h_afbb9683488a4ce131e375a1145afd75}
+
+
+\hypertarget{plane_8h_449bf2cea9bb36981c345b69048e0df3}{
+\index{plane.h@{plane.h}!kmPlaneIntersectLine@{kmPlaneIntersectLine}}
+\index{kmPlaneIntersectLine@{kmPlaneIntersectLine}!plane.h@{plane.h}}
+\subsubsection[{kmPlaneIntersectLine}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmPlaneIntersectLine (struct {\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmPlane} $\ast$ {\em pP}, \/  const struct {\bf kmVec3} $\ast$ {\em pV1}, \/  const struct {\bf kmVec3} $\ast$ {\em pV2})}}
+\label{plane_8h_449bf2cea9bb36981c345b69048e0df3}
+
+
+\hypertarget{plane_8h_550d82a8899910ba8d58209c308aa59d}{
+\index{plane.h@{plane.h}!kmPlaneNormalize@{kmPlaneNormalize}}
+\index{kmPlaneNormalize@{kmPlaneNormalize}!plane.h@{plane.h}}
+\subsubsection[{kmPlaneNormalize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmPlane}$\ast$ kmPlaneNormalize ({\bf kmPlane} $\ast$ {\em pOut}, \/  const {\bf kmPlane} $\ast$ {\em pP})}}
+\label{plane_8h_550d82a8899910ba8d58209c308aa59d}
+
+
+
+
+Definition at line 131 of file plane.c.
+
+References kmPlane::a, kmPlane::b, kmPlane::c, kmPlane::d, kmScalar, kmVec3Length(), kmVec3Normalize(), kmVec3::x, kmVec3::y, and kmVec3::z.\hypertarget{plane_8h_85beb0fc4846b401cebf6d95114dd871}{
+\index{plane.h@{plane.h}!kmPlaneScale@{kmPlaneScale}}
+\index{kmPlaneScale@{kmPlaneScale}!plane.h@{plane.h}}
+\subsubsection[{kmPlaneScale}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmPlane}$\ast$ kmPlaneScale ({\bf kmPlane} $\ast$ {\em pOut}, \/  const {\bf kmPlane} $\ast$ {\em pP}, \/  kmScalar {\em s})}}
+\label{plane_8h_85beb0fc4846b401cebf6d95114dd871}
+
+
+
+
+Definition at line 152 of file plane.c.

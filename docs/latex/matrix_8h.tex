@@ -1,0 +1,178 @@
+\hypertarget{matrix_8h}{
+\section{C:/Users/luke/Desktop/KazMath/kazmath/src/GL/matrix.h File Reference}
+\label{matrix_8h}\index{C:/Users/luke/Desktop/KazMath/kazmath/src/GL/matrix.h@{C:/Users/luke/Desktop/KazMath/kazmath/src/GL/matrix.h}}
+}
+{\tt \#include \char`\"{}../mat4.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \hyperlink{matrix_8h_073bd92d0ad70daa311fcce893065764}{KM\_\-GL\_\-MODELVIEW}~0x1700
+\item 
+\#define \hyperlink{matrix_8h_0a3e1bc30cd17fad3d315e2c9c1c3f1f}{KM\_\-GL\_\-PROJECTION}~0x1701
+\item 
+\#define \hyperlink{matrix_8h_577436e5cbb3657d4e0ab3ee6d2eaf4f}{KM\_\-GL\_\-TEXTURE}~0x1702
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef unsigned int \hyperlink{matrix_8h_b9c6ec8f9c3035c828ce9f38b5f41c42}{kmGLEnum}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{matrix_8h_eb340bd8568b3e1e81968d5e98e8660f}{kmGLPushMatrix} (void)
+\item 
+void \hyperlink{matrix_8h_72513f0c36911034fbde99337d02f9c3}{kmGLPopMatrix} (void)
+\item 
+void \hyperlink{matrix_8h_cc07f172084ef11c02b00c0723f59933}{kmGLMatrixMode} (\hyperlink{matrix_8h_b9c6ec8f9c3035c828ce9f38b5f41c42}{kmGLEnum} mode)
+\item 
+void \hyperlink{matrix_8h_df47c2bd7149dc6326b4c15c29bd047d}{kmGLLoadIdentity} (void)
+\item 
+void \hyperlink{matrix_8h_602e948933c53148a41eeef8c304993b}{kmGLLoadMatrix} (const \hyperlink{structkm_mat4}{kmMat4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\item 
+void \hyperlink{matrix_8h_38c1ac69d5c71294f033cb057f9c00ab}{kmGLMultMatrix} (const \hyperlink{structkm_mat4}{kmMat4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\item 
+void \hyperlink{matrix_8h_7bbc4546bcdc05b410b8bf0dea11a6d3}{kmGLTranslatef} (float x, float y, float z)
+\item 
+void \hyperlink{matrix_8h_9c0db65b3bd6c6e99e3419cd76488938}{kmGLRotatef} (float angle, float x, float y, float z)
+\item 
+void \hyperlink{matrix_8h_5745f3fc0d9e2abb10275750d7f5fa88}{kmGLGetMatrix} (\hyperlink{matrix_8h_b9c6ec8f9c3035c828ce9f38b5f41c42}{kmGLEnum} mode, \hyperlink{structkm_mat4}{kmMat4} $\ast$pOut)
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{matrix_8h_073bd92d0ad70daa311fcce893065764}{
+\index{matrix.h@{matrix.h}!KM\_\-GL\_\-MODELVIEW@{KM\_\-GL\_\-MODELVIEW}}
+\index{KM\_\-GL\_\-MODELVIEW@{KM\_\-GL\_\-MODELVIEW}!matrix.h@{matrix.h}}
+\subsubsection[{KM\_\-GL\_\-MODELVIEW}]{\setlength{\rightskip}{0pt plus 5cm}\#define KM\_\-GL\_\-MODELVIEW~0x1700}}
+\label{matrix_8h_073bd92d0ad70daa311fcce893065764}
+
+
+
+
+Definition at line 29 of file matrix.h.
+
+Referenced by kmGLGetMatrix(), and kmGLMatrixMode().\hypertarget{matrix_8h_0a3e1bc30cd17fad3d315e2c9c1c3f1f}{
+\index{matrix.h@{matrix.h}!KM\_\-GL\_\-PROJECTION@{KM\_\-GL\_\-PROJECTION}}
+\index{KM\_\-GL\_\-PROJECTION@{KM\_\-GL\_\-PROJECTION}!matrix.h@{matrix.h}}
+\subsubsection[{KM\_\-GL\_\-PROJECTION}]{\setlength{\rightskip}{0pt plus 5cm}\#define KM\_\-GL\_\-PROJECTION~0x1701}}
+\label{matrix_8h_0a3e1bc30cd17fad3d315e2c9c1c3f1f}
+
+
+
+
+Definition at line 30 of file matrix.h.
+
+Referenced by kmGLGetMatrix(), and kmGLMatrixMode().\hypertarget{matrix_8h_577436e5cbb3657d4e0ab3ee6d2eaf4f}{
+\index{matrix.h@{matrix.h}!KM\_\-GL\_\-TEXTURE@{KM\_\-GL\_\-TEXTURE}}
+\index{KM\_\-GL\_\-TEXTURE@{KM\_\-GL\_\-TEXTURE}!matrix.h@{matrix.h}}
+\subsubsection[{KM\_\-GL\_\-TEXTURE}]{\setlength{\rightskip}{0pt plus 5cm}\#define KM\_\-GL\_\-TEXTURE~0x1702}}
+\label{matrix_8h_577436e5cbb3657d4e0ab3ee6d2eaf4f}
+
+
+
+
+Definition at line 31 of file matrix.h.
+
+Referenced by kmGLGetMatrix(), and kmGLMatrixMode().
+
+\subsection{Typedef Documentation}
+\hypertarget{matrix_8h_b9c6ec8f9c3035c828ce9f38b5f41c42}{
+\index{matrix.h@{matrix.h}!kmGLEnum@{kmGLEnum}}
+\index{kmGLEnum@{kmGLEnum}!matrix.h@{matrix.h}}
+\subsubsection[{kmGLEnum}]{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned int {\bf kmGLEnum}}}
+\label{matrix_8h_b9c6ec8f9c3035c828ce9f38b5f41c42}
+
+
+
+
+Definition at line 33 of file matrix.h.
+
+\subsection{Function Documentation}
+\hypertarget{matrix_8h_5745f3fc0d9e2abb10275750d7f5fa88}{
+\index{matrix.h@{matrix.h}!kmGLGetMatrix@{kmGLGetMatrix}}
+\index{kmGLGetMatrix@{kmGLGetMatrix}!matrix.h@{matrix.h}}
+\subsubsection[{kmGLGetMatrix}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLGetMatrix ({\bf kmGLEnum} {\em mode}, \/  {\bf kmMat4} $\ast$ {\em pOut})}}
+\label{matrix_8h_5745f3fc0d9e2abb10275750d7f5fa88}
+
+
+
+
+Definition at line 132 of file matrix.c.
+
+References KM\_\-GL\_\-MODELVIEW, KM\_\-GL\_\-PROJECTION, KM\_\-GL\_\-TEXTURE, kmMat4Assign(), lazyInitialize(), and km\_\-mat4\_\-stack::top.\hypertarget{matrix_8h_df47c2bd7149dc6326b4c15c29bd047d}{
+\index{matrix.h@{matrix.h}!kmGLLoadIdentity@{kmGLLoadIdentity}}
+\index{kmGLLoadIdentity@{kmGLLoadIdentity}!matrix.h@{matrix.h}}
+\subsubsection[{kmGLLoadIdentity}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLLoadIdentity (void)}}
+\label{matrix_8h_df47c2bd7149dc6326b4c15c29bd047d}
+
+
+
+
+Definition at line 102 of file matrix.c.
+
+References kmMat4Identity(), lazyInitialize(), and km\_\-mat4\_\-stack::top.\hypertarget{matrix_8h_602e948933c53148a41eeef8c304993b}{
+\index{matrix.h@{matrix.h}!kmGLLoadMatrix@{kmGLLoadMatrix}}
+\index{kmGLLoadMatrix@{kmGLLoadMatrix}!matrix.h@{matrix.h}}
+\subsubsection[{kmGLLoadMatrix}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLLoadMatrix (const {\bf kmMat4} $\ast$ {\em pIn})}}
+\label{matrix_8h_602e948933c53148a41eeef8c304993b}
+
+
+\hypertarget{matrix_8h_cc07f172084ef11c02b00c0723f59933}{
+\index{matrix.h@{matrix.h}!kmGLMatrixMode@{kmGLMatrixMode}}
+\index{kmGLMatrixMode@{kmGLMatrixMode}!matrix.h@{matrix.h}}
+\subsubsection[{kmGLMatrixMode}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLMatrixMode ({\bf kmGLEnum} {\em mode})}}
+\label{matrix_8h_cc07f172084ef11c02b00c0723f59933}
+
+
+
+
+Definition at line 67 of file matrix.c.
+
+References KM\_\-GL\_\-MODELVIEW, KM\_\-GL\_\-PROJECTION, KM\_\-GL\_\-TEXTURE, and lazyInitialize().\hypertarget{matrix_8h_38c1ac69d5c71294f033cb057f9c00ab}{
+\index{matrix.h@{matrix.h}!kmGLMultMatrix@{kmGLMultMatrix}}
+\index{kmGLMultMatrix@{kmGLMultMatrix}!matrix.h@{matrix.h}}
+\subsubsection[{kmGLMultMatrix}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLMultMatrix (const {\bf kmMat4} $\ast$ {\em pIn})}}
+\label{matrix_8h_38c1ac69d5c71294f033cb057f9c00ab}
+
+
+
+
+Definition at line 126 of file matrix.c.
+
+References kmMat4Multiply(), lazyInitialize(), and km\_\-mat4\_\-stack::top.\hypertarget{matrix_8h_72513f0c36911034fbde99337d02f9c3}{
+\index{matrix.h@{matrix.h}!kmGLPopMatrix@{kmGLPopMatrix}}
+\index{kmGLPopMatrix@{kmGLPopMatrix}!matrix.h@{matrix.h}}
+\subsubsection[{kmGLPopMatrix}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLPopMatrix (void)}}
+\label{matrix_8h_72513f0c36911034fbde99337d02f9c3}
+
+
+
+
+Definition at line 96 of file matrix.c.
+
+References km\_\-mat4\_\-stack\_\-pop().\hypertarget{matrix_8h_eb340bd8568b3e1e81968d5e98e8660f}{
+\index{matrix.h@{matrix.h}!kmGLPushMatrix@{kmGLPushMatrix}}
+\index{kmGLPushMatrix@{kmGLPushMatrix}!matrix.h@{matrix.h}}
+\subsubsection[{kmGLPushMatrix}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLPushMatrix (void)}}
+\label{matrix_8h_eb340bd8568b3e1e81968d5e98e8660f}
+
+
+
+
+Definition at line 88 of file matrix.c.
+
+References km\_\-mat4\_\-stack\_\-push(), lazyInitialize(), and km\_\-mat4\_\-stack::top.\hypertarget{matrix_8h_9c0db65b3bd6c6e99e3419cd76488938}{
+\index{matrix.h@{matrix.h}!kmGLRotatef@{kmGLRotatef}}
+\index{kmGLRotatef@{kmGLRotatef}!matrix.h@{matrix.h}}
+\subsubsection[{kmGLRotatef}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLRotatef (float {\em angle}, \/  float {\em x}, \/  float {\em y}, \/  float {\em z})}}
+\label{matrix_8h_9c0db65b3bd6c6e99e3419cd76488938}
+
+
+\hypertarget{matrix_8h_7bbc4546bcdc05b410b8bf0dea11a6d3}{
+\index{matrix.h@{matrix.h}!kmGLTranslatef@{kmGLTranslatef}}
+\index{kmGLTranslatef@{kmGLTranslatef}!matrix.h@{matrix.h}}
+\subsubsection[{kmGLTranslatef}]{\setlength{\rightskip}{0pt plus 5cm}void kmGLTranslatef (float {\em x}, \/  float {\em y}, \/  float {\em z})}}
+\label{matrix_8h_7bbc4546bcdc05b410b8bf0dea11a6d3}
+
+

@@ -1,0 +1,269 @@
+\hypertarget{vec3_8h}{
+\section{C:/Users/luke/Desktop/KazMath/kazmath/src/vec3.h File Reference}
+\label{vec3_8h}\index{C:/Users/luke/Desktop/KazMath/kazmath/src/vec3.h@{C:/Users/luke/Desktop/KazMath/kazmath/src/vec3.h}}
+}
+{\tt \#include $<$assert.h$>$}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \hyperlink{structkm_vec3}{kmVec3}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \hyperlink{vec3_8h_13c982467de32cab64560329cae90bdd}{kmScalar}~float
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_327a16c25be8c921f5c8710e14c4fdcd}{kmVec3Fill} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, kmScalar x, kmScalar y, kmScalar z)
+\item 
+kmScalar \hyperlink{vec3_8h_8e019f2b3549e0dc7b9847868ba548fa}{kmVec3Length} (const \hyperlink{structkm_vec3}{kmVec3} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\item 
+kmScalar \hyperlink{vec3_8h_aabb0b5f2fc888052679d401852e63a9}{kmVec3LengthSq} (const \hyperlink{structkm_vec3}{kmVec3} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_61a55fc5e4ce21322cb8141653a1d0ff}{kmVec3Normalize} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_vec3}{kmVec3} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_2b3ed559520bc2071b05f40b29f343e6}{kmVec3Cross} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pV1, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pV2)
+\item 
+kmScalar \hyperlink{vec3_8h_7ed6bea8c65144ef31156825aea0b3e5}{kmVec3Dot} (const \hyperlink{structkm_vec3}{kmVec3} $\ast$pV1, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pV2)
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_eec93a828519b0ecdd20942463598c5e}{kmVec3Add} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pV1, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pV2)
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_07cb9ab6d64f4a458191f80eb3405324}{kmVec3Subtract} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pV1, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pV2)
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_afafc61056c5301ef53169d0b92f7c95}{kmVec3Transform} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pV1, const struct \hyperlink{structkm_mat4}{kmMat4} $\ast$pM)
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_5bbf810ccd9d6b229d2d420acb2eae68}{kmVec3TransformNormal} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pV, const struct \hyperlink{structkm_mat4}{kmMat4} $\ast$pM)
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_54abac0e4b0b19ae52dc7dcf5cdf27c3}{kmVec3TransformCoord} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pV, const struct \hyperlink{structkm_mat4}{kmMat4} $\ast$pM)
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_340a910a28c1b7bec6c55fb7072e331f}{kmVec3Scale} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_vec3}{kmVec3} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn}, const kmScalar s)
+\item 
+int \hyperlink{vec3_8h_050b057e12c51103781d5dec80153114}{kmVec3AreEqual} (const \hyperlink{structkm_vec3}{kmVec3} $\ast$p1, const \hyperlink{structkm_vec3}{kmVec3} $\ast$p2)
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_e664aa5aa6e204f82935e5d624c69d44}{kmVec3InverseTransform} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pV, const struct \hyperlink{structkm_mat4}{kmMat4} $\ast$pM)
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_4bfc197cf1c1d2ae29cf7ac6220b0fde}{kmVec3InverseTransformNormal} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_vec3}{kmVec3} $\ast$pVect, const struct \hyperlink{structkm_mat4}{kmMat4} $\ast$pM)
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_b37e84980fd909eeb65ff21268a9e5ac}{kmVec3Assign} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_vec3}{kmVec3} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\item 
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{vec3_8h_b1384be1801802bdd4390481ff018400}{kmVec3Zero} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut)
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{vec3_8h_13c982467de32cab64560329cae90bdd}{
+\index{vec3.h@{vec3.h}!kmScalar@{kmScalar}}
+\index{kmScalar@{kmScalar}!vec3.h@{vec3.h}}
+\subsubsection[{kmScalar}]{\setlength{\rightskip}{0pt plus 5cm}\#define kmScalar~float}}
+\label{vec3_8h_13c982467de32cab64560329cae90bdd}
+
+
+
+
+Definition at line 32 of file vec3.h.
+
+\subsection{Function Documentation}
+\hypertarget{vec3_8h_eec93a828519b0ecdd20942463598c5e}{
+\index{vec3.h@{vec3.h}!kmVec3Add@{kmVec3Add}}
+\index{kmVec3Add@{kmVec3Add}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3Add}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3Add ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pV1}, \/  const {\bf kmVec3} $\ast$ {\em pV2})}}
+\label{vec3_8h_eec93a828519b0ecdd20942463598c5e}
+
+
+Returns the cosine of the angle between 2 vectors
+
+Adds 2 vectors and returns the result. The resulting vector is stored in pOut. 
+
+Definition at line 121 of file vec3.c.
+
+References kmVec3::x, kmVec3::y, and kmVec3::z.
+
+Referenced by kmQuaternionMultiplyVec3().\hypertarget{vec3_8h_050b057e12c51103781d5dec80153114}{
+\index{vec3.h@{vec3.h}!kmVec3AreEqual@{kmVec3AreEqual}}
+\index{kmVec3AreEqual@{kmVec3AreEqual}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3AreEqual}]{\setlength{\rightskip}{0pt plus 5cm}int kmVec3AreEqual (const {\bf kmVec3} $\ast$ {\em p1}, \/  const {\bf kmVec3} $\ast$ {\em p2})}}
+\label{vec3_8h_050b057e12c51103781d5dec80153114}
+
+
+Scales a vector to length s
+
+Returns KM\_\-TRUE if the 2 vectors are approximately equal 
+
+Definition at line 268 of file vec3.c.
+
+References kmEpsilon, kmVec3::x, kmVec3::y, and kmVec3::z.\hypertarget{vec3_8h_b37e84980fd909eeb65ff21268a9e5ac}{
+\index{vec3.h@{vec3.h}!kmVec3Assign@{kmVec3Assign}}
+\index{kmVec3Assign@{kmVec3Assign}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3Assign}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3Assign ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pIn})}}
+\label{vec3_8h_b37e84980fd909eeb65ff21268a9e5ac}
+
+
+Assigns pIn to pOut. Returns pOut. If pIn and pOut are the same then nothing happens but pOut is still returned 
+
+Definition at line 283 of file vec3.c.
+
+References kmVec3::x, kmVec3::y, and kmVec3::z.
+
+Referenced by kmMat4LookAt(), and kmQuaternionRotationBetweenVec3().\hypertarget{vec3_8h_2b3ed559520bc2071b05f40b29f343e6}{
+\index{vec3.h@{vec3.h}!kmVec3Cross@{kmVec3Cross}}
+\index{kmVec3Cross@{kmVec3Cross}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3Cross}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3Cross ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pV1}, \/  const {\bf kmVec3} $\ast$ {\em pV2})}}
+\label{vec3_8h_2b3ed559520bc2071b05f40b29f343e6}
+
+
+Returns the vector passed in set to unit length
+
+Returns a vector perpendicular to 2 other vectors. The result is stored in pOut. 
+
+Definition at line 91 of file vec3.c.
+
+References kmVec3::x, kmVec3::y, and kmVec3::z.
+
+Referenced by kmMat4LookAt(), kmPlaneFromPoints(), kmQuaternionMultiplyVec3(), and kmQuaternionRotationBetweenVec3().\hypertarget{vec3_8h_7ed6bea8c65144ef31156825aea0b3e5}{
+\index{vec3.h@{vec3.h}!kmVec3Dot@{kmVec3Dot}}
+\index{kmVec3Dot@{kmVec3Dot}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3Dot}]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmVec3Dot (const {\bf kmVec3} $\ast$ {\em pV1}, \/  const {\bf kmVec3} $\ast$ {\em pV2})}}
+\label{vec3_8h_7ed6bea8c65144ef31156825aea0b3e5}
+
+
+Returns a vector perpendicular to 2 other vectors
+
+Returns the cosine of the angle between 2 vectors 
+
+Definition at line 110 of file vec3.c.
+
+References kmVec3::x, kmVec3::y, and kmVec3::z.
+
+Referenced by kmPlaneFromPointNormal(), kmPlaneFromPoints(), and kmQuaternionRotationBetweenVec3().\hypertarget{vec3_8h_327a16c25be8c921f5c8710e14c4fdcd}{
+\index{vec3.h@{vec3.h}!kmVec3Fill@{kmVec3Fill}}
+\index{kmVec3Fill@{kmVec3Fill}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3Fill}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3Fill ({\bf kmVec3} $\ast$ {\em pOut}, \/  kmScalar {\em x}, \/  kmScalar {\em y}, \/  kmScalar {\em z})}}
+\label{vec3_8h_327a16c25be8c921f5c8710e14c4fdcd}
+
+
+Fill a \hyperlink{structkm_vec3}{kmVec3} structure using 3 floating point values The result is store in pOut, returns pOut 
+
+Definition at line 42 of file vec3.c.
+
+References kmVec3::x, kmVec3::y, and kmVec3::z.\hypertarget{vec3_8h_e664aa5aa6e204f82935e5d624c69d44}{
+\index{vec3.h@{vec3.h}!kmVec3InverseTransform@{kmVec3InverseTransform}}
+\index{kmVec3InverseTransform@{kmVec3InverseTransform}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3InverseTransform}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3InverseTransform ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pV}, \/  const struct {\bf kmMat4} $\ast$ {\em pM})}}
+\label{vec3_8h_e664aa5aa6e204f82935e5d624c69d44}
+
+
+\hypertarget{vec3_8h_4bfc197cf1c1d2ae29cf7ac6220b0fde}{
+\index{vec3.h@{vec3.h}!kmVec3InverseTransformNormal@{kmVec3InverseTransformNormal}}
+\index{kmVec3InverseTransformNormal@{kmVec3InverseTransformNormal}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3InverseTransformNormal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3InverseTransformNormal ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pVect}, \/  const struct {\bf kmMat4} $\ast$ {\em pM})}}
+\label{vec3_8h_4bfc197cf1c1d2ae29cf7ac6220b0fde}
+
+
+\hypertarget{vec3_8h_8e019f2b3549e0dc7b9847868ba548fa}{
+\index{vec3.h@{vec3.h}!kmVec3Length@{kmVec3Length}}
+\index{kmVec3Length@{kmVec3Length}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3Length}]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmVec3Length (const {\bf kmVec3} $\ast$ {\em pIn})}}
+\label{vec3_8h_8e019f2b3549e0dc7b9847868ba548fa}
+
+
+Returns the length of the vector 
+
+Definition at line 54 of file vec3.c.
+
+References kmSQR(), kmVec3::x, kmVec3::y, and kmVec3::z.
+
+Referenced by kmPlaneNormalize(), and kmVec3Normalize().\hypertarget{vec3_8h_aabb0b5f2fc888052679d401852e63a9}{
+\index{vec3.h@{vec3.h}!kmVec3LengthSq@{kmVec3LengthSq}}
+\index{kmVec3LengthSq@{kmVec3LengthSq}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3LengthSq}]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmVec3LengthSq (const {\bf kmVec3} $\ast$ {\em pIn})}}
+\label{vec3_8h_aabb0b5f2fc888052679d401852e63a9}
+
+
+Returns the length of the vector
+
+Returns the square of the length of the vector 
+
+Definition at line 62 of file vec3.c.
+
+References kmSQR(), kmVec3::x, kmVec3::y, and kmVec3::z.
+
+Referenced by kmQuaternionRotationBetweenVec3().\hypertarget{vec3_8h_61a55fc5e4ce21322cb8141653a1d0ff}{
+\index{vec3.h@{vec3.h}!kmVec3Normalize@{kmVec3Normalize}}
+\index{kmVec3Normalize@{kmVec3Normalize}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3Normalize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3Normalize ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pIn})}}
+\label{vec3_8h_61a55fc5e4ce21322cb8141653a1d0ff}
+
+
+Returns the square of the length of the vector
+
+Returns the vector passed in set to unit length the result is stored in pOut. 
+
+Definition at line 71 of file vec3.c.
+
+References kmScalar, kmVec3Length(), kmVec3::x, kmVec3::y, and kmVec3::z.
+
+Referenced by kmMat4GetForwardVec3(), kmMat4GetRightVec3(), kmMat4GetUpVec3(), kmMat4LookAt(), kmPlaneFromPoints(), kmPlaneNormalize(), kmQuaternionRotationBetweenVec3(), and kmQuaternionToAxisAngle().\hypertarget{vec3_8h_340a910a28c1b7bec6c55fb7072e331f}{
+\index{vec3.h@{vec3.h}!kmVec3Scale@{kmVec3Scale}}
+\index{kmVec3Scale@{kmVec3Scale}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3Scale}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3Scale ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pIn}, \/  const kmScalar {\em s})}}
+\label{vec3_8h_340a910a28c1b7bec6c55fb7072e331f}
+
+
+Transforms a 3D vector by a given matrix, projecting the result back into w = 1.
+
+Scales a vector to length s. Does not normalize first, you should do that! 
+
+Definition at line 256 of file vec3.c.
+
+References kmVec3::x, kmVec3::y, and kmVec3::z.
+
+Referenced by kmPlaneFromPoints(), and kmQuaternionMultiplyVec3().\hypertarget{vec3_8h_07cb9ab6d64f4a458191f80eb3405324}{
+\index{vec3.h@{vec3.h}!kmVec3Subtract@{kmVec3Subtract}}
+\index{kmVec3Subtract@{kmVec3Subtract}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3Subtract}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3Subtract ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pV1}, \/  const {\bf kmVec3} $\ast$ {\em pV2})}}
+\label{vec3_8h_07cb9ab6d64f4a458191f80eb3405324}
+
+
+Adds 2 vectors and returns the result
+
+Subtracts 2 vectors and returns the result. The result is stored in pOut. 
+
+Definition at line 140 of file vec3.c.
+
+References kmVec3::x, kmVec3::y, and kmVec3::z.
+
+Referenced by kmMat4LookAt(), kmPlaneFromPoints(), and kmPlaneIntersectLine().\hypertarget{vec3_8h_afafc61056c5301ef53169d0b92f7c95}{
+\index{vec3.h@{vec3.h}!kmVec3Transform@{kmVec3Transform}}
+\index{kmVec3Transform@{kmVec3Transform}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3Transform}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3Transform ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pV1}, \/  const struct {\bf kmMat4} $\ast$ {\em pM})}}
+\label{vec3_8h_afafc61056c5301ef53169d0b92f7c95}
+
+
+Subtracts 2 vectors and returns the result \hypertarget{vec3_8h_54abac0e4b0b19ae52dc7dcf5cdf27c3}{
+\index{vec3.h@{vec3.h}!kmVec3TransformCoord@{kmVec3TransformCoord}}
+\index{kmVec3TransformCoord@{kmVec3TransformCoord}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3TransformCoord}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3TransformCoord ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pV}, \/  const struct {\bf kmMat4} $\ast$ {\em pM})}}
+\label{vec3_8h_54abac0e4b0b19ae52dc7dcf5cdf27c3}
+
+
+\hypertarget{vec3_8h_5bbf810ccd9d6b229d2d420acb2eae68}{
+\index{vec3.h@{vec3.h}!kmVec3TransformNormal@{kmVec3TransformNormal}}
+\index{kmVec3TransformNormal@{kmVec3TransformNormal}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3TransformNormal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3TransformNormal ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pV}, \/  const struct {\bf kmMat4} $\ast$ {\em pM})}}
+\label{vec3_8h_5bbf810ccd9d6b229d2d420acb2eae68}
+
+
+\hypertarget{vec3_8h_b1384be1801802bdd4390481ff018400}{
+\index{vec3.h@{vec3.h}!kmVec3Zero@{kmVec3Zero}}
+\index{kmVec3Zero@{kmVec3Zero}!vec3.h@{vec3.h}}
+\subsubsection[{kmVec3Zero}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmVec3Zero ({\bf kmVec3} $\ast$ {\em pOut})}}
+\label{vec3_8h_b1384be1801802bdd4390481ff018400}
+
+
+Sets all the elements of pOut to zero. Returns pOut. 
+
+Definition at line 298 of file vec3.c.
+
+References kmVec3::x, kmVec3::y, and kmVec3::z.

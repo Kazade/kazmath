@@ -1,0 +1,53 @@
+\hypertarget{utility_8c}{
+\section{C:/Users/luke/Desktop/KazMath/kazmath/src/utility.c File Reference}
+\label{utility_8c}\index{C:/Users/luke/Desktop/KazMath/kazmath/src/utility.c@{C:/Users/luke/Desktop/KazMath/kazmath/src/utility.c}}
+}
+{\tt \#include \char`\"{}utility.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+kmScalar \hyperlink{utility_8c_baccba26e1ee8a40c74692818ae84fd4}{kmSQR} (kmScalar s)
+\item 
+kmScalar \hyperlink{utility_8c_b0ea21c5e13f71fd8bdcf404c7cbcf34}{kmDegreesToRadians} (kmScalar degrees)
+\item 
+kmScalar \hyperlink{utility_8c_10cf11f45b8ce07219996467c7a27d10}{kmRadiansToDegrees} (kmScalar radians)
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{utility_8c_b0ea21c5e13f71fd8bdcf404c7cbcf34}{
+\index{utility.c@{utility.c}!kmDegreesToRadians@{kmDegreesToRadians}}
+\index{kmDegreesToRadians@{kmDegreesToRadians}!utility.c@{utility.c}}
+\subsubsection[{kmDegreesToRadians}]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmDegreesToRadians (kmScalar {\em degrees})}}
+\label{utility_8c_b0ea21c5e13f71fd8bdcf404c7cbcf34}
+
+
+Returns degrees as radians. 
+
+Definition at line 38 of file utility.c.
+
+References kmPIOver180.
+
+Referenced by kmMat4PerspectiveProjection(), and kmQuaternionRotationYawPitchRoll().\hypertarget{utility_8c_10cf11f45b8ce07219996467c7a27d10}{
+\index{utility.c@{utility.c}!kmRadiansToDegrees@{kmRadiansToDegrees}}
+\index{kmRadiansToDegrees@{kmRadiansToDegrees}!utility.c@{utility.c}}
+\subsubsection[{kmRadiansToDegrees}]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmRadiansToDegrees (kmScalar {\em radians})}}
+\label{utility_8c_10cf11f45b8ce07219996467c7a27d10}
+
+
+Returns radians as degrees 
+
+Definition at line 45 of file utility.c.
+
+References kmPIUnder180.\hypertarget{utility_8c_baccba26e1ee8a40c74692818ae84fd4}{
+\index{utility.c@{utility.c}!kmSQR@{kmSQR}}
+\index{kmSQR@{kmSQR}!utility.c@{utility.c}}
+\subsubsection[{kmSQR}]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmSQR (kmScalar {\em s})}}
+\label{utility_8c_baccba26e1ee8a40c74692818ae84fd4}
+
+
+Returns the square of s (e.g. s$\ast$s) 
+
+Definition at line 31 of file utility.c.
+
+Referenced by kmQuaternionSlerp(), kmQuaternionToAxisAngle(), kmVec2Length(), kmVec2LengthSq(), kmVec3Length(), kmVec3LengthSq(), kmVec4Length(), and kmVec4LengthSq().

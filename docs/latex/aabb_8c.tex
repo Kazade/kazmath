@@ -1,0 +1,47 @@
+\hypertarget{aabb_8c}{
+\section{C:/Users/luke/Desktop/KazMath/kazmath/src/aabb.c File Reference}
+\label{aabb_8c}\index{C:/Users/luke/Desktop/KazMath/kazmath/src/aabb.c@{C:/Users/luke/Desktop/KazMath/kazmath/src/aabb.c}}
+}
+{\tt \#include \char`\"{}aabb.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{aabb_8c_14642b5cca95df665f561512357742ba}{kmAABBPointInBox} (const \hyperlink{structkm_vec3}{kmVec3} $\ast$pPoint, const \hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$pBox)
+\item 
+\hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$ \hyperlink{aabb_8c_8fd86991f5245c1d724e2fb4dd819a85}{kmAABBAssign} (\hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$pOut, const \hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\item 
+\hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$ \hyperlink{aabb_8c_50e6223b653e3a64f99e26e8e3134253}{kmAABBScale} (\hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$pOut, const \hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn}, kmScalar s)
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{aabb_8c_8fd86991f5245c1d724e2fb4dd819a85}{
+\index{aabb.c@{aabb.c}!kmAABBAssign@{kmAABBAssign}}
+\index{kmAABBAssign@{kmAABBAssign}!aabb.c@{aabb.c}}
+\subsubsection[{kmAABBAssign}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmAABB}$\ast$ kmAABBAssign ({\bf kmAABB} $\ast$ {\em pOut}, \/  const {\bf kmAABB} $\ast$ {\em pIn})}}
+\label{aabb_8c_8fd86991f5245c1d724e2fb4dd819a85}
+
+
+Assigns pIn to pOut, returns pOut. 
+
+Definition at line 39 of file aabb.c.\hypertarget{aabb_8c_14642b5cca95df665f561512357742ba}{
+\index{aabb.c@{aabb.c}!kmAABBPointInBox@{kmAABBPointInBox}}
+\index{kmAABBPointInBox@{kmAABBPointInBox}!aabb.c@{aabb.c}}
+\subsubsection[{kmAABBPointInBox}]{\setlength{\rightskip}{0pt plus 5cm}int kmAABBPointInBox (const {\bf kmVec3} $\ast$ {\em pPoint}, \/  const {\bf kmAABB} $\ast$ {\em pBox})}}
+\label{aabb_8c_14642b5cca95df665f561512357742ba}
+
+
+Returns KM\_\-TRUE if point is in the specified AABB, returns KM\_\-FALSE otherwise. 
+
+Definition at line 30 of file aabb.c.
+
+References KM\_\-FALSE.\hypertarget{aabb_8c_50e6223b653e3a64f99e26e8e3134253}{
+\index{aabb.c@{aabb.c}!kmAABBScale@{kmAABBScale}}
+\index{kmAABBScale@{kmAABBScale}!aabb.c@{aabb.c}}
+\subsubsection[{kmAABBScale}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmAABB}$\ast$ kmAABBScale ({\bf kmAABB} $\ast$ {\em pOut}, \/  const {\bf kmAABB} $\ast$ {\em pIn}, \/  kmScalar {\em s})}}
+\label{aabb_8c_50e6223b653e3a64f99e26e8e3134253}
+
+
+Scales pIn by s, stores the resulting AABB in pOut. Returns pOut 
+
+Definition at line 48 of file aabb.c.
