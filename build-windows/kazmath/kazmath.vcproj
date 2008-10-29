@@ -201,6 +201,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\kazmathxx.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\mat3.h"
 				>
 			</File>
