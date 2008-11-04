@@ -145,7 +145,7 @@ struct Vec3 : public kmVec3 {
         this->y = result.y;
         this->z = result.z;
 
-        return result;        
+        return *this;        
     }
 
     const Vec3& operator*=(const float s) {
@@ -220,37 +220,9 @@ struct Vec2 : public kmVec2 {
     	return result;
 	}	
 	
-    /** 
-    * I've decided to make multiplication of 2 vectors to 
-    * mean the cross product
-    */
-    const Vec2 operator*(const kmVec2& v) const {
-        kmVec2 result;
-	    result.x = (y * v.z) - (z * v.y);
-	    result.y = (z * v.x) - (x * v.z);
-
-        return result;
-    }
-
-    /**
-    * Cross product then assign the result
-    */
-    const Vec3& operator*=(const kmVec3& v) {
-        kmVec3 result;
-
-	    result.x = (y * v.z) - (z * v.y);
-	    result.y = (z * v.x) - (x * v.z);
-
-        this->x = result.x;
-        this->y = result.y;
-
-        return result;        
-    }
-
-    const Vec3& operator*=(const float s) {
+    const Vec2& operator*=(const float s) {
 		this->x = this->x * s;
 		this->y = this->y * s;
-		this->z = this->z * s;
     	return *this;
 	}	
 };
@@ -264,13 +236,13 @@ struct Mat4 : public kmMat4 {
 
     Mat4(const kmMat4& m) {
         for (int i = 0; i < 16; ++i) {
-            this->mat[i] = v.m[i];
+            this->mat[i] = m.mat[i];
         }
     }
 
     const Mat4& operator=(const kmMat4& m) {
         for (int i = 0; i < 16; ++i) {
-            this->mat[i] = v.m[i];
+            this->mat[i] = m.mat[i];
         }
 
         return *this;
@@ -286,13 +258,13 @@ struct Mat3 : public kmMat3 {
 
     Mat3(const kmMat3& m) {
         for (int i = 0; i < 9; ++i) {
-            this->mat[i] = v.m[i];
+            this->mat[i] = m.mat[i];
         }
     }
 
     const Mat3& operator=(const kmMat3& m) {
         for (int i = 0; i < 9; ++i) {
-            this->mat[i] = v.m[i];
+            this->mat[i] = m.mat[i];
         }
 
         return *this;
@@ -316,8 +288,6 @@ struct Plane : public kmPlane {
         this->b = p.b;
         this->c = p.c;
         this->d = p.d;
-
-        return *this;
     }
 
     const Plane& operator=(const kmPlane& p) {
@@ -331,12 +301,11 @@ struct Plane : public kmPlane {
 };
 
 struct Quaternion : public kmQuaternion {
-    Quaternion():
-    w(0.0f),
-    x(0.0f),
-    y(0.0f),
-    z(0.0f) {
-
+    Quaternion() {
+        this->w = 0.0f;
+        this->x = 0.0f;
+        this->y = 0.0f;
+        this->z = 0.0f;
     }
 
     Quaternion(const kmQuaternion q) {
