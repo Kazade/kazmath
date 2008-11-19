@@ -80,7 +80,7 @@ void kmGLMatrixMode(kmGLEnum mode)
 			current_stack = texture_matrix_stack;
 		break;
 		default:
-			assert(1 && "Invalid matrix mode specified"); //TODO: Proper error handling
+			assert(0 && "Invalid matrix mode specified"); //TODO: Proper error handling
 		break;
 	}
 }
@@ -148,4 +148,33 @@ void kmGLGetMatrix(kmGLEnum mode, kmMat4* pOut)
 			assert(1 && "Invalid matrix mode specified"); //TODO: Proper error handling
 		break;
 	}
+}
+
+void kmGLTranslatef(float x, float y, float z)
+{
+	current_stack->top->mat[12] += x;
+	current_stack->top->mat[13] += y;
+	current_stack->top->mat[14] += z;
+}
+
+void kmGLRotatef(float angle, float x, float y, float z)
+{
+	kmVec3 axis;
+	kmMat4 rotation;
+	
+	//Create an axis vector
+	kmVec3Fill(&axis, x, y, z);
+	
+	//Create a rotation matrix using the axis and the angle
+	kmMat4Rotation(&rotation, &axis, kmDegreesToRadians(angle));
+	
+	//Multiply the rotation matrix by the current matrix
+	kmMat4Multiply(current_stack->top, &rotation, current_stack->top);
+}
+
+void kmGLScalef(float x, float y, float z)
+{
+	kmMat4 scaling;
+	kmMat4Scaling(&scaling, x, y, z);
+	kmMat4Multiply(current_stack->top, &scaling, current_stack->top);
 }

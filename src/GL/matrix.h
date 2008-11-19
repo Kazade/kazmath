@@ -46,6 +46,7 @@ void kmGLLoadMatrix(const kmMat4* pIn);
 void kmGLMultMatrix(const kmMat4* pIn);
 void kmGLTranslatef(float x, float y, float z);
 void kmGLRotatef(float angle, float x, float y, float z);
+void kmGLScalef(float x, float y, float z);
 void kmGLGetMatrix(kmGLEnum mode, kmMat4* pOut);
 
 #ifdef __cplusplus
