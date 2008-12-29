@@ -27,6 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define KAZMATH_AABB_H_INCLUDED
 
 #include "vec3.h"
+#include "utility.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,7 +42,7 @@ typedef struct kmAABB {
 	kmVec3 max; /** The min corner of the box */
 } kmAABB;
 
-int kmAABBPointInBox(const kmVec3* pPoint, const kmAABB* pBox)
+int kmAABBPointInBox(const kmVec3* pPoint, const kmAABB* pBox);
 kmAABB* kmAABBAssign(kmAABB* pOut, const kmAABB* pIn);
 kmAABB* kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s);
 

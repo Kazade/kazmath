@@ -33,6 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef unsigned int kmGLEnum;
 
 #include "../mat4.h"
+#include "../vec3.h"
 
 #ifdef __cplusplus
 extern "C" {

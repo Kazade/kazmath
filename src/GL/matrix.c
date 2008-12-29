@@ -26,8 +26,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <assert.h>
 
-#include "mat4stack.h"
 #include "matrix.h"
+#include "mat4stack.h"
 
 km_mat4_stack* modelview_matrix_stack = NULL;
 km_mat4_stack* projection_matrix_stack = NULL;
@@ -161,13 +161,13 @@ void kmGLRotatef(float angle, float x, float y, float z)
 {
 	kmVec3 axis;
 	kmMat4 rotation;
-	
+
 	//Create an axis vector
 	kmVec3Fill(&axis, x, y, z);
-	
+
 	//Create a rotation matrix using the axis and the angle
-	kmMat4Rotation(&rotation, &axis, kmDegreesToRadians(angle));
-	
+	kmMat4RotationAxis(&rotation, &axis, kmDegreesToRadians(angle));
+
 	//Multiply the rotation matrix by the current matrix
 	kmMat4Multiply(current_stack->top, &rotation, current_stack->top);
 }

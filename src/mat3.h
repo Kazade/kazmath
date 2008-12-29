@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct kmVec3;
 struct kmQuaternion;
 
-struct kmMat3{
+typedef struct kmMat3{
 	kmScalar mat[9];
 } kmMat3;
 

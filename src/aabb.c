@@ -23,6 +23,8 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "aabb.h"
+
 /**
  * Returns KM_TRUE if point is in the specified AABB, returns
  * KM_FALSE otherwise.
@@ -51,4 +53,4 @@ kmAABB* kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s)
 }
 
 
-#include "aabb.h"
+
