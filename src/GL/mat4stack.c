@@ -39,15 +39,16 @@ void km_mat4_stack_initialize(km_mat4_stack* stack) {
 	stack->top = NULL; //Set the top to NULL
 	stack->item_count = 0;
 };
-
+/*
 void km_mat4_stack_push(km_mat4_stack* stack, const kmMat4* item) {
-	/*Set the top pointer to the beginning of the memory + num items (zero based) */
-	stack->top = stack->stack + (stack->item_count * sizeof(kmMat4));
-	memcpy(stack->top, item, sizeof(kmMat4)); /*Copy the new item to the top of the stack*/
-	stack->item_count++; /*Increment the item count*/
+	//Set the top pointer to the beginning of the memory + num items (zero based)
+	stack->top = &stack->stack[stack->item_count];
+	//memcpy(stack->top, item, sizeof(kmMat4)); //Copy the new item to the top of the stack
+	kmMat4Assign(stack->top, item);
+	stack->item_count++; //Increment the item count
 
-	/*If we have reached the capacity of the allocated memory
-	 * then we resize the stack */
+	//If we have reached the capacity of the allocated memory
+    //then we resize the stack
 	if (stack->item_count == stack->capacity) {
 		kmMat4* temp_stack = stack->stack;
 		unsigned int new_size = sizeof(kmMat4) * (stack->capacity + INCREMENT);
@@ -57,17 +58,6 @@ void km_mat4_stack_push(km_mat4_stack* stack, const kmMat4* item) {
 		stack->top = stack->stack + ((stack->item_count - 1) * sizeof(kmMat4));
 		free(temp_stack); //Free the original memory
 	}
-
-	/*printf("Stack size: %i\n\tMatrix:\n",stack->item_count);
-	int i,j;
-	for(i = 0; i < 4; i++)
-	{
-	    for(j = 0; j < 4; j++)
-        {
-            printf("\t%f",stack->top->mat[i * 4 + j]);
-        }
-        printf("\n");
-	}*/
 }
 
 void km_mat4_stack_pop(km_mat4_stack* stack, kmMat4* pOut) {
@@ -88,4 +78,37 @@ void km_mat4_stack_release(km_mat4_stack* stack) {
 	stack->top = NULL;
 	stack->item_count = 0;
 	stack->capacity = 0;
+}//*/
+
+void km_mat4_stack_push(km_mat4_stack* stack, const kmMat4* item)
+{
+    stack->top = &stack->stack[stack->item_count];
+    kmMat4Assign(stack->top, item);
+    stack->item_count++;
+
+    if(stack->item_count >= stack->capacity)
+    {
+        stack->capacity += INCREMENT;
+        kmMat4* temp = stack->stack;
+        stack->stack = (kmMat4*) malloc(stack->capacity*sizeof(kmMat4));
+        memcpy(stack->stack, temp, sizeof(kmMat4)*(stack->capacity - INCREMENT));
+        free(temp);
+        stack->top = &stack->stack[stack->item_count - 1];
+    }
 }
+
+void km_mat4_stack_pop(km_mat4_stack* stack, kmMat4* pOut)
+{
+    assert(stack->item_count && "Cannot pop an empty stack");
+
+    stack->item_count--;
+    stack->top = &stack->stack[stack->item_count - 1];
+}
+
+void km_mat4_stack_release(km_mat4_stack* stack) {
+    free(stack->stack);
+	stack->top = NULL;
+	stack->item_count = 0;
+	stack->capacity = 0;
+}
+//*/

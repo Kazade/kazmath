@@ -34,18 +34,42 @@
 	<CUnit/Basic.h>
 	<kazmath/vec3.h>
 
-<<<<<<< HEAD:test-apps/CUnitTest/CUnitTest.depend
-1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/main.c
-=======
-1225055921 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/test-apps/CUnitTest/main.c
->>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.depend
+1225055167 D:test-apps/CUnitTest/CUnitTest.depend
+	<kazmath/mat3.h>
+	<kazmath/mat4.h>
+
+1225059198 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/main.c
 	<stdio.h>
 	<string.h>
 	<CUnit/Basic.h>
 
-<<<<<<< HEAD:test-apps/CUnitTest/CUnitTest.depend
+1225055921 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/test-apps/CUnitTest/main.c
+
+1225055167 a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.depend
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+	<kazmath/vec2.h>
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+	<kazmath/vec3.h>
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+	<kazmath/vec4.h>
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+
 1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testVec2.c
-=======
+
 1225005103 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/test-apps/CUnitTest/testMat3.c
 	<stdio.h>
 	<string.h>
@@ -53,58 +77,48 @@
 	<kazmath/mat3.h>
 
 1225005103 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/test-apps/CUnitTest/testVec2.c
->>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.depend
-	<stdio.h>
-	<string.h>
-	<CUnit/Basic.h>
-	<kazmath/vec2.h>
 
-<<<<<<< HEAD:test-apps/CUnitTest/CUnitTest.depend
-1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testVec3.c
-=======
-1225005103 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/test-apps/CUnitTest/testVec3.c
->>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.depend
+1225059060 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testVec3.c
 	<stdio.h>
 	<string.h>
 	<CUnit/Basic.h>
 	<kazmath/vec3.h>
+	<kazmath/utility.h>
+	<math.h>
 
-<<<<<<< HEAD:test-apps/CUnitTest/CUnitTest.depend
+1225005103 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/test-apps/CUnitTest/testVec3.c
+
 1225046220 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testVec4.c
-=======
+
 1225005103 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/test-apps/CUnitTest/testVec4.c
->>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.depend
-	<stdio.h>
-	<string.h>
-	<CUnit/Basic.h>
-	<kazmath/vec4.h>
 
-<<<<<<< HEAD:test-apps/CUnitTest/CUnitTest.depend
-1225047509 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testMat3.c
-=======
-1225027408 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/test-apps/CUnitTest/testMat4.c
->>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.depend
+1230635243 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testMat3.c
 	<stdio.h>
 	<string.h>
 	<CUnit/Basic.h>
-<<<<<<< HEAD:test-apps/CUnitTest/CUnitTest.depend
 	<kazmath/mat3.h>
-=======
-	<kazmath/mat4.h>
->>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.depend
 
-<<<<<<< HEAD:test-apps/CUnitTest/CUnitTest.depend
-1225047537 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testMat4.c
-=======
-1225055167 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/test-apps/CUnitTest/testMatrixStack.c
->>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.depend
+1225027408 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/test-apps/CUnitTest/testMat4.c
+
+1225027408 at3.h>
+	<kazmath/mat4.h>
+
+1230635255 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testMat4.c
 	<stdio.h>
 	<string.h>
 	<CUnit/Basic.h>
-<<<<<<< HEAD:test-apps/CUnitTest/CUnitTest.depend
 	<kazmath/mat4.h>
-=======
+
+1225055167 source:/home/luke/Projects/BOGLGP/Kazmath/kazmath/test-apps/CUnitTest/testMatrixStack.c
+
+1225055167 at4.h>
 	<kazmath/GL/matrix.h>
 	<kazmath/kazmath.h>
->>>>>>> 6c9a8c82f1af7345095adc29515a87f91fa41066:test-apps/CUnitTest/CUnitTest.depend
+
+1225059198 source:/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/test-apps/CUnitTest/testMatrixStack.c
+	<stdio.h>
+	<string.h>
+	<CUnit/Basic.h>
+	<kazmath/GL/matrix.h>
+	<kazmath/kazmath.h>
 

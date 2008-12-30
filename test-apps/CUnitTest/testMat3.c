@@ -18,7 +18,7 @@ void print_matrix3(const kmMat3* mat)
                 printf("\t");
             }
 
-            printf("%f",mat->m_Mat[i + max*j]);
+            printf("%f",mat->mat[i + max*j]);
         }
 
         printf("|\n");
@@ -45,13 +45,13 @@ void testMat3Transpose(void)
 {
     kmMat3 mat;
     float temp[] = { 0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
-    memcpy(mat.m_Mat, temp, sizeof(float) * 9);
+    memcpy(mat.mat, temp, sizeof(float) * 9);
 
     print_matrix3(&mat);
 
     kmMat3 transpose;
     float temp2[] = {8.0f, 7.0f, 6.0f, 5.0f, 4.0f, 3.0f, 2.0f, 1.0f, 0.0f};
-    memcpy(transpose.m_Mat, temp2, sizeof(float) * 9);
+    memcpy(transpose.mat, temp2, sizeof(float) * 9);
     print_matrix3(&transpose);
 
     kmMat3 result;

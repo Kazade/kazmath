@@ -34,8 +34,7 @@
 		</Compiler>
 		<Linker>
 			<Add library="cunit" />
-			<Add library="/usr/local/lib/libKazmath.a" />
-			<Add library="/usr/local/lib/libKazmathGL.a" />
+			<Add library="Kazmath" />
 		</Linker>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />

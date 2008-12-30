@@ -18,7 +18,7 @@ void print_matrix4(const kmMat4* mat)
                 printf("\t");
             }
 
-            printf("%f",mat->m_Mat[i + max*j]);
+            printf("%f",mat->mat[i + max*j]);
         }
 
         printf("|\n");
