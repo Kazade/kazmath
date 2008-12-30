@@ -95,6 +95,7 @@ void kmGLPushMatrix(void)
 
 void kmGLPopMatrix(void)
 {
+    assert(initialized && "Cannot Pop empty matrix stack");
 	//No need to lazy initialize, you shouldnt be popping first anyway!
 	km_mat4_stack_pop(current_stack, NULL);
 }
@@ -127,6 +128,12 @@ void kmGLMultMatrix(const kmMat4* pIn)
 {
 	lazyInitialize();
 	kmMat4Multiply(current_stack->top, pIn, current_stack->top);
+}
+
+void kmGLLoadMatrix(const kmMat4* pIn)
+{
+	lazyInitialize();
+	kmMat4Assign(current_stack->top, pIn);
 }
 
 void kmGLGetMatrix(kmGLEnum mode, kmMat4* pOut)

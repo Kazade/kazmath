@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="../src/GL/mat4stack.c" open="1" top="0" tabpos="5">
+	<File name="../src/GL/mat4stack.c" open="0" top="0" tabpos="5">
 		<Cursor position="1431" topLine="0" />
 	</File>
-	<File name="../src/GL/mat4stack.h" open="1" top="0" tabpos="4">
+	<File name="../src/GL/mat4stack.h" open="0" top="0" tabpos="4">
 		<Cursor position="254" topLine="0" />
 	</File>
 	<File name="../src/GL/matrix.c" open="1" top="0" tabpos="2">
-		<Cursor position="2482" topLine="63" />
+		<Cursor position="4695" topLine="156" />
 	</File>
 	<File name="../src/GL/matrix.h" open="1" top="0" tabpos="1">
 		<Cursor position="559" topLine="0" />
@@ -22,7 +22,7 @@
 	<File name="../src/kazmath.h" open="0" top="0" tabpos="0">
 		<Cursor position="194" topLine="0" />
 	</File>
-	<File name="../src/mat3.c" open="1" top="1" tabpos="3">
+	<File name="../src/mat3.c" open="0" top="0" tabpos="3">
 		<Cursor position="1129" topLine="40" />
 	</File>
 	<File name="../src/mat3.h" open="0" top="0" tabpos="9">
@@ -46,8 +46,8 @@
 	<File name="../src/utility.c" open="0" top="0" tabpos="9">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="../src/utility.h" open="0" top="0" tabpos="2">
-		<Cursor position="0" topLine="0" />
+	<File name="../src/utility.h" open="1" top="0" tabpos="7">
+		<Cursor position="0" topLine="18" />
 	</File>
 	<File name="../src/vec2.c" open="0" top="0" tabpos="4">
 		<Cursor position="189" topLine="0" />
@@ -55,7 +55,7 @@
 	<File name="../src/vec2.h" open="0" top="0" tabpos="1">
 		<Cursor position="355" topLine="0" />
 	</File>
-	<File name="../src/vec3.c" open="1" top="0" tabpos="6">
+	<File name="../src/vec3.c" open="0" top="0" tabpos="6">
 		<Cursor position="526" topLine="36" />
 	</File>
 	<File name="../src/vec3.h" open="1" top="0" tabpos="1">

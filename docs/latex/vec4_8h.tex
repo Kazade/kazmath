@@ -1,6 +1,6 @@
 \hypertarget{vec4_8h}{
-\section{C:/Users/luke/Desktop/KazMath/kazmath/src/vec4.h File Reference}
-\label{vec4_8h}\index{C:/Users/luke/Desktop/KazMath/kazmath/src/vec4.h@{C:/Users/luke/Desktop/KazMath/kazmath/src/vec4.h}}
+\section{/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/vec4.h File Reference}
+\label{vec4_8h}\index{/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/vec4.h@{/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/vec4.h}}
 }
 {\tt \#include \char`\"{}utility.h\char`\"{}}\par
 \subsection*{Data Structures}
@@ -17,15 +17,15 @@ struct \hyperlink{structkm_vec4}{kmVec4}
 \item 
 kmScalar \hyperlink{vec4_8h_a44b996a0ea4900c28970be39ab288a0}{kmVec4Dot} (const \hyperlink{structkm_vec4}{kmVec4} $\ast$pV1, const \hyperlink{structkm_vec4}{kmVec4} $\ast$pV2)
 \begin{CompactList}\small\item\em Returns the dot product of 2 4D vectors. \item\end{CompactList}\item 
-kmScalar \hyperlink{vec4_8h_e933688fd2007098087e2e5a6535f0b5}{kmVec4Length} (const \hyperlink{structkm_vec4}{kmVec4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+kmScalar \hyperlink{vec4_8h_e933688fd2007098087e2e5a6535f0b5}{kmVec4Length} (const \hyperlink{structkm_vec4}{kmVec4} $\ast$pIn)
 \item 
-kmScalar \hyperlink{vec4_8h_cfedf24d8275c073b795bffe3f5bccdf}{kmVec4LengthSq} (const \hyperlink{structkm_vec4}{kmVec4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+kmScalar \hyperlink{vec4_8h_cfedf24d8275c073b795bffe3f5bccdf}{kmVec4LengthSq} (const \hyperlink{structkm_vec4}{kmVec4} $\ast$pIn)
 \begin{CompactList}\small\item\em Returns the length of the 4D vector squared. \item\end{CompactList}\item 
 \hyperlink{structkm_vec4}{kmVec4} $\ast$ \hyperlink{vec4_8h_9ae5e748ca1b79338cee4df3ea9476d0}{kmVec4Lerp} (\hyperlink{structkm_vec4}{kmVec4} $\ast$pOut, const \hyperlink{structkm_vec4}{kmVec4} $\ast$pV1, const \hyperlink{structkm_vec4}{kmVec4} $\ast$pV2, kmScalar t)
 \begin{CompactList}\small\item\em Returns the interpolation of 2 4D vectors based on t. Currently not implemented! \item\end{CompactList}\item 
-\hyperlink{structkm_vec4}{kmVec4} $\ast$ \hyperlink{vec4_8h_84b2663c15dd61084ba4eb823d7d8b9a}{kmVec4Normalize} (\hyperlink{structkm_vec4}{kmVec4} $\ast$pOut, const \hyperlink{structkm_vec4}{kmVec4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\hyperlink{structkm_vec4}{kmVec4} $\ast$ \hyperlink{vec4_8h_84b2663c15dd61084ba4eb823d7d8b9a}{kmVec4Normalize} (\hyperlink{structkm_vec4}{kmVec4} $\ast$pOut, const \hyperlink{structkm_vec4}{kmVec4} $\ast$pIn)
 \begin{CompactList}\small\item\em Normalizes a 4D vector. The result is stored in pOut. pOut is returned. \item\end{CompactList}\item 
-\hyperlink{structkm_vec4}{kmVec4} $\ast$ \hyperlink{vec4_8h_2876901744a2d8d76af0371686b94f30}{kmVec4Scale} (\hyperlink{structkm_vec4}{kmVec4} $\ast$pOut, const \hyperlink{structkm_vec4}{kmVec4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn}, const kmScalar s)
+\hyperlink{structkm_vec4}{kmVec4} $\ast$ \hyperlink{vec4_8h_2876901744a2d8d76af0371686b94f30}{kmVec4Scale} (\hyperlink{structkm_vec4}{kmVec4} $\ast$pOut, const \hyperlink{structkm_vec4}{kmVec4} $\ast$pIn, const kmScalar s)
 \begin{CompactList}\small\item\em Scales a vector to length s. \item\end{CompactList}\item 
 \hyperlink{structkm_vec4}{kmVec4} $\ast$ \hyperlink{vec4_8h_b00d4f149b28ca04eed6d0fc8d46a52b}{kmVec4Subtract} (\hyperlink{structkm_vec4}{kmVec4} $\ast$pOut, const \hyperlink{structkm_vec4}{kmVec4} $\ast$pV1, const \hyperlink{structkm_vec4}{kmVec4} $\ast$pV2)
 \begin{CompactList}\small\item\em Subtracts one 4D pV2 from pV1. The result is stored in pOut. pOut is returned. \item\end{CompactList}\item 
@@ -35,7 +35,7 @@ kmScalar \hyperlink{vec4_8h_cfedf24d8275c073b795bffe3f5bccdf}{kmVec4LengthSq} (c
 \item 
 int \hyperlink{vec4_8h_8d853e24f0a191f4d1a40a310a5957f0}{kmVec4AreEqual} (const \hyperlink{structkm_vec4}{kmVec4} $\ast$p1, const \hyperlink{structkm_vec4}{kmVec4} $\ast$p2)
 \item 
-\hyperlink{structkm_vec4}{kmVec4} $\ast$ \hyperlink{vec4_8h_e04662d851b9d454d8366a3eebb16096}{kmVec4Assign} (\hyperlink{structkm_vec4}{kmVec4} $\ast$pOut, const \hyperlink{structkm_vec4}{kmVec4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\hyperlink{structkm_vec4}{kmVec4} $\ast$ \hyperlink{vec4_8h_e04662d851b9d454d8366a3eebb16096}{kmVec4Assign} (\hyperlink{structkm_vec4}{kmVec4} $\ast$pOut, const \hyperlink{structkm_vec4}{kmVec4} $\ast$pIn)
 \end{CompactItemize}
 
 
@@ -43,7 +43,7 @@ int \hyperlink{vec4_8h_8d853e24f0a191f4d1a40a310a5957f0}{kmVec4AreEqual} (const 
 \hypertarget{vec4_8h_169473a5a582f6c40a6ec785d017125e}{
 \index{vec4.h@{vec4.h}!kmVec4Add@{kmVec4Add}}
 \index{kmVec4Add@{kmVec4Add}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4Add}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Add ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pV1}, \/  const {\bf kmVec4} $\ast$ {\em pV2})}}
+\subsubsection[kmVec4Add]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Add ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pV1}, \/  const {\bf kmVec4} $\ast$ {\em pV2})}}
 \label{vec4_8h_169473a5a582f6c40a6ec785d017125e}
 
 
@@ -54,7 +54,7 @@ Definition at line 47 of file vec4.c.
 References kmVec4::w, kmVec4::x, kmVec4::y, and kmVec4::z.\hypertarget{vec4_8h_8d853e24f0a191f4d1a40a310a5957f0}{
 \index{vec4.h@{vec4.h}!kmVec4AreEqual@{kmVec4AreEqual}}
 \index{kmVec4AreEqual@{kmVec4AreEqual}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4AreEqual}]{\setlength{\rightskip}{0pt plus 5cm}int kmVec4AreEqual (const {\bf kmVec4} $\ast$ {\em p1}, \/  const {\bf kmVec4} $\ast$ {\em p2})}}
+\subsubsection[kmVec4AreEqual]{\setlength{\rightskip}{0pt plus 5cm}int kmVec4AreEqual (const {\bf kmVec4} $\ast$ {\em p1}, \/  const {\bf kmVec4} $\ast$ {\em p2})}}
 \label{vec4_8h_8d853e24f0a191f4d1a40a310a5957f0}
 
 
@@ -65,7 +65,7 @@ Definition at line 155 of file vec4.c.
 References kmEpsilon, kmVec4::w, kmVec4::x, kmVec4::y, and kmVec4::z.\hypertarget{vec4_8h_e04662d851b9d454d8366a3eebb16096}{
 \index{vec4.h@{vec4.h}!kmVec4Assign@{kmVec4Assign}}
 \index{kmVec4Assign@{kmVec4Assign}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4Assign}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Assign ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pIn})}}
+\subsubsection[kmVec4Assign]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Assign ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pIn})}}
 \label{vec4_8h_e04662d851b9d454d8366a3eebb16096}
 
 
@@ -74,7 +74,7 @@ References kmEpsilon, kmVec4::w, kmVec4::x, kmVec4::y, and kmVec4::z.\hypertarge
 Definition at line 164 of file vec4.c.\hypertarget{vec4_8h_a44b996a0ea4900c28970be39ab288a0}{
 \index{vec4.h@{vec4.h}!kmVec4Dot@{kmVec4Dot}}
 \index{kmVec4Dot@{kmVec4Dot}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4Dot}]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmVec4Dot (const {\bf kmVec4} $\ast$ {\em pV1}, \/  const {\bf kmVec4} $\ast$ {\em pV2})}}
+\subsubsection[kmVec4Dot]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmVec4Dot (const {\bf kmVec4} $\ast$ {\em pV1}, \/  const {\bf kmVec4} $\ast$ {\em pV2})}}
 \label{vec4_8h_a44b996a0ea4900c28970be39ab288a0}
 
 
@@ -87,7 +87,7 @@ Definition at line 74 of file vec4.c.
 References kmVec4::w, kmVec4::x, kmVec4::y, and kmVec4::z.\hypertarget{vec4_8h_40c25a398ba4520f8a0bd3659aaf85e5}{
 \index{vec4.h@{vec4.h}!kmVec4Fill@{kmVec4Fill}}
 \index{kmVec4Fill@{kmVec4Fill}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4Fill}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Fill ({\bf kmVec4} $\ast$ {\em pOut}, \/  kmScalar {\em x}, \/  kmScalar {\em y}, \/  kmScalar {\em z}, \/  kmScalar {\em w})}}
+\subsubsection[kmVec4Fill]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Fill ({\bf kmVec4} $\ast$ {\em pOut}, \/  kmScalar {\em x}, \/  kmScalar {\em y}, \/  kmScalar {\em z}, \/  kmScalar {\em w})}}
 \label{vec4_8h_40c25a398ba4520f8a0bd3659aaf85e5}
 
 
@@ -98,7 +98,7 @@ Definition at line 35 of file vec4.c.
 References kmVec4::w, kmVec4::x, kmVec4::y, and kmVec4::z.\hypertarget{vec4_8h_e933688fd2007098087e2e5a6535f0b5}{
 \index{vec4.h@{vec4.h}!kmVec4Length@{kmVec4Length}}
 \index{kmVec4Length@{kmVec4Length}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4Length}]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmVec4Length (const {\bf kmVec4} $\ast$ {\em pIn})}}
+\subsubsection[kmVec4Length]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmVec4Length (const {\bf kmVec4} $\ast$ {\em pIn})}}
 \label{vec4_8h_e933688fd2007098087e2e5a6535f0b5}
 
 
@@ -111,7 +111,7 @@ References kmSQR(), kmVec4::w, kmVec4::x, kmVec4::y, and kmVec4::z.
 Referenced by kmVec4Normalize().\hypertarget{vec4_8h_cfedf24d8275c073b795bffe3f5bccdf}{
 \index{vec4.h@{vec4.h}!kmVec4LengthSq@{kmVec4LengthSq}}
 \index{kmVec4LengthSq@{kmVec4LengthSq}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4LengthSq}]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmVec4LengthSq (const {\bf kmVec4} $\ast$ {\em pIn})}}
+\subsubsection[kmVec4LengthSq]{\setlength{\rightskip}{0pt plus 5cm}kmScalar kmVec4LengthSq (const {\bf kmVec4} $\ast$ {\em pIn})}}
 \label{vec4_8h_cfedf24d8275c073b795bffe3f5bccdf}
 
 
@@ -124,7 +124,7 @@ Definition at line 88 of file vec4.c.
 References kmSQR(), kmVec4::w, kmVec4::x, kmVec4::y, and kmVec4::z.\hypertarget{vec4_8h_9ae5e748ca1b79338cee4df3ea9476d0}{
 \index{vec4.h@{vec4.h}!kmVec4Lerp@{kmVec4Lerp}}
 \index{kmVec4Lerp@{kmVec4Lerp}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4Lerp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Lerp ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pV1}, \/  const {\bf kmVec4} $\ast$ {\em pV2}, \/  kmScalar {\em t})}}
+\subsubsection[kmVec4Lerp]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Lerp ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pV1}, \/  const {\bf kmVec4} $\ast$ {\em pV2}, \/  kmScalar {\em t})}}
 \label{vec4_8h_9ae5e748ca1b79338cee4df3ea9476d0}
 
 
@@ -135,7 +135,7 @@ Returns the interpolation of 2 4D vectors based on t. Currently not implemented!
 Definition at line 93 of file vec4.c.\hypertarget{vec4_8h_84b2663c15dd61084ba4eb823d7d8b9a}{
 \index{vec4.h@{vec4.h}!kmVec4Normalize@{kmVec4Normalize}}
 \index{kmVec4Normalize@{kmVec4Normalize}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4Normalize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Normalize ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pIn})}}
+\subsubsection[kmVec4Normalize]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Normalize ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pIn})}}
 \label{vec4_8h_84b2663c15dd61084ba4eb823d7d8b9a}
 
 
@@ -150,7 +150,7 @@ References kmScalar, kmVec4Length(), kmVec4::w, kmVec4::x, kmVec4::y, and kmVec4
 Referenced by kmVec4Scale().\hypertarget{vec4_8h_2876901744a2d8d76af0371686b94f30}{
 \index{vec4.h@{vec4.h}!kmVec4Scale@{kmVec4Scale}}
 \index{kmVec4Scale@{kmVec4Scale}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4Scale}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Scale ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pIn}, \/  const kmScalar {\em s})}}
+\subsubsection[kmVec4Scale]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Scale ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pIn}, \/  const kmScalar {\em s})}}
 \label{vec4_8h_2876901744a2d8d76af0371686b94f30}
 
 
@@ -163,7 +163,7 @@ Definition at line 111 of file vec4.c.
 References kmVec4Normalize(), kmVec4::w, kmVec4::x, kmVec4::y, and kmVec4::z.\hypertarget{vec4_8h_b00d4f149b28ca04eed6d0fc8d46a52b}{
 \index{vec4.h@{vec4.h}!kmVec4Subtract@{kmVec4Subtract}}
 \index{kmVec4Subtract@{kmVec4Subtract}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4Subtract}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Subtract ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pV1}, \/  const {\bf kmVec4} $\ast$ {\em pV2})}}
+\subsubsection[kmVec4Subtract]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Subtract ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pV1}, \/  const {\bf kmVec4} $\ast$ {\em pV2})}}
 \label{vec4_8h_b00d4f149b28ca04eed6d0fc8d46a52b}
 
 
@@ -176,14 +176,14 @@ Definition at line 122 of file vec4.c.
 References kmVec4::w, kmVec4::x, kmVec4::y, and kmVec4::z.\hypertarget{vec4_8h_e747ed50a638968f75f044a7ca51bc2e}{
 \index{vec4.h@{vec4.h}!kmVec4Transform@{kmVec4Transform}}
 \index{kmVec4Transform@{kmVec4Transform}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4Transform}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Transform ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pV}, \/  const struct {\bf kmMat4} $\ast$ {\em pM})}}
+\subsubsection[kmVec4Transform]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4Transform ({\bf kmVec4} $\ast$ {\em pOut}, \/  const {\bf kmVec4} $\ast$ {\em pV}, \/  const struct {\bf kmMat4} $\ast$ {\em pM})}}
 \label{vec4_8h_e747ed50a638968f75f044a7ca51bc2e}
 
 
 \hypertarget{vec4_8h_8b9167cbfc2275952a7aefc92102334d}{
 \index{vec4.h@{vec4.h}!kmVec4TransformArray@{kmVec4TransformArray}}
 \index{kmVec4TransformArray@{kmVec4TransformArray}!vec4.h@{vec4.h}}
-\subsubsection[{kmVec4TransformArray}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4TransformArray ({\bf kmVec4} $\ast$ {\em pOut}, \/  unsigned int {\em outStride}, \/  const {\bf kmVec4} $\ast$ {\em pV}, \/  unsigned int {\em vStride}, \/  const struct {\bf kmMat4} $\ast$ {\em pM}, \/  unsigned int {\em count})}}
+\subsubsection[kmVec4TransformArray]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec4}$\ast$ kmVec4TransformArray ({\bf kmVec4} $\ast$ {\em pOut}, \/  unsigned int {\em outStride}, \/  const {\bf kmVec4} $\ast$ {\em pV}, \/  unsigned int {\em vStride}, \/  const struct {\bf kmMat4} $\ast$ {\em pM}, \/  unsigned int {\em count})}}
 \label{vec4_8h_8b9167cbfc2275952a7aefc92102334d}
 
 

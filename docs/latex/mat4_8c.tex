@@ -1,6 +1,6 @@
 \hypertarget{mat4_8c}{
-\section{C:/Users/luke/Desktop/KazMath/kazmath/src/mat4.c File Reference}
-\label{mat4_8c}\index{C:/Users/luke/Desktop/KazMath/kazmath/src/mat4.c@{C:/Users/luke/Desktop/KazMath/kazmath/src/mat4.c}}
+\section{/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/mat4.c File Reference}
+\label{mat4_8c}\index{/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/mat4.c@{/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/mat4.c}}
 }
 {\tt \#include $<$memory.h$>$}\par
 {\tt \#include $<$assert.h$>$}\par
@@ -18,13 +18,13 @@
 \item 
 \hyperlink{structkm_mat4}{kmMat4} $\ast$ \hyperlink{mat4_8c_fdf9eebe5a3c84b3ae8ecf490e9a8d28}{kmMat4Inverse} (\hyperlink{structkm_mat4}{kmMat4} $\ast$pOut, const \hyperlink{structkm_mat4}{kmMat4} $\ast$pM)
 \item 
-int \hyperlink{mat4_8c_556a07d252051189e844960b42b3d01a}{kmMat4IsIdentity} (const \hyperlink{structkm_mat4}{kmMat4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+int \hyperlink{mat4_8c_556a07d252051189e844960b42b3d01a}{kmMat4IsIdentity} (const \hyperlink{structkm_mat4}{kmMat4} $\ast$pIn)
 \item 
-\hyperlink{structkm_mat4}{kmMat4} $\ast$ \hyperlink{mat4_8c_5eaeb7d83c7f0a7b69bf028b37d0ff0f}{kmMat4Transpose} (\hyperlink{structkm_mat4}{kmMat4} $\ast$pOut, const \hyperlink{structkm_mat4}{kmMat4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\hyperlink{structkm_mat4}{kmMat4} $\ast$ \hyperlink{mat4_8c_5eaeb7d83c7f0a7b69bf028b37d0ff0f}{kmMat4Transpose} (\hyperlink{structkm_mat4}{kmMat4} $\ast$pOut, const \hyperlink{structkm_mat4}{kmMat4} $\ast$pIn)
 \item 
 \hyperlink{structkm_mat4}{kmMat4} $\ast$ \hyperlink{mat4_8c_ccec37cb6ca94ceb1197e3119d4f780c}{kmMat4Multiply} (\hyperlink{structkm_mat4}{kmMat4} $\ast$pOut, const \hyperlink{structkm_mat4}{kmMat4} $\ast$pM1, const \hyperlink{structkm_mat4}{kmMat4} $\ast$pM2)
 \item 
-\hyperlink{structkm_mat4}{kmMat4} $\ast$ \hyperlink{mat4_8c_85d5c9784d8b0b17dd9f3d9f708fc6d2}{kmMat4Assign} (\hyperlink{structkm_mat4}{kmMat4} $\ast$pOut, const \hyperlink{structkm_mat4}{kmMat4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\hyperlink{structkm_mat4}{kmMat4} $\ast$ \hyperlink{mat4_8c_85d5c9784d8b0b17dd9f3d9f708fc6d2}{kmMat4Assign} (\hyperlink{structkm_mat4}{kmMat4} $\ast$pOut, const \hyperlink{structkm_mat4}{kmMat4} $\ast$pIn)
 \item 
 int \hyperlink{mat4_8c_911e06529908817ccc9d68bb2c832517}{kmMat4AreEqual} (const \hyperlink{structkm_mat4}{kmMat4} $\ast$pMat1, const \hyperlink{structkm_mat4}{kmMat4} $\ast$pMat2)
 \item 
@@ -44,11 +44,11 @@ int \hyperlink{mat4_8c_911e06529908817ccc9d68bb2c832517}{kmMat4AreEqual} (const 
 \item 
 \hyperlink{structkm_mat4}{kmMat4} $\ast$ \hyperlink{mat4_8c_a08f87d5fd654c363c662777a79207d0}{kmMat4Translation} (\hyperlink{structkm_mat4}{kmMat4} $\ast$pOut, const kmScalar x, const kmScalar y, const kmScalar z)
 \item 
-\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{mat4_8c_fc9627aa91a8915a493e6e55442e1dfc}{kmMat4GetUpVec3} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_mat4}{kmMat4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{mat4_8c_fc9627aa91a8915a493e6e55442e1dfc}{kmMat4GetUpVec3} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_mat4}{kmMat4} $\ast$pIn)
 \item 
-\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{mat4_8c_07d9d17697d5a32d425713ce16e87c5c}{kmMat4GetRightVec3} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_mat4}{kmMat4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{mat4_8c_07d9d17697d5a32d425713ce16e87c5c}{kmMat4GetRightVec3} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_mat4}{kmMat4} $\ast$pIn)
 \item 
-\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{mat4_8c_f1e57e2959093cc0e4a6e8672ce85a6f}{kmMat4GetForwardVec3} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_mat4}{kmMat4} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn})
+\hyperlink{structkm_vec3}{kmVec3} $\ast$ \hyperlink{mat4_8c_f1e57e2959093cc0e4a6e8672ce85a6f}{kmMat4GetForwardVec3} (\hyperlink{structkm_vec3}{kmVec3} $\ast$pOut, const \hyperlink{structkm_mat4}{kmMat4} $\ast$pIn)
 \item 
 \hyperlink{structkm_mat4}{kmMat4} $\ast$ \hyperlink{mat4_8c_919ef08f53bce1389211fe46992bbe2a}{kmMat4PerspectiveProjection} (\hyperlink{structkm_mat4}{kmMat4} $\ast$pOut, kmScalar fovY, kmScalar aspect, kmScalar zNear, kmScalar zFar)
 \item 
@@ -67,7 +67,7 @@ Definition in file \hyperlink{mat4_8c-source}{mat4.c}.
 \hypertarget{mat4_8c_911e06529908817ccc9d68bb2c832517}{
 \index{mat4.c@{mat4.c}!kmMat4AreEqual@{kmMat4AreEqual}}
 \index{kmMat4AreEqual@{kmMat4AreEqual}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4AreEqual}]{\setlength{\rightskip}{0pt plus 5cm}int kmMat4AreEqual (const {\bf kmMat4} $\ast$ {\em pMat1}, \/  const {\bf kmMat4} $\ast$ {\em pMat2})}}
+\subsubsection[kmMat4AreEqual]{\setlength{\rightskip}{0pt plus 5cm}int kmMat4AreEqual (const {\bf kmMat4} $\ast$ {\em pMat1}, \/  const {\bf kmMat4} $\ast$ {\em pMat2})}}
 \label{mat4_8c_911e06529908817ccc9d68bb2c832517}
 
 
@@ -78,7 +78,7 @@ Definition at line 225 of file mat4.c.
 References KM\_\-FALSE, KM\_\-TRUE, kmEpsilon, and kmMat4::mat.\hypertarget{mat4_8c_85d5c9784d8b0b17dd9f3d9f708fc6d2}{
 \index{mat4.c@{mat4.c}!kmMat4Assign@{kmMat4Assign}}
 \index{kmMat4Assign@{kmMat4Assign}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4Assign}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Assign ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pIn})}}
+\subsubsection[kmMat4Assign]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Assign ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pIn})}}
 \label{mat4_8c_85d5c9784d8b0b17dd9f3d9f708fc6d2}
 
 
@@ -91,7 +91,7 @@ References kmMat4::mat.
 Referenced by kmGLGetMatrix().\hypertarget{mat4_8c_9b0b8b246f50b0cf6f2eb3eb494c2211}{
 \index{mat4.c@{mat4.c}!kmMat4Fill@{kmMat4Fill}}
 \index{kmMat4Fill@{kmMat4Fill}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4Fill}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Fill ({\bf kmMat4} $\ast$ {\em pOut}, \/  const kmScalar $\ast$ {\em pMat})}}
+\subsubsection[kmMat4Fill]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Fill ({\bf kmMat4} $\ast$ {\em pOut}, \/  const kmScalar $\ast$ {\em pMat})}}
 \label{mat4_8c_9b0b8b246f50b0cf6f2eb3eb494c2211}
 
 
@@ -102,7 +102,7 @@ Definition at line 45 of file mat4.c.
 References kmScalar, and kmMat4::mat.\hypertarget{mat4_8c_f1e57e2959093cc0e4a6e8672ce85a6f}{
 \index{mat4.c@{mat4.c}!kmMat4GetForwardVec3@{kmMat4GetForwardVec3}}
 \index{kmMat4GetForwardVec3@{kmMat4GetForwardVec3}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4GetForwardVec3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmMat4GetForwardVec3 ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pIn})\hspace{0.3cm}{\tt  \mbox{[}read\mbox{]}}}}
+\subsubsection[kmMat4GetForwardVec3]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmMat4GetForwardVec3 ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pIn})\hspace{0.3cm}{\tt  \mbox{[}read\mbox{]}}}}
 \label{mat4_8c_f1e57e2959093cc0e4a6e8672ce85a6f}
 
 
@@ -113,7 +113,7 @@ Definition at line 515 of file mat4.c.
 References kmVec3Normalize(), kmMat4::mat, kmVec3::x, kmVec3::y, and kmVec3::z.\hypertarget{mat4_8c_07d9d17697d5a32d425713ce16e87c5c}{
 \index{mat4.c@{mat4.c}!kmMat4GetRightVec3@{kmMat4GetRightVec3}}
 \index{kmMat4GetRightVec3@{kmMat4GetRightVec3}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4GetRightVec3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmMat4GetRightVec3 ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pIn})\hspace{0.3cm}{\tt  \mbox{[}read\mbox{]}}}}
+\subsubsection[kmMat4GetRightVec3]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmMat4GetRightVec3 ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pIn})\hspace{0.3cm}{\tt  \mbox{[}read\mbox{]}}}}
 \label{mat4_8c_07d9d17697d5a32d425713ce16e87c5c}
 
 
@@ -124,7 +124,7 @@ Definition at line 500 of file mat4.c.
 References kmVec3Normalize(), kmMat4::mat, kmVec3::x, kmVec3::y, and kmVec3::z.\hypertarget{mat4_8c_fc9627aa91a8915a493e6e55442e1dfc}{
 \index{mat4.c@{mat4.c}!kmMat4GetUpVec3@{kmMat4GetUpVec3}}
 \index{kmMat4GetUpVec3@{kmMat4GetUpVec3}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4GetUpVec3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmMat4GetUpVec3 ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pIn})\hspace{0.3cm}{\tt  \mbox{[}read\mbox{]}}}}
+\subsubsection[kmMat4GetUpVec3]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmVec3}$\ast$ kmMat4GetUpVec3 ({\bf kmVec3} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pIn})\hspace{0.3cm}{\tt  \mbox{[}read\mbox{]}}}}
 \label{mat4_8c_fc9627aa91a8915a493e6e55442e1dfc}
 
 
@@ -135,7 +135,7 @@ Definition at line 486 of file mat4.c.
 References kmVec3Normalize(), kmMat4::mat, kmVec3::x, kmVec3::y, and kmVec3::z.\hypertarget{mat4_8c_11583060bab242acd640d11bbf938a86}{
 \index{mat4.c@{mat4.c}!kmMat4Identity@{kmMat4Identity}}
 \index{kmMat4Identity@{kmMat4Identity}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4Identity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Identity ({\bf kmMat4} $\ast$ {\em pOut})}}
+\subsubsection[kmMat4Identity]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Identity ({\bf kmMat4} $\ast$ {\em pOut})}}
 \label{mat4_8c_11583060bab242acd640d11bbf938a86}
 
 
@@ -148,7 +148,7 @@ References kmMat4::mat.
 Referenced by kmGLLoadIdentity(), kmMat4Inverse(), kmMat4LookAt(), kmMat4OrthographicProjection(), kmMat4PerspectiveProjection(), and lazyInitialize().\hypertarget{mat4_8c_fdf9eebe5a3c84b3ae8ecf490e9a8d28}{
 \index{mat4.c@{mat4.c}!kmMat4Inverse@{kmMat4Inverse}}
 \index{kmMat4Inverse@{kmMat4Inverse}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4Inverse}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Inverse ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pM})}}
+\subsubsection[kmMat4Inverse]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Inverse ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pM})}}
 \label{mat4_8c_fdf9eebe5a3c84b3ae8ecf490e9a8d28}
 
 
@@ -159,7 +159,7 @@ Definition at line 68 of file mat4.c.
 References kmMat4Identity(), and kmMat4::mat.\hypertarget{mat4_8c_556a07d252051189e844960b42b3d01a}{
 \index{mat4.c@{mat4.c}!kmMat4IsIdentity@{kmMat4IsIdentity}}
 \index{kmMat4IsIdentity@{kmMat4IsIdentity}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4IsIdentity}]{\setlength{\rightskip}{0pt plus 5cm}int kmMat4IsIdentity (const {\bf kmMat4} $\ast$ {\em pIn})}}
+\subsubsection[kmMat4IsIdentity]{\setlength{\rightskip}{0pt plus 5cm}int kmMat4IsIdentity (const {\bf kmMat4} $\ast$ {\em pIn})}}
 \label{mat4_8c_556a07d252051189e844960b42b3d01a}
 
 
@@ -170,7 +170,7 @@ Definition at line 148 of file mat4.c.
 References kmMat4::mat.\hypertarget{mat4_8c_526907194217cc7fddc6701f23226a79}{
 \index{mat4.c@{mat4.c}!kmMat4LookAt@{kmMat4LookAt}}
 \index{kmMat4LookAt@{kmMat4LookAt}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4LookAt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4LookAt ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pEye}, \/  const {\bf kmVec3} $\ast$ {\em pCenter}, \/  const {\bf kmVec3} $\ast$ {\em pUp})}}
+\subsubsection[kmMat4LookAt]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4LookAt ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em pEye}, \/  const {\bf kmVec3} $\ast$ {\em pCenter}, \/  const {\bf kmVec3} $\ast$ {\em pUp})}}
 \label{mat4_8c_526907194217cc7fddc6701f23226a79}
 
 
@@ -181,7 +181,7 @@ Definition at line 582 of file mat4.c.
 References kmMat4Identity(), kmMat4Multiply(), kmMat4Translation(), kmVec3Assign(), kmVec3Cross(), kmVec3Normalize(), kmVec3Subtract(), kmMat4::mat, kmVec3::x, kmVec3::y, and kmVec3::z.\hypertarget{mat4_8c_ccec37cb6ca94ceb1197e3119d4f780c}{
 \index{mat4.c@{mat4.c}!kmMat4Multiply@{kmMat4Multiply}}
 \index{kmMat4Multiply@{kmMat4Multiply}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4Multiply}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Multiply ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pM1}, \/  const {\bf kmMat4} $\ast$ {\em pM2})}}
+\subsubsection[kmMat4Multiply]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Multiply ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pM1}, \/  const {\bf kmMat4} $\ast$ {\em pM2})}}
 \label{mat4_8c_ccec37cb6ca94ceb1197e3119d4f780c}
 
 
@@ -191,10 +191,10 @@ Definition at line 178 of file mat4.c.
 
 References kmMat4::mat.
 
-Referenced by kmGLMultMatrix(), and kmMat4LookAt().\hypertarget{mat4_8c_db56714ee34866bdd303617061785a83}{
+Referenced by kmGLMultMatrix(), kmGLRotatef(), kmGLScalef(), and kmMat4LookAt().\hypertarget{mat4_8c_db56714ee34866bdd303617061785a83}{
 \index{mat4.c@{mat4.c}!kmMat4OrthographicProjection@{kmMat4OrthographicProjection}}
 \index{kmMat4OrthographicProjection@{kmMat4OrthographicProjection}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4OrthographicProjection}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4OrthographicProjection ({\bf kmMat4} $\ast$ {\em pOut}, \/  kmScalar {\em left}, \/  kmScalar {\em right}, \/  kmScalar {\em bottom}, \/  kmScalar {\em top}, \/  kmScalar {\em nearVal}, \/  kmScalar {\em farVal})}}
+\subsubsection[kmMat4OrthographicProjection]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4OrthographicProjection ({\bf kmMat4} $\ast$ {\em pOut}, \/  kmScalar {\em left}, \/  kmScalar {\em right}, \/  kmScalar {\em bottom}, \/  kmScalar {\em top}, \/  kmScalar {\em nearVal}, \/  kmScalar {\em farVal})}}
 \label{mat4_8c_db56714ee34866bdd303617061785a83}
 
 
@@ -205,7 +205,7 @@ Definition at line 558 of file mat4.c.
 References kmMat4Identity(), kmScalar, and kmMat4::mat.\hypertarget{mat4_8c_919ef08f53bce1389211fe46992bbe2a}{
 \index{mat4.c@{mat4.c}!kmMat4PerspectiveProjection@{kmMat4PerspectiveProjection}}
 \index{kmMat4PerspectiveProjection@{kmMat4PerspectiveProjection}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4PerspectiveProjection}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4PerspectiveProjection ({\bf kmMat4} $\ast$ {\em pOut}, \/  kmScalar {\em fovY}, \/  kmScalar {\em aspect}, \/  kmScalar {\em zNear}, \/  kmScalar {\em zFar})}}
+\subsubsection[kmMat4PerspectiveProjection]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4PerspectiveProjection ({\bf kmMat4} $\ast$ {\em pOut}, \/  kmScalar {\em fovY}, \/  kmScalar {\em aspect}, \/  kmScalar {\em zNear}, \/  kmScalar {\em zFar})}}
 \label{mat4_8c_919ef08f53bce1389211fe46992bbe2a}
 
 
@@ -216,7 +216,7 @@ Definition at line 530 of file mat4.c.
 References kmDegreesToRadians(), kmMat4Identity(), kmScalar, and kmMat4::mat.\hypertarget{mat4_8c_ee198989b4b4dd5ecc4e0aa66804be23}{
 \index{mat4.c@{mat4.c}!kmMat4RotationAxis@{kmMat4RotationAxis}}
 \index{kmMat4RotationAxis@{kmMat4RotationAxis}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4RotationAxis}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4RotationAxis ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em axis}, \/  kmScalar {\em radians})}}
+\subsubsection[kmMat4RotationAxis]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4RotationAxis ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmVec3} $\ast$ {\em axis}, \/  kmScalar {\em radians})}}
 \label{mat4_8c_ee198989b4b4dd5ecc4e0aa66804be23}
 
 
@@ -224,10 +224,12 @@ Build a rotation matrix from an axis and an angle. Result is stored in pOut. pOu
 
 Definition at line 246 of file mat4.c.
 
-References kmMat4::mat, kmVec3::x, kmVec3::y, and kmVec3::z.\hypertarget{mat4_8c_d1e9b60cf7438ada74b457aa2c08251e}{
+References kmMat4::mat, kmVec3::x, kmVec3::y, and kmVec3::z.
+
+Referenced by kmGLRotatef().\hypertarget{mat4_8c_d1e9b60cf7438ada74b457aa2c08251e}{
 \index{mat4.c@{mat4.c}!kmMat4RotationPitchYawRoll@{kmMat4RotationPitchYawRoll}}
 \index{kmMat4RotationPitchYawRoll@{kmMat4RotationPitchYawRoll}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4RotationPitchYawRoll}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4RotationPitchYawRoll ({\bf kmMat4} $\ast$ {\em pOut}, \/  const kmScalar {\em pitch}, \/  const kmScalar {\em yaw}, \/  const kmScalar {\em roll})}}
+\subsubsection[kmMat4RotationPitchYawRoll]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4RotationPitchYawRoll ({\bf kmMat4} $\ast$ {\em pOut}, \/  const kmScalar {\em pitch}, \/  const kmScalar {\em yaw}, \/  const kmScalar {\em roll})}}
 \label{mat4_8c_d1e9b60cf7438ada74b457aa2c08251e}
 
 
@@ -238,7 +240,7 @@ Definition at line 386 of file mat4.c.
 References kmScalar, and kmMat4::mat.\hypertarget{mat4_8c_9f3c995870fbbdd9edeaedc0c664aa59}{
 \index{mat4.c@{mat4.c}!kmMat4RotationQuaternion@{kmMat4RotationQuaternion}}
 \index{kmMat4RotationQuaternion@{kmMat4RotationQuaternion}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4RotationQuaternion}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4RotationQuaternion ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmQuaternion} $\ast$ {\em pQ})}}
+\subsubsection[kmMat4RotationQuaternion]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4RotationQuaternion ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmQuaternion} $\ast$ {\em pQ})}}
 \label{mat4_8c_9f3c995870fbbdd9edeaedc0c664aa59}
 
 
@@ -249,7 +251,7 @@ Definition at line 418 of file mat4.c.
 References kmMat4::mat, kmQuaternion::w, kmQuaternion::x, kmQuaternion::y, and kmQuaternion::z.\hypertarget{mat4_8c_ed3cb43628ec624ea5a220166b5c4ec1}{
 \index{mat4.c@{mat4.c}!kmMat4RotationX@{kmMat4RotationX}}
 \index{kmMat4RotationX@{kmMat4RotationX}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4RotationX}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4RotationX ({\bf kmMat4} $\ast$ {\em pOut}, \/  const float {\em radians})}}
+\subsubsection[kmMat4RotationX]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4RotationX ({\bf kmMat4} $\ast$ {\em pOut}, \/  const float {\em radians})}}
 \label{mat4_8c_ed3cb43628ec624ea5a220166b5c4ec1}
 
 
@@ -260,7 +262,7 @@ Definition at line 277 of file mat4.c.
 References kmMat4::mat.\hypertarget{mat4_8c_813349d130dca2be41258dcca69006e7}{
 \index{mat4.c@{mat4.c}!kmMat4RotationY@{kmMat4RotationY}}
 \index{kmMat4RotationY@{kmMat4RotationY}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4RotationY}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4RotationY ({\bf kmMat4} $\ast$ {\em pOut}, \/  const float {\em radians})}}
+\subsubsection[kmMat4RotationY]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4RotationY ({\bf kmMat4} $\ast$ {\em pOut}, \/  const float {\em radians})}}
 \label{mat4_8c_813349d130dca2be41258dcca69006e7}
 
 
@@ -271,7 +273,7 @@ Definition at line 314 of file mat4.c.
 References kmMat4::mat.\hypertarget{mat4_8c_77ef482cd74be7146e18eb38041e84d7}{
 \index{mat4.c@{mat4.c}!kmMat4RotationZ@{kmMat4RotationZ}}
 \index{kmMat4RotationZ@{kmMat4RotationZ}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4RotationZ}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4RotationZ ({\bf kmMat4} $\ast$ {\em pOut}, \/  const float {\em radians})}}
+\subsubsection[kmMat4RotationZ]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4RotationZ ({\bf kmMat4} $\ast$ {\em pOut}, \/  const float {\em radians})}}
 \label{mat4_8c_77ef482cd74be7146e18eb38041e84d7}
 
 
@@ -282,7 +284,7 @@ Definition at line 350 of file mat4.c.
 References kmMat4::mat.\hypertarget{mat4_8c_36efba5cb0dd808c03b8c8dea74f5b05}{
 \index{mat4.c@{mat4.c}!kmMat4Scaling@{kmMat4Scaling}}
 \index{kmMat4Scaling@{kmMat4Scaling}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4Scaling}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Scaling ({\bf kmMat4} $\ast$ {\em pOut}, \/  const kmScalar {\em x}, \/  const kmScalar {\em y}, \/  const kmScalar {\em z})}}
+\subsubsection[kmMat4Scaling]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Scaling ({\bf kmMat4} $\ast$ {\em pOut}, \/  const kmScalar {\em x}, \/  const kmScalar {\em y}, \/  const kmScalar {\em z})}}
 \label{mat4_8c_36efba5cb0dd808c03b8c8dea74f5b05}
 
 
@@ -290,10 +292,12 @@ Builds a scaling matrix
 
 Definition at line 447 of file mat4.c.
 
-References kmMat4::mat.\hypertarget{mat4_8c_a08f87d5fd654c363c662777a79207d0}{
+References kmMat4::mat.
+
+Referenced by kmGLScalef().\hypertarget{mat4_8c_a08f87d5fd654c363c662777a79207d0}{
 \index{mat4.c@{mat4.c}!kmMat4Translation@{kmMat4Translation}}
 \index{kmMat4Translation@{kmMat4Translation}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4Translation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Translation ({\bf kmMat4} $\ast$ {\em pOut}, \/  const kmScalar {\em x}, \/  const kmScalar {\em y}, \/  const kmScalar {\em z})}}
+\subsubsection[kmMat4Translation]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Translation ({\bf kmMat4} $\ast$ {\em pOut}, \/  const kmScalar {\em x}, \/  const kmScalar {\em y}, \/  const kmScalar {\em z})}}
 \label{mat4_8c_a08f87d5fd654c363c662777a79207d0}
 
 
@@ -306,7 +310,7 @@ References kmMat4::mat.
 Referenced by kmMat4LookAt().\hypertarget{mat4_8c_5eaeb7d83c7f0a7b69bf028b37d0ff0f}{
 \index{mat4.c@{mat4.c}!kmMat4Transpose@{kmMat4Transpose}}
 \index{kmMat4Transpose@{kmMat4Transpose}!mat4.c@{mat4.c}}
-\subsubsection[{kmMat4Transpose}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Transpose ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pIn})}}
+\subsubsection[kmMat4Transpose]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmMat4}$\ast$ kmMat4Transpose ({\bf kmMat4} $\ast$ {\em pOut}, \/  const {\bf kmMat4} $\ast$ {\em pIn})}}
 \label{mat4_8c_5eaeb7d83c7f0a7b69bf028b37d0ff0f}
 
 

@@ -1,8 +1,9 @@
 \hypertarget{aabb_8h}{
-\section{C:/Users/luke/Desktop/KazMath/kazmath/src/aabb.h File Reference}
-\label{aabb_8h}\index{C:/Users/luke/Desktop/KazMath/kazmath/src/aabb.h@{C:/Users/luke/Desktop/KazMath/kazmath/src/aabb.h}}
+\section{/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/aabb.h File Reference}
+\label{aabb_8h}\index{/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/aabb.h@{/ich/Programmieren/KazadeEngine/NeHeKazmath/kazmath/src/aabb.h}}
 }
 {\tt \#include \char`\"{}vec3.h\char`\"{}}\par
+{\tt \#include \char`\"{}utility.h\char`\"{}}\par
 \subsection*{Data Structures}
 \begin{CompactItemize}
 \item 
@@ -11,44 +12,42 @@ struct \hyperlink{structkm_a_a_b_b}{kmAABB}
 \subsection*{Functions}
 \begin{CompactItemize}
 \item 
-int \hyperlink{aabb_8h_82e7a3198db20fb27a9d207eb0be6719}{kmAABBPointInBox} (const \hyperlink{structkm_vec3}{kmVec3} $\ast$pPoint, const \hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$pBox) \hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$kmAABBAssign(\hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$pOut
+int \hyperlink{aabb_8h_14642b5cca95df665f561512357742ba}{kmAABBPointInBox} (const \hyperlink{structkm_vec3}{kmVec3} $\ast$pPoint, const \hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$pBox)
 \item 
-\hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$ \hyperlink{aabb_8h_50e6223b653e3a64f99e26e8e3134253}{kmAABBScale} (\hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$pOut, const \hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$\hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn}, kmScalar s)
-\end{CompactItemize}
-\subsection*{Variables}
-\begin{CompactItemize}
+\hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$ \hyperlink{aabb_8h_8fd86991f5245c1d724e2fb4dd819a85}{kmAABBAssign} (\hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$pOut, const \hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$pIn)
 \item 
-int const \hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$ \hyperlink{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{pIn}
+\hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$ \hyperlink{aabb_8h_50e6223b653e3a64f99e26e8e3134253}{kmAABBScale} (\hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$pOut, const \hyperlink{structkm_a_a_b_b}{kmAABB} $\ast$pIn, kmScalar s)
 \end{CompactItemize}
 
 
 \subsection{Function Documentation}
-\hypertarget{aabb_8h_82e7a3198db20fb27a9d207eb0be6719}{
+\hypertarget{aabb_8h_8fd86991f5245c1d724e2fb4dd819a85}{
+\index{aabb.h@{aabb.h}!kmAABBAssign@{kmAABBAssign}}
+\index{kmAABBAssign@{kmAABBAssign}!aabb.h@{aabb.h}}
+\subsubsection[kmAABBAssign]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmAABB}$\ast$ kmAABBAssign ({\bf kmAABB} $\ast$ {\em pOut}, \/  const {\bf kmAABB} $\ast$ {\em pIn})}}
+\label{aabb_8h_8fd86991f5245c1d724e2fb4dd819a85}
+
+
+Assigns pIn to pOut, returns pOut. 
+
+Definition at line 41 of file aabb.c.\hypertarget{aabb_8h_14642b5cca95df665f561512357742ba}{
 \index{aabb.h@{aabb.h}!kmAABBPointInBox@{kmAABBPointInBox}}
 \index{kmAABBPointInBox@{kmAABBPointInBox}!aabb.h@{aabb.h}}
-\subsubsection[{kmAABBPointInBox}]{\setlength{\rightskip}{0pt plus 5cm}int kmAABBPointInBox (const {\bf kmVec3} $\ast$ {\em pPoint}, \/  const {\bf kmAABB} $\ast$ {\em pBox})}}
-\label{aabb_8h_82e7a3198db20fb27a9d207eb0be6719}
+\subsubsection[kmAABBPointInBox]{\setlength{\rightskip}{0pt plus 5cm}int kmAABBPointInBox (const {\bf kmVec3} $\ast$ {\em pPoint}, \/  const {\bf kmAABB} $\ast$ {\em pBox})}}
+\label{aabb_8h_14642b5cca95df665f561512357742ba}
 
 
-\hypertarget{aabb_8h_50e6223b653e3a64f99e26e8e3134253}{
+Returns KM\_\-TRUE if point is in the specified AABB, returns KM\_\-FALSE otherwise. 
+
+Definition at line 32 of file aabb.c.
+
+References KM\_\-FALSE.\hypertarget{aabb_8h_50e6223b653e3a64f99e26e8e3134253}{
 \index{aabb.h@{aabb.h}!kmAABBScale@{kmAABBScale}}
 \index{kmAABBScale@{kmAABBScale}!aabb.h@{aabb.h}}
-\subsubsection[{kmAABBScale}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmAABB}$\ast$ kmAABBScale ({\bf kmAABB} $\ast$ {\em pOut}, \/  const {\bf kmAABB} $\ast$ {\em pIn}, \/  kmScalar {\em s})}}
+\subsubsection[kmAABBScale]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmAABB}$\ast$ kmAABBScale ({\bf kmAABB} $\ast$ {\em pOut}, \/  const {\bf kmAABB} $\ast$ {\em pIn}, \/  kmScalar {\em s})}}
 \label{aabb_8h_50e6223b653e3a64f99e26e8e3134253}
 
 
 Scales pIn by s, stores the resulting AABB in pOut. Returns pOut 
 
-Definition at line 48 of file aabb.c.
-
-\subsection{Variable Documentation}
-\hypertarget{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}{
-\index{aabb.h@{aabb.h}!pIn@{pIn}}
-\index{pIn@{pIn}!aabb.h@{aabb.h}}
-\subsubsection[{pIn}]{\setlength{\rightskip}{0pt plus 5cm}int const {\bf kmAABB}$\ast$ {\bf pIn}}}
-\label{aabb_8h_59ff8f4c26530a53b9a54250b3c44922}
-
-
-
-
-Definition at line 45 of file aabb.h.
+Definition at line 50 of file aabb.c.
