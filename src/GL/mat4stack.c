@@ -58,7 +58,7 @@ void km_mat4_stack_push(km_mat4_stack* stack, const kmMat4* item) {
 		free(temp_stack); //Free the original memory
 	}
 
-	printf("Stack size: %i\n\tMatrix:\n",stack->item_count);
+	/*printf("Stack size: %i\n\tMatrix:\n",stack->item_count);
 	int i,j;
 	for(i = 0; i < 4; i++)
 	{
@@ -67,7 +67,7 @@ void km_mat4_stack_push(km_mat4_stack* stack, const kmMat4* item) {
             printf("\t%f",stack->top->mat[i * 4 + j]);
         }
         printf("\n");
-	}
+	}*/
 }
 
 void km_mat4_stack_pop(km_mat4_stack* stack, kmMat4* pOut) {

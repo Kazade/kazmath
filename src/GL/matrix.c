@@ -127,7 +127,7 @@ void kmGLFreeAll()
 void kmGLMultMatrix(const kmMat4* pIn)
 {
 	lazyInitialize();
-	kmMat4Multiply(current_stack->top, pIn, current_stack->top);
+	kmMat4Multiply(current_stack->top, current_stack->top, pIn);
 }
 
 void kmGLLoadMatrix(const kmMat4* pIn)
@@ -176,12 +176,12 @@ void kmGLRotatef(float angle, float x, float y, float z)
 	kmMat4RotationAxis(&rotation, &axis, kmDegreesToRadians(angle));
 
 	//Multiply the rotation matrix by the current matrix
-	kmMat4Multiply(current_stack->top, &rotation, current_stack->top);
+	kmMat4Multiply(current_stack->top, current_stack->top, &rotation);
 }
 
 void kmGLScalef(float x, float y, float z)
 {
 	kmMat4 scaling;
 	kmMat4Scaling(&scaling, x, y, z);
-	kmMat4Multiply(current_stack->top, &scaling, current_stack->top);
+	kmMat4Multiply(current_stack->top, current_stack->top, &scaling);
 }
