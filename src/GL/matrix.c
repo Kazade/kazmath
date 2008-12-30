@@ -157,9 +157,13 @@ void kmGLGetMatrix(kmGLEnum mode, kmMat4* pOut)
 
 void kmGLTranslatef(float x, float y, float z)
 {
-	current_stack->top->mat[12] += x;
-	current_stack->top->mat[13] += y;
-	current_stack->top->mat[14] += z;
+	kmMat4 translation;
+
+	//Create a rotation matrix using the axis and the angle
+	kmMat4Translation(&translation,x,y,z);
+
+	//Multiply the rotation matrix by the current matrix
+	kmMat4Multiply(current_stack->top, current_stack->top, &translation);
 }
 
 void kmGLRotatef(float angle, float x, float y, float z)
