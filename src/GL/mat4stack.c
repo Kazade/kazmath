@@ -48,8 +48,9 @@ void km_mat4_stack_push(km_mat4_stack* stack, const kmMat4* item)
 
     if(stack->item_count >= stack->capacity)
     {
+		kmMat4* temp = NULL;
         stack->capacity += INCREMENT;
-        kmMat4* temp = stack->stack;
+        temp = stack->stack;
         stack->stack = (kmMat4*) malloc(stack->capacity*sizeof(kmMat4));
         memcpy(stack->stack, temp, sizeof(kmMat4)*(stack->capacity - INCREMENT));
         free(temp);
