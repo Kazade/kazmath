@@ -34,7 +34,7 @@ namespace km
 	{
 		public:
 			///< Constructors
-			vec2(const kmScalar& x, const kmScalar& y) : _x(x), _y(y) {};
+			vec2(const kmScalar _x, const kmScalar _y) : x(_x), y(_y) {};
 			
 			///< Returns the length of the vector
 			kmScalar length()
@@ -56,15 +56,17 @@ namespace km
 			}
 			
 			///< Transform the Vector
-			void transform(const &kmMat3 mat)
+			const vec2 transform(const &kmMat3 mat)
 			{
-				kmVec2Transform(this, this, mat)
+				kmVec2Transform(this, this, &mat);
+				return *this;
 			}
 
 			///< Transforms a 3D vector by a given matrix, projecting the result back into w = 1.
-			void transformCoord(const &kmMat3 mat)
+			const vec2 transformCoord(const &kmMat3 mat)
 			{
-				kmVec2TransformCoord(this, this, mat)
+				kmVec2TransformCoord(this, this, &mat);
+				return *this;
 			}
 	};
 	
@@ -91,7 +93,7 @@ namespace km
 	};
 	
 	///< Multiply with scalar
-	const vec2 operator*(const float lhs, const vec2& rhs)
+	const vec2 operator*(const kmScalar lhs, const vec2& rhs)
 	{
 		vec2 result;
 		kmVec2Scale(&result, &rhs, lhs);
@@ -99,10 +101,18 @@ namespace km
 	};
 
 	///< Multiply with scalar	
-	const vec2 operator*(const vec2& lhs, const float rhs)
+	const vec2 operator*(const vec2& lhs, const kmScalar rhs)
 	{
 		vec2 result;
 		kmVec2Scale(&result, &lhs, rhs);
+		return result;
+	};
+	
+	///< Transform through matrix	
+	const vec2 operator*(const kmMat3& lhs, const vec2& rhs)
+	{
+		vec2 result;
+		kmVec2Transform(&result, &rhs, &lhs)
 		return result;
 	};
 	
