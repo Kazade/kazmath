@@ -40,14 +40,13 @@ mat = | 1   5   9  13 |
         | 3   7  11  15 |
 */
 
-typedef struct kmMat4{
-	kmScalar mat[16];
-} kmMat4;
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+typedef struct kmMat4 {
+	kmScalar mat[16];
+} kmMat4;
 
 kmMat4* kmMat4Fill(kmMat4* pOut, const kmScalar* pMat);
 

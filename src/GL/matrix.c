@@ -41,6 +41,8 @@ void lazyInitialize()
 {
 
 	if (!initialized) {
+		kmMat4 identity; //Temporary identity matrix
+
 		//Initialize all 3 stacks
 		//modelview_matrix_stack = (km_mat4_stack*) malloc(sizeof(km_mat4_stack));
 		km_mat4_stack_initialize(&modelview_matrix_stack);
@@ -54,7 +56,6 @@ void lazyInitialize()
 		current_stack = &modelview_matrix_stack;
 		initialized = 1;
 
-		kmMat4 identity; //Temporary identity matrix
 		kmMat4Identity(&identity);
 
 		//Make sure that each stack has the identity matrix
@@ -87,10 +88,11 @@ void kmGLMatrixMode(kmGLEnum mode)
 
 void kmGLPushMatrix(void)
 {
+	kmMat4 top;
+
 	lazyInitialize(); //Initialize the stacks if they haven't been already
 
-	//Duplicate the top of the stack (i.e the current matrix)
-	kmMat4 top;
+	//Duplicate the top of the stack (i.e the current matrix)	
 	kmMat4Assign(&top, current_stack->top);
 	km_mat4_stack_push(current_stack, &top);
 }
