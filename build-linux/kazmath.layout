@@ -46,14 +46,14 @@
 	<File name="../src/utility.c" open="0" top="0" tabpos="9">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="../src/utility.h" open="1" top="0" tabpos="7">
-		<Cursor position="0" topLine="18" />
+	<File name="../src/utility.h" open="1" top="0" tabpos="3">
+		<Cursor position="1486" topLine="0" />
 	</File>
 	<File name="../src/vec2.c" open="0" top="0" tabpos="4">
 		<Cursor position="189" topLine="0" />
 	</File>
-	<File name="../src/vec2.h" open="0" top="0" tabpos="1">
-		<Cursor position="355" topLine="0" />
+	<File name="../src/vec2.h" open="1" top="1" tabpos="4">
+		<Cursor position="1426" topLine="21" />
 	</File>
 	<File name="../src/vec3.c" open="0" top="0" tabpos="6">
 		<Cursor position="526" topLine="36" />
