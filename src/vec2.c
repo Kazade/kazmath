@@ -26,7 +26,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assert.h>
 #include <stdlib.h>
 
-#include "mat4.h"
+#include "mat3.h"
 #include "vec2.h"
 #include "utility.h"
 
@@ -81,7 +81,7 @@ kmVec2* kmVec2Subtract(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2)
 kmVec2* kmVec2Transform(kmVec2* pOut, const kmVec2* pV1, const kmMat3* pM)
 {
 	assert(0);
-    return NULL;
+	return NULL;
 }
 
 kmVec2* kmVec2TransformCoord(kmVec2* pOut, const kmVec2* pV, const kmMat3* pM)
