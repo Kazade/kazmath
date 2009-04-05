@@ -34,66 +34,74 @@ namespace km
 	{
 		public:
 			///< Constructors
-			vec3(const kmScalar _x, const kmScalar _y, const kmScalar _z) : x(_x), y(_y), z(_z) {};
+			vec3(const kmScalar _x, const kmScalar _y, const kmScalar _z) : x(_x), y(_y), z(_z) {}
+			vec3() : x(kmScalar(0.0)), y(kmScalar(0.0)), z(kmScalar(0.0)) {}
 			
 			///< Returns the length of the vector
-			kmScalar length()
+			const kmScalar length() const
 			{
 				return kmVec3Length(this);
 			}
 			
 			///< Returns the square of the length of the vector
-			kmScalar lengthSq()
+			const kmScalar lengthSq() const
 			{
 				return kmVec3LengthSq(this);
 			}
 			
 			
 			///< Returns the vector passed in set to unit length
-			void normalize()
+			const vec3 normalize() const
 			{
-				kmVec3Normalize(this,this);
+				vec3 result;
+				kmVec3Normalize(&result,this);
+				return result;
 			}
 			
 			///< Transform the Vector
-			const vec3 transform(const &kmMat4 mat)
+			const vec3 transform(const &kmMat4 mat) const
 			{
-				kmVec3Transform(this, this, &mat);
-				return *this;
+				vec3 result;
+				kmVec3Transform(&result,this, &mat);
+				return result;
 			}
 
 			///< Transforms a 3D vector by a given matrix, projecting the result back into w = 1.
-			const vec3 transformCoord(const &kmMat4 mat)
+			const vec3 transformCoord(const &kmMat4 mat) const
 			{
-				kmVec3TransformCoord(this, this, &mat);
-				return *this;
+				vec3 result;
+				kmVec3TransformCoord(&result,this, &mat);
+				return result;
 			}
 			
 			///< Transforms the vector ignoring the translation part
-			const vec3 transformCoord(const &kmMat4 mat)
+			const vec3 transformNormal(const &kmMat4 mat) const
 			{
-				kmVec3TransformNormal(this, this, &mat);
-				return *this;
+				vec3 result;
+				kmVec3TransformNormal(&result,this, &mat);
+				return result;
 			}
 			
 			///< The cross product returns a vector perpendicular to this and another vector
-			const vec3 cross(const kmVec3& vec)
+			const vec3 cross(const kmVec3& vec) const
 			{
 				vec3 result;
 				kmVec3Cross(&result, this, &vec);
 				return result;
 			}
 			
-			const vec3 inverseTransform(const &kmMat4 mat)
+			const vec3 inverseTransform(const kmMat4& mat) const
 			{
-				kmVec3InverseTransform(this, this, &mat);
-				return *this;
+				vec3 result;
+				kmVec3InverseTransform(&result,this, &mat);
+				return result;
 			}
 			
-			const vec3 inverseTransformNormal(const &kmMat4 mat)
+			const vec3 inverseTransformNormal(const kmMat4& mat) const
 			{
-				kmVec3InverseTransformNormal(this, this, &mat);
-				return *this;
+				vec3 result;
+				kmVec3InverseTransformNormal(&result,this, &mat);
+				return result;
 			}
 	};
 	

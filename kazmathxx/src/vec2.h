@@ -35,38 +35,43 @@ namespace km
 		public:
 			///< Constructors
 			vec2(const kmScalar _x, const kmScalar _y) : x(_x), y(_y) {};
+			vec2() : x(kmScalar(0.0)), y(kmScalar(0.0)) {}
 			
 			///< Returns the length of the vector
-			kmScalar length()
+			const kmScalar length() const
 			{
 				return kmVec2Length(this);
 			}
 			
 			///< Returns the square of the length of the vector
-			kmScalar lengthSq()
+			const kmScalar lengthSq() const
 			{
 				return kmVec2LengthSq(this);
 			}
 			
 			
 			///< Returns the vector passed in set to unit length
-			void normalize()
+			const vec2 normalize() const
 			{
-				kmVec2Normalize(this,this);
+				vec2 result;
+				kmVec2Normalize(&result, this);
+				return result;
 			}
 			
 			///< Transform the Vector
-			const vec2 transform(const &kmMat3 mat)
+			const vec2 transform(const kmMat3& mat) const
 			{
-				kmVec2Transform(this, this, &mat);
-				return *this;
+				vec2 result;
+				kmVec2Transform(&result, this, &mat);
+				return result;
 			}
 
 			///< Transforms a 3D vector by a given matrix, projecting the result back into w = 1.
-			const vec2 transformCoord(const &kmMat3 mat)
+			const vec2 transformCoord(const kmMat3& mat) const
 			{
-				kmVec2TransformCoord(this, this, &mat);
-				return *this;
+				vec2 result;
+				kmVec2TransformCoord(&result, this, &mat);
+				return result;
 			}
 	};
 	
