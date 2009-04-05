@@ -68,101 +68,24 @@ namespace km
 			return result;
 		}
 		
-		static const mat3 rotationAxis(const kmVec3& axis, const kmScalar radians)
+		static const mat3 rotation(const kmScalar radians)
 		{
 			mat3 result;
-			kmMat3RotationAxis(&result, &axis, radians);
+			kmMat3Rotation(&result, radians);
 			return result;
 		}
 		
-		static const mat3 rotationX(const kmScalar radians)
+		static const mat3 scaling(const kmScalar x, const kmScalar y)
 		{
 			mat3 result;
-			kmMat3RotationX(&result, radians);
+			kmMat3Scaling(&result, x,y);
 			return result;
 		}
 		
-		static const mat3 rotationY(const kmScalar radians)
+		static const mat3 translation(const kmScalar x, const kmScalar y)
 		{
 			mat3 result;
-			kmMat3RotationY(&result, radians);
-			return result;
-		}
-		
-		static const mat3 rotationZ(const kmScalar radians)
-		{
-			mat3 result;
-			kmMat3RotationZ(&result, radians);
-			return result;
-		}
-		
-		static const mat3 rotationPitchYawRoll(const kmScalar pitch, const kmScalar yaw, const kmScalar roll)
-		{
-			mat3 result;
-			kmMat3RotationPitchYawRoll(&result, pitch, yaw, roll);
-			return result;
-		}
-		
-		static const mat3 rotationQuaternion(const kmQuaternion& pQ)
-		{
-			mat3 result;
-			kmMat3RotationQuaternion(&result, &pQ);
-			return result;
-		}
-		
-		static const mat3 scaling(const kmScalar x, const kmScalar y, const kmScalar z)
-		{
-			mat3 result;
-			kmMat3Scaling(&result, x,y,z);
-			return result;
-		}
-		
-		static const mat3 translation(const kmScalar x, const kmScalar y, const kmScalar z)
-		{
-			mat3 result;
-			kmMat3Translation(&result, x,y,z);
-			return result;
-		}
-		
-		const vec3 getUpVec3() const
-		{
-			vec3 result;
-			kmMat3GetUpVec3(&result, this);
-			return result;
-		}
-		
-		const vec3 getRightVec3() const
-		{
-			vec3 result;
-			kmMat3GetRightVec3(&result, this);
-			return result;
-		}
-		
-		const vec3 getForwardVec3() const
-		{
-			vec3 result;
-			kmMat3GetForwardVec3(&result, this);
-			return result;
-		}
-		
-		static const mat3 perspectiveProjection(const kmScalar fovY, const kmScalar aspect, const kmScalar zNear, const kmScalar zFar)
-		{
-			mat3 result;
-			kmMat3PerspectiveProjection(&result, fovY, aspect, zNear, zFar);
-			return result;
-		}
-		
-		static const mat3 orthographicProjection(const kmScalar left, const kmScalar right, const kmScalar bottom, const kmScalar top, const kmScalar nearVal, const kmScalar farVal)
-		{
-			mat3 result;
-			kmMat3OrthographicProjection(&result, left, right, bottom, top, nearVal, farVal);
-			return result;
-		}
-		
-		static const mat3 lookAt(const kmVec3& pEye, const kmVec3& pCenter, const kmVec3& pUp)
-		{
-			mat3 result;
-			kmMat3LookAt(&result, &pEye, &pCenter, &pUp);
+			kmMat3Translation(&result, x,y);
 			return result;
 		}
 	};
