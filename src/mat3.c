@@ -231,4 +231,29 @@ kmMat3* kmMat3Translation(kmMat3* pOut, const kmScalar x, const kmScalar y)
     return pOut;
 }
 
+kmMat3* kmMat3RotationQuaternion(kmMat3* pOut, const kmQuaternion* pIn) 
+{
+    if (!pIn || !pOut) {
+	return NULL;
+    }
+    
+    // First row
+    pOut->mat[0] = 1.0f - 2.0f * (pIn->y * pIn->y + pIn->z * pIn->z);  
+    pOut->mat[1] = 2.0f * (pIn->x * pIn->y - pIn->w * pIn->z);  
+    pOut->mat[2] = 2.0f * (pIn->x * pIn->z + pIn->w * pIn->y);  
+    pOut->mat[3] = 0.0f;  
 
+    // Second row
+    pOut->mat[4] = 2.0f * (pIn->x * pIn->y + pIn->w * pIn->z);  
+    pOut->mat[5] = 1.0f - 2.0f * (pIn->x * pIn->x + pIn->z * pIn->z);  
+    pOut->mat[6] = 2.0f * (pIn->y * pIn->z - pIn->w * pIn->x);  
+    pOut->mat[7] = 0.0f;  
+
+    // Third row
+    pOut->mat[8] = 2.0f * (pIn->x * pIn->z - pIn->w * pIn->y);  
+    pOut->mat[9] = 2.0f * (pIn->y * pIn->z + pIn->w * pIn->x);  
+    pOut->mat[10] = 1.0f - 2.0f * (pIn->x * pIn->x + pIn->y * pIn->y);  
+    pOut->mat[11] = 0.0f;  
+    
+    return pOut;
+}
