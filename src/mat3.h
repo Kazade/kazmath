@@ -57,7 +57,7 @@ kmMat3* kmMat3Rotation(kmMat3* pOut, const kmScalar radians);
 kmMat3* kmMat3Scaling(kmMat3* pOut, const kmScalar x, const kmScalar y);
 kmMat3* kmMat3Translation(kmMat3* pOut, const kmScalar x, const kmScalar y);
 
-kmMat3* kmMat3RotationQuaternion(kmMat3* pOut, const kmQuaternion* pIn);
+kmMat3* kmMat3RotationQuaternion(kmMat3* pOut, const struct kmQuaternion* pIn);
 
 #ifdef __cplusplus
 }

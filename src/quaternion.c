@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <memory.h>
 
 #include "utility.h"
-#include "mat4.h"
+#include "mat3.h"
 #include "vec3.h"
 #include "quaternion.h"
 
@@ -177,7 +177,7 @@ kmQuaternion* kmQuaternionRotationAxis(kmQuaternion* pOut,
 
 ///< Creates a quaternion from a rotation matrix
 kmQuaternion* kmQuaternionRotationMatrix(kmQuaternion* pOut,
-										const kmMat4* pIn)
+										const kmMat3* pIn)
 {
 /*
 Note: The OpenGL matrices are transposed from the description below
