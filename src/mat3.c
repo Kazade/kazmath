@@ -281,7 +281,11 @@ kmMat3* kmMat3RotationAxis(kmMat3* pOut, const struct kmVec3* axis, kmScalar rad
     return pOut;    
 }
 
-kmVec3* kmMat3RotationToAxisAngle(kmVec* pAxis, kmScalar radians, const kmMat3* pIn) 
+kmVec3* kmMat3RotationToAxisAngle(kmVec* pAxis, kmScalar* radians, const kmMat3* pIn) 
 {
+    /*Surely not this easy?*/
+    kmQuaternion temp;
+    kmQuaternionRotationMatrix(&temp, pIn);
+    kmQuaternionToAxisAngle(&temp, pAxis, radians);
     return pAxis;
 }
