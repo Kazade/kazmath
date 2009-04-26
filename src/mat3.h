@@ -49,8 +49,7 @@ kmMat3* kmMat3Transpose(kmMat3* pOut, const kmMat3* pIn);
 kmScalar kmMat3Determinant(const kmMat3* pIn);
 kmMat3* kmMat3Multiply(kmMat3* pOut, const kmMat3* pM1, const kmMat3* pM2);
 kmMat3* kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, const kmScalar pFactor);
-kmMat3* kmMat4RotationAxis(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians);
-
+kmMat3* kmMat3RotationAxis(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians);
 kmMat3* kmMat3Assign(kmMat3* pOut, const kmMat3* pIn);
 int  kmMat3AreEqual(const kmMat3* pM1, const kmMat3* pM2);
 

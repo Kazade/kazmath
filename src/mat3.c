@@ -258,7 +258,7 @@ kmMat3* kmMat3RotationQuaternion(kmMat3* pOut, const kmQuaternion* pIn)
     return pOut;
 }
 
-kmMat3* kmMat4RotationAxis(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians)
+kmMat3* kmMat3RotationAxis(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians)
 {
     float rcos = cosf(radians);
     float rsin = sinf(radians);
