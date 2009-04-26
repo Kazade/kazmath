@@ -1,0 +1,15 @@
+//===========================================================================
+//	MechaRed	version 0.0
+//
+//
+//	Made with doktor's BotStudio v. 0.98
+//	http://www.planetquake.com/botstudio  e-mail: doktor@cutey.com
+//===========================================================================
+
+{
+name		MechaRed
+model		sonic/red
+funname	"Mecha Red"
+color		4
+aifile	bots/mechared_c.c
+}

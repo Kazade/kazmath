@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="MD3 Tests" />
+	<File name="../src/kazmodel/md3_model.c" open="1" top="0" tabpos="4">
+		<Cursor position="8072" topLine="181" />
+	</File>
+	<File name="../src/kazmodel/md3_model.h" open="1" top="0" tabpos="6">
+		<Cursor position="1323" topLine="50" />
+	</File>
+	<File name="../src/kazmodel/model.c" open="1" top="0" tabpos="3">
+		<Cursor position="15982" topLine="542" />
+	</File>
+	<File name="../src/kazmodel/model.h" open="1" top="0" tabpos="2">
+		<Cursor position="1020" topLine="38" />
+	</File>
+	<File name="../tests/md3_model_tests.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="2213" topLine="60" />
+	</File>
+	<File name="../tests/model_tests.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="2015" topLine="42" />
+	</File>
+</CodeBlocks_layout_file>

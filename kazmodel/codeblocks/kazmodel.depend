@@ -1,0 +1,68 @@
+# depslib dependency file v1.0
+1240077630 source:/home/luke/Desktop/Kazmodel/src/md3_model.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	"md3_model.h"
+
+1240061442 /home/luke/Desktop/Kazmodel/src/md3_model.h
+	<kazmath/vec3.h>
+	<kazmath/mat3.h>
+	"model.h"
+
+1240076168 /home/luke/Desktop/Kazmodel/src/model.h
+	<kazmath/vec3.h>
+	<kazmath/vec2.h>
+	<kazmath/mat3.h>
+
+1239037442 source:/home/luke/Desktop/Kazmodel/codeblocks/main.c
+
+1240076401 source:/home/luke/Desktop/Kazmodel/src/model.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<GL/gl.h>
+	<kazmath/quaternion.h>
+	<kazmath/mat4.h>
+	"model.h"
+	"md3_model.h"
+
+1240730770 source:/home/luke/Desktop/Kazmodel/tests/md3_model_tests.cpp
+	<boost/test/unit_test.hpp>
+	<boost/test/floating_point_comparison.hpp>
+	<kazmodel/model.h>
+	<SDL/SDL.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1240731375 source:/home/luke/Desktop/Kazmodel/src/kazmodel/md3_model.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	"md3_model.h"
+
+1240730570 /home/luke/Desktop/Kazmodel/src/kazmodel/md3_model.h
+	<kazmath/vec3.h>
+	<kazmath/mat3.h>
+	"model.h"
+
+1240655650 /home/luke/Desktop/Kazmodel/src/kazmodel/model.h
+	<kazmath/vec3.h>
+	<kazmath/vec2.h>
+	<kazmath/mat3.h>
+
+1240731285 source:/home/luke/Desktop/Kazmodel/src/kazmodel/model.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<GL/gl.h>
+	<kazmath/quaternion.h>
+	<kazmath/mat4.h>
+	"model.h"
+	"md3_model.h"
+
+1240171490 source:/home/luke/Desktop/Kazmodel/tests/model_tests.cpp
+	<boost/test/unit_test.hpp>
+	<boost/test/floating_point_comparison.hpp>
+	<kazmodel/model.h>
+

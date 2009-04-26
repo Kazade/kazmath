@@ -1,0 +1,14 @@
+//===========================================================================
+//	AquaSonic	version 0.0
+//
+//
+//	Made with doktor's BotStudio v. 0.98
+//	http://www.planetquake.com/botstudio  e-mail: doktor@cutey.com
+//===========================================================================
+
+{
+name		AquaSonic
+model		sonic/aquatic
+color		3
+aifile	bots/aquasonic_c.c
+}

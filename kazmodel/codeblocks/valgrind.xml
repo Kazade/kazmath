@@ -1,0 +1,119 @@
+Running 2 test cases...
+Generating IDs for 1 models
+Allocating memory for model with ID 1
+Model array size: 1
+Bound model with ID 1
+Loading frames . Done.
+Loading tags  Done.
+Loading surfaces .
+Loading frame vertex data
+Done.
+ Done.
+Successfully loaded head.md3
+Loading frames ......................................................................................................................................................... Done.
+Loading tags  Done.
+Loading surfaces .
+Loading frame vertex data
+Done.
+.
+Loading frame vertex data
+Done.
+.
+Loading frame vertex data
+Done.
+ Done.
+Successfully loaded upper.md3
+Loading frames ............................................................................................................................................................................................. Done.
+Loading tags  Done.
+Loading surfaces .
+Loading frame vertex data
+Done.
+.
+Loading frame vertex data
+Done.
+ Done.
+Successfully loaded lower.md3
+Loaded animation: BOTH_DEATH1
+Loaded animation: BOTH_DEAD1
+Loaded animation: BOTH_DEATH2
+Loaded animation: BOTH_DEAD2
+Loaded animation: BOTH_DEATH3
+Loaded animation: BOTH_DEAD3
+Loaded animation: TORSO_GESTURE
+Loaded animation: TORSO_ATTACK
+Loaded animation: TORSO_ATTACK2
+Loaded animation: TORSO_DROP
+Loaded animation: TORSO_RAISE
+Loaded animation: TORSO_STAND
+Loaded animation: TORSO_STAND2
+Loaded animation: LEGS_WALKCR
+Loaded animation: LEGS_WALK
+Loaded animation: LEGS_RUN
+Loaded animation: LEGS_BACK
+Loaded animation: LEGS_SWIM
+Loaded animation: LEGS_JUMP
+Loaded animation: LEGS_LAND
+Loaded animation: LEGS_JUMPB
+Loaded animation: LEGS_LANDB
+Loaded animation: LEGS_IDLE
+Loaded animation: LEGS_IDLECR
+Loaded animation: LEGS_TURN
+Generating IDs for 1 models
+Allocating memory for model with ID 2
+Model array size: 2
+Bound model with ID 2
+Loading frames . Done.
+Loading tags  Done.
+Loading surfaces .
+Loading frame vertex data
+Done.
+ Done.
+Successfully loaded head.md3
+Loading frames ......................................................................................................................................................... Done.
+Loading tags  Done.
+Loading surfaces .
+Loading frame vertex data
+Done.
+.
+Loading frame vertex data
+Done.
+.
+Loading frame vertex data
+Done.
+ Done.
+Successfully loaded upper.md3
+Loading frames ............................................................................................................................................................................................. Done.
+Loading tags  Done.
+Loading surfaces .
+Loading frame vertex data
+Done.
+.
+Loading frame vertex data
+Done.
+ Done.
+Successfully loaded lower.md3
+Loaded animation: BOTH_DEATH1
+Loaded animation: BOTH_DEAD1
+Loaded animation: BOTH_DEATH2
+Loaded animation: BOTH_DEAD2
+Loaded animation: BOTH_DEATH3
+Loaded animation: BOTH_DEAD3
+Loaded animation: TORSO_GESTURE
+Loaded animation: TORSO_ATTACK
+Loaded animation: TORSO_ATTACK2
+Loaded animation: TORSO_DROP
+Loaded animation: TORSO_RAISE
+Loaded animation: TORSO_STAND
+Loaded animation: TORSO_STAND2
+Loaded animation: LEGS_WALKCR
+Loaded animation: LEGS_WALK
+Loaded animation: LEGS_RUN
+Loaded animation: LEGS_BACK
+Loaded animation: LEGS_SWIM
+Loaded animation: LEGS_JUMP
+Loaded animation: LEGS_LAND
+Loaded animation: LEGS_JUMPB
+Loaded animation: LEGS_LANDB
+Loaded animation: LEGS_IDLE
+Loaded animation: LEGS_IDLECR
+Loaded animation: LEGS_TURN
