@@ -231,30 +231,28 @@ kmMat3* kmMat3Translation(kmMat3* pOut, const kmScalar x, const kmScalar y)
     return pOut;
 }
 
-kmMat3* kmMat3RotationQuaternion(kmMat3* pOut, const kmQuaternion* pIn) 
+
+kmMat3* kmMat3RotationQuaternion(kmMat3* pOut, const kmQuaternion* pIn)
 {
     if (!pIn || !pOut) {
 	return NULL;
     }
-    
+
     // First row
-    pOut->mat[0] = 1.0f - 2.0f * (pIn->y * pIn->y + pIn->z * pIn->z);  
-    pOut->mat[1] = 2.0f * (pIn->x * pIn->y - pIn->w * pIn->z);  
-    pOut->mat[2] = 2.0f * (pIn->x * pIn->z + pIn->w * pIn->y);  
-    pOut->mat[3] = 0.0f;  
+    pOut->mat[0] = 1.0f - 2.0f * (pIn->y * pIn->y + pIn->z * pIn->z);
+    pOut->mat[1] = 2.0f * (pIn->x * pIn->y - pIn->w * pIn->z);
+    pOut->mat[2] = 2.0f * (pIn->x * pIn->z + pIn->w * pIn->y);
 
     // Second row
-    pOut->mat[4] = 2.0f * (pIn->x * pIn->y + pIn->w * pIn->z);  
-    pOut->mat[5] = 1.0f - 2.0f * (pIn->x * pIn->x + pIn->z * pIn->z);  
-    pOut->mat[6] = 2.0f * (pIn->y * pIn->z - pIn->w * pIn->x);  
-    pOut->mat[7] = 0.0f;  
+    pOut->mat[3] = 2.0f * (pIn->x * pIn->y + pIn->w * pIn->z);
+    pOut->mat[4] = 1.0f - 2.0f * (pIn->x * pIn->x + pIn->z * pIn->z);
+    pOut->mat[5] = 2.0f * (pIn->y * pIn->z - pIn->w * pIn->x);
 
     // Third row
-    pOut->mat[8] = 2.0f * (pIn->x * pIn->z - pIn->w * pIn->y);  
-    pOut->mat[9] = 2.0f * (pIn->y * pIn->z + pIn->w * pIn->x);  
-    pOut->mat[10] = 1.0f - 2.0f * (pIn->x * pIn->x + pIn->y * pIn->y);  
-    pOut->mat[11] = 0.0f;  
-    
+    pOut->mat[6] = 2.0f * (pIn->x * pIn->z - pIn->w * pIn->y);
+    pOut->mat[7] = 2.0f * (pIn->y * pIn->z + pIn->w * pIn->x);
+    pOut->mat[8] = 1.0f - 2.0f * (pIn->x * pIn->x + pIn->y * pIn->y);
+
     return pOut;
 }
 
@@ -266,22 +264,19 @@ kmMat3* kmMat3RotationAxisAngle(kmMat3* pOut, const struct kmVec3* axis, kmScala
     pOut->mat[0] = rcos + axis->x * axis->x * (1 - rcos);
     pOut->mat[1] = axis->z * rsin + axis->y * axis->x * (1 - rcos);
     pOut->mat[2] = -axis->y * rsin + axis->z * axis->x * (1 - rcos);
-    pOut->mat[3] = 0.0f;
 
-    pOut->mat[4] = -axis->z * rsin + axis->x * axis->y * (1 - rcos);
-    pOut->mat[5] = rcos + axis->y * axis->y * (1 - rcos);
-    pOut->mat[6] = axis->x * rsin + axis->z * axis->y * (1 - rcos);
-    pOut->mat[7] = 0.0f;
+    pOut->mat[3] = -axis->z * rsin + axis->x * axis->y * (1 - rcos);
+    pOut->mat[4] = rcos + axis->y * axis->y * (1 - rcos);
+    pOut->mat[5] = axis->x * rsin + axis->z * axis->y * (1 - rcos);
 
-    pOut->mat[8] = axis->y * rsin + axis->x * axis->z * (1 - rcos);
-    pOut->mat[9] = -axis->x * rsin + axis->y * axis->z * (1 - rcos);
-    pOut->mat[10] = rcos + axis->z * axis->z * (1 - rcos);
-    pOut->mat[11] = 0.0f;
+    pOut->mat[6] = axis->y * rsin + axis->x * axis->z * (1 - rcos);
+    pOut->mat[7] = -axis->x * rsin + axis->y * axis->z * (1 - rcos);
+    pOut->mat[8] = rcos + axis->z * axis->z * (1 - rcos);
 
-    return pOut;    
+    return pOut;
 }
 
-kmVec3* kmMat3RotationToAxisAngle(kmVec3* pAxis, kmScalar* radians, const kmMat3* pIn) 
+kmVec3* kmMat3RotationToAxisAngle(kmVec3* pAxis, kmScalar* radians, const kmMat3* pIn)
 {
     /*Surely not this easy?*/
     kmQuaternion temp;

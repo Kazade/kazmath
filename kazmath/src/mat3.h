@@ -61,6 +61,8 @@ kmMat3* kmMat3Scaling(kmMat3* pOut, const kmScalar x, const kmScalar y);
 kmMat3* kmMat3Translation(kmMat3* pOut, const kmScalar x, const kmScalar y);
 
 kmMat3* kmMat3RotationQuaternion(kmMat3* pOut, const struct kmQuaternion* pIn);
+kmMat3* kmMat3RotationAxisAngle(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians);
+struct kmVec3* kmMat3RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat3* pIn);
 
 #ifdef __cplusplus
 }
