@@ -50,7 +50,7 @@ kmScalar kmMat3Determinant(const kmMat3* pIn);
 kmMat3* kmMat3Multiply(kmMat3* pOut, const kmMat3* pM1, const kmMat3* pM2);
 kmMat3* kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, const kmScalar pFactor);
 
-kmMat3* kmMat3RotationAxis(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians);
+kmMat3* kmMat3RotationAxisAngle(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians);
 struct kmVec3* kmMat3RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat3* pIn);
 
 kmMat3* kmMat3Assign(kmMat3* pOut, const kmMat3* pIn);

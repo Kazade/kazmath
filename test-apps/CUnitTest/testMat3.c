@@ -60,6 +60,14 @@ void testMat3Transpose(void)
     CU_ASSERT(kmMat3AreEqual(&transpose, &result));
 }
 
+void testMat3AxisAngle(void) {
+    float radians = 1.0;
+    kmMat3 a;
+    kmVec3 axisIn;
+    kmVec3Fill(&axisIn, 1.0f, 0.0f, 0.0f);
+    kmMat3RotationAxis(&a, &axisIn, radians);
+}
+
 int addMat3Tests(CU_pSuite suite)
 {
     /* add the tests to the suite */
