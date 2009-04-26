@@ -417,7 +417,7 @@ kmMat4* kmMat4RotationPitchYawRoll(kmMat4* pOut, const kmScalar pitch, const kmS
  */
 kmMat4* kmMat4RotationQuaternion(kmMat4* pOut, const kmQuaternion* pQ)
 {
-	pOut->mat[ 0] = 1.0f - 2.0f * (pQ->y * pQ->y + pQ->z * pQ->z );
+/*	pOut->mat[ 0] = 1.0f - 2.0f * (pQ->y * pQ->y + pQ->z * pQ->z );
 	pOut->mat[ 4] = 2.0f * (pQ->x * pQ->y + pQ->z * pQ->w);
 	pOut->mat[ 8] = 2.0f * (pQ->x * pQ->z - pQ->y * pQ->w);
 	pOut->mat[12] = 0.0f;
@@ -438,6 +438,30 @@ kmMat4* kmMat4RotationQuaternion(kmMat4* pOut, const kmQuaternion* pQ)
 	pOut->mat[ 3] = 0;
 	pOut->mat[ 7] = 0;
 	pOut->mat[11] = 0;
+	pOut->mat[15] = 1.0f; */
+
+
+	pOut->mat[0] = 1.0f - 2.0f * (pQ->y * pQ->y + pQ->z * pQ->z );
+	pOut->mat[1] = 2.0f * (pQ->x * pQ->y + pQ->z * pQ->w);
+	pOut->mat[2] = 2.0f * (pQ->x * pQ->z - pQ->y * pQ->w);
+	pOut->mat[3] = 0.0f;
+
+	// Second row
+	pOut->mat[4] = 2.0f * ( pQ->x * pQ->y - pQ->z * pQ->w );
+	pOut->mat[5] = 1.0f - 2.0f * ( pQ->x * pQ->x + pQ->z * pQ->z );
+	pOut->mat[6] = 2.0f * (pQ->z * pQ->y + pQ->x * pQ->w );
+	pOut->mat[7] = 0.0f;
+
+	// Third row
+	pOut->mat[8] = 2.0f * ( pQ->x * pQ->z + pQ->y * pQ->w );
+	pOut->mat[9] = 2.0f * ( pQ->y * pQ->z - pQ->x * pQ->w );
+	pOut->mat[10] = 1.0f - 2.0f * ( pQ->x * pQ->x + pQ->y * pQ->y );
+	pOut->mat[11] = 0.0f;
+
+	// Fourth row
+	pOut->mat[12] = 0;
+	pOut->mat[13] = 0;
+	pOut->mat[14] = 0;
 	pOut->mat[15] = 1.0f;
 
 	return pOut;

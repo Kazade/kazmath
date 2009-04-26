@@ -204,6 +204,82 @@ taken from the Matrix and Quaternion FAQ
     }
 */
 
+	float x, y, z, w;
+	float *pMatrix = NULL;
+	float m4x4[16] = {0};
+	float scale = 0.0f;
+	float diagonal = 0.0f;
+		
+	if(!pIn) {
+		return NULL;
+	}
+
+	m4x4[0]  = pIn->mat[0];	m4x4[1]  = pIn->mat[1];	m4x4[2]  = pIn->mat[2];
+	m4x4[4]  = pIn->mat[3];	m4x4[5]  = pIn->mat[4];	m4x4[6]  = pIn->mat[5];
+	m4x4[8]  = pIn->mat[6];	m4x4[9]  = pIn->mat[7];	m4x4[10] = pIn->mat[8];
+	m4x4[15] = 1;
+	pMatrix = &m4x4[0];
+
+	diagonal = pMatrix[0] + pMatrix[5] + pMatrix[10] + 1;
+	
+	if(diagonal > kmEpsilon) {
+		// Calculate the scale of the diagonal
+		scale = (float)sqrt(diagonal ) * 2;
+
+		// Calculate the x, y, x and w of the quaternion through the respective equation
+		x = ( pMatrix[9] - pMatrix[6] ) / scale;
+		y = ( pMatrix[2] - pMatrix[8] ) / scale;
+		z = ( pMatrix[4] - pMatrix[1] ) / scale;
+		w = 0.25f * scale;
+	}
+	else 
+	{
+		// If the first element of the diagonal is the greatest value
+		if ( pMatrix[0] > pMatrix[5] && pMatrix[0] > pMatrix[10] )  
+		{	
+			// Find the scale according to the first element, and double that value
+			scale = (float)sqrt( 1.0f + pMatrix[0] - pMatrix[5] - pMatrix[10] ) * 2.0f;
+
+			// Calculate the x, y, x and w of the quaternion through the respective equation
+			x = 0.25f * scale;
+			y = (pMatrix[4] + pMatrix[1] ) / scale;
+			z = (pMatrix[2] + pMatrix[8] ) / scale;
+			w = (pMatrix[9] - pMatrix[6] ) / scale;	
+		} 
+		// Else if the second element of the diagonal is the greatest value
+		else if (pMatrix[5] > pMatrix[10]) 
+		{
+			// Find the scale according to the second element, and double that value
+			scale = (float)sqrt( 1.0f + pMatrix[5] - pMatrix[0] - pMatrix[10] ) * 2.0f;
+			
+			// Calculate the x, y, x and w of the quaternion through the respective equation
+			x = (pMatrix[4] + pMatrix[1] ) / scale;
+			y = 0.25f * scale;
+			z = (pMatrix[9] + pMatrix[6] ) / scale;
+			w = (pMatrix[2] - pMatrix[8] ) / scale;
+		} 
+		// Else the third element of the diagonal is the greatest value
+		else 
+		{	
+			// Find the scale according to the third element, and double that value
+			scale  = (float)sqrt( 1.0f + pMatrix[10] - pMatrix[0] - pMatrix[5] ) * 2.0f;
+
+			// Calculate the x, y, x and w of the quaternion through the respective equation
+			x = (pMatrix[2] + pMatrix[8] ) / scale;
+			y = (pMatrix[9] + pMatrix[6] ) / scale;
+			z = 0.25f * scale;
+			w = (pMatrix[4] - pMatrix[1] ) / scale;
+		}
+	}
+	
+	pOut->x = x;
+	pOut->y = y;
+	pOut->z = z;
+	pOut->w = w;
+	
+	return pOut;
+/*	
+
 	kmScalar T = pIn->mat[0] + pIn->mat[5] + pIn->mat[10];
 
 	if (T > kmEpsilon) {
@@ -214,7 +290,7 @@ taken from the Matrix and Quaternion FAQ
 		  Z = ( mat[4] - mat[1] ) / S;
 		  W = 0.25 * S;*/
 
-		kmScalar s = sqrtf(T) * 2;
+/*		kmScalar s = sqrtf(T) * 2;
 		pOut->x = (pIn->mat[9] - pIn->mat[6]) / s;
 		pOut->y = (pIn->mat[8] - pIn->mat[2]) / s;
 		pOut->z = (pIn->mat[1] - pIn->mat[4]) / s;
@@ -249,7 +325,7 @@ taken from the Matrix and Quaternion FAQ
 	}
 
 	kmQuaternionNormalize(pOut, pOut);
-	return pOut;
+	return pOut;*/
 }
 
 ///< Create a quaternion from yaw, pitch and roll
@@ -305,6 +381,19 @@ kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut,
   Result += (Q1*Sin_T_Theta);
 
   return Result;*/
+
+	if (q1->x == q2->x && 
+	    q1->y == q2->y && 
+		q1->z == q2->z && 
+		q1->w == q2->w) {
+		
+		pOut->x = q1->x;
+		pOut->y = q1->y;
+		pOut->z = q1->z;
+		pOut->w = q1->w;
+		
+		return pOut;
+	}
 
 	kmScalar ct = kmQuaternionDot(q1, q2);
 	kmScalar theta = acosf(ct);
