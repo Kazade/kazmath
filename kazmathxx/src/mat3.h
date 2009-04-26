@@ -88,6 +88,12 @@ namespace km
 			kmMat3Translation(&result, x,y);
 			return result;
 		}
+		
+		/* still missing:
+		kmMat3* kmMat3Adjugate(kmMat3* pOut, const kmMat3* pIn);
+		kmScalar kmMat3Determinant(const kmMat3* pIn);
+		kmMat3* kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, const kmScalar pFactor);
+		*/
 	};
 	
 	///< Matrix multiplication

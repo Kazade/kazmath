@@ -48,7 +48,7 @@ kmVec3* kmVec3Fill(kmVec3* pOut, kmScalar x, kmScalar y, kmScalar z)
 }
 
 
-/** 
+/**
  * Returns the length of the vector
  */
 kmScalar kmVec3Length(const kmVec3* pIn)
@@ -56,7 +56,7 @@ kmScalar kmVec3Length(const kmVec3* pIn)
 	return sqrtf(kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z));
 }
 
-/** 
+/**
  * Returns the square of the length of the vector
  */
 kmScalar kmVec3LengthSq(const kmVec3* pIn)
@@ -84,7 +84,7 @@ kmVec3* kmVec3Normalize(kmVec3* pOut, const kmVec3* pIn)
 	return pOut;
 }
 
-/** 
+/**
  * Returns a vector perpendicular to 2 other vectors.
  * The result is stored in pOut.
  */
@@ -104,8 +104,8 @@ kmVec3* kmVec3Cross(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 	return pOut;
 }
 
-/** 
- * Returns the cosine of the angle between 2 vectors 
+/**
+ * Returns the cosine of the angle between 2 vectors
  */
 kmScalar kmVec3Dot(const kmVec3* pV1, const kmVec3* pV2)
 {
@@ -114,7 +114,7 @@ kmScalar kmVec3Dot(const kmVec3* pV1, const kmVec3* pV2)
 			+ pV1->z * pV2->z );
 }
 
-/** 
+/**
  * Adds 2 vectors and returns the result. The resulting
  * vector is stored in pOut.
  */
@@ -211,9 +211,7 @@ kmVec3* kmVec3InverseTransformNormal(kmVec3* pOut, const kmVec3* pVect, const km
 	return pOut;
 }
 
-/**
- * NOT COMPLETE, DO NOT USE!
- */
+
 kmVec3* kmVec3TransformCoord(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 {
 	/*
@@ -222,7 +220,15 @@ kmVec3* kmVec3TransformCoord(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
         Out = 1⁄bw(bx, by, bz)
 	*/
 
-    assert(0 && "Not implemented!");
+    kmVec4 v;
+    kmVec4 inV;
+    kmVec4Fill(&inV, pV->x, pV->y, pV->z, 1.0);
+
+    kmVec4Transform(&v, &inV,pM);
+
+	pOut->x = v.x / v.w;
+	pOut->y = v.y / v.w;
+	pOut->z = v.z / v.w;
 
 	return pOut;
 }
@@ -234,7 +240,7 @@ kmVec3* kmVec3TransformNormal(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
     b = (a×M)T
     Out = (bx, by, bz)
 */
-
+    //Omits the translation, only scaling + rotating
 	kmVec3 v;
 
 	v.x = pV->x * pM->mat[0] + pV->y * pM->mat[4] + pV->z * pM->mat[8];
@@ -249,8 +255,8 @@ kmVec3* kmVec3TransformNormal(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 
 }
 
-/** 
- * Scales a vector to length s. Does not normalize first, 
+/**
+ * Scales a vector to length s. Does not normalize first,
  * you should do that!
  */
 kmVec3* kmVec3Scale(kmVec3* pOut, const kmVec3* pIn, const kmScalar s)

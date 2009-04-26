@@ -45,30 +45,13 @@ kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w)
 /// Adds 2 4D vectors together. The result is store in pOut, the function returns
 /// pOut so that it can be nested in another function.
 kmVec4* kmVec4Add(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2) {
-	pOut->x = pV1->x - pV2->x;
-	pOut->y = pV1->y - pV2->y;
-	pOut->z = pV1->z - pV2->z;
-	pOut->w = pV1->w - pV2->w;
+	pOut->x = pV1->x + pV2->x;
+	pOut->y = pV1->y + pV2->y;
+	pOut->z = pV1->z + pV2->z;
+	pOut->w = pV1->w + pV2->w;
 
 	return pOut;
 }
-
-/*
-kmVec4* kmVec4Cross(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2, const kmVec4* pV3)
-{
-	pOut->x = pV1->y * (pV2->z * pV3->w - pV3->z * pV2->w) - pV1->z * (pV2->
-	pOut->y =
-	pOut->z =
-	pOut->w =
-
-
-| i  j  k  l  |   | ay*(bz*cw - cz*bw) - az*(by*cw - cy*bw) + aw*(by*cz - cy*bz) |
-| ax ay az aw |   |-ax*(bz*cw - cz*bw) + az*(bx*cw - cx*bw) - aw*(bx*cz - cx*bz) |
-| bx by bz bw | = | ax*(by*cw - cy*bw) - ay*(bx*cw - cx*bw) + aw*(bx*cy - cx*by) |
-| cx cy cz cw |   |-ax*(by*cz - cy*bz) + ay*(bx*cz - cx*bz) - az*(bx*cy - cx*by) |
-
-	return pOut;
-}*/
 
 /// Returns the dot product of 2 4D vectors
 kmScalar kmVec4Dot(const kmVec4* pV1, const kmVec4* pV2) {
