@@ -183,7 +183,7 @@ int kmMat3AreEqual(const kmMat3* pMat1, const kmMat3* pMat2)
         }
 	}
 
-	return KM_FALSE;
+	return KM_TRUE;
 }
 
 /* Rotation around the z axis so everything stays planar in XY */
