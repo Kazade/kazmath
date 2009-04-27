@@ -89,12 +89,18 @@ BOOST_AUTO_TEST_CASE(test_mat3_are_equal)
 BOOST_AUTO_TEST_CASE(test_mat3_axis_angle)
 {
 	float radians = 1.0;
+	float radiansOut;
 	kmMat3 a;
-	kmVec3 axisIn;
+	kmVec3 axisIn, axisOut;
 	kmVec3Fill(&axisIn, 1.0f, 0.0f, 0.0f);
 	kmMat3RotationAxisAngle(&a, &axisIn, radians);
 
-	//TODO: Finish this
+	//TODO: Check a is what we expect
+
+	kmMat3RotationToAxisAngle(&axisOut, &radiansOut, &a);
+	
+	BOOST_CHECK(kmVec3AreEqual(&axisIn, &axisOut));
+	BOOST_CHECK(radians == radiansOut);
 }
 
 BOOST_AUTO_TEST_CASE(test_mat3_identity)
