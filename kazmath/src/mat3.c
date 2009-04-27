@@ -173,9 +173,11 @@ kmMat3* kmMat3Assign(kmMat3* pOut, const kmMat3* pIn)
 /** Returns true if the 2 matrices are equal (approximately) */
 int kmMat3AreEqual(const kmMat3* pMat1, const kmMat3* pMat2)
 {
-    int i;
-	assert(pMat1 != pMat2); //You are comparing the same thing!
-
+	int i;
+	if (pMat1 == pMat2) {
+		return KM_TRUE;
+	}
+	
 	for (i = 0; i < 9; ++i) {
 		if (!(pMat1->mat[i] + kmEpsilon > pMat2->mat[i] &&
             pMat1->mat[i] - kmEpsilon < pMat2->mat[i])) {

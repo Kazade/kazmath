@@ -75,6 +75,17 @@ BOOST_AUTO_TEST_CASE(test_mat3_fill)
 	BOOST_CHECK(kmMat3AreEqual(&filled, &orig));
 }
 
+BOOST_AUTO_TEST_CASE(test_mat3_are_equal)
+{
+	kmMat3 test, different;
+	kmMat3Identity(&test);
+	kmMat3Identity(&different);
+	BOOST_CHECK(kmMat3AreEqual(&test, &test));
+	BOOST_CHECK(kmMat3AreEqual(&test, &different));
+	different.mat[3] = 3.0f; //Arbitrary to make it different
+	BOOST_CHECK(!kmMat3AreEqual(&test, &different));		
+}
+
 BOOST_AUTO_TEST_CASE(test_mat3_axis_angle)
 {
 	float radians = 1.0;
