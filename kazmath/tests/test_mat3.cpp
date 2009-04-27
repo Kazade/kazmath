@@ -53,8 +53,26 @@ BOOST_AUTO_TEST_CASE(test_mat3_transpose)
 	BOOST_CHECK(NULL != kmMat3Transpose(&result, &mat));
 	BOOST_CHECK(kmMat3AreEqual(&transpose, &result));
 
-	print_matrix3(&transpose);
-	print_matrix3(&result);
+//	print_matrix3(&transpose);
+//	print_matrix3(&result);
+}
+
+BOOST_AUTO_TEST_CASE(test_mat3_fill)
+{
+	float temp[] = { 0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
+	kmMat3 orig, filled;
+	orig.mat[0] = 0.0f;
+	orig.mat[1] = 1.0f;
+	orig.mat[2] = 2.0f;
+	orig.mat[3] = 3.0f;
+	orig.mat[4] = 4.0f;
+	orig.mat[5] = 5.0f;
+	orig.mat[6] = 6.0f;
+	orig.mat[7] = 7.0f;
+	orig.mat[8] = 8.0f;	
+
+	kmMat3Fill(&filled, temp);
+	BOOST_CHECK(kmMat3AreEqual(&filled, &orig));
 }
 
 BOOST_AUTO_TEST_CASE(test_mat3_axis_angle)
