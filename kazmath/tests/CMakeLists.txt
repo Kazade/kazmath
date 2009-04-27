@@ -1,0 +1,3 @@
+INCLUDE_DIRECTORIES( ${PROJECT_SOURCE_DIR}/src )
+LINK_DIRECTORIES( ${PROJECT_SOURCE_DIR}/src )
+LINK_LIBRARIES(libboost_unit_test_framework.a boost_thread)
