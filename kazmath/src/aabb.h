@@ -42,9 +42,9 @@ typedef struct kmAABB {
 	kmVec3 max; /** The min corner of the box */
 } kmAABB;
 
-int kmAABBPointInBox(const kmVec3* pPoint, const kmAABB* pBox);
-kmAABB* kmAABBAssign(kmAABB* pOut, const kmAABB* pIn);
-kmAABB* kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s);
+const int kmAABBPointInBox(const kmVec3* pPoint, const kmAABB* pBox);
+kmAABB* const kmAABBAssign(kmAABB* pOut, const kmAABB* pIn);
+kmAABB* const kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s);
 
 #ifdef __cplusplus
 }
