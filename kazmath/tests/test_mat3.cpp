@@ -96,3 +96,11 @@ BOOST_AUTO_TEST_CASE(test_mat3_identity)
 	BOOST_CHECK(kmMat3AreEqual(&expected, &actual));
 }
 
+BOOST_AUTO_TEST_CASE(test_mat3_is_identity)
+{
+	kmMat3 identity;
+	kmMat3Identity(&identity);
+	BOOST_CHECK(kmMat3IsIdentity(&identity));
+	identity.mat[0] = 5.0f; //Arbitrary number
+	BOOST_CHECK(!kmMat3IsIdentity(&identity));
+}
