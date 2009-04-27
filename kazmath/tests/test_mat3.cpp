@@ -127,3 +127,15 @@ BOOST_AUTO_TEST_CASE(test_mat3_scaling)
 
 	BOOST_CHECK(kmMat3AreEqual(&expected, &actual));
 }
+
+BOOST_AUTO_TEST_CASE(test_mat3_translation)
+{
+	kmMat3 expected, actual;
+	kmMat3Identity(&expected);
+	expected.mat[6] = 1.0f;
+	expected.mat[7] = 2.0f;
+
+	kmMat3Translation(&actual, 1.0f, 2.0f);
+
+	BOOST_CHECK(kmMat3AreEqual(&expected, &actual));
+}
