@@ -215,20 +215,21 @@ kmMat3* const kmMat3Rotation(kmMat3* pOut, const float radians)
 /** Builds a scaling matrix */
 kmMat3* const kmMat3Scaling(kmMat3* pOut, const kmScalar x, const kmScalar y)
 {
-	memset(pOut->mat, 0, sizeof(float) * 9);
+//	memset(pOut->mat, 0, sizeof(float) * 9);
+	kmMat3Identity(pOut);
 	pOut->mat[0] = x;
 	pOut->mat[4] = y;
-	pOut->mat[8] = 1.0;
 
 	return pOut;
 }
 
 kmMat3* const kmMat3Translation(kmMat3* pOut, const kmScalar x, const kmScalar y)
 {
-    memset(pOut->mat, 0, sizeof(float) * 9);
-    pOut->mat[6] = x;
-    pOut->mat[7] = y;
-    pOut->mat[8] = 1.0;
+//    memset(pOut->mat, 0, sizeof(float) * 9);
+	kmMat3Identity(pOut);
+	pOut->mat[6] = x;
+	pOut->mat[7] = y;
+//    pOut->mat[8] = 1.0;
 
     return pOut;
 }

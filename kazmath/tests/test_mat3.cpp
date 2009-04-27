@@ -115,3 +115,15 @@ BOOST_AUTO_TEST_CASE(test_mat3_is_identity)
 	identity.mat[0] = 5.0f; //Arbitrary number
 	BOOST_CHECK(!kmMat3IsIdentity(&identity));
 }
+
+BOOST_AUTO_TEST_CASE(test_mat3_scaling)
+{
+	kmMat3 expected, actual;
+	kmMat3Identity(&expected);
+	expected.mat[0] = 1.0f;
+	expected.mat[4] = 2.0f;
+
+	kmMat3Scaling(&actual, 1.0f, 2.0f);
+
+	BOOST_CHECK(kmMat3AreEqual(&expected, &actual));
+}
