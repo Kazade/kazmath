@@ -85,3 +85,22 @@ BOOST_AUTO_TEST_CASE(test_mat3_axis_angle)
 
 	//TODO: Finish this
 }
+
+BOOST_AUTO_TEST_CASE(test_mat3_identity)
+{
+	float identity[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+	kmMat3 expected, actual;
+	kmMat3Fill(&expected, identity);
+	kmMat3Identity(&actual);
+
+	BOOST_CHECK(kmMat3AreEqual(&expected, &actual));
+}
+
+BOOST_AUTO_TEST_CASE(test_mat3_is_identity)
+{
+	kmMat3 identity;
+	kmMat3Identity(&identity);
+	BOOST_CHECK(kmMat3IsIdentity(&identity));
+	identity.mat[0] = 5.0f; //Arbitrary number
+	BOOST_CHECK(!kmMat3IsIdentity(&identity));
+}
