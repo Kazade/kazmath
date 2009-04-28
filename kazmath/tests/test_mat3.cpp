@@ -1,7 +1,9 @@
 #define BOOST_TEST_MODULE test_mat3
 
+#include <memory.h>
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
+
 #include "mat3.h"
 #include "vec3.h"
 #include <cstdio>
