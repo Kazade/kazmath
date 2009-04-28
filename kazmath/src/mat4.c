@@ -166,11 +166,11 @@ kmMat4* const kmMat4Transpose(kmMat4* pOut, const kmMat4* pIn)
 
     for (z = 0; z < 4; ++z) {
         for (x = 0; x < 4; ++x) {
-			pOut->mat[(z * 4) + x] = pIn->mat[(x * 4) + z];
+	    pOut->mat[(z * 4) + x] = pIn->mat[(x * 4) + z];
         }
     }
 
-	return pOut;
+    return pOut;
 }
 
 /**
