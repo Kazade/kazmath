@@ -30,6 +30,11 @@ void print_matrix3(const kmMat3* mat)
     printf("\n");
 }
 
+void print_vector3(const kmVec3* vec)
+{
+	printf("\n\n%f\t%f\t%f\n",vec->x, vec->y, vec->z);
+}
+
 BOOST_AUTO_TEST_CASE(test_mat3_inverse)
 {
 	kmMat3 mat;
@@ -100,6 +105,9 @@ BOOST_AUTO_TEST_CASE(test_mat3_axis_angle)
 	//TODO: Check a is what we expect
 
 	kmMat3RotationToAxisAngle(&axisOut, &radiansOut, &a);
+	
+	print_vector3(&axisOut);
+	print_vector3(&axisIn);
 	
 	BOOST_CHECK(kmVec3AreEqual(&axisIn, &axisOut));
 	BOOST_CHECK(radians == radiansOut);

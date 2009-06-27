@@ -209,7 +209,7 @@ taken from the Matrix and Quaternion FAQ
 	float m4x4[16] = {0};
 	float scale = 0.0f;
 	float diagonal = 0.0f;
-		
+
 	if(!pIn) {
 		return NULL;
 	}
@@ -236,7 +236,7 @@ taken from the Matrix and Quaternion FAQ
 	pMatrix = &m4x4[0];
 
 	diagonal = pMatrix[0] + pMatrix[5] + pMatrix[10] + 1;
-	
+
 	if(diagonal > kmEpsilon) {
 		// Calculate the scale of the diagonal
 		scale = (float)sqrt(diagonal ) * 2;
@@ -247,11 +247,11 @@ taken from the Matrix and Quaternion FAQ
 		z = ( pMatrix[4] - pMatrix[1] ) / scale;
 		w = 0.25f * scale;
 	}
-	else 
+	else
 	{
 		// If the first element of the diagonal is the greatest value
-		if ( pMatrix[0] > pMatrix[5] && pMatrix[0] > pMatrix[10] )  
-		{	
+		if ( pMatrix[0] > pMatrix[5] && pMatrix[0] > pMatrix[10] )
+		{
 			// Find the scale according to the first element, and double that value
 			scale = (float)sqrt( 1.0f + pMatrix[0] - pMatrix[5] - pMatrix[10] ) * 2.0f;
 
@@ -259,23 +259,23 @@ taken from the Matrix and Quaternion FAQ
 			x = 0.25f * scale;
 			y = (pMatrix[4] + pMatrix[1] ) / scale;
 			z = (pMatrix[2] + pMatrix[8] ) / scale;
-			w = (pMatrix[9] - pMatrix[6] ) / scale;	
-		} 
+			w = (pMatrix[9] - pMatrix[6] ) / scale;
+		}
 		// Else if the second element of the diagonal is the greatest value
-		else if (pMatrix[5] > pMatrix[10]) 
+		else if (pMatrix[5] > pMatrix[10])
 		{
 			// Find the scale according to the second element, and double that value
 			scale = (float)sqrt( 1.0f + pMatrix[5] - pMatrix[0] - pMatrix[10] ) * 2.0f;
-			
+
 			// Calculate the x, y, x and w of the quaternion through the respective equation
 			x = (pMatrix[4] + pMatrix[1] ) / scale;
 			y = 0.25f * scale;
 			z = (pMatrix[9] + pMatrix[6] ) / scale;
 			w = (pMatrix[2] - pMatrix[8] ) / scale;
-		} 
+		}
 		// Else the third element of the diagonal is the greatest value
-		else 
-		{	
+		else
+		{
 			// Find the scale according to the third element, and double that value
 			scale  = (float)sqrt( 1.0f + pMatrix[10] - pMatrix[0] - pMatrix[5] ) * 2.0f;
 
@@ -286,14 +286,14 @@ taken from the Matrix and Quaternion FAQ
 			w = (pMatrix[4] - pMatrix[1] ) / scale;
 		}
 	}
-	
+
 	pOut->x = x;
 	pOut->y = y;
 	pOut->z = z;
 	pOut->w = w;
-	
+
 	return pOut;
-/*	
+/*
 
 	kmScalar T = pIn->mat[0] + pIn->mat[5] + pIn->mat[10];
 
@@ -397,16 +397,16 @@ kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut,
 
   return Result;*/
 
-	if (q1->x == q2->x && 
-	    q1->y == q2->y && 
-		q1->z == q2->z && 
+	if (q1->x == q2->x &&
+	    q1->y == q2->y &&
+		q1->z == q2->z &&
 		q1->w == q2->w) {
-		
+
 		pOut->x = q1->x;
 		pOut->y = q1->y;
 		pOut->z = q1->z;
 		pOut->w = q1->w;
-		
+
 		return pOut;
 	}
 
@@ -437,7 +437,7 @@ void kmQuaternionToAxisAngle(const kmQuaternion* pIn,
 	scale = sqrtf(kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z));
 
 	if (((scale > -kmEpsilon) && scale < kmEpsilon)
-		|| (scale < 360.0f + kmEpsilon && scale > 360.0f - kmEpsilon))		// angle is 0 or 360 so just simply set axis to 0,0,1 with angle 0
+		|| (scale < 2*kmPI + kmEpsilon && scale > 2*kmPI - kmEpsilon))		// angle is 0 or 360 so just simply set axis to 0,0,1 with angle 0
 	{
 		*pAngle = 0.0f;
 
