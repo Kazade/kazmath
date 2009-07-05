@@ -287,3 +287,84 @@ kmVec3* const kmMat3RotationToAxisAngle(kmVec3* pAxis, kmScalar* radians, const 
     kmQuaternionToAxisAngle(&temp, pAxis, radians);
     return pAxis;
 }
+
+/**
+ * Builds an X-axis rotation matrix and stores it in pOut, returns pOut
+ */
+kmMat3* const kmMat3RotationX(kmMat3* pOut, const float radians)
+{
+	/*
+		 |  1  0       0      |
+	 M = |  0  cos(A) -sin(A) |
+	     |  0  sin(A)  cos(A) |
+
+	*/
+
+	pOut->mat[0] = 1.0f;
+	pOut->mat[1] = 0.0f;
+	pOut->mat[2] = 0.0f;
+
+	pOut->mat[3] = 0.0f;
+	pOut->mat[4] = cosf(radians);
+	pOut->mat[5] = sinf(radians);
+
+	pOut->mat[6] = 0.0f;
+	pOut->mat[7] = -sinf(radians);
+	pOut->mat[8] = cosf(radians);
+
+	return pOut;
+}
+
+/**
+ * Builds a rotation matrix using the rotation around the Y-axis
+ * The result is stored in pOut, pOut is returned.
+ */
+kmMat3* const kmMat3RotationY(kmMat3* pOut, const float radians)
+{
+	/*
+	     |  cos(A)  0   sin(A) |
+	 M = |  0       1   0      |
+	     | -sin(A)  0   cos(A) |
+	*/
+
+	pOut->mat[0] = cosf(radians);
+	pOut->mat[1] = 0.0f;
+	pOut->mat[2] = -sinf(radians);
+
+	pOut->mat[3] = 0.0f;
+	pOut->mat[4] = 1.0f;
+	pOut->mat[5] = 0.0f;
+
+	pOut->mat[6] = sinf(radians);
+	pOut->mat[7] = 0.0f;
+	pOut->mat[8] = cosf(radians);
+
+	return pOut;
+}
+
+/**
+ * Builds a rotation matrix around the Z-axis. The resulting
+ * matrix is stored in pOut. pOut is returned.
+ */
+kmMat3* const kmMat3RotationZ(kmMat3* pOut, const float radians)
+{
+	/*
+	     |  cos(A)  -sin(A)   0  |
+	 M = |  sin(A)   cos(A)   0  |
+	     |  0        0        1  |
+	*/
+
+	pOut->mat[0] = cosf(radians);
+	pOut->mat[1] = sinf(radians);
+	pOut->mat[2] = 0.0f;
+
+	pOut->mat[3] = -sinf(radians);;
+	pOut->mat[4] = cosf(radians);
+	pOut->mat[5] = 0.0f;
+
+	pOut->mat[6] = 0.0f;
+	pOut->mat[7] = 0.0f;
+	pOut->mat[8] = 1.0f;
+
+	return pOut;
+}
