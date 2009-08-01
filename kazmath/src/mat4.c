@@ -61,6 +61,107 @@ kmMat4* const kmMat4Identity(kmMat4* pOut)
 	return pOut;
 }
 
+
+float get(const kmMat4 * pIn, int row, int col)
+{
+	return pIn->mat[row + 4*col];
+}
+
+void set(kmMat4 * pIn, int row, int col, float value)
+{
+	pIn->mat[row + 4*col] = value;
+}
+
+void swap(kmMat4 * pIn, int r1, int c1, int r2, int c2)
+{
+	float tmp = get(pIn,r1,c1);
+	set(pIn,r1,c1,get(pIn,r2,c2));
+	set(pIn,r2,c2, tmp);
+}
+
+//Returns an upper and a lower triangular matrix which are L and R in the Gauss algorithm
+void gaussj(kmMat4 *a, kmMat4 *b)
+{
+    int i, icol = 0, irow = 0, j, k, l, ll, n = 4, m = 4;
+    float big, dum, pivinv;
+    int *indxc = (int*) malloc(sizeof(int) * n);
+    int *indxr = (int*) malloc(sizeof(int) * n);
+    int *ipiv = (int*) malloc(sizeof(int) * n);
+
+    for (j = 0; j < n; j++) {
+        ipiv[j] = 0;
+    }
+
+    for (i = 0; i < n; i++) {
+        big = 0.0f;
+        for (j = 0; j < n; j++) {
+            if (ipiv[j] != 1) {
+                for (k = 0; k < n; k++) {
+                    if (ipiv[k] == 0) {
+                        if (abs(get(a,j, k)) >= big) {
+                            big = abs(get(a,j, k));
+                            irow = j;
+                            icol = k;
+                        }
+                    }
+                }
+            }
+        }
+        ++(ipiv[icol]);
+        if (irow != icol) {
+            for (l = 0; l < n; l++) {
+                swap(a,irow, l, icol, l);
+            }
+            for (l = 0; l < m; l++) {
+                swap(b,irow, l, icol, l);
+            }
+        }
+        indxr[i] = irow;
+        indxc[i] = icol;
+        if (get(a,icol, icol) == 0.0) {
+            a = NULL;
+            free(indxc);
+            free(indxr);
+            free(ipiv);
+            return;
+        }
+        pivinv = 1.0f / get(a,icol, icol);
+        set(a,icol, icol, 1.0f);
+        for (l = 0; l < n; l++) {
+            set(a,icol, l, get(a,icol, l) * pivinv);
+        }
+        for (l = 0; l < m; l++) {
+            set(b,icol, l, get(b,icol, l) * pivinv);
+        }
+
+        for (ll = 0; ll < n; ll++) {
+            if (ll != icol) {
+                dum = get(a,ll, icol);
+                set(a,ll, icol, 0.0f);
+                for (l = 0; l < n; l++) {
+                    set(a,ll, l, get(a,ll, l) - get(a,icol, l) * dum);
+                }
+                for (l = 0; l < m; l++) {
+                    set(b,ll, l, get(a,ll, l) - get(b,icol, l) * dum);
+                }
+            }
+        }
+    }
+//    This is the end of the main loop over columns of the reduction. It only remains to unscram-
+//    ble the solution in view of the column interchanges. We do this by interchanging pairs of
+//    columns in the reverse order that the permutation was built up.
+    for (l = n - 1; l >= 0; l--) {
+        if (indxr[l] != indxc[l]) {
+            for (k = 0; k < n; k++) {
+                swap(a,k, indxr[l], k, indxc[l]);
+            }
+        }
+    }
+	free(indxc);
+    free(indxr);
+    free(ipiv);
+}
+
 /**
  * Calculates the inverse of pM and stores the result in
  * pOut.
@@ -68,79 +169,13 @@ kmMat4* const kmMat4Identity(kmMat4* pOut)
  */
 kmMat4* const kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
 {
-    float temp[4];
-	float mat[16];
-    int i, j, k;
-
-	for (i = 0; i < 16; i++)
-	{
-		mat[i] = pM->mat[i];
-	}
-
-	kmMat4Identity(pOut);
-
-	for (j = 0; j < 4; ++j) // Find largest pivot in column j among rows j..3
-	{
-		int i1 = j;		 // Row with largest pivot candidate
-
-		for (i = j + 1; i < 4; ++i)
-		{
-            if (fabs(mat[i*4 + j]) > fabs(mat[i1*4 + j])) {
-				i1 = i;
-            }
-		}
-
-		// Swap rows i1 and j in a and b to put pivot on diagonal
-		for(k = 0; k < 4; k++)
-		{
-		    temp[k] = mat[i1 * 4 + k];
-		}
-
-		for(k = 0; k < 4; k++)
-		{
-		    mat[i1 * 4 + k] = mat[j * 4 + k];
-		    mat[j * 4 + k] = temp[k];
-		}
-
-        for(k = 0; k < 4; k++)
-		{
-		    temp[k] = pOut->mat[i1 * 4 + k];
-		}
-
-		for(k = 0; k < 4; k++)
-		{
-		    pOut->mat[i1 * 4 + k] = pOut->mat[j * 4 + k];
-		    pOut->mat[j * 4 + k] = temp[k];
-		}
-
-		// Scale row j to have a unit diagonal
-		if (!mat[j*4 + j])
-		{
-			// Singular matrix - can't invert
-			return NULL;
-		}
-
-        for(k = 0; k < 4; k++)
-		{
-            pOut->mat[j * 4 + k] /= mat[j * 4 + j];
-            mat[j * 4 + k] /= mat[j * 4 + j];
-		}
-
-		// Eliminate off-diagonal elems in col j of a, doing identical ops to b
-		for (i = 0; i < 4; ++i)
-		{
-			if (i != j)
-			{
-				for(k = 0; k < 4; k++)
-				{
-                    pOut->mat[i*4 + k] -= mat[i*4 + j] * pOut->mat[j*4 + k];
-                    mat[i*4 + k] -= mat[i*4 + j] * mat[j*4 + k];
-				}
-			}
-		}
-	}
-
-	return pOut;
+    kmMat4Assign(pOut, pM);
+    
+    kmMat4 tmp;
+    kmMat4Identity(&tmp);
+    
+    gaussj(pOut, &tmp);
+    return pOut;
 }
 /**
  * Returns KM_TRUE if pIn is an identity matrix
