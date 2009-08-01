@@ -71,6 +71,7 @@ kmMat4* const kmMat4RotationY(kmMat4* pOut, const kmScalar radians);
 kmMat4* const kmMat4RotationZ(kmMat4* pOut, const kmScalar radians);
 kmMat4* const kmMat4RotationPitchYawRoll(kmMat4* pOut, const kmScalar pitch, const kmScalar yaw, const kmScalar roll);
 kmMat4* const kmMat4RotationQuaternion(kmMat4* pOut, const struct kmQuaternion* pQ);
+kmMat4* const kmMat4RotationTranslation(kmMat4* pOut, const struct kmMat3* rotation, const struct kmVec3* translation);
 kmMat4* const kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z);
 kmMat4* const kmMat4Translation(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z);
 

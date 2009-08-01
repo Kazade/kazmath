@@ -673,3 +673,28 @@ kmVec3* const kmMat4RotationToAxisAngle(kmVec3* pAxis, kmScalar* radians, const 
     kmQuaternionToAxisAngle(&temp, pAxis, radians);
     return pAxis;
 }
+
+kmMat4* const kmMat4RotationTranslation(kmMat4* pOut, const kmMat3* rotation, const kmVec3* translation)
+{
+    pOut->mat[0] = rotation->mat[0];
+    pOut->mat[1] = rotation->mat[1];
+    pOut->mat[2] = rotation->mat[2];
+    pOut->mat[3] = 0.0f;
+    
+    pOut->mat[4] = rotation->mat[3];
+    pOut->mat[5] = rotation->mat[4];
+    pOut->mat[6] = rotation->mat[5];
+    pOut->mat[7] = 0.0f;
+    
+    pOut->mat[8] = rotation->mat[6];
+    pOut->mat[9] = rotation->mat[7];
+    pOut->mat[10] = rotation->mat[8];
+    pOut->mat[11] = 0.0f;
+    
+    pOut->mat[12] = translation->x;
+    pOut->mat[13] = translation->y;
+    pOut->mat[14] = translation->z;
+    pOut->mat[15] = 1.0f;
+    
+    return pOut;
+}
