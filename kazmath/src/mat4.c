@@ -464,19 +464,19 @@ kmMat4* const kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y,
 kmMat4* const kmMat4Translation(kmMat4* pOut, const kmScalar x,
                           const kmScalar y, const kmScalar z)
 {
-	//FIXME: Write a test for this
-	memset(pOut->mat, 0, sizeof(float) * 16);
+    //FIXME: Write a test for this
+    memset(pOut->mat, 0, sizeof(float) * 16);
 
     pOut->mat[0] = 1.0f;
     pOut->mat[5] = 1.0f;
     pOut->mat[10] = 1.0f;
 
-	pOut->mat[12] = x;
-	pOut->mat[13] = y;
-	pOut->mat[14] = z;
-	pOut->mat[15] = 1.0f;
+    pOut->mat[12] = x;
+    pOut->mat[13] = y;
+    pOut->mat[14] = z;
+    pOut->mat[15] = 1.0f;
 
-	return pOut;
+    return pOut;
 }
 
 /**
@@ -618,6 +618,10 @@ kmMat4* const kmMat4LookAt(kmMat4* pOut, const kmVec3* pEye,
     return pOut;
 }
 
+/**
+ * Initialize a 4x4 matrix from an axis and angle. The translation part is set to (0, 0, 0).
+ * Store the result in pOut, returns pOut.
+ */
 kmMat4* const kmMat4RotationAxisAngle(kmMat4* pOut, const struct kmVec3* axis, kmScalar radians)
 {
     float rcos = cosf(radians);
@@ -639,13 +643,17 @@ kmMat4* const kmMat4RotationAxisAngle(kmMat4* pOut, const struct kmVec3* axis, k
     pOut->mat[11] = 0.0f;
 
     pOut->mat[12] = 0.0f;
-	pOut->mat[13] = 0.0f;
-	pOut->mat[14] = 0.0f;
-	pOut->mat[15] = 1.0f;
+    pOut->mat[13] = 0.0f;
+    pOut->mat[14] = 0.0f;
+    pOut->mat[15] = 1.0f;
 
     return pOut;
 }
 
+/**
+ * Extract a 3x3 rotation matrix from the input 4x4 transformation.
+ * Stores the result in pOut, returns pOut
+ */
 kmMat3* const kmMat4ExtractRotation(kmMat3* pOut, const kmMat4* pIn)
 {
     pOut->mat[0] = pIn->mat[0];
@@ -663,6 +671,10 @@ kmMat3* const kmMat4ExtractRotation(kmMat3* pOut, const kmMat4* pIn)
     return pOut;
 }
 
+/**
+ * Take the rotation from a 4x4 transformation matrix, and return it as an axis and an angle (in radians)
+ * returns the output axis.
+ */
 kmVec3* const kmMat4RotationToAxisAngle(kmVec3* pAxis, kmScalar* radians, const kmMat4* pIn)
 {
     /*Surely not this easy?*/
@@ -674,6 +686,10 @@ kmVec3* const kmMat4RotationToAxisAngle(kmVec3* pAxis, kmScalar* radians, const 
     return pAxis;
 }
 
+/** Build a 4x4 OpenGL transformation matrix using a 3x3 rotation matrix, 
+ * and a 3d vector representing a translation. Assign the result to pOut,
+ * pOut is also returned.
+ */
 kmMat4* const kmMat4RotationTranslation(kmMat4* pOut, const kmMat3* rotation, const kmVec3* translation)
 {
     pOut->mat[0] = rotation->mat[0];
