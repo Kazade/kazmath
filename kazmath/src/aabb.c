@@ -31,8 +31,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 const int kmAABBPointInBox(const kmVec3* pPoint, const kmAABB* pBox)
 {
-	assert(0 && "Not implemented");
-	return KM_FALSE;
+    if(pPoint->x >= pBox->min.x && pPoint->x <= pBox->max.x &&
+       pPoint->y >= pBox->min.y && pPoint->y <= pBox->max.y &&
+       pPoint->z >= pBox->min.z && pPoint->z <= pBox->max.z) {
+        return KM_TRUE;
+    }
+       
+    return KM_FALSE;
 }
 
 /**
