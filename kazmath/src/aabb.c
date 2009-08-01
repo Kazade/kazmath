@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * Returns KM_TRUE if point is in the specified AABB, returns
  * KM_FALSE otherwise.
  */
-const int kmAABBPointInBox(const kmVec3* pPoint, const kmAABB* pBox)
+const int kmAABBContainsPoint(const kmVec3* pPoint, const kmAABB* pBox)
 {
     if(pPoint->x >= pBox->min.x && pPoint->x <= pBox->max.x &&
        pPoint->y >= pBox->min.y && pPoint->y <= pBox->max.y &&
