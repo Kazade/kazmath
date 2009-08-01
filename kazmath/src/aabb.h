@@ -38,8 +38,8 @@ extern "C" {
  * bounding box.
  */
 typedef struct kmAABB {
-	kmVec3 min; /** The max corner of the box */
-	kmVec3 max; /** The min corner of the box */
+    kmVec3 min; /** The max corner of the box */
+    kmVec3 max; /** The min corner of the box */
 } kmAABB;
 
 const int kmAABBPointInBox(const kmVec3* pPoint, const kmAABB* pBox);

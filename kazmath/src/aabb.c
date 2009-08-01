@@ -40,8 +40,9 @@ const int kmAABBPointInBox(const kmVec3* pPoint, const kmAABB* pBox)
  */
 kmAABB* const kmAABBAssign(kmAABB* pOut, const kmAABB* pIn)
 {
-	assert(0 && "Not implemented");
-	return pOut;
+    kmVec3Assign(&pOut->min, &pIn->min);
+    kmVec3Assign(&pOut->max, &pIn->max);
+    return pOut;
 }
 
 /**
