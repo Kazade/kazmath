@@ -84,9 +84,9 @@ void gaussj(kmMat4 *a, kmMat4 *b)
 {
     int i, icol = 0, irow = 0, j, k, l, ll, n = 4, m = 4;
     float big, dum, pivinv;
-    int *indxc = (int*) malloc(sizeof(int) * n);
-    int *indxr = (int*) malloc(sizeof(int) * n);
-    int *ipiv = (int*) malloc(sizeof(int) * n);
+    int indxc[n];
+    int indxr[n];
+    int ipiv[n];
 
     for (j = 0; j < n; j++) {
         ipiv[j] = 0;
@@ -120,9 +120,6 @@ void gaussj(kmMat4 *a, kmMat4 *b)
         indxc[i] = icol;
         if (get(a,icol, icol) == 0.0) {
             a = NULL;
-            free(indxc);
-            free(indxr);
-            free(ipiv);
             return;
         }
         pivinv = 1.0f / get(a,icol, icol);
@@ -157,9 +154,6 @@ void gaussj(kmMat4 *a, kmMat4 *b)
             }
         }
     }
-	free(indxc);
-    free(indxr);
-    free(ipiv);
 }
 
 /**
@@ -169,12 +163,14 @@ void gaussj(kmMat4 *a, kmMat4 *b)
  */
 kmMat4* const kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
 {
-    kmMat4Assign(pOut, pM);
+    kmMat4 inv;
+    kmMat4Assign(&inv, pM);
     
     kmMat4 tmp;
     kmMat4Identity(&tmp);
     
-    gaussj(pOut, &tmp);
+    gaussj(&inv, &tmp);
+    kmMat4Assign(pOut, &inv);
     return pOut;
 }
 /**

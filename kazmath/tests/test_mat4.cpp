@@ -4,7 +4,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 
-#include "mat4.h"
+#include <kazmath/mat4.h>
 
 void print_matrix4(const kmMat4* mat)
 {
@@ -30,17 +30,15 @@ void print_matrix4(const kmMat4* mat)
 }
 
 
-/*
 BOOST_AUTO_TEST_CASE(test_mat4_inverse)
 {
 	kmMat4 mat;
 	BOOST_CHECK(NULL != kmMat4Identity(&mat));
 
-	kmMat4 adj;
-	BOOST_CHECK(NULL != kmMat4Adjugate(&adj, &mat));
-	BOOST_CHECK(NULL != kmMat4Inverse(&mat, kmMat4Determinant(&mat), &mat));
+	BOOST_CHECK(NULL != kmMat4Inverse(&mat,&mat));
 	BOOST_CHECK(kmMat4IsIdentity(&mat));
-}*/
+}
+
 
 BOOST_AUTO_TEST_CASE(test_mat4_transpose)
 {
