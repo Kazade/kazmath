@@ -1,5 +1,7 @@
 #define BOOST_TEST_MODULE test_mat4
 
+#include <cstdlib>
+#include <cstdio>
 #include <memory.h>
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
