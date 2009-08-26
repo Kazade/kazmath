@@ -1,3 +1,8 @@
+#ifndef KAZMATHXX_MAT4_H
+#define KAZMATHXX_MAT4_H
+
+#ifdef __cplusplus
+
 #include <kazmath/mat4.h>
 
 namespace kazmath {
@@ -50,3 +55,6 @@ Mat4 operator*(const Mat4& lhs, const Mat4& rhs) {
 }
 
 }
+
+#endif /* __cplusplus */
+#endif
