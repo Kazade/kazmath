@@ -34,8 +34,18 @@ namespace km
 	{
 		public:
 			///< Constructors
-			vec3(const kmScalar _x, const kmScalar _y, const kmScalar _z) : x(_x), y(_y), z(_z) {}
-			vec3() : x(kmScalar(0.0)), y(kmScalar(0.0)), z(kmScalar(0.0)) {}
+			vec3(const kmScalar _x, const kmScalar _y, const kmScalar _z)
+			{
+                 x = _x;
+                 y = _y;
+                 z = _z;			
+			}
+			vec3()
+			{
+                 x = 0.0f;
+                 y = 0.0f;
+                 z = 0.0f;			
+			}
 			
 			///< Returns the length of the vector
 			const kmScalar length() const
@@ -59,7 +69,7 @@ namespace km
 			}
 			
 			///< Transform the Vector
-			const vec3 transform(const &kmMat4 mat) const
+			const vec3 transform(const kmMat4& mat) const
 			{
 				vec3 result;
 				kmVec3Transform(&result,this, &mat);
@@ -67,7 +77,7 @@ namespace km
 			}
 
 			///< Transforms a 3D vector by a given matrix, projecting the result back into w = 1.
-			const vec3 transformCoord(const &kmMat4 mat) const
+			const vec3 transformCoord(const kmMat4& mat) const
 			{
 				vec3 result;
 				kmVec3TransformCoord(&result,this, &mat);
@@ -75,7 +85,7 @@ namespace km
 			}
 			
 			///< Transforms the vector ignoring the translation part
-			const vec3 transformNormal(const &kmMat4 mat) const
+			const vec3 transformNormal(const kmMat4& mat) const
 			{
 				vec3 result;
 				kmVec3TransformNormal(&result,this, &mat);
@@ -147,7 +157,7 @@ namespace km
 	const vec3 operator*(const kmMat4& lhs, const vec3& rhs)
 	{
 		vec3 result;
-		kmVec3Transform(&result, &rhs, &lhs)
+		kmVec3Transform(&result, &rhs, &lhs);
 		return result;
 	};
 	

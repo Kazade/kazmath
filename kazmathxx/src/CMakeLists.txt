@@ -10,5 +10,6 @@ quaternion.h
 aabb.h
 )
 
-INSTALL(FILES ${KAZMATH_HEADERS} DESTINATION include/kazmathxx)
+INSTALL(FILES ${KAZMATHXX_HEADERS} DESTINATION include/kazmathxx)
+
 

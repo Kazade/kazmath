@@ -33,6 +33,7 @@ namespace km
 {
 	class mat4 : public kmMat4
 	{
+	public:
 		/// Constructors
 		mat4()
 		{
@@ -71,6 +72,14 @@ namespace km
 		static const mat4 rotationAxis(const kmVec3& axis, const kmScalar radians)
 		{
 			mat4 result;
+			kmMat4RotationAxis(&result, &axis, radians);
+			return result;
+		}
+		
+		static const mat4 rotationAxis(const kmScalar radians, const kmScalar axis_x, const kmScalar axis_y, const kmScalar axis_z)
+		{
+			mat4 result;
+			vec3 axis(axis_x, axis_y, axis_z);
 			kmMat4RotationAxis(&result, &axis, radians);
 			return result;
 		}
@@ -181,3 +190,5 @@ namespace km
 		return kmMat4AreEqual(&lhs,&rhs);
 	};
 }
+
+#endif
