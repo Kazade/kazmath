@@ -34,8 +34,16 @@ namespace km
 	{
 		public:
 			///< Constructors
-			vec2(const kmScalar _x, const kmScalar _y) : x(_x), y(_y) {};
-			vec2() : x(kmScalar(0.0)), y(kmScalar(0.0)) {}
+			vec2(const kmScalar _x, const kmScalar _y)
+			{
+			    x = _x;
+			    y = _y;
+			}
+			vec2()
+			{
+			    x = kmScalar(0.0);
+			    y = kmScalar(0.0);
+			}
 			
 			///< Returns the length of the vector
 			const kmScalar length() const
@@ -76,7 +84,7 @@ namespace km
 	};
 	
 	///< Vector addition
-	const vec2 operator+(const vec2& lhs, const vec2& rhs)
+	inline const vec2 operator+(const vec2& lhs, const vec2& rhs)
 	{
 		vec2 result;
 		kmVec2Add(&result, &lhs, &rhs);
@@ -84,7 +92,7 @@ namespace km
 	};
 
 	///< Vector subtraction
-	const vec2 operator-(const vec2& lhs, const vec2& rhs)
+	inline const vec2 operator-(const vec2& lhs, const vec2& rhs)
 	{
 		vec2 result;
 		kmVec2Subtract(&result, &lhs, &rhs);
@@ -92,13 +100,13 @@ namespace km
 	};
 	
 	///< Dot product - which is the cosine of the angle between the two vectors multiplied by their lengths
-	const float operator*(const vec2& lhs, const vec2& rhs)
+	inline const float operator*(const vec2& lhs, const vec2& rhs)
 	{
 		return kmVec2Dot(&lhs, &rhs);
 	};
 	
 	///< Multiply with scalar
-	const vec2 operator*(const kmScalar lhs, const vec2& rhs)
+	inline const vec2 operator*(const kmScalar lhs, const vec2& rhs)
 	{
 		vec2 result;
 		kmVec2Scale(&result, &rhs, lhs);
@@ -106,7 +114,7 @@ namespace km
 	};
 
 	///< Multiply with scalar	
-	const vec2 operator*(const vec2& lhs, const kmScalar rhs)
+	inline const vec2 operator*(const vec2& lhs, const kmScalar rhs)
 	{
 		vec2 result;
 		kmVec2Scale(&result, &lhs, rhs);
@@ -114,15 +122,15 @@ namespace km
 	};
 	
 	///< Transform through matrix	
-	const vec2 operator*(const kmMat3& lhs, const vec2& rhs)
+	inline const vec2 operator*(const kmMat3& lhs, const vec2& rhs)
 	{
 		vec2 result;
-		kmVec2Transform(&result, &rhs, &lhs)
+		kmVec2Transform(&result, &rhs, &lhs);
 		return result;
 	};
 	
 	///< Checks for equality (with a small threshold epsilon)
-	const bool operator==(const vec2& lhs, const vec2& rhs)
+    inline const bool operator==(const vec2& lhs, const vec2& rhs)
 	{
 		return kmVec2AreEqual(&lhs,&rhs);
 	};

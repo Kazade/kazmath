@@ -42,9 +42,9 @@ namespace km
 			}
 			vec3()
 			{
-                 x = 0.0f;
-                 y = 0.0f;
-                 z = 0.0f;			
+                 x = kmScalar(0.0);
+                 y = kmScalar(0.0);
+                 z = kmScalar(0.0);			
 			}
 			
 			///< Returns the length of the vector
@@ -116,7 +116,7 @@ namespace km
 	};
 	
 	///< Vector addition
-	const vec3 operator+(const vec3& lhs, const vec3& rhs)
+	inline const vec3 operator+(const vec3& lhs, const vec3& rhs)
 	{
 		vec3 result;
 		kmVec3Add(&result, &lhs, &rhs);
@@ -124,7 +124,7 @@ namespace km
 	};
 
 	///< Vector subtraction
-	const vec3 operator-(const vec3& lhs, const vec3& rhs)
+	inline const vec3 operator-(const vec3& lhs, const vec3& rhs)
 	{
 		vec3 result;
 		kmVec3Subtract(&result, &lhs, &rhs);
@@ -132,13 +132,13 @@ namespace km
 	};
 	
 	///< Dot product - which is the cosine of the angle between the two vectors multiplied by their lengths
-	const float operator*(const vec3& lhs, const vec3& rhs)
+	inline const float operator*(const vec3& lhs, const vec3& rhs)
 	{
 		return kmVec3Dot(&lhs, &rhs);
 	};
 	
 	///< Multiply with scalar
-	const vec3 operator*(const kmScalar lhs, const vec3& rhs)
+	inline const vec3 operator*(const kmScalar lhs, const vec3& rhs)
 	{
 		vec3 result;
 		kmVec3Scale(&result, &rhs, lhs);
@@ -146,7 +146,7 @@ namespace km
 	};
 
 	///< Multiply with scalar	
-	const vec3 operator*(const vec3& lhs, const kmScalar rhs)
+	inline const vec3 operator*(const vec3& lhs, const kmScalar rhs)
 	{
 		vec3 result;
 		kmVec3Scale(&result, &lhs, rhs);
@@ -154,7 +154,7 @@ namespace km
 	};
 	
 	///< Transform through matrix	
-	const vec3 operator*(const kmMat4& lhs, const vec3& rhs)
+	inline const vec3 operator*(const kmMat4& lhs, const vec3& rhs)
 	{
 		vec3 result;
 		kmVec3Transform(&result, &rhs, &lhs);
@@ -162,7 +162,7 @@ namespace km
 	};
 	
 	///< Checks for equality (with a small threshold epsilon)
-	const bool operator==(const vec3& lhs, const vec3& rhs)
+	inline const bool operator==(const vec3& lhs, const vec3& rhs)
 	{
 		return kmVec3AreEqual(&lhs,&rhs);
 	};

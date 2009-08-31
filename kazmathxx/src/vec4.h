@@ -35,8 +35,20 @@ namespace km
 	{
 		public:
 			///< Constructors
-			vec4(const kmScalar _x, const kmScalar _y, const kmScalar _z, const kmScalar _w) : x(_x), y(_y), z(_z), w(_w) {}
-			vec4() : x(kmScalar(0.0)), y(kmScalar(0.0)), z(kmScalar(0.0)), w(kmScalar(0.0)) {}
+			vec4(const kmScalar _x, const kmScalar _y, const kmScalar _z, const kmScalar _w)
+			{
+                 x = _x;
+                 y = _y;
+                 z = _z;	
+                 w = _w;		
+			}
+			vec4()
+			{
+                 x = kmScalar(0.0);
+                 y = kmScalar(0.0);
+                 z = kmScalar(0.0);
+                 w = kmScalar(0.0);
+			}
 			
 			///< Returns the length of the vector
 			const kmScalar length() const
@@ -76,7 +88,7 @@ namespace km
 	};
 	
 	///< Vector addition
-	const vec4 operator+(const vec4& lhs, const vec4& rhs)
+	inline const vec4 operator+(const vec4& lhs, const vec4& rhs)
 	{
 		vec4 result;
 		kmVec4Add(&result, &lhs, &rhs);
@@ -84,7 +96,7 @@ namespace km
 	};
 
 	///< Vector subtraction
-	const vec4 operator-(const vec4& lhs, const vec4& rhs)
+	inline const vec4 operator-(const vec4& lhs, const vec4& rhs)
 	{
 		vec4 result;
 		kmVec4Subtract(&result, &lhs, &rhs);
@@ -92,13 +104,13 @@ namespace km
 	};
 	
 	///< Dot product - which is the cosine of the angle between the two vectors multiplied by their lengths
-	const float operator*(const vec4& lhs, const vec4& rhs)
+	inline const float operator*(const vec4& lhs, const vec4& rhs)
 	{
 		return kmVec4Dot(&lhs, &rhs);
 	};
 	
 	///< Multiply with scalar
-	const vec4 operator*(const kmScalar lhs, const vec4& rhs)
+	inline const vec4 operator*(const kmScalar lhs, const vec4& rhs)
 	{
 		vec4 result;
 		kmVec4Scale(&result, &rhs, lhs);
@@ -106,7 +118,7 @@ namespace km
 	};
 
 	///< Multiply with scalar	
-	const vec4 operator*(const vec4& lhs, const kmScalar rhs)
+	inline const vec4 operator*(const vec4& lhs, const kmScalar rhs)
 	{
 		vec4 result;
 		kmVec4Scale(&result, &lhs, rhs);
@@ -114,15 +126,15 @@ namespace km
 	};
 	
 	///< Transform through matrix	
-	const vec4 operator*(const kmMat4& lhs, const vec4& rhs)
+	inline const vec4 operator*(const kmMat4& lhs, const vec4& rhs)
 	{
 		vec4 result;
-		kmVec4Transform(&result, &rhs, &lhs)
+		kmVec4Transform(&result, &rhs, &lhs);
 		return result;
 	};
 	
 	///< Checks for equality (with a small threshold epsilon)
-	const bool operator==(const vec4& lhs, const vec4& rhs)
+	inline const bool operator==(const vec4& lhs, const vec4& rhs)
 	{
 		return kmVec4AreEqual(&lhs,&rhs);
 	};

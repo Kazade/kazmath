@@ -27,6 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _KAZMATHXX_MAT4_H
 
 #include <kazmath/mat4.h>
+#include <kazmath/utility.h>
 #include "vec3.h"
 
 namespace km
@@ -76,11 +77,11 @@ namespace km
 			return result;
 		}
 		
-		static const mat4 rotationAxis(const kmScalar radians, const kmScalar axis_x, const kmScalar axis_y, const kmScalar axis_z)
+		static const mat4 rotationAxis(const kmScalar degrees, const kmScalar axis_x, const kmScalar axis_y, const kmScalar axis_z)
 		{
 			mat4 result;
 			vec3 axis(axis_x, axis_y, axis_z);
-			kmMat4RotationAxis(&result, &axis, radians);
+			kmMat4RotationAxis(&result, &axis, kmDegreesToRadians(degrees));
 			return result;
 		}
 		
@@ -177,7 +178,7 @@ namespace km
 	};
 	
 	///< Matrix multiplication
-	const mat4 operator*(const mat4& lhs, const mat4& rhs)
+	inline const mat4 operator*(const mat4& lhs, const mat4& rhs)
 	{
 		mat4 result;
 		kmMat4Multiply(&result, &lhs, &rhs);
@@ -185,7 +186,7 @@ namespace km
 	};
 	
 	///< Checks for equality (with a small threshold epsilon)
-	const bool operator==(const mat4& lhs, const mat4& rhs)
+	inline const bool operator==(const mat4& lhs, const mat4& rhs)
 	{
 		return kmMat4AreEqual(&lhs,&rhs);
 	};

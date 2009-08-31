@@ -97,7 +97,7 @@ namespace km
 	};
 	
 	///< Matrix multiplication
-	const mat3 operator*(const mat3& lhs, const mat3& rhs)
+	inline const mat3 operator*(const mat3& lhs, const mat3& rhs)
 	{
 		mat3 result;
 		kmMat3Multiply(&result, &lhs, &rhs);
@@ -105,7 +105,7 @@ namespace km
 	};
 	
 	///< Checks for equality (with a small threshold epsilon)
-	const bool operator==(const mat3& lhs, const mat3& rhs)
+	inline const bool operator==(const mat3& lhs, const mat3& rhs)
 	{
 		return kmMat3AreEqual(&lhs,&rhs);
 	};
