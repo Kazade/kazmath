@@ -4,8 +4,8 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 
-#include <kazmath/mat3.h>
-#include <kazmath/vec3.h>
+#include "kazmath/mat3.h"
+#include "kazmath/vec3.h"
 #include <cstdio>
 void print_matrix3(const kmMat3* mat)
 {

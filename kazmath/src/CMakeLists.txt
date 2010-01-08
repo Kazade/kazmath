@@ -1,19 +1,19 @@
 SET(KAZMATH_HEADERS
-vec2.h
-vec3.h
-vec4.h
-mat4.h
-mat3.h
-plane.h
-utility.h
-quaternion.h
-aabb.h
-kazmath.h
+${CMAKE_SOURCE_DIR}/include/kazmath/vec2.h
+${CMAKE_SOURCE_DIR}/include/kazmath/vec3.h
+${CMAKE_SOURCE_DIR}/include/kazmath/vec4.h
+${CMAKE_SOURCE_DIR}/include/kazmath/mat4.h
+${CMAKE_SOURCE_DIR}/include/kazmath/mat3.h
+${CMAKE_SOURCE_DIR}/include/kazmath/plane.h
+${CMAKE_SOURCE_DIR}/include/kazmath/utility.h
+${CMAKE_SOURCE_DIR}/include/kazmath/quaternion.h
+${CMAKE_SOURCE_DIR}/include/kazmath/aabb.h
+${CMAKE_SOURCE_DIR}/include/kazmath/kazmath.h
 )
 
 SET(GL_UTILS_HEADERS
-GL/mat4stack.h
-GL/matrix.h
+${CMAKE_SOURCE_DIR}/include/kazmath/GL/mat4stack.h
+${CMAKE_SOURCE_DIR}/include/kazmath/GL/matrix.h
 )
 
 SET(KAZMATH_SRCS
@@ -32,6 +32,8 @@ GL/matrix.c
 
 #ADD_LIBRARY(Kazmath STATIC ${KAZMATH_SRCS})
 #INSTALL(TARGETS Kazmath ARCHIVE DESTINATION lib)
+
+INCLUDE_DIRECTORIES( ${CMAKE_SOURCE_DIR}/include )
 
 ADD_LIBRARY(Kazmath STATIC ${KAZMATH_SRCS})
 INSTALL(TARGETS Kazmath ARCHIVE DESTINATION lib)
