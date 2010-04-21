@@ -5,7 +5,6 @@ vec4.h
 mat4.h
 mat3.h
 plane.h
-utility.h
 quaternion.h
 aabb.h
 )
