@@ -275,7 +275,7 @@ const int kmMat4AreEqual(const kmMat4* pMat1, const kmMat4* pMat2)
  * Build a rotation matrix from an axis and an angle. Result is stored in pOut.
  * pOut is returned.
  */
-kmMat4* const kmMat4RotationAxis(kmMat4* pOut, const kmVec3* axis, kmScalar radians)
+kmMat4* const kmMat4RotationAxisAngle(kmMat4* pOut, const kmVec3* axis, kmScalar radians)
 {
 	float rcos = cosf(radians);
 	float rsin = sinf(radians);
@@ -648,38 +648,6 @@ kmMat4* const kmMat4LookAt(kmMat4* pOut, const kmVec3* pEye,
 
     kmMat4Translation(&translate, -pEye->x, -pEye->y, -pEye->z);
     kmMat4Multiply(pOut, pOut, &translate);
-
-    return pOut;
-}
-
-/**
- * Initialize a 4x4 matrix from an axis and angle. The translation part is set to (0, 0, 0).
- * Store the result in pOut, returns pOut.
- */
-kmMat4* const kmMat4RotationAxisAngle(kmMat4* pOut, const struct kmVec3* axis, kmScalar radians)
-{
-    float rcos = cosf(radians);
-    float rsin = sinf(radians);
-
-    pOut->mat[0] = rcos + axis->x * axis->x * (1 - rcos);
-    pOut->mat[1] = axis->z * rsin + axis->y * axis->x * (1 - rcos);
-    pOut->mat[2] = -axis->y * rsin + axis->z * axis->x * (1 - rcos);
-    pOut->mat[3] = 0.0f;
-
-    pOut->mat[4] = -axis->z * rsin + axis->x * axis->y * (1 - rcos);
-    pOut->mat[5] = rcos + axis->y * axis->y * (1 - rcos);
-    pOut->mat[6] = axis->x * rsin + axis->z * axis->y * (1 - rcos);
-    pOut->mat[7] = 0.0f;
-
-    pOut->mat[8] = axis->y * rsin + axis->x * axis->z * (1 - rcos);
-    pOut->mat[9] = -axis->x * rsin + axis->y * axis->z * (1 - rcos);
-    pOut->mat[10] = rcos + axis->z * axis->z * (1 - rcos);
-    pOut->mat[11] = 0.0f;
-
-    pOut->mat[12] = 0.0f;
-    pOut->mat[13] = 0.0f;
-    pOut->mat[14] = 0.0f;
-    pOut->mat[15] = 1.0f;
 
     return pOut;
 }
