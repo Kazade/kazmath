@@ -65,7 +65,6 @@ kmMat4* const kmMat4Multiply(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2)
 kmMat4* const kmMat4Assign(kmMat4* pOut, const kmMat4* pIn);
 const int kmMat4AreEqual(const kmMat4* pM1, const kmMat4* pM2);
 
-kmMat4* const kmMat4RotationAxis(kmMat4* pOut, const struct kmVec3* axis, kmScalar radians);
 kmMat4* const kmMat4RotationX(kmMat4* pOut, const kmScalar radians);
 kmMat4* const kmMat4RotationY(kmMat4* pOut, const kmScalar radians);
 kmMat4* const kmMat4RotationZ(kmMat4* pOut, const kmScalar radians);

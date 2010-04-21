@@ -73,7 +73,7 @@ namespace km
 		static const mat4 rotationAxis(const kmVec3& axis, const kmScalar radians)
 		{
 			mat4 result;
-			kmMat4RotationAxis(&result, &axis, radians);
+			kmMat4RotationAxisAngle(&result, &axis, radians);
 			return result;
 		}
 		
@@ -81,7 +81,7 @@ namespace km
 		{
 			mat4 result;
 			vec3 axis(axis_x, axis_y, axis_z);
-			kmMat4RotationAxis(&result, &axis, kmDegreesToRadians(degrees));
+			kmMat4RotationAxisAngle(&result, &axis, kmDegreesToRadians(degrees));
 			return result;
 		}
 		
