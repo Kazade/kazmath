@@ -80,7 +80,7 @@ void swap(kmMat4 * pIn, int r1, int c1, int r2, int c2)
 }
 
 //Returns an upper and a lower triangular matrix which are L and R in the Gauss algorithm
-void gaussj(kmMat4 *a, kmMat4 *b)
+int gaussj(kmMat4 *a, kmMat4 *b)
 {
     int i, icol = 0, irow = 0, j, k, l, ll, n = 4, m = 4;
     float big, dum, pivinv;
@@ -119,8 +119,7 @@ void gaussj(kmMat4 *a, kmMat4 *b)
         indxr[i] = irow;
         indxc[i] = icol;
         if (get(a,icol, icol) == 0.0) {
-            a = NULL;
-            return;
+            return KM_FALSE;
         }
         pivinv = 1.0f / get(a,icol, icol);
         set(a,icol, icol, 1.0f);
@@ -154,12 +153,13 @@ void gaussj(kmMat4 *a, kmMat4 *b)
             }
         }
     }
+    return KM_TRUE;
 }
 
 /**
  * Calculates the inverse of pM and stores the result in
  * pOut.
- * @Return Returns pOut
+ * @Return Returns NULL if there is no inverse, else pOut
  */
 kmMat4* const kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
 {
@@ -169,7 +169,10 @@ kmMat4* const kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
     kmMat4 tmp;
     kmMat4Identity(&tmp);
     
-    gaussj(&inv, &tmp);
+    if(gaussj(&inv, &tmp) == KM_FALSE) {
+        return NULL;
+    }
+    
     kmMat4Assign(pOut, &inv);
     return pOut;
 }

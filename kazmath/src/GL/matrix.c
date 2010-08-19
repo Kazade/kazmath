@@ -177,7 +177,7 @@ void kmGLRotatef(float angle, float x, float y, float z)
 	kmVec3Fill(&axis, x, y, z);
 
 	//Create a rotation matrix using the axis and the angle
-	kmMat4RotationAxis(&rotation, &axis, kmDegreesToRadians(angle));
+	kmMat4RotationAxisAngle(&rotation, &axis, kmDegreesToRadians(angle));
 
 	//Multiply the rotation matrix by the current matrix
 	kmMat4Multiply(current_stack->top, current_stack->top, &rotation);
