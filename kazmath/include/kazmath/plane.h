@@ -26,9 +26,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef PLANE_H_INCLUDED
 #define PLANE_H_INCLUDED
 
+#define KM_PLANE_LEFT 0
+#define KM_PLANE_RIGHT 1
+#define KM_PLANE_BOTTOM 2
+#define KM_PLANE_TOP 3
+#define KM_PLANE_NEAR 4
+#define KM_PLANE_FAR 5
+
 #include "utility.h"
 
 struct kmVec3;
+struct kmVec4;
+struct kmMat4;
 
 typedef struct kmPlane {
 	kmScalar 	a, b, c, d;
