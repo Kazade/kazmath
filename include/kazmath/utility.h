@@ -32,6 +32,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define kmScalar float
 #endif
 
+#ifndef kmEnum
+#define kmEnum unsigned int
+#endif
+
 #ifndef KM_FALSE
 #define KM_FALSE 0
 #endif

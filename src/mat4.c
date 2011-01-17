@@ -35,6 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "kazmath/mat4.h"
 #include "kazmath/mat3.h"
 #include "kazmath/quaternion.h"
+#include "kazmath/plane.h"
 
 /**
  * Fills a kmMat4 structure with the values from a 16
@@ -717,5 +718,61 @@ kmMat4* const kmMat4RotationTranslation(kmMat4* pOut, const kmMat3* rotation, co
     pOut->mat[14] = translation->z;
     pOut->mat[15] = 1.0f;
     
+    return pOut;
+}
+
+kmPlane* const kmMat4ExtractPlane(kmPlane* pOut, const kmMat4* pIn, const kmEnum plane)
+{
+    float t = 1.0f;
+    
+    switch(plane) {
+        case KM_PLANE_RIGHT:
+            pOut->a = pIn->mat[3] - pIn->mat[0];
+            pOut->b = pIn->mat[7] - pIn->mat[4];
+            pOut->c = pIn->mat[11] - pIn->mat[8];
+            pOut->d = pIn->mat[15] - pIn->mat[12];
+        break;
+        case KM_PLANE_LEFT:
+            pOut->a = pIn->mat[3] + pIn->mat[0];
+            pOut->b = pIn->mat[7] + pIn->mat[4];
+            pOut->c = pIn->mat[11] + pIn->mat[8];
+            pOut->d = pIn->mat[15] + pIn->mat[12];
+        break;
+        case KM_PLANE_BOTTOM:
+            pOut->a = pIn->mat[3] + pIn->mat[1];
+            pOut->b = pIn->mat[7] + pIn->mat[5];
+            pOut->c = pIn->mat[11] + pIn->mat[9];
+            pOut->d = pIn->mat[15] + pIn->mat[13];
+        break;
+        case KM_PLANE_TOP:
+            pOut->a = pIn->mat[3] - pIn->mat[1];
+            pOut->b = pIn->mat[7] - pIn->mat[5];
+            pOut->c = pIn->mat[11] - pIn->mat[9];
+            pOut->d = pIn->mat[15] - pIn->mat[13];
+        break;
+        case KM_PLANE_FAR:
+            pOut->a = pIn->mat[3] - pIn->mat[2];
+            pOut->b = pIn->mat[7] - pIn->mat[6];
+            pOut->c = pIn->mat[11] - pIn->mat[10];
+            pOut->d = pIn->mat[15] - pIn->mat[14];
+        break;
+        case KM_PLANE_NEAR:
+            pOut->a = pIn->mat[3] + pIn->mat[2];
+            pOut->b = pIn->mat[7] + pIn->mat[6];
+            pOut->c = pIn->mat[11] + pIn->mat[10];
+            pOut->d = pIn->mat[15] + pIn->mat[14];
+        break;
+        default:
+            assert(0 && "Invalid plane index");
+    }
+
+    t = sqrtf(pOut->a * pOut->a +
+                    pOut->b * pOut->b +
+                    pOut->c * pOut->c);
+    pOut->a /= t;
+    pOut->b /= t;
+    pOut->c /= t;
+    pOut->d /= t;
+
     return pOut;
 }

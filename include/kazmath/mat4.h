@@ -31,6 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct kmVec3;
 struct kmMat3;
 struct kmQuaternion;
+struct kmPlane;
 
 /*
 A 4x4 matrix
@@ -84,6 +85,7 @@ kmMat4* const kmMat4LookAt(kmMat4* pOut, const struct kmVec3* pEye, const struct
 
 kmMat4* const kmMat4RotationAxisAngle(kmMat4* pOut, const struct kmVec3* axis, kmScalar radians);
 struct kmMat3* const kmMat4ExtractRotation(struct kmMat3* pOut, const kmMat4* pIn);
+struct kmPlane* const kmMat4ExtractPlane(struct kmPlane* pOut, const kmMat4* pIn, const kmEnum plane);
 struct kmVec3* const kmMat4RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat4* pIn);
 #ifdef __cplusplus
 }
