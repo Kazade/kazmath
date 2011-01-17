@@ -7,7 +7,7 @@
 # paternity under the Copyright, Designs and Patents Act 1988.)
 # This file may have to be extensively modified
 
-package = kazmath1.0-dev
+package = libkazmath-dev
 docdir = debian/tmp/usr/share/doc/$(package)
 
 CC = gcc
@@ -31,7 +31,7 @@ clean:
 	$(checkdir)
 	rm -f build
 	cmake -DCMAKE_INSTALL_PREFIX=/usr .
-	-$(MAKE) clean
+	[ ! -f Makefile ] || $(MAKE) clean
 	rm -r *.cmake Makefile CMakeFiles CMakeCache.txt
 	rm -rf *~ debian/tmp debian/*~ debian/files* debian/substvars
 

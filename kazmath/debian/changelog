@@ -1,6 +1,0 @@
-libkazmath1.0 (1.0.0) jaunty; urgency=low
-
-  * debian/control:
-    - initial packaged version
-
- -- Luke Benstead (Kazade) <kazade@gmail.com>  Sat, 04 Apr 2009 13:42:42 +1100

@@ -1,0 +1,12 @@
+libkazmath-dev (1.1.0) maverick; urgency=low
+
+  * Numerous bugfixes
+
+ -- Luke Benstead (Kazade) <kazade@gmail.com>  Sat, 8 Jan 2011 08:59:00 +1100
+
+libkazmath-dev (1.0.0) jaunty; urgency=low
+
+  * debian/control:
+    - initial packaged version
+
+ -- Luke Benstead (Kazade) <kazade@gmail.com>  Sat, 04 Apr 2009 13:42:42 +1100
