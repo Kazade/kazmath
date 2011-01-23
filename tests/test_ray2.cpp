@@ -32,6 +32,30 @@ TEST(test_line_segment_intersection) {
     CHECK(kmRay2IntersectLineSegment(&ray, line_start, line_end, &intersect));
 }
 
+TEST(test_triangle_intersection) {
+    kmVec2 p1, p2, p3;
+    
+    p1.x = -10.0f;
+    p1.y = 0.0f;
+    
+    p2.x = 10.0f;
+    p2.y = 0.0f;    
+    
+    p3.x = 0.0f;
+    p3.y = -5.0f;        
+    
+    kmRay2 ray;
+    ray.start.x = 0.0f;
+    ray.start.y = 0.3f;
+    ray.dir.x = 0.0f;
+    ray.dir.y = -0.5f;
+    
+    kmVec2 intersect;
+    CHECK(kmRay2IntersectTriangle(&ray, p1, p2, p3, &intersect));
+    CHECK_CLOSE(0.0f, intersect.x, 0.001f);
+    CHECK_CLOSE(0.0f, intersect.y, 0.001f);
+}
+
 int main() {
     return UnitTest::RunAllTests();
 }
