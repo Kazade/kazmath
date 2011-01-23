@@ -39,8 +39,8 @@ typedef struct kmRay2 {
 } kmRay2;
 
 void kmRay2Fill(kmRay2* ray, kmScalar px, kmScalar py, kmScalar vx, kmScalar vy);
-kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2 p1, const kmVec2 p2, kmVec2* intersection);
-kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2 p1, const kmVec2 p2, const kmVec2 p3, kmVec2* intersection, kmVec2* normal_out);
+kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, kmVec2* intersection);
+kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, const kmVec2* p3, kmVec2* intersection, kmVec2* normal_out);
 kmBool kmRay2IntersectCircle(const kmRay2* ray, const kmVec2 centre, const kmScalar radius, kmVec2* intersection);
 
 #ifdef __cplusplus

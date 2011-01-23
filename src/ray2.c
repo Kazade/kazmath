@@ -9,7 +9,54 @@ void kmRay2Fill(kmRay2* ray, kmScalar px, kmScalar py, kmScalar vx, kmScalar vy)
     ray->dir.y = vy;
 }
 
-kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2 p1, const kmVec2 p2, kmVec2* intersection) {
+kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, kmVec2* intersection) {
+    
+    float x1 = ray->start.x;
+    float y1 = ray->start.y;
+    float x2 = ray->start.x + ray->dir.x;
+    float y2 = ray->start.y + ray->dir.y;
+    float x3 = p1->x;
+    float y3 = p1->y;
+    float x4 = p2->x;
+    float y4 = p2->y;
+
+    float denom = (y4 -y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
+    
+    //If denom is zero, the lines are parallel
+    if(denom > -kmEpsilon && denom < kmEpsilon) {
+        return KM_FALSE;
+    }
+    
+    float ua = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denom;
+    float ub = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / denom;
+    
+    float x = x1 + ua * (x2 - x1);
+    float y = y1 + ua * (y2 - y1);
+    
+    if(x < min(p1->x, p2->x) - kmEpsilon || 
+       x > max(p1->x, p2->x) + kmEpsilon ||
+       y < min(p1->y, p2->y) - kmEpsilon || 
+       y > max(p1->y, p2->y) + kmEpsilon) {
+        //Outside of line
+        printf("Outside of line, %f %f (%f %f)(%f, %f)\n", x, y, p1->x, p1->y, p2->x, p2->y);
+        return KM_FALSE;
+    }
+    
+    if(x < min(x1, x2) - kmEpsilon || 
+       x > max(x1, x2) + kmEpsilon ||
+       y < min(y1, y2) - kmEpsilon || 
+       y > max(y1, y2) + kmEpsilon) {
+        printf("Outside of ray, %f %f (%f %f)(%f, %f)\n", x, y, x1, y1, x2, y2);
+        return KM_FALSE;
+    }
+    
+    intersection->x = x;
+    intersection->y = y;
+    
+    return KM_TRUE;
+    
+    
+/*    
     kmScalar A1, B1, C1;
     kmScalar A2, B2, C2;
     
@@ -17,9 +64,9 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2 p1, const kmVe
     B1 = ray->dir.x;
     C1 = A1 * ray->start.x + B1 * ray->start.y;
     
-    A2 = p2.y - p1.y;
-    B2 = p2.x - p1.x;
-    C2 = A2 * p1.x + B2 * p1.y;
+    A2 = p2->y - p1->y;
+    B2 = p2->x - p1->x;
+    C2 = A2 * p1->x + B2 * p1->y;
     
     double det = (A1 * B2) - (A2 * B1);
     if(det == 0) {
@@ -30,18 +77,25 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2 p1, const kmVe
     double x = (B2*C1 - B1*C2) / det;
     double y = (A1*C2 - A2*C1) / det;
     
-    if(x < min(p1.x, p2.x) - kmEpsilon || x > max(p1.x, p2.x) + kmEpsilon ||
-       y < min(p1.y, p2.y) - kmEpsilon || y > max(p1.y, p2.y) + kmEpsilon) {
+    if(x < min(p1->x, p2->x) - kmEpsilon || 
+       x > max(p1->x, p2->x) + kmEpsilon ||
+       y < min(p1->y, p2->y) - kmEpsilon || 
+       y > max(p1->y, p2->y) + kmEpsilon) {
         //Outside of line
-        printf("Outside of line, %f %f (%f %f)(%f, %f)\n", x, y, p1.x, p1.y, p2.x, p2.y);
+        printf("Outside of line, %f %f (%f %f)(%f, %f)\n", x, y, p1->x, p1->y, p2->x, p2->y);
         return KM_FALSE;
     }
     
-    kmScalar x1 = ray->start.x, x2 = ray->start.x + ray->dir.x;
-    kmScalar y1 = ray->start.y, y2 = ray->start.y + ray->dir.y;
+    kmScalar x1 = ray->start.x;
+    kmScalar x2 = ray->start.x + ray->dir.x;
     
-    if(x < min(x1, x2) - kmEpsilon || x > max(x1, x2) + kmEpsilon ||
-       y < min(y1, y2) - kmEpsilon || y > max(y1, y2) + kmEpsilon) {
+    kmScalar y1 = ray->start.y;
+    kmScalar y2 = ray->start.y + ray->dir.y;
+    
+    if(x < min(x1, x2) - kmEpsilon || 
+       x > max(x1, x2) + kmEpsilon ||
+       y < min(y1, y2) - kmEpsilon || 
+       y > max(y1, y2) + kmEpsilon) {
         printf("Outside of ray, %f %f (%f %f)(%f, %f)\n", x, y, x1, y1, x2, y2);
         return KM_FALSE;
     }
@@ -49,7 +103,7 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2 p1, const kmVe
     intersection->x = x;
     intersection->y = y;
     
-    return KM_TRUE;
+    return KM_TRUE;*/
 }
 
 void calculate_line_normal(kmVec2 p1, kmVec2 p2, kmVec2* normal_out) {
@@ -63,7 +117,7 @@ void calculate_line_normal(kmVec2 p1, kmVec2 p2, kmVec2* normal_out) {
     //TODO: should check that the normal is pointing out of the triangle
 }
 
-kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2 p1, const kmVec2 p2, const kmVec2 p3, kmVec2* intersection, kmVec2* normal_out) {
+kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, const kmVec2* p3, kmVec2* intersection, kmVec2* normal_out) {
     kmVec2 intersect;
     kmVec2 normal;
     
@@ -73,21 +127,21 @@ kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2 p1, const kmVec2 
         intersection->x = intersect.x;
         intersection->y = intersect.y;
         intersected = KM_TRUE;                        
-        calculate_line_normal(p1, p2, &normal);               
+        calculate_line_normal(*p1, *p2, &normal);               
     }
     
     if(kmRay2IntersectLineSegment(ray, p2, p3, &intersect)) {
         intersection->x = intersect.x;
         intersection->y = intersect.y;
         intersected = KM_TRUE;                    
-        calculate_line_normal(p2, p3, &normal);        
+        calculate_line_normal(*p2, *p3, &normal);        
     }
     
     if(kmRay2IntersectLineSegment(ray, p3, p1, &intersect)) {
         intersection->x = intersect.x;
         intersection->y = intersect.y;
         intersected = KM_TRUE;                    
-        calculate_line_normal(p3, p1, &normal);        
+        calculate_line_normal(*p3, *p1, &normal);        
     }
     
     if(intersected) {
