@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008, Luke Benstead.
+Copyright (c) 2011, Luke Benstead.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -23,33 +23,28 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "kazmath/utility.h"
+#ifndef RAY_2_H
+#define RAY_2_H
 
-/**
- * Returns the square of s (e.g. s*s)
- */
-kmScalar kmSQR(kmScalar s) {
-	return s*s;
-}
+#include "utility.h"
+#include "vec2.h"
 
-/**
- * Returns degrees as radians.
- */
-kmScalar kmDegreesToRadians(kmScalar degrees) {
-	return degrees * kmPIOver180;
-}
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/**
- * Returns radians as degrees
- */
-kmScalar kmRadiansToDegrees(kmScalar radians) {
-	return radians * kmPIUnder180;
-}
+typedef struct kmRay2 {
+    kmVec2 start;
+    kmVec2 dir;
+} kmRay2;
 
-kmScalar min(kmScalar lhs, kmScalar rhs) {
-    return (lhs < rhs)? lhs : rhs;
-}
+void kmRay2Fill(kmRay2* ray, kmScalar px, kmScalar py, kmScalar vx, kmScalar vy);
+kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2 p1, const kmVec2 p2, kmVec2* intersection);
+kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2 p1, const kmVec2 p2, const kmVec2 p3, kmVec2* intersection);
+kmBool kmRay2IntersectCircle(const kmRay2* ray, const kmVec2 centre, const kmScalar radius, kmVec2* intersection);
 
-kmScalar max(kmScalar lhs, kmScalar rhs) {
-    return (lhs > rhs)? lhs : rhs;
+#ifdef __cplusplus
 }
+#endif
+
+#endif

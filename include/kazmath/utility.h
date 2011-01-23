@@ -32,6 +32,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define kmScalar float
 #endif
 
+#ifndef kmBool
+#define kmBool unsigned char
+#endif
+
 #ifndef kmEnum
 #define kmEnum unsigned int
 #endif
@@ -58,6 +62,9 @@ extern "C" {
 extern kmScalar kmSQR(kmScalar s);
 extern kmScalar kmDegreesToRadians(kmScalar degrees);
 extern kmScalar kmRadiansToDegrees(kmScalar radians);
+
+extern kmScalar min(kmScalar lhs, kmScalar rhs);
+extern kmScalar max(kmScalar lhs, kmScalar rhs);
 
 #ifdef __cplusplus
 }
