@@ -78,10 +78,17 @@ kmVec2* kmVec2Subtract(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2)
 	return pOut;
 }
 
-kmVec2* kmVec2Transform(kmVec2* pOut, const kmVec2* pV1, const kmMat3* pM)
+kmVec2* kmVec2Transform(kmVec2* pOut, const kmVec2* pV, const kmMat3* pM)
 {
-	assert(0);
-	return NULL;
+    kmVec2 v;
+
+    v.x = pV->x * pM->mat[0] + pV->y * pM->mat[3] + pM->mat[6];
+    v.y = pV->x * pM->mat[1] + pV->y * pM->mat[4] + pM->mat[7];
+
+    pOut->x = v.x;
+    pOut->y = v.y;
+
+    return pOut;
 }
 
 kmVec2* kmVec2TransformCoord(kmVec2* pOut, const kmVec2* pV, const kmMat3* pM)
