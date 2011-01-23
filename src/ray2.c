@@ -13,8 +13,8 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2 p1, const kmVe
     kmScalar A1, B1, C1;
     kmScalar A2, B2, C2;
     
-    A1 = (ray->start.y + ray->dir.y) - (ray->start.y);
-    B1 = (ray->start.x + ray->dir.x) - (ray->start.x);
+    A1 = ray->dir.y;
+    B1 = ray->dir.x;
     C1 = A1 * ray->start.x + B1 * ray->start.y;
     
     A2 = p2.y - p1.y;
@@ -23,7 +23,7 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2 p1, const kmVe
     
     double det = (A1 * B2) - (A2 * B1);
     if(det == 0) {
-        //printf("Parallel\n");
+        printf("Parallel\n");
         return KM_FALSE;
     }
     
@@ -33,7 +33,7 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2 p1, const kmVe
     if(x < min(p1.x, p2.x) - kmEpsilon || x > max(p1.x, p2.x) + kmEpsilon ||
        y < min(p1.y, p2.y) - kmEpsilon || y > max(p1.y, p2.y) + kmEpsilon) {
         //Outside of line
-        //printf("Outside of line\n");
+        printf("Outside of line, %f %f (%f %f)(%f, %f)\n", x, y, p1.x, p1.y, p2.x, p2.y);
         return KM_FALSE;
     }
     
@@ -42,7 +42,7 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2 p1, const kmVe
     
     if(x < min(x1, x2) - kmEpsilon || x > max(x1, x2) + kmEpsilon ||
        y < min(y1, y2) - kmEpsilon || y > max(y1, y2) + kmEpsilon) {
-        //printf("Outside of ray, %f %f (%f %f)(%f, %f)\n", x, y, x1, y1, x2, y2);
+        printf("Outside of ray, %f %f (%f %f)(%f, %f)\n", x, y, x1, y1, x2, y2);
         return KM_FALSE;
     }
     
@@ -52,45 +52,50 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2 p1, const kmVe
     return KM_TRUE;
 }
 
-kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2 p1, const kmVec2 p2, const kmVec2 p3, kmVec2* intersection) {
-    kmVec2 intersect;
-    kmBool intersected = KM_FALSE;
-    float dist = 100000;
-    /*printf("p1 %f, %f\n", p1.x, p1.y);
-    printf("p2 %f, %f\n", p2.x, p2.y);
-    printf("ray start %f, %f\n", ray->start.x, ray->start.y);
-    printf("ray dir %f, %f\n", ray->dir.x, ray->dir.y);*/
+void calculate_line_normal(kmVec2 p1, kmVec2 p2, kmVec2* normal_out) {
+    kmVec2 tmp;
+    kmVec2Subtract(&tmp, &p2, &p1); //Get direction vector
     
+    normal_out->x = -tmp.y;
+    normal_out->y = tmp.x;
+    kmVec2Normalize(normal_out, normal_out);
+    
+    //TODO: should check that the normal is pointing out of the triangle
+}
+
+kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2 p1, const kmVec2 p2, const kmVec2 p3, kmVec2* intersection, kmVec2* normal_out) {
+    kmVec2 intersect;
+    kmVec2 normal;
+    
+    kmBool intersected = KM_FALSE;
+ 
     if(kmRay2IntersectLineSegment(ray, p1, p2, &intersect)) {
-        kmVec2 tmp;
-        kmVec2Subtract(&tmp, &intersect, &ray->start);
-        if(fabs(kmVec2Length(&tmp)) < dist) {
-            intersection->x = intersect.x;
-            intersection->y = intersect.y;
-            intersected = KM_TRUE;            
-            dist = fabs(kmVec2Length(&tmp));
-        }
+        intersection->x = intersect.x;
+        intersection->y = intersect.y;
+        intersected = KM_TRUE;                        
+        calculate_line_normal(p1, p2, &normal);               
     }
     
     if(kmRay2IntersectLineSegment(ray, p2, p3, &intersect)) {
-        kmVec2 tmp;
-        kmVec2Subtract(&tmp, &intersect, &ray->start);
-        if(fabs(kmVec2Length(&tmp)) < dist) {
-            intersection->x = intersect.x;
-            intersection->y = intersect.y;
-            intersected = KM_TRUE;            
-            dist = fabs(kmVec2Length(&tmp));
-        }
+        intersection->x = intersect.x;
+        intersection->y = intersect.y;
+        intersected = KM_TRUE;                    
+        calculate_line_normal(p2, p3, &normal);        
     }
     
     if(kmRay2IntersectLineSegment(ray, p3, p1, &intersect)) {
-        kmVec2 tmp;
-        kmVec2Subtract(&tmp, &intersect, &ray->start);
-        if(fabs(kmVec2Length(&tmp)) < dist) {
-            intersection->x = intersect.x;
-            intersection->y = intersect.y;
-            intersected = KM_TRUE;            
-            dist = fabs(kmVec2Length(&tmp));
+        intersection->x = intersect.x;
+        intersection->y = intersect.y;
+        intersected = KM_TRUE;                    
+        calculate_line_normal(p3, p1, &normal);        
+    }
+    
+    if(intersected) {
+        intersection->x = intersect.x;
+        intersection->y = intersect.y;
+        if(normal_out) {
+            normal_out->x = normal.x;
+            normal_out->y = normal.y;
         }
     }
     

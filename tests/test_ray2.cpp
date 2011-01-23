@@ -30,6 +30,15 @@ TEST(test_line_segment_intersection) {
     line_start.x = -150.0f;
     //Should now hit the line as it's been extended
     CHECK(kmRay2IntersectLineSegment(&ray, line_start, line_end, &intersect));
+    
+    //Check diagonal case
+    
+    kmRay2Fill(&ray, 0.0, 0.7f, 0.0f, -1.0f);
+    kmVec2Fill(&line_start, -1.0f, 0.0f);
+    kmVec2Fill(&line_end, 10.0f, 5.0f);
+    
+    CHECK(kmRay2IntersectLineSegment(&ray, line_start, line_end, &intersect));    
+    CHECK(intersect.y > 0.0f);    
 }
 
 TEST(test_triangle_intersection) {
@@ -50,10 +59,12 @@ TEST(test_triangle_intersection) {
     ray.dir.x = 0.0f;
     ray.dir.y = -0.5f;
     
-    kmVec2 intersect;
-    CHECK(kmRay2IntersectTriangle(&ray, p1, p2, p3, &intersect));
+    kmVec2 intersect, normal;
+    CHECK(kmRay2IntersectTriangle(&ray, p1, p2, p3, &intersect, &normal));
     CHECK_CLOSE(0.0f, intersect.x, 0.001f);
     CHECK_CLOSE(0.0f, intersect.y, 0.001f);
+    CHECK_CLOSE(0.0f, normal.x, 0.001f);
+    CHECK_CLOSE(1.0f, normal.y, 0.001f);
 }
 
 int main() {
