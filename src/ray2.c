@@ -38,7 +38,7 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmV
        y < min(p1->y, p2->y) - kmEpsilon || 
        y > max(p1->y, p2->y) + kmEpsilon) {
         //Outside of line
-        printf("Outside of line, %f %f (%f %f)(%f, %f)\n", x, y, p1->x, p1->y, p2->x, p2->y);
+        //printf("Outside of line, %f %f (%f %f)(%f, %f)\n", x, y, p1->x, p1->y, p2->x, p2->y);
         return KM_FALSE;
     }
     
@@ -46,7 +46,7 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmV
        x > max(x1, x2) + kmEpsilon ||
        y < min(y1, y2) - kmEpsilon || 
        y > max(y1, y2) + kmEpsilon) {
-        printf("Outside of ray, %f %f (%f %f)(%f, %f)\n", x, y, x1, y1, x2, y2);
+        //printf("Outside of ray, %f %f (%f %f)(%f, %f)\n", x, y, x1, y1, x2, y2);
         return KM_FALSE;
     }
     
