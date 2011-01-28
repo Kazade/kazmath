@@ -65,6 +65,7 @@ extern kmScalar kmRadiansToDegrees(kmScalar radians);
 
 extern kmScalar min(kmScalar lhs, kmScalar rhs);
 extern kmScalar max(kmScalar lhs, kmScalar rhs);
+extern kmBool kmAlmostEqual(kmScalar lhs, kmScalar rhs);
 
 #ifdef __cplusplus
 }

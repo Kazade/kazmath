@@ -53,3 +53,7 @@ kmScalar min(kmScalar lhs, kmScalar rhs) {
 kmScalar max(kmScalar lhs, kmScalar rhs) {
     return (lhs > rhs)? lhs : rhs;
 }
+
+kmBool kmAlmostEqual(kmScalar lhs, kmScalar rhs) {
+    return (lhs + kmEpsilon > rhs && lhs - kmEpsilon < rhs);
+}
