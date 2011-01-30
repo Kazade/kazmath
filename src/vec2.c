@@ -51,8 +51,12 @@ kmVec2* kmVec2Normalize(kmVec2* pOut, const kmVec2* pIn)
 {
 	kmScalar l = 1.0f / kmVec2Length(pIn);
 
-	pOut->x *= l;
-	pOut->y *= l;
+	kmVec2 v;
+	v.x = pIn->x * l;
+	v.y = pIn->y * l;
+    
+	pOut->x = v.x;
+	pOut->y = v.y;
 
 	return pOut;
 }
