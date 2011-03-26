@@ -23,7 +23,7 @@ endif
 
 build:
 	$(checkdir)
-	cmake -D CMAKE_INSTALL_PREFIX:STRING="/usr" .
+	cmake -D CMAKE_INSTALL_PREFIX=/usr .
 	$(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS)"
 	touch build
 
