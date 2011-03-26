@@ -5,7 +5,6 @@ PROJECT(kazmath)
 ENABLE_TESTING()
 
 SET(CMAKE_C_FLAGS "-std=c99")
-SET(CMAKE_INSTALL_PREFIX, "/usr")
 
 SET(KAZMATH_HEADERS
     ${CMAKE_SOURCE_DIR}/include/kazmath/vec2.h
