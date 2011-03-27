@@ -23,7 +23,7 @@ endif
 
 build:
 	$(checkdir)
-	cmake -D CMAKE_INSTALL_PREFIX=/usr .
+	cmake -DCMAKE_INSTALL_PREFIX=/usr .
 	$(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS)"
 	touch build
 
@@ -48,7 +48,7 @@ binary-arch:    checkroot build
 	#install -m 755 debian/postinst debian/prerm debian/tmp/DEBIAN
 	#$(MAKE) INSTALL_PROGRAM="$(INSTALL_PROGRAM)" \
 	#		prefix=$$(pwd)/debian/tmp/usr install
-	$(MAKE) DESTDIR=$(CURDIR)/debian/tmp/usr $(INSTALL_PROGRAM)
+	$(MAKE) DESTDIR=$(CURDIR)/debian/tmp $(INSTALL_PROGRAM)
 	cp -a debian/copyright $(docdir)
 	cp -a debian/changelog $(docdir)/changelog.Debian
 	cp -a ChangeLog $(docdir)/changelog
