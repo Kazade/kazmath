@@ -58,5 +58,8 @@ kmAABB* const kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s)
 	assert(0 && "Not implemented");
 }
 
+kmBool kmAABBIntersectsTriangle(kmAABB* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3) {
+    return KM_TRUE;
+}
 
 

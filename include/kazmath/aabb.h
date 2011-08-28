@@ -45,6 +45,7 @@ typedef struct kmAABB {
 const int kmAABBContainsPoint(const kmVec3* pPoint, const kmAABB* pBox);
 kmAABB* const kmAABBAssign(kmAABB* pOut, const kmAABB* pIn);
 kmAABB* const kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s);
+kmBool kmAABBIntersectsTriangle(kmAABB* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3);
 
 #ifdef __cplusplus
 }
