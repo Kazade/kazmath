@@ -368,3 +368,34 @@ kmMat3* const kmMat3RotationZ(kmMat3* pOut, const float radians)
 
 	return pOut;
 }
+
+kmVec3* const kmMat3GetUpVec3(kmVec3* pOut, const kmMat3* pIn) {
+	pOut->x = pIn->mat[3];
+	pOut->y = pIn->mat[4];
+	pOut->z = pIn->mat[5];
+
+	kmVec3Normalize(pOut, pOut);
+
+	return pOut;
+}
+
+kmVec3* const kmMat3GetRightVec3(kmVec3* pOut, const kmMat3* pIn) {
+	pOut->x = pIn->mat[0];
+	pOut->y = pIn->mat[1];
+	pOut->z = pIn->mat[2];
+
+	kmVec3Normalize(pOut, pOut);
+
+	return pOut;
+}
+
+kmVec3* const kmMat3GetForwardVec3(kmVec3* pOut, const kmMat3* pIn) {
+	pOut->x = pIn->mat[6];
+	pOut->y = pIn->mat[7];
+	pOut->z = pIn->mat[8];
+
+	kmVec3Normalize(pOut, pOut);
+
+	return pOut;
+}
+

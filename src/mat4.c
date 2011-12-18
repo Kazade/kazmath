@@ -166,14 +166,14 @@ kmMat4* const kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
 {
     kmMat4 inv;
     kmMat4Assign(&inv, pM);
-    
+
     kmMat4 tmp;
     kmMat4Identity(&tmp);
-    
+
     if(gaussj(&inv, &tmp) == KM_FALSE) {
         return NULL;
     }
-    
+
     kmMat4Assign(pOut, &inv);
     return pOut;
 }
@@ -283,7 +283,7 @@ kmMat4* const kmMat4RotationAxisAngle(kmMat4* pOut, const kmVec3* axis, kmScalar
 {
 	float rcos = cosf(radians);
 	float rsin = sinf(radians);
-	
+
 	kmVec3 normalizedAxis;
 	kmVec3Normalize(&normalizedAxis, axis);
 
@@ -456,21 +456,31 @@ kmMat4* const kmMat4RotationPitchYawRoll(kmMat4* pOut, const kmScalar pitch, con
  */
 kmMat4* const kmMat4RotationQuaternion(kmMat4* pOut, const kmQuaternion* pQ)
 {
-	pOut->mat[0] = 1.0f - 2.0f * (pQ->y * pQ->y + pQ->z * pQ->z );
-	pOut->mat[1] = 2.0f * (pQ->x * pQ->y + pQ->z * pQ->w);
-	pOut->mat[2] = 2.0f * (pQ->x * pQ->z - pQ->y * pQ->w);
+    float x2 = pQ->x * pQ->x;
+    float y2 = pQ->y * pQ->y;
+    float z2 = pQ->z * pQ->z;
+    float xy = pQ->x * pQ->y;
+    float xz = pQ->x * pQ->z;
+    float yz = pQ->y * pQ->z;
+    float wx = pQ->w * pQ->x;
+    float wy = pQ->w * pQ->y;
+    float wz = pQ->w * pQ->z;
+
+	pOut->mat[0] = 1.0f - 2.0f * (y2 + z2);
+	pOut->mat[1] = 2.0f * (xy - wz);
+	pOut->mat[2] = 2.0f * (xz + wy);
 	pOut->mat[3] = 0.0f;
 
 	// Second row
-	pOut->mat[4] = 2.0f * ( pQ->x * pQ->y - pQ->z * pQ->w );
-	pOut->mat[5] = 1.0f - 2.0f * ( pQ->x * pQ->x + pQ->z * pQ->z );
-	pOut->mat[6] = 2.0f * (pQ->z * pQ->y + pQ->x * pQ->w );
+	pOut->mat[4] = 2.0f * (xy + wz);
+	pOut->mat[5] = 1.0f - 2.0f * (x2 + z2);
+	pOut->mat[6] = 2.0f * (yz - wx);
 	pOut->mat[7] = 0.0f;
 
 	// Third row
-	pOut->mat[8] = 2.0f * ( pQ->x * pQ->z + pQ->y * pQ->w );
-	pOut->mat[9] = 2.0f * ( pQ->y * pQ->z - pQ->x * pQ->w );
-	pOut->mat[10] = 1.0f - 2.0f * ( pQ->x * pQ->x + pQ->y * pQ->y );
+	pOut->mat[8] = 2.0f * (xz - wy);
+	pOut->mat[9] = 2.0f * (yz + wx);
+	pOut->mat[10] = 1.0f - 2.0f * (x2 + y2);
 	pOut->mat[11] = 0.0f;
 
 	// Fourth row
@@ -692,7 +702,7 @@ kmVec3* const kmMat4RotationToAxisAngle(kmVec3* pAxis, kmScalar* radians, const 
     return pAxis;
 }
 
-/** Build a 4x4 OpenGL transformation matrix using a 3x3 rotation matrix, 
+/** Build a 4x4 OpenGL transformation matrix using a 3x3 rotation matrix,
  * and a 3d vector representing a translation. Assign the result to pOut,
  * pOut is also returned.
  */
@@ -702,29 +712,29 @@ kmMat4* const kmMat4RotationTranslation(kmMat4* pOut, const kmMat3* rotation, co
     pOut->mat[1] = rotation->mat[1];
     pOut->mat[2] = rotation->mat[2];
     pOut->mat[3] = 0.0f;
-    
+
     pOut->mat[4] = rotation->mat[3];
     pOut->mat[5] = rotation->mat[4];
     pOut->mat[6] = rotation->mat[5];
     pOut->mat[7] = 0.0f;
-    
+
     pOut->mat[8] = rotation->mat[6];
     pOut->mat[9] = rotation->mat[7];
     pOut->mat[10] = rotation->mat[8];
     pOut->mat[11] = 0.0f;
-    
+
     pOut->mat[12] = translation->x;
     pOut->mat[13] = translation->y;
     pOut->mat[14] = translation->z;
     pOut->mat[15] = 1.0f;
-    
+
     return pOut;
 }
 
 kmPlane* const kmMat4ExtractPlane(kmPlane* pOut, const kmMat4* pIn, const kmEnum plane)
 {
     float t = 1.0f;
-    
+
     switch(plane) {
         case KM_PLANE_RIGHT:
             pOut->a = pIn->mat[3] - pIn->mat[0];

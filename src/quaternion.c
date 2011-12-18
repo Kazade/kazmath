@@ -140,10 +140,10 @@ kmQuaternion* kmQuaternionMultiply(kmQuaternion* pOut,
 								 const kmQuaternion* q1,
 								 const kmQuaternion* q2)
 {
-	pOut->w = q1->w * q2->w - q1->x * q2->x - q1->y * q2->y - q1->z * q2->z;
 	pOut->x = q1->w * q2->x + q1->x * q2->w + q1->y * q2->z - q1->z * q2->y;
 	pOut->y = q1->w * q2->y + q1->y * q2->w + q1->z * q2->x - q1->x * q2->z;
 	pOut->z = q1->w * q2->z + q1->z * q2->w + q1->x * q2->y - q1->y * q2->x;
+    pOut->w = q1->w * q2->w - q1->x * q2->x - q1->y * q2->y - q1->z * q2->z;
 
 	return pOut;
 }
@@ -216,21 +216,21 @@ taken from the Matrix and Quaternion FAQ
 
 /*	0 3 6
 	1 4 7
-	2 5 8 
+	2 5 8
 
 	0 1 2 3
 	4 5 6 7
 	8 9 10 11
 	12 13 14 15*/
 
-	m4x4[0]  = pIn->mat[0];	
-	m4x4[1]  = pIn->mat[3];	
+	m4x4[0]  = pIn->mat[0];
+	m4x4[1]  = pIn->mat[3];
 	m4x4[2]  = pIn->mat[6];
-	m4x4[4]  = pIn->mat[1];	
-	m4x4[5]  = pIn->mat[4];	
+	m4x4[4]  = pIn->mat[1];
+	m4x4[5]  = pIn->mat[4];
 	m4x4[6]  = pIn->mat[7];
-	m4x4[8]  = pIn->mat[2];	
-	m4x4[9]  = pIn->mat[5];	
+	m4x4[8]  = pIn->mat[2];
+	m4x4[9]  = pIn->mat[5];
 	m4x4[10] = pIn->mat[8];
 	m4x4[15] = 1;
 	pMatrix = &m4x4[0];

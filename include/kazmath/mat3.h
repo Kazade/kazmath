@@ -1,3 +1,6 @@
+#ifndef HEADER_8E9D0ABA3C76B989
+#define HEADER_8E9D0ABA3C76B989
+
 /*
 Copyright (c) 2008, Luke Benstead.
 All rights reserved.
@@ -56,6 +59,10 @@ struct kmVec3* const kmMat3RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* r
 kmMat3* const kmMat3Assign(kmMat3* pOut, const kmMat3* pIn);
 const int  kmMat3AreEqual(const kmMat3* pM1, const kmMat3* pM2);
 
+struct kmVec3* const kmMat3GetUpVec3(struct kmVec3* pOut, const kmMat3* pIn);
+struct kmVec3* const kmMat3GetRightVec3(struct kmVec3* pOut, const kmMat3* pIn);
+struct kmVec3* const kmMat3GetForwardVec3(struct kmVec3* pOut, const kmMat3* pIn);
+
 kmMat3* const kmMat3RotationX(kmMat3* pOut, const kmScalar radians);
 kmMat3* const kmMat3RotationY(kmMat3* pOut, const kmScalar radians);
 kmMat3* const kmMat3RotationZ(kmMat3* pOut, const kmScalar radians);
@@ -73,3 +80,5 @@ struct kmVec3* const kmMat3RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* r
 #endif
 #endif // MAT3_H_INCLUDED
 
+
+#endif // header guard
