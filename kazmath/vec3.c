@@ -30,10 +30,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assert.h>
 #include <memory.h>
 
-#include "kazmath/utility.h"
-#include "kazmath/vec4.h"
-#include "kazmath/mat4.h"
-#include "kazmath/vec3.h"
+#include "utility.h"
+#include "vec4.h"
+#include "mat4.h"
+#include "vec3.h"
 
 /**
  * Fill a kmVec3 structure using 3 floating point values

@@ -26,9 +26,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assert.h>
 #include <stdlib.h>
 
-#include "kazmath/mat3.h"
-#include "kazmath/vec2.h"
-#include "kazmath/utility.h"
+#include "mat3.h"
+#include "vec2.h"
+#include "utility.h"
 
 kmVec2* kmVec2Fill(kmVec2* pOut, kmScalar x, kmScalar y)
 {

@@ -23,25 +23,43 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef KAZMATH_AABB_H_INCLUDED
-#define KAZMATH_AABB_H_INCLUDED
+#include "aabb.h"
 
-#include "vec3.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct kmAABB {
-	kmVec3 min; /** The max corner of the box */
-	kmVec3 max; /** The min corner of the box */
-} kmAABB;
-
-int kmAABBPointInBox(const kmVec3* point);
-
-kmAABB* kmAABBAssign(kmAABB* pOut, const kmAABB* pIn);
-kmAABB* kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s);
-#ifdef __cplusplus
+/**
+ * Returns KM_TRUE if point is in the specified AABB, returns
+ * KM_FALSE otherwise.
+ */
+const int kmAABBContainsPoint(const kmVec3* pPoint, const kmAABB* pBox)
+{
+    if(pPoint->x >= pBox->min.x && pPoint->x <= pBox->max.x &&
+       pPoint->y >= pBox->min.y && pPoint->y <= pBox->max.y &&
+       pPoint->z >= pBox->min.z && pPoint->z <= pBox->max.z) {
+        return KM_TRUE;
+    }
+       
+    return KM_FALSE;
 }
-#endif
-#endif
+
+/**
+ * Assigns pIn to pOut, returns pOut.
+ */
+kmAABB* const kmAABBAssign(kmAABB* pOut, const kmAABB* pIn)
+{
+    kmVec3Assign(&pOut->min, &pIn->min);
+    kmVec3Assign(&pOut->max, &pIn->max);
+    return pOut;
+}
+
+/**
+ * Scales pIn by s, stores the resulting AABB in pOut. Returns pOut
+ */
+kmAABB* const kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s)
+{
+	assert(0 && "Not implemented");
+}
+
+kmBool kmAABBIntersectsTriangle(kmAABB* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3) {
+    return KM_TRUE;
+}
+
+

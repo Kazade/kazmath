@@ -27,9 +27,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <memory.h>
 #include <assert.h>
 
-#include "kazmath/utility.h"
-#include "kazmath/vec4.h"
-#include "kazmath/mat4.h"
+#include "utility.h"
+#include "vec4.h"
+#include "mat4.h"
 
 
 kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w)

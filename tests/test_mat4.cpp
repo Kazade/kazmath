@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <memory.h>
 #include <unittest++/UnitTest++.h>
-#include <kazmath/mat4.h>
+#include "../kazmath/mat4.h"
 
 void print_matrix4(const kmMat4* mat)
 {

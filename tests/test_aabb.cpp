@@ -1,7 +1,7 @@
 #include <unittest++/UnitTest++.h>
 #include <limits>
 
-#include "kazmath/aabb.h"
+#include "../kazmath/aabb.h"
 
 TEST(test_aabb_triangle_intersection) {
 

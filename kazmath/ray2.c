@@ -1,6 +1,6 @@
 #include <assert.h>
 #include <stdio.h>
-#include "kazmath/ray2.h"
+#include "ray2.h"
 
 void kmRay2Fill(kmRay2* ray, kmScalar px, kmScalar py, kmScalar vx, kmScalar vy) {
     ray->start.x = px;

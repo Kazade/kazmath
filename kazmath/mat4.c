@@ -30,12 +30,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assert.h>
 #include <stdlib.h>
 
-#include "kazmath/utility.h"
-#include "kazmath/vec3.h"
-#include "kazmath/mat4.h"
-#include "kazmath/mat3.h"
-#include "kazmath/quaternion.h"
-#include "kazmath/plane.h"
+#include "utility.h"
+#include "vec3.h"
+#include "mat4.h"
+#include "mat3.h"
+#include "quaternion.h"
+#include "plane.h"
 
 /**
  * Fills a kmMat4 structure with the values from a 16

@@ -27,10 +27,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <memory.h>
 #include <assert.h>
 
-#include "kazmath/utility.h"
-#include "kazmath/vec3.h"
-#include "kazmath/mat3.h"
-#include "kazmath/quaternion.h"
+#include "utility.h"
+#include "vec3.h"
+#include "mat3.h"
+#include "quaternion.h"
 
 kmMat3* const kmMat3Fill(kmMat3* pOut, const kmScalar* pMat)
 {

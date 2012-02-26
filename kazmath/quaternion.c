@@ -27,10 +27,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assert.h>
 #include <memory.h>
 
-#include "kazmath/utility.h"
-#include "kazmath/mat3.h"
-#include "kazmath/vec3.h"
-#include "kazmath/quaternion.h"
+#include "utility.h"
+#include "mat3.h"
+#include "vec3.h"
+#include "quaternion.h"
 
 ///< Returns pOut, sets pOut to the conjugate of pIn
 kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn)

@@ -23,44 +23,37 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-
-#ifndef MAT3_H_INCLUDED
-#define MAT3_H_INCLUDED
-
 #include "utility.h"
 
-struct kmVec3;
-struct kmQuaternion;
-
-struct tagkmMat3{
-	kmScalar mat[9];
-};
-
-typedef struct tagkmMat3 kmMat3;
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-kmMat3* kmMat3Fill(kmMat3* pOut, const kmScalar* pMat);
-kmMat3* kmMat3Adjugate(kmMat3* pOut, const kmMat3* pIn);
-kmMat3* kmMat3Identity(kmMat3* pOut);
-kmMat3* kmMat3Inverse(kmMat3* pOut, const kmScalar pDeterminate, const kmMat3* pM);
-int  kmMat3IsIdentity(const kmMat3* pIn);
-kmMat3* kmMat3Transpose(kmMat3* pOut, const kmMat3* pIn);
-kmScalar kmMat3Determinant(const kmMat3* pIn);
-kmMat3* kmMat3Multiply(kmMat3* pOut, const kmMat3* pM1, const kmMat3* pM2);
-kmMat3* kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, const kmScalar pFactor);
-
-kmMat3* kmMat3Assign(kmMat3* pOut, const kmMat3* pIn);
-int  kmMat3AreEqual(const kmMat3* pM1, const kmMat3* pM2);
-
-kmMat3* kmMat3Rotation(kmMat3* pOut, const kmScalar radians);
-kmMat3* kmMat3Scaling(kmMat3* pOut, const kmScalar x, const kmScalar y);
-kmMat3* kmMat3Translation(kmMat3* pOut, const kmScalar x, const kmScalar y);
-
-#ifdef __cplusplus
+/**
+ * Returns the square of s (e.g. s*s)
+ */
+kmScalar kmSQR(kmScalar s) {
+	return s*s;
 }
-#endif
-#endif // MAT3_H_INCLUDED
 
+/**
+ * Returns degrees as radians.
+ */
+kmScalar kmDegreesToRadians(kmScalar degrees) {
+	return degrees * kmPIOver180;
+}
+
+/**
+ * Returns radians as degrees
+ */
+kmScalar kmRadiansToDegrees(kmScalar radians) {
+	return radians * kmPIUnder180;
+}
+
+kmScalar min(kmScalar lhs, kmScalar rhs) {
+    return (lhs < rhs)? lhs : rhs;
+}
+
+kmScalar max(kmScalar lhs, kmScalar rhs) {
+    return (lhs > rhs)? lhs : rhs;
+}
+
+kmBool kmAlmostEqual(kmScalar lhs, kmScalar rhs) {
+    return (lhs + kmEpsilon > rhs && lhs - kmEpsilon < rhs);
+}

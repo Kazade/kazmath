@@ -1,8 +1,8 @@
 #include <unittest++/UnitTest++.h>
 
-#include "kazmath/vec2.h"
-#include "kazmath/utility.h"
-#include "kazmath/mat3.h"
+#include "../kazmath/vec2.h"
+#include "../kazmath/utility.h"
+#include "../kazmath/mat3.h"
 
 TEST(test_transform) {
     kmVec2 orig;

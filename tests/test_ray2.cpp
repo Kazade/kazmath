@@ -1,6 +1,6 @@
 #include <unittest++/UnitTest++.h>
 
-#include "kazmath/ray2.h"
+#include "../kazmath/ray2.h"
 
 TEST(test_line_segment_intersection) {
     kmVec2 line_start, line_end;

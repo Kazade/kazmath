@@ -2,8 +2,8 @@
 #include <cstring>
 #include <unittest++/UnitTest++.h>
 
-#include "kazmath/mat3.h"
-#include "kazmath/vec3.h"
+#include "../kazmath/mat3.h"
+#include "../kazmath/vec3.h"
 
 void print_matrix3(const kmMat3* mat)
 {

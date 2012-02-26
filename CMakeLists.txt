@@ -7,38 +7,38 @@ ENABLE_TESTING()
 SET(CMAKE_C_FLAGS "-std=c99")
 
 SET(KAZMATH_HEADERS
-    ${CMAKE_SOURCE_DIR}/include/kazmath/vec2.h
-    ${CMAKE_SOURCE_DIR}/include/kazmath/vec3.h
-    ${CMAKE_SOURCE_DIR}/include/kazmath/vec4.h
-    ${CMAKE_SOURCE_DIR}/include/kazmath/mat4.h
-    ${CMAKE_SOURCE_DIR}/include/kazmath/mat3.h
-    ${CMAKE_SOURCE_DIR}/include/kazmath/ray2.h
-    ${CMAKE_SOURCE_DIR}/include/kazmath/plane.h
-    ${CMAKE_SOURCE_DIR}/include/kazmath/utility.h
-    ${CMAKE_SOURCE_DIR}/include/kazmath/quaternion.h
-    ${CMAKE_SOURCE_DIR}/include/kazmath/aabb.h
-    ${CMAKE_SOURCE_DIR}/include/kazmath/kazmath.h
+    ${CMAKE_SOURCE_DIR}/kazmath/vec2.h
+    ${CMAKE_SOURCE_DIR}/kazmath/vec3.h
+    ${CMAKE_SOURCE_DIR}/kazmath/vec4.h
+    ${CMAKE_SOURCE_DIR}/kazmath/mat4.h
+    ${CMAKE_SOURCE_DIR}/kazmath/mat3.h
+    ${CMAKE_SOURCE_DIR}/kazmath/ray2.h
+    ${CMAKE_SOURCE_DIR}/kazmath/plane.h
+    ${CMAKE_SOURCE_DIR}/kazmath/utility.h
+    ${CMAKE_SOURCE_DIR}/kazmath/quaternion.h
+    ${CMAKE_SOURCE_DIR}/kazmath/aabb.h
+    ${CMAKE_SOURCE_DIR}/kazmath/kazmath.h
 )
 
 SET(GL_UTILS_HEADERS
-    ${CMAKE_SOURCE_DIR}/include/kazmath/GL/mat4stack.h
-    ${CMAKE_SOURCE_DIR}/include/kazmath/GL/matrix.h
+    ${CMAKE_SOURCE_DIR}/kazmath/GL/mat4stack.h
+    ${CMAKE_SOURCE_DIR}/kazmath/GL/matrix.h
 )
 
 SET(KAZMATH_SOURCES
-    ${CMAKE_SOURCE_DIR}/src/mat4.c
-    ${CMAKE_SOURCE_DIR}/src/mat3.c    
-    ${CMAKE_SOURCE_DIR}/src/plane.c      
-    ${CMAKE_SOURCE_DIR}/src/vec4.c
-    ${CMAKE_SOURCE_DIR}/src/quaternion.c 
-    ${CMAKE_SOURCE_DIR}/src/vec2.c
-    ${CMAKE_SOURCE_DIR}/src/vec3.c
-    ${CMAKE_SOURCE_DIR}/src/utility.c
-    ${CMAKE_SOURCE_DIR}/src/aabb.c
-    ${CMAKE_SOURCE_DIR}/src/ray2.c
-    ${CMAKE_SOURCE_DIR}/src/GL/mat4stack.c
-    ${CMAKE_SOURCE_DIR}/src/GL/matrix.c
+    ${CMAKE_SOURCE_DIR}/kazmath/mat4.c
+    ${CMAKE_SOURCE_DIR}/kazmath/mat3.c    
+    ${CMAKE_SOURCE_DIR}/kazmath/plane.c      
+    ${CMAKE_SOURCE_DIR}/kazmath/vec4.c
+    ${CMAKE_SOURCE_DIR}/kazmath/quaternion.c 
+    ${CMAKE_SOURCE_DIR}/kazmath/vec2.c
+    ${CMAKE_SOURCE_DIR}/kazmath/vec3.c
+    ${CMAKE_SOURCE_DIR}/kazmath/utility.c
+    ${CMAKE_SOURCE_DIR}/kazmath/aabb.c
+    ${CMAKE_SOURCE_DIR}/kazmath/ray2.c
+    ${CMAKE_SOURCE_DIR}/kazmath/GL/mat4stack.c
+    ${CMAKE_SOURCE_DIR}/kazmath/GL/matrix.c
 )
 
-ADD_SUBDIRECTORY(src)
+ADD_SUBDIRECTORY(kazmath)
 ADD_SUBDIRECTORY(tests)

@@ -23,37 +23,52 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "kazmath/utility.h"
+#include <malloc.h>
+#include <memory.h>
+#include <assert.h>
+#include <stdio.h>
 
-/**
- * Returns the square of s (e.g. s*s)
- */
-kmScalar kmSQR(kmScalar s) {
-	return s*s;
+#define INITIAL_SIZE 30
+#define INCREMENT 50
+
+#include "mat4stack.h"
+
+void km_mat4_stack_initialize(km_mat4_stack* stack) {
+	stack->stack = (kmMat4*) malloc(sizeof(kmMat4) * INITIAL_SIZE); //allocate the memory
+	stack->capacity = INITIAL_SIZE; //Set the capacity to 10
+	stack->top = NULL; //Set the top to NULL
+	stack->item_count = 0;
+};
+
+void km_mat4_stack_push(km_mat4_stack* stack, const kmMat4* item)
+{
+    stack->top = &stack->stack[stack->item_count];
+    kmMat4Assign(stack->top, item);
+    stack->item_count++;
+
+    if(stack->item_count >= stack->capacity)
+    {
+		kmMat4* temp = NULL;
+        stack->capacity += INCREMENT;
+        temp = stack->stack;
+        stack->stack = (kmMat4*) malloc(stack->capacity*sizeof(kmMat4));
+        memcpy(stack->stack, temp, sizeof(kmMat4)*(stack->capacity - INCREMENT));
+        free(temp);
+        stack->top = &stack->stack[stack->item_count - 1];
+    }
 }
 
-/**
- * Returns degrees as radians.
- */
-kmScalar kmDegreesToRadians(kmScalar degrees) {
-	return degrees * kmPIOver180;
+void km_mat4_stack_pop(km_mat4_stack* stack, kmMat4* pOut)
+{
+    assert(stack->item_count && "Cannot pop an empty stack");
+
+    stack->item_count--;
+    stack->top = &stack->stack[stack->item_count - 1];
 }
 
-/**
- * Returns radians as degrees
- */
-kmScalar kmRadiansToDegrees(kmScalar radians) {
-	return radians * kmPIUnder180;
-}
-
-kmScalar min(kmScalar lhs, kmScalar rhs) {
-    return (lhs < rhs)? lhs : rhs;
-}
-
-kmScalar max(kmScalar lhs, kmScalar rhs) {
-    return (lhs > rhs)? lhs : rhs;
-}
-
-kmBool kmAlmostEqual(kmScalar lhs, kmScalar rhs) {
-    return (lhs + kmEpsilon > rhs && lhs - kmEpsilon < rhs);
+void km_mat4_stack_release(km_mat4_stack* stack) {
+    free(stack->stack);
+	stack->top = NULL;
+	stack->item_count = 0;
+	stack->capacity = 0;
 }
