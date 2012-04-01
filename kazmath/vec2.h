@@ -44,6 +44,7 @@ typedef struct kmVec2 {
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 kmVec2* kmVec2Fill(kmVec2* pOut, kmScalar x, kmScalar y);
 kmScalar kmVec2Length(const kmVec2* pIn); ///< Returns the length of the vector
 kmScalar kmVec2LengthSq(const kmVec2* pIn); ///< Returns the square of the length of the vector
@@ -55,6 +56,7 @@ kmVec2* kmVec2Transform(kmVec2* pOut, const kmVec2* pV1, const struct kmMat3* pM
 kmVec2* kmVec2TransformCoord(kmVec2* pOut, const kmVec2* pV, const struct kmMat3* pM); ///<Transforms a 2D vector by a given matrix, projecting the result back into w = 1.
 kmVec2* kmVec2Scale(kmVec2* pOut, const kmVec2* pIn, const kmScalar s); ///< Scales a vector to length s
 int	kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2); ///< Returns 1 if both vectors are equal
+kmVec2* kmVec2Assign(kmVec2* pOut, const kmVec2* pIn);
 
 #ifdef __cplusplus
 }

@@ -116,3 +116,18 @@ int kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2)
 				(p1->y < p2->y + kmEpsilon && p1->y > p2->y - kmEpsilon)
 			);
 }
+
+/**
+ * Assigns pIn to pOut. Returns pOut. If pIn and pOut are the same
+ * then nothing happens but pOut is still returned
+ */
+kmVec2* kmVec2Assign(kmVec2* pOut, const kmVec2* pIn) {
+	if (pOut == pIn) {
+		return pOut;
+	}
+
+	pOut->x = pIn->x;
+	pOut->y = pIn->y;
+
+	return pOut;
+}
