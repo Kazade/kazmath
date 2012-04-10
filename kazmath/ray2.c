@@ -106,15 +106,36 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmV
     return KM_TRUE;*/
 }
 
-void calculate_line_normal(kmVec2 p1, kmVec2 p2, kmVec2* normal_out) {
-    kmVec2 tmp;
-    kmVec2Subtract(&tmp, &p2, &p1); //Get direction vector
+void calculate_line_normal(kmVec2 p1, kmVec2 p2, kmVec2 other_point, kmVec2* normal_out) {
+    /*
+        A = (3,4)
+        B = (2,1)
+        C = (1,3)
+
+        AB = (2,1) - (3,4) = (-1,-3)
+        AC = (1,3) - (3,4) = (-2,-1)
+        N = n(AB) = (-3,1)
+        D = dot(N,AC) = 6 + -1 = 5
+
+        since D > 0:
+          N = -N = (3,-1)
+    */
     
-    normal_out->x = -tmp.y;
-    normal_out->y = tmp.x;
-    kmVec2Normalize(normal_out, normal_out);
+    kmVec2 edge, other_edge;
+    kmVec2Subtract(&edge, &p2, &p1);
+    kmVec2Subtract(&other_edge, &other_point, &p1);
     
-    //TODO: should check that the normal is pointing out of the triangle
+    kmVec2 n;
+    n.x = edge.y;
+    n.y = -edge.x;
+    
+    float d = kmVec2Dot(&n, &other_edge);
+    if(d > 0.0f) {
+        n.x = -n.x;
+        n.y = -n.y;
+    }
+    normal_out->x = n.x;
+    normal_out->y = n.y;
 }
 
 kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, const kmVec2* p3, kmVec2* intersection, kmVec2* normal_out) {
@@ -134,7 +155,7 @@ kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2* p1, const kmVec2
             final_intersect.y = intersect.y;
             distance = this_distance;
                         
-            calculate_line_normal(*p1, *p2, &normal);                           
+            calculate_line_normal(*p1, *p2, *p3, &normal);                           
         }
     }
     
@@ -148,7 +169,7 @@ kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2* p1, const kmVec2
             final_intersect.y = intersect.y;
             distance = this_distance;
                         
-            calculate_line_normal(*p2, *p3, &normal);                           
+            calculate_line_normal(*p2, *p3, *p1, &normal);                           
         }   
     }
     
@@ -161,8 +182,8 @@ kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2* p1, const kmVec2
             final_intersect.x = intersect.x;
             final_intersect.y = intersect.y;
             distance = this_distance;
-                        
-            calculate_line_normal(*p3, *p1, &normal);                           
+
+            calculate_line_normal(*p3, *p1, *p2, &normal);                           
         }          
     }
     
