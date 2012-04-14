@@ -131,3 +131,28 @@ kmVec2* kmVec2Assign(kmVec2* pOut, const kmVec2* pIn) {
 
 	return pOut;
 }
+
+/**
+ * Rotates the point anticlockwise around a center
+ * by an amount of degrees.
+ *
+ * Code ported from Irrlicht: http://irrlicht.sourceforge.net/
+ */
+kmVec2* kmVec2RotateBy(kmVec2* pOut, kmVec2* pIn,
+      const kmScalar degrees, const kmVec2* center)
+{
+   kmScalar x, y;
+   const kmScalar radians = kmDegreesToRadians(degrees);
+   const kmScalar cs = cos(radians), sn = sin(radians);
+
+   pOut->x = pIn->x - center->x;
+   pOut->y = pIn->y - center->y;
+
+   x = pOut->x * cs - pOut->y * sn;
+   y = pOut->x * sn + pOut->y * cs;
+
+   pOut->x = x + center->x;
+   pOut->y = y + center->y;
+
+   return pOut;
+}
