@@ -207,6 +207,49 @@ kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2* p1, const kmVec2
     return intersected;
 }
 
+kmBool kmRay2IntersectBox(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, const kmVec2* p3, const kmVec2* p4,
+kmVec2* intersection, kmVec2* normal_out) {
+    kmBool intersected = KM_FALSE;
+    kmVec2 intersect, final_intersect, normal;
+    kmScalar distance = 10000.0f;
+    
+    const kmVec2* points[4];
+    points[0] = p1;
+    points[1] = p2;
+    points[2] = p3; 
+    points[3] = p4;
+
+    unsigned int i = 0;
+    for(; i < 4; ++i) {
+        const kmVec2* this_point = points[i];
+        const kmVec2* next_point = (i == 3) ? points[0] : points[i+1];
+        const kmVec2* other_point = (i == 3 || i == 0) ? points[1] : points[0];
+        
+        if(kmRay2IntersectLineSegment(ray, this_point, next_point, &intersect)) {
+            intersected = KM_TRUE;        
+            kmVec2 tmp;
+            kmScalar this_distance = kmVec2Length(kmVec2Subtract(&tmp, &intersect, &ray->start));
+            if(this_distance < distance) {
+                kmVec2Assign(&final_intersect, &intersect);
+                distance = this_distance;
+                
+                calculate_line_normal(*this_point, *next_point, *other_point, &normal);
+            }
+        }
+    }
+    
+    if(intersected) {
+        intersection->x = final_intersect.x;
+        intersection->y = final_intersect.y;
+        if(normal_out) {
+            normal_out->x = normal.x;
+            normal_out->y = normal.y;
+        }
+    }
+    
+    return intersected;    
+}
+
 kmBool kmRay2IntersectCircle(const kmRay2* ray, const kmVec2 centre, const kmScalar radius, kmVec2* intersection) {
     assert(0 && "Not implemented");
 }
