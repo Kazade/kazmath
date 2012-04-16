@@ -308,3 +308,31 @@ kmVec3* kmVec3Zero(kmVec3* pOut) {
 
 	return pOut;
 }
+
+/**
+ * Get the rotations that would make a (0,0,1) direction vector point in the same direction as this direction vector.
+ * Useful for orienting vector towards a point.
+ *
+ * Returns a rotation vector containing the X (pitch) and Y (raw) rotations (in degrees) that when applied to a
+ * +Z (e.g. 0, 0, 1) direction vector would make it point in the same direction as this vector. The Z (roll) rotation
+ * is always 0, since two Euler rotations are sufficient to point in any given direction.
+ *
+ * Code ported from Irrlicht: http://irrlicht.sourceforge.net/
+ */
+kmVec3* kmVec3GetHorizontalAngle(kmVec3* pOut, const kmVec3 *pIn) {
+   const kmScalar z1 = sqrt(pIn->x * pIn->x + pIn->z * pIn->z);
+
+   pOut->y = kmRadiansToDegrees(atan2(pIn->x, pIn->z));
+   if (pOut->y < 0)
+      pOut->y += 360;
+   if (pOut->y >= 360)
+      pOut->y -= 360;
+
+   pOut->x = kmRadiansToDegrees(atan2(z1, pIn->y)) - 90.0;
+   if (pOut->x < 0)
+      pOut->x += 360;
+   if (pOut->x >= 360)
+      pOut->x -= 360;
+
+   return pOut;
+}
