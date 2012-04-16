@@ -142,7 +142,7 @@ void calculate_line_normal(kmVec2 p1, kmVec2 p2, kmVec2 other_point, kmVec2* nor
     kmVec2Normalize(normal_out, normal_out);
 }
 
-kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, const kmVec2* p3, kmVec2* intersection, kmVec2* normal_out) {
+kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, const kmVec2* p3, kmVec2* intersection, kmVec2* normal_out, kmScalar* distance_out) {
     kmVec2 intersect;
     kmVec2 final_intersect;
     kmVec2 normal;
@@ -202,6 +202,9 @@ kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2* p1, const kmVec2
             normal_out->x = normal.x;
             normal_out->y = normal.y;
         }
+        if(distance) {
+            *distance_out = distance;
+        }
     }
     
     return intersected;
@@ -226,14 +229,18 @@ kmVec2* intersection, kmVec2* normal_out) {
         const kmVec2* other_point = (i == 3 || i == 0) ? points[1] : points[0];
         
         if(kmRay2IntersectLineSegment(ray, this_point, next_point, &intersect)) {
-            intersected = KM_TRUE;        
+            
             kmVec2 tmp;
             kmScalar this_distance = kmVec2Length(kmVec2Subtract(&tmp, &intersect, &ray->start));
-            if(this_distance < distance) {
+            
+            kmVec2 this_normal;
+            
+            calculate_line_normal(*this_point, *next_point, *other_point, &this_normal);
+            if(this_distance < distance && kmVec2Dot(&this_normal, &ray->dir) < 0.0f) {
                 kmVec2Assign(&final_intersect, &intersect);
                 distance = this_distance;
-                
-                calculate_line_normal(*this_point, *next_point, *other_point, &normal);
+                intersected = KM_TRUE;        
+                kmVec2Assign(&normal, &this_normal);
             }
         }
     }
