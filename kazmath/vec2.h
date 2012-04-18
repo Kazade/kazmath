@@ -58,6 +58,9 @@ kmVec2* kmVec2Scale(kmVec2* pOut, const kmVec2* pIn, const kmScalar s); ///< Sca
 int	kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2); ///< Returns 1 if both vectors are equal
 kmVec2* kmVec2Assign(kmVec2* pOut, const kmVec2* pIn);
 kmVec2* kmVec2RotateBy(kmVec2* pOut, kmVec2* pIn, const kmScalar degrees, const kmVec2* center); ///<Rotates the point anticlockwise around a center by an amount of degrees.
+kmScalar kmVec2DegreesBetween(const kmVec2* v1, const kmVec2* v2);
+kmScalar kmVec2DistanceBetween(const kmVec2* v1, const kmVec2* v2);
+kmVec2* kmVec2MidPointBetween(kmVec2* pOut, const kmVec2* v1, const kmVec2* v2);
 
 #ifdef __cplusplus
 }
