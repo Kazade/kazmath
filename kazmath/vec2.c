@@ -161,6 +161,10 @@ kmVec2* kmVec2RotateBy(kmVec2* pOut, kmVec2* pIn,
  * 	Returns the angle in degrees between the two vectors
  */
 kmScalar kmVec2DegreesBetween(const kmVec2* v1, const kmVec2* v2) {
+	if(kmVec2AreEqual(v1, v2)) {
+		return 0.0;
+	}
+	
 	return kmRadiansToDegrees(acos(kmVec2Dot(v1, v2)));
 }
 

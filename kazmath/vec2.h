@@ -26,11 +26,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef VEC2_H_INCLUDED
 #define VEC2_H_INCLUDED
 
-struct kmMat3;
+#include "utility.h"
 
-#ifndef kmScalar
-#define kmScalar float
-#endif
+struct kmMat3;
 
 #pragma pack(push)  /* push current alignment to stack */
 #pragma pack(1)     /* set alignment to 1 byte boundary */

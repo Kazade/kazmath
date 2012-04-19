@@ -147,7 +147,7 @@ int kmVec4AreEqual(const kmVec4* p1, const kmVec4* p2) {
 kmVec4* kmVec4Assign(kmVec4* pOut, const kmVec4* pIn) {
 	assert(pOut != pIn);
 
-	memcpy(pOut, pIn, sizeof(float) * 4);
+	memcpy(pOut, pIn, sizeof(kmScalar) * 4);
 
 	return pOut;
 }

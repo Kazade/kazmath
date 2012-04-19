@@ -204,11 +204,11 @@ taken from the Matrix and Quaternion FAQ
     }
 */
 
-	float x, y, z, w;
-	float *pMatrix = NULL;
-	float m4x4[16] = {0};
-	float scale = 0.0f;
-	float diagonal = 0.0f;
+	kmScalar x, y, z, w;
+	kmScalar *pMatrix = NULL;
+	kmScalar m4x4[16] = {0};
+	kmScalar scale = 0.0f;
+	kmScalar diagonal = 0.0f;
 
 	if(!pIn) {
 		return NULL;
@@ -239,7 +239,7 @@ taken from the Matrix and Quaternion FAQ
 
 	if(diagonal > kmEpsilon) {
 		// Calculate the scale of the diagonal
-		scale = (float)sqrt(diagonal ) * 2;
+		scale = (kmScalar)sqrt(diagonal ) * 2;
 
 		// Calculate the x, y, x and w of the quaternion through the respective equation
 		x = ( pMatrix[9] - pMatrix[6] ) / scale;
@@ -253,7 +253,7 @@ taken from the Matrix and Quaternion FAQ
 		if ( pMatrix[0] > pMatrix[5] && pMatrix[0] > pMatrix[10] )
 		{
 			// Find the scale according to the first element, and double that value
-			scale = (float)sqrt( 1.0f + pMatrix[0] - pMatrix[5] - pMatrix[10] ) * 2.0f;
+			scale = (kmScalar)sqrt( 1.0f + pMatrix[0] - pMatrix[5] - pMatrix[10] ) * 2.0f;
 
 			// Calculate the x, y, x and w of the quaternion through the respective equation
 			x = 0.25f * scale;
@@ -265,7 +265,7 @@ taken from the Matrix and Quaternion FAQ
 		else if (pMatrix[5] > pMatrix[10])
 		{
 			// Find the scale according to the second element, and double that value
-			scale = (float)sqrt( 1.0f + pMatrix[5] - pMatrix[0] - pMatrix[10] ) * 2.0f;
+			scale = (kmScalar)sqrt( 1.0f + pMatrix[5] - pMatrix[0] - pMatrix[10] ) * 2.0f;
 
 			// Calculate the x, y, x and w of the quaternion through the respective equation
 			x = (pMatrix[4] + pMatrix[1] ) / scale;
@@ -277,7 +277,7 @@ taken from the Matrix and Quaternion FAQ
 		else
 		{
 			// Find the scale according to the third element, and double that value
-			scale  = (float)sqrt( 1.0f + pMatrix[10] - pMatrix[0] - pMatrix[5] ) * 2.0f;
+			scale  = (kmScalar)sqrt( 1.0f + pMatrix[10] - pMatrix[0] - pMatrix[5] ) * 2.0f;
 
 			// Calculate the x, y, x and w of the quaternion through the respective equation
 			x = (pMatrix[2] + pMatrix[8] ) / scale;
@@ -385,12 +385,12 @@ kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut,
 								kmScalar t)
 {
 
- /*float CosTheta = Q0.DotProd(Q1);
-  float Theta = acosf(CosTheta);
-  float SinTheta = sqrtf(1.0f-CosTheta*CosTheta);
+ /*kmScalar CosTheta = Q0.DotProd(Q1);
+  kmScalar Theta = acosf(CosTheta);
+  kmScalar SinTheta = sqrtf(1.0f-CosTheta*CosTheta);
 
-  float Sin_T_Theta = sinf(T*Theta)/SinTheta;
-  float Sin_OneMinusT_Theta = sinf((1.0f-T)*Theta)/SinTheta;
+  kmScalar Sin_T_Theta = sinf(T*Theta)/SinTheta;
+  kmScalar Sin_OneMinusT_Theta = sinf((1.0f-T)*Theta)/SinTheta;
 
   Quaternion Result = Q0*Sin_OneMinusT_Theta;
   Result += (Q1*Sin_T_Theta);
@@ -470,7 +470,7 @@ kmQuaternion* kmQuaternionScale(kmQuaternion* pOut,
 
 kmQuaternion* kmQuaternionAssign(kmQuaternion* pOut, const kmQuaternion* pIn)
 {
-	memcpy(pOut, pIn, sizeof(float) * 4);
+	memcpy(pOut, pIn, sizeof(kmScalar) * 4);
 
 	return pOut;
 }

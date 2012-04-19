@@ -11,27 +11,27 @@ void kmRay2Fill(kmRay2* ray, kmScalar px, kmScalar py, kmScalar vx, kmScalar vy)
 
 kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, kmVec2* intersection) {
     
-    float x1 = ray->start.x;
-    float y1 = ray->start.y;
-    float x2 = ray->start.x + ray->dir.x;
-    float y2 = ray->start.y + ray->dir.y;
-    float x3 = p1->x;
-    float y3 = p1->y;
-    float x4 = p2->x;
-    float y4 = p2->y;
+    kmScalar x1 = ray->start.x;
+    kmScalar y1 = ray->start.y;
+    kmScalar x2 = ray->start.x + ray->dir.x;
+    kmScalar y2 = ray->start.y + ray->dir.y;
+    kmScalar x3 = p1->x;
+    kmScalar y3 = p1->y;
+    kmScalar x4 = p2->x;
+    kmScalar y4 = p2->y;
 
-    float denom = (y4 -y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
+    kmScalar denom = (y4 -y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
     
     //If denom is zero, the lines are parallel
     if(denom > -kmEpsilon && denom < kmEpsilon) {
         return KM_FALSE;
     }
     
-    float ua = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denom;
-    float ub = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / denom;
+    kmScalar ua = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denom;
+    kmScalar ub = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / denom;
     
-    float x = x1 + ua * (x2 - x1);
-    float y = y1 + ua * (y2 - y1);
+    kmScalar x = x1 + ua * (x2 - x1);
+    kmScalar y = y1 + ua * (y2 - y1);
     
     if(x < min(p1->x, p2->x) - kmEpsilon || 
        x > max(p1->x, p2->x) + kmEpsilon ||
@@ -131,7 +131,7 @@ void calculate_line_normal(kmVec2 p1, kmVec2 p2, kmVec2 other_point, kmVec2* nor
     n.x = edge.y;
     n.y = -edge.x;
     
-    float d = kmVec2Dot(&n, &other_edge);
+    kmScalar d = kmVec2Dot(&n, &other_edge);
     if(d > 0.0f) {
         n.x = -n.x;
         n.y = -n.y;

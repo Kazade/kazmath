@@ -27,10 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define VEC3_H_INCLUDED
 
 #include <assert.h>
-
-#ifndef kmScalar
-#define kmScalar float
-#endif
+#include "utility.h"
 
 struct kmMat4;
 

@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 
 #ifndef kmScalar
-#define kmScalar float
+#define kmScalar double
 #endif
 
 #ifndef kmBool
@@ -51,7 +51,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define kmPI 3.141592f
 #define kmPIOver180 0.017453f //  PI / 180
 #define kmPIUnder180 57.295779f // 180 / PI
-#define kmEpsilon 0.00001
+#define kmEpsilon 0.0001
 
 
 
