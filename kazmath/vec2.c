@@ -138,7 +138,7 @@ kmVec2* kmVec2Assign(kmVec2* pOut, const kmVec2* pIn) {
  *
  * Code ported from Irrlicht: http://irrlicht.sourceforge.net/
  */
-kmVec2* kmVec2RotateBy(kmVec2* pOut, kmVec2* pIn,
+kmVec2* kmVec2RotateBy(kmVec2* pOut, const kmVec2* pIn,
       const kmScalar degrees, const kmVec2* center)
 {
    kmScalar x, y;
