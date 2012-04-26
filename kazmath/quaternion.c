@@ -46,7 +46,7 @@ kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion
 ///< Returns the dot product of the 2 quaternions
 const kmScalar kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2)
 {
-	// A dot B = B dot A = AtBt + AxBx + AyBy + AzBz
+	/* A dot B = B dot A = AtBt + AxBx + AyBy + AzBz */
 
 	return (q1->w * q2->w +
 			q1->x * q2->x +
@@ -293,54 +293,6 @@ taken from the Matrix and Quaternion FAQ
 	pOut->w = w;
 
 	return pOut;
-/*
-
-	kmScalar T = pIn->mat[0] + pIn->mat[5] + pIn->mat[10];
-
-	if (T > kmEpsilon) {
-		//If the trace is greater than zero we always use this calculation:
-		/*  S = sqrt(T) * 2;
-		  X = ( mat[9] - mat[6] ) / S;
-		  Y = ( mat[2] - mat[8] ) / S;
-		  Z = ( mat[4] - mat[1] ) / S;
-		  W = 0.25 * S;*/
-
-/*		kmScalar s = sqrtf(T) * 2;
-		pOut->x = (pIn->mat[9] - pIn->mat[6]) / s;
-		pOut->y = (pIn->mat[8] - pIn->mat[2]) / s;
-		pOut->z = (pIn->mat[1] - pIn->mat[4]) / s;
-		pOut->w = 0.25f * s;
-
-		kmQuaternionNormalize(pOut, pOut);
-		return pOut;
-	}
-
-	//Otherwise the calculation depends on which major diagonal element has the greatest value.
-
-	if (pIn->mat[0] > pIn->mat[5] && pIn->mat[0] > pIn->mat[10]) {
-		kmScalar s = sqrtf(1 + pIn->mat[0] - pIn->mat[5] - pIn->mat[10]) * 2;
-		pOut->x = 0.25f * s;
-		pOut->y = (pIn->mat[1] + pIn->mat[4]) / s;
-		pOut->z = (pIn->mat[8] + pIn->mat[2]) / s;
-		pOut->w = (pIn->mat[9] - pIn->mat[6]) / s;
-	}
-	else if (pIn->mat[5] > pIn->mat[10]) {
-		kmScalar s = sqrtf(1 + pIn->mat[5] - pIn->mat[0] - pIn->mat[10]) * 2;
-		pOut->x = (pIn->mat[1] + pIn->mat[4]) / s;
-		pOut->y = 0.25f * s;
-		pOut->z = (pIn->mat[9] + pIn->mat[6]) / s;
-		pOut->w = (pIn->mat[8] - pIn->mat[2]) / s;
-	}
-	else {
-		kmScalar s = sqrt(1.0f + pIn->mat[10] - pIn->mat[0] - pIn->mat[5]) * 2.0f;
-        pOut->x = (pIn->mat[8] + pIn->mat[2] ) / s;
-        pOut->y = (pIn->mat[6] + pIn->mat[9] ) / s;
-        pOut->z = 0.25f * s;
-        pOut->w = (pIn->mat[1] - pIn->mat[4] ) / s;
-	}
-
-	kmQuaternionNormalize(pOut, pOut);
-	return pOut;*/
 }
 
 ///< Create a quaternion from yaw, pitch and roll
