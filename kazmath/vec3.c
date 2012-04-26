@@ -336,3 +336,43 @@ kmVec3* kmVec3GetHorizontalAngle(kmVec3* pOut, const kmVec3 *pIn) {
 
    return pOut;
 }
+
+/**
+ * Builds a direction vector from input vector.
+ * Input vector is assumed to be rotation vector composed from 3 Euler angle rotations, in degrees.
+ * The forwards vector will be rotated by the input vector
+ *
+ * Code ported from Irrlicht: http://irrlicht.sourceforge.net/
+ */
+kmVec3* kmVec3RotationToDirection(kmVec3* pOut, const kmVec3* pIn, const kmVec3* forwards)
+{
+   const kmScalar xr = kmDegreesToRadians(pIn->x);
+   const kmScalar yr = kmDegreesToRadians(pIn->y);
+   const kmScalar zr = kmDegreesToRadians(pIn->z);
+   const kmScalar cr = cos(xr), sr = sin(xr);
+   const kmScalar cp = cos(yr), sp = sin(yr);
+   const kmScalar cy = cos(zr), sy = sin(zr);
+
+   const kmScalar srsp = sr*sp;
+   const kmScalar crsp = cr*sp;
+
+   const kmScalar pseudoMatrix[] = {
+      (cp*cy), (cp*sy), (-sp),
+      (srsp*cy-cr*sy), (srsp*sy+cr*cy), (sr*cp),
+      (crsp*cy+sr*sy), (crsp*sy-sr*cy), (cr*cp)
+   };
+
+   pOut->x = forwards->x * pseudoMatrix[0] +
+             forwards->y * pseudoMatrix[3] +
+             forwards->z * pseudoMatrix[6];
+
+   pOut->y = forwards->x * pseudoMatrix[1] +
+             forwards->y * pseudoMatrix[4] +
+             forwards->z * pseudoMatrix[7];
+
+   pOut->z = forwards->x * pseudoMatrix[2] +
+             forwards->y * pseudoMatrix[5] +
+             forwards->z * pseudoMatrix[8];
+
+   return pOut;
+}
