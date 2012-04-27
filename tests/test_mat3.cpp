@@ -45,12 +45,12 @@ TEST(test_mat3_inverse) {
 
 TEST(test_mat3_transpose) {
     kmMat3 mat;
-    float temp[] = { 0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
-    memcpy(mat.mat, temp, sizeof(float) * 9);
+    double temp[] = { 0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
+    memcpy(mat.mat, temp, sizeof(double) * 9);
 
     kmMat3 transpose;
-    float temp2[] = {0.0f, 3.0f, 6.0f, 1.0f, 4.0f, 7.0f, 2.0f, 5.0f, 8.0f };
-    memcpy(transpose.mat, temp2, sizeof(float) * 9);
+    double temp2[] = {0.0f, 3.0f, 6.0f, 1.0f, 4.0f, 7.0f, 2.0f, 5.0f, 8.0f };
+    memcpy(transpose.mat, temp2, sizeof(double) * 9);
 
     kmMat3 result;
     CHECK(NULL != kmMat3Transpose(&result, &mat));
@@ -58,7 +58,7 @@ TEST(test_mat3_transpose) {
 }
 
 TEST(test_mat3_fill) {
-    float temp[] = { 0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
+    double temp[] = { 0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
     kmMat3 orig, filled;
     orig.mat[0] = 0.0f;
     orig.mat[1] = 1.0f;
@@ -85,8 +85,8 @@ TEST(test_mat3_are_equal) {
 }
 
 TEST(test_mat3_axis_angle) {
-    float radians = 1.0;
-    float radiansOut;
+    double radians = 1.0;
+    double radiansOut;
     kmMat3 a;
     kmVec3 axisIn, axisOut;
     kmVec3Fill(&axisIn, 1.0f, 0.0f, 0.0f);
@@ -104,7 +104,7 @@ TEST(test_mat3_axis_angle) {
 }
 
 TEST(test_mat3_identity) {
-    float identity[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+    double identity[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
     kmMat3 expected, actual;
     kmMat3Fill(&expected, identity);
     kmMat3Identity(&actual);

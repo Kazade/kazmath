@@ -61,7 +61,8 @@ TEST(test_triangle_intersection) {
     ray.dir.y = -0.5f;
     
     kmVec2 intersect, normal;
-    CHECK(kmRay2IntersectTriangle(&ray, &p1, &p2, &p3, &intersect, &normal));
+    kmScalar dist;
+    CHECK(kmRay2IntersectTriangle(&ray, &p1, &p2, &p3, &intersect, &normal, &dist));
     CHECK_CLOSE(0.0f, intersect.x, 0.001f);
     CHECK_CLOSE(0.0f, intersect.y, 0.001f);
     CHECK_CLOSE(0.0f, normal.x, 0.001f);
