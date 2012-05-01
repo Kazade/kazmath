@@ -466,28 +466,28 @@ kmMat4* const kmMat4RotationQuaternion(kmMat4* pOut, const kmQuaternion* pQ)
     kmScalar wy = pQ->w * pQ->y;
     kmScalar wz = pQ->w * pQ->z;
 
-	pOut->mat[0] = 1.0f - 2.0f * (y2 + z2);
-	pOut->mat[1] = 2.0f * (xy - wz);
-	pOut->mat[2] = 2.0f * (xz + wy);
-	pOut->mat[3] = 0.0f;
+	pOut->mat[0] = 1.0 - 2.0 * (y2 + z2);
+	pOut->mat[1] = 2.0 * (xy - wz);
+	pOut->mat[2] = 2.0 * (xz + wy);
+	pOut->mat[3] = 0.0;
 
 	// Second row
-	pOut->mat[4] = 2.0f * (xy + wz);
-	pOut->mat[5] = 1.0f - 2.0f * (x2 + z2);
-	pOut->mat[6] = 2.0f * (yz - wx);
-	pOut->mat[7] = 0.0f;
+	pOut->mat[4] = 2.0 * (xy + wz);
+	pOut->mat[5] = 1.0 - 2.0 * (x2 + z2);
+	pOut->mat[6] = 2.0 * (yz - wx);
+	pOut->mat[7] = 0.0;
 
 	// Third row
-	pOut->mat[8] = 2.0f * (xz - wy);
-	pOut->mat[9] = 2.0f * (yz + wx);
-	pOut->mat[10] = 1.0f - 2.0f * (x2 + y2);
-	pOut->mat[11] = 0.0f;
+	pOut->mat[8] = 2.0 * (xz - wy);
+	pOut->mat[9] = 2.0 * (yz + wx);
+	pOut->mat[10] = 1.0 - 2.0 * (x2 + y2);
+	pOut->mat[11] = 0.0;
 
 	// Fourth row
 	pOut->mat[12] = 0;
 	pOut->mat[13] = 0;
 	pOut->mat[14] = 0;
-	pOut->mat[15] = 1.0f;
+	pOut->mat[15] = 1.0;
 
 	return pOut;
 }
