@@ -49,6 +49,9 @@ kmScalar kmVec2LengthSq(const kmVec2* pIn)
 
 kmVec2* kmVec2Normalize(kmVec2* pOut, const kmVec2* pIn)
 {
+        if (!pIn->x && !pIn->y)
+                return kmVec2Assign(pOut, pIn);
+
 	kmScalar l = 1.0f / kmVec2Length(pIn);
 
 	kmVec2 v;

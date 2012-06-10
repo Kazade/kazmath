@@ -70,7 +70,10 @@ kmScalar kmVec3LengthSq(const kmVec3* pIn)
   */
 kmVec3* kmVec3Normalize(kmVec3* pOut, const kmVec3* pIn)
 {
-	kmScalar l = 1.0f / kmVec3Length(pIn);
+        if (!pIn->x && !pIn->y && !pIn->z)
+                return kmVec3Assign(pOut, pIn);
+
+        kmScalar l = 1.0f / kmVec3Length(pIn);
 
 	kmVec3 v;
 	v.x = pIn->x * l;
