@@ -45,6 +45,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define kmEnum unsigned int
 #endif
 
+#ifndef kmUint
+#define kmUint unsigned int
+#endif
+
 #ifndef KM_FALSE
 #define KM_FALSE 0
 #endif

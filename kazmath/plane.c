@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "vec3.h"
 #include "vec4.h"
 #include "plane.h"
+#include "mat4.h"
 
 const kmScalar kmPlaneDot(const kmPlane* pP, const kmVec4* pV)
 {
@@ -171,5 +172,48 @@ const POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane* pIn, const kmVec3
    if(distance < -0.001) return POINT_BEHIND_PLANE;
 
    return POINT_ON_PLANE;
+}
+
+kmPlane* kmPlaneExtractFromMat4(kmPlane* pOut, const struct kmMat4* pIn, kmUint row) {
+	pOut->a = pIn->mat[3] + pIn->mat[row];
+	pOut->b = pIn->mat[7] + pIn->mat[row + 4];
+	pOut->c = pIn->mat[11] + pIn->mat[row + 8];
+	pOut->d = pIn->mat[15] + pIn->mat[row + 12];
+	
+	return kmPlaneNormalize(pOut, pOut);
+}
+
+kmVec3* kmPlaneGetIntersection(kmVec3* pOut, const kmPlane* p1, const kmPlane* p2, const kmPlane* p3) {
+    kmVec3 n1, n2, n3, cross;
+    kmVec3 r1, r2, r3;
+    double denom = 0;
+    
+    kmVec3Fill(&n1, p1->a, p1->b, p1->c);
+    kmVec3Fill(&n2, p2->a, p2->b, p2->c);
+    kmVec3Fill(&n3, p3->a, p3->b, p3->c);
+    
+    kmVec3Cross(&cross, &n2, &n3);
+
+    denom = kmVec3Dot(&n1, &cross);
+
+    if (kmAlmostEqual(denom, 0.0)) {
+        return NULL;
+    }
+
+    kmVec3Cross(&r1, &n2, &n3);
+    kmVec3Cross(&r2, &n3, &n1);
+    kmVec3Cross(&r3, &n1, &n2);
+
+    kmVec3Scale(&r1, &r1, -p1->d);
+    kmVec3Scale(&r2, &r2, p2->d);
+    kmVec3Scale(&r3, &r3, p3->d);
+
+    kmVec3Subtract(pOut, &r1, &r2);
+    kmVec3Subtract(pOut, pOut, &r3);
+    kmVec3Scale(pOut, pOut, 1.0 / denom);
+
+    //p = -d1 * ( n2.Cross ( n3 ) ) – d2 * ( n3.Cross ( n1 ) ) – d3 * ( n1.Cross ( n2 ) ) / denom;
+
+    return pOut;
 }
 

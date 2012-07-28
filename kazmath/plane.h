@@ -63,6 +63,9 @@ kmPlane* const kmPlaneNormalize(kmPlane* pOut, const kmPlane* pP);
 kmPlane* const kmPlaneScale(kmPlane* pOut, const kmPlane* pP, kmScalar s);
 const POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane* pIn, const kmVec3* pP); /** Classifys a point against a plane */
 
+kmPlane* kmPlaneExtractFromMat4(kmPlane* pOut, const struct kmMat4* pIn, kmUint row);
+kmVec3* kmPlaneGetIntersection(kmVec3* pOut, const kmPlane* p1, const kmPlane* p2, const kmPlane* p3);
+
 #ifdef __cplusplus
 }
 #endif
