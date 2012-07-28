@@ -51,6 +51,4 @@ TEST(test_aabb_triangle_intersection) {
     CHECK(kmAABBIntersectsTriangle(&box, &tri4[0], &tri4[1], &tri4[2]));    
 }
 
-int main() {
-    return UnitTest::RunAllTests();
-}
+

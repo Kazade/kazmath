@@ -18,6 +18,3 @@ TEST(test_transform) {
     CHECK_CLOSE(0.0f, rotated.y, 0.001f);
 }
 
-int main() {
-    return UnitTest::RunAllTests();
-}

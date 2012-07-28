@@ -2,18 +2,10 @@ INCLUDE_DIRECTORIES( ${CMAKE_SOURCE_DIR}/include )
 
 LINK_LIBRARIES(libunittest++.a)
 
-ADD_EXECUTABLE(test_mat4 ${KAZMATH_SOURCES} test_mat4.cpp)
-ADD_TEST(test_mat4 test_mat4)
+FILE(GLOB_RECURSE TEST_FILES *.cpp)
 
-ADD_EXECUTABLE(test_mat3 ${KAZMATH_SOURCES} test_mat3.cpp)
-ADD_TEST(test_mat3 test_mat3)
+LINK_LIBRARIES(kazmath)
 
-ADD_EXECUTABLE(test_ray2 ${KAZMATH_SOURCES} test_ray2.cpp)
-ADD_TEST(test_ray2 test_ray2)
-
-ADD_EXECUTABLE(test_vec2 ${KAZMATH_SOURCES} test_vec2.cpp)
-ADD_TEST(test_vec2 test_vec2)
-
-ADD_EXECUTABLE(test_aabb ${KAZMATH_SOURCES} test_aabb.cpp)
-ADD_TEST(test_aabb test_aabb)
+ADD_EXECUTABLE(kazmath_tests ${TEST_FILES})
+ADD_TEST(kazmath_suite kazmath_tests)
 

@@ -69,6 +69,3 @@ TEST(test_triangle_intersection) {
     CHECK_CLOSE(1.0f, normal.y, 0.001f);
 }
 
-int main() {
-    return UnitTest::RunAllTests();
-}

@@ -51,6 +51,3 @@ TEST(test_mat4_transpose) {
     CHECK(kmMat4AreEqual(&transpose, &result));
 }
 
-int main() {
-    return UnitTest::RunAllTests();
-}

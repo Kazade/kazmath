@@ -142,6 +142,4 @@ TEST(test_mat3_translation) {
     CHECK(kmMat3AreEqual(&expected, &actual));
 }
 
-int main() {
-    return UnitTest::RunAllTests();
-}
+

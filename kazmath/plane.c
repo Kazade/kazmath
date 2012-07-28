@@ -174,11 +174,14 @@ const POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane* pIn, const kmVec3
    return POINT_ON_PLANE;
 }
 
-kmPlane* kmPlaneExtractFromMat4(kmPlane* pOut, const struct kmMat4* pIn, kmUint row) {
-	pOut->a = pIn->mat[3] + pIn->mat[row];
-	pOut->b = pIn->mat[7] + pIn->mat[row + 4];
-	pOut->c = pIn->mat[11] + pIn->mat[row + 8];
-	pOut->d = pIn->mat[15] + pIn->mat[row + 12];
+kmPlane* kmPlaneExtractFromMat4(kmPlane* pOut, const struct kmMat4* pIn, kmInt row) {
+    int scale = (row < 0) ? -1 : 1;
+	row = abs(row) - 1;
+	
+	pOut->a = pIn->mat[3] + scale * pIn->mat[row];
+	pOut->b = pIn->mat[7] + scale * pIn->mat[row + 4];
+	pOut->c = pIn->mat[11] + scale * pIn->mat[row + 8];
+	pOut->d = pIn->mat[15] + scale * pIn->mat[row + 12];
 	
 	return kmPlaneNormalize(pOut, pOut);
 }
