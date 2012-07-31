@@ -132,7 +132,15 @@ kmVec3* const kmPlaneIntersectLine(kmVec3* pOut, const kmPlane* pP, const kmVec3
 kmPlane* const kmPlaneNormalize(kmPlane* pOut, const kmPlane* pP)
 {
 	kmVec3 n;
-    kmScalar l = 0;
+        kmScalar l = 0;
+
+        if (!pP->a && !pP->b && !pP->c) {
+                pOut->a = pP->a;
+                pOut->b = pP->b;
+                pOut->c = pP->c;
+                pOut->d = pP->d;
+                return pOut;
+        }
 
 	n.x = pP->a;
 	n.y = pP->b;
