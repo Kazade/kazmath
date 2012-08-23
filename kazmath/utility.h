@@ -29,10 +29,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 
 #ifndef kmScalar
-#ifdef USE_SINGLE_PRECISION
-#define kmScalar float
-#else
+#ifdef USE_DOUBLE_PRECISION
 #define kmScalar double
+#else
+#define kmScalar float
 #endif
 
 #endif

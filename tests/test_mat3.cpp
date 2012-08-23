@@ -58,7 +58,7 @@ TEST(test_mat3_transpose) {
 }
 
 TEST(test_mat3_fill) {
-    double temp[] = { 0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
+    kmScalar temp[] = { 0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
     kmMat3 orig, filled;
     orig.mat[0] = 0.0f;
     orig.mat[1] = 1.0f;
@@ -85,8 +85,8 @@ TEST(test_mat3_are_equal) {
 }
 
 TEST(test_mat3_axis_angle) {
-    double radians = 1.0;
-    double radiansOut;
+    kmScalar radians = 1.0;
+    kmScalar radiansOut;
     kmMat3 a;
     kmVec3 axisIn, axisOut;
     kmVec3Fill(&axisIn, 1.0f, 0.0f, 0.0f);
@@ -104,7 +104,7 @@ TEST(test_mat3_axis_angle) {
 }
 
 TEST(test_mat3_identity) {
-    double identity[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+    kmScalar identity[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
     kmMat3 expected, actual;
     kmMat3Fill(&expected, identity);
     kmMat3Identity(&actual);
