@@ -74,7 +74,7 @@ kmMat3* const kmMat3Adjugate(kmMat3* pOut, const kmMat3* pIn)
     pOut->mat[4] = pIn->mat[0] * pIn->mat[8] - pIn->mat[2] * pIn->mat[6];
     pOut->mat[5] = pIn->mat[2] * pIn->mat[3] - pIn->mat[0] * pIn->mat[5];
     pOut->mat[6] = pIn->mat[3] * pIn->mat[7] - pIn->mat[4] * pIn->mat[6];
-    pOut->mat[7] = pIn->mat[1] * pIn->mat[6] - pIn->mat[9] * pIn->mat[7];
+    pOut->mat[7] = pIn->mat[1] * pIn->mat[6] - pIn->mat[0] * pIn->mat[7];
     pOut->mat[8] = pIn->mat[0] * pIn->mat[4] - pIn->mat[1] * pIn->mat[3];
 
     return pOut;
