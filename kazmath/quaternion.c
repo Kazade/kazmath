@@ -80,7 +80,7 @@ kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
 	kmScalar l = kmQuaternionLength(pIn);
     kmQuaternion tmp;
 
-	if (fabs(l) > kmEpsilon)
+	if (fabs(l) < kmEpsilon)
 	{
 		pOut->x = 0.0;
 		pOut->y = 0.0;
