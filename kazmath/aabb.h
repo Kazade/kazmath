@@ -42,10 +42,14 @@ typedef struct kmAABB {
     kmVec3 max; /** The min corner of the box */
 } kmAABB;
 
-const int kmAABBContainsPoint(const kmVec3* pPoint, const kmAABB* pBox);
+const int kmAABBContainsPoint(const kmAABB* pBox, const kmVec3* pPoint);
 kmAABB* const kmAABBAssign(kmAABB* pOut, const kmAABB* pIn);
 kmAABB* const kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s);
 kmBool kmAABBIntersectsTriangle(kmAABB* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3);
+kmEnum kmAABBContainsAABB(const kmAABB* container, const kmAABB* to_check);
+kmScalar kmAABBDiameterX(const kmAABB* aabb);
+kmScalar kmAABBDiameterY(const kmAABB* aabb);
+kmScalar kmAABBDiameterZ(const kmAABB* aabb);
 
 #ifdef __cplusplus
 }

@@ -41,6 +41,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define kmBool unsigned char
 #endif
 
+#ifndef kmUchar
+#define kmUchar unsigned char
+#endif
+
 #ifndef kmEnum
 #define kmEnum unsigned int
 #endif
@@ -66,7 +70,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define kmPIUnder180 57.295779f // 180 / PI
 #define kmEpsilon 0.0001
 
-
+#define KM_CONTAINS_NONE 0
+#define KM_CONTAINS_PARTIAL 1
+#define KM_CONTAINS_ALL 2
 
 #ifdef __cplusplus
 extern "C" {

@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * Returns KM_TRUE if point is in the specified AABB, returns
  * KM_FALSE otherwise.
  */
-const int kmAABBContainsPoint(const kmVec3* pPoint, const kmAABB* pBox)
+const int kmAABBContainsPoint(const kmAABB* pBox, const kmVec3* pPoint)
 {
     if(pPoint->x >= pBox->min.x && pPoint->x <= pBox->max.x &&
        pPoint->y >= pBox->min.y && pPoint->y <= pBox->max.y &&
@@ -59,7 +59,52 @@ kmAABB* const kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s)
 }
 
 kmBool kmAABBIntersectsTriangle(kmAABB* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3) {
+    assert(0 && "Not implemented");
     return KM_TRUE;
 }
 
+kmEnum kmAABBContainsAABB(const kmAABB* container, const kmAABB* to_check) {
+    kmVec3 corners[8];
+    kmEnum result = KM_CONTAINS_ALL;
+    kmBool found = KM_FALSE;
+        
+    kmVec3Fill(&corners[0], to_check->min.x, to_check->min.y, to_check->min.z);
+    kmVec3Fill(&corners[1], to_check->max.x, to_check->min.y, to_check->min.z);
+    kmVec3Fill(&corners[2], to_check->max.x, to_check->max.y, to_check->min.z);
+    kmVec3Fill(&corners[3], to_check->min.x, to_check->max.y, to_check->min.z);
+    kmVec3Fill(&corners[4], to_check->min.x, to_check->min.y, to_check->max.z);
+    kmVec3Fill(&corners[5], to_check->max.x, to_check->min.y, to_check->max.z);
+    kmVec3Fill(&corners[6], to_check->max.x, to_check->max.y, to_check->max.z);
+    kmVec3Fill(&corners[7], to_check->min.x, to_check->max.y, to_check->max.z);
+        
+    for(kmUchar i = 0; i < 8; ++i) {
+        if(!kmAABBContainsPoint(container, &corners[i])) {
+            result = KM_CONTAINS_PARTIAL;
+            if(found) {
+                //If we previously found a corner that was within the container
+                //We know that partial is the final result
+                return result;
+            }
+        } else {
+            found = KM_TRUE;
+        }
+    }
+    
+    if(!found) {
+        result = KM_CONTAINS_NONE;
+    }
+    
+    return result;
+}
 
+kmScalar kmAABBDiameterX(const kmAABB* aabb) {
+    return fabs(aabb->max.x - aabb->min.x);
+}
+
+kmScalar kmAABBDiameterY(const kmAABB* aabb) {
+    return fabs(aabb->max.y - aabb->min.y);
+}
+
+kmScalar kmAABBDiameterZ(const kmAABB* aabb) {
+    return fabs(aabb->max.z - aabb->min.z);
+}
