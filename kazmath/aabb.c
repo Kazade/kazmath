@@ -25,6 +25,29 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "aabb.h"
 
+
+/**
+    Initializes the AABB around a central point. If centre is NULL then the origin
+    is used. Returns pBox.
+*/
+kmAABB* kmAABBInitialize(kmAABB* pBox, const kmVec3* centre, const kmScalar width, const kmScalar height, const kmScalar depth) {
+    if(!pBox) return 0;
+    
+    kmVec3 origin;
+    kmVec3* point = centre ? (kmVec3*) centre : &origin;
+    kmVec3Zero(&origin);
+    
+    pBox->min.x = point->x - (width / 2);
+    pBox->min.y = point->y - (height / 2);
+    pBox->min.z = point->z - (depth / 2);
+    
+    pBox->max.x = point->x + (width / 2);
+    pBox->max.y = point->y + (height / 2);
+    pBox->max.z = point->z + (depth / 2);
+    
+    return pBox;
+}
+
 /**
  * Returns KM_TRUE if point is in the specified AABB, returns
  * KM_FALSE otherwise.

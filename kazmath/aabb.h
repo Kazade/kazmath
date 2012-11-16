@@ -42,6 +42,8 @@ typedef struct kmAABB {
     kmVec3 max; /** The min corner of the box */
 } kmAABB;
 
+
+kmAABB* kmAABBInitialize(kmAABB* pBox, const kmVec3* centre, const kmScalar width, const kmScalar height, const kmScalar depth);
 const int kmAABBContainsPoint(const kmAABB* pBox, const kmVec3* pPoint);
 kmAABB* const kmAABBAssign(kmAABB* pOut, const kmAABB* pIn);
 kmAABB* const kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s);
