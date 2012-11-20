@@ -131,3 +131,10 @@ kmScalar kmAABBDiameterY(const kmAABB* aabb) {
 kmScalar kmAABBDiameterZ(const kmAABB* aabb) {
     return fabs(aabb->max.z - aabb->min.z);
 }
+
+kmVec3* kmAABBCentre(const kmAABB* aabb, kmVec3* pOut) {
+    kmVec3Add(pOut, &aabb->min, &aabb->max);
+    kmVec3Scale(pOut, pOut, 0.5);
+    return pOut;
+}
+

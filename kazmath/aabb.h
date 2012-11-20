@@ -52,6 +52,7 @@ kmEnum kmAABBContainsAABB(const kmAABB* container, const kmAABB* to_check);
 kmScalar kmAABBDiameterX(const kmAABB* aabb);
 kmScalar kmAABBDiameterY(const kmAABB* aabb);
 kmScalar kmAABBDiameterZ(const kmAABB* aabb);
+kmVec3* kmAABBCentre(const kmAABB* aabb, kmVec3* pOut);
 
 #ifdef __cplusplus
 }
