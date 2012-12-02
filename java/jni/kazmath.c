@@ -1,3 +1,10 @@
+
+/*
+* this file is public domain originally written by chris_c
+* by using this source you agree to
+* indemnify all authors from all damages and costs involved in the use of this code 
+*/
+
 #include "kazmath_jkazmath.h"
 
 #include <aabb.h>
