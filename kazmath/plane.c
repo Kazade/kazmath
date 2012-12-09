@@ -103,30 +103,37 @@ kmPlane* const kmPlaneFromPoints(kmPlane* pOut, const kmVec3* p1, const kmVec3* 
     return pOut;
 }
 
+// Added by tlensing (http://icedcoffee-framework.org)
 kmVec3* const kmPlaneIntersectLine(kmVec3* pOut, const kmPlane* pP, const kmVec3* pV1, const kmVec3* pV2)
 {
     /*
-	    n = (Planea, Planeb, Planec)
-	    d = V − U
-	    Out = U − d⋅(Pd + n⋅U)⁄(d⋅n) [iff d⋅n ≠ 0]
-    */
-    kmVec3 d;
-    assert(0 && "Not implemented");
-
-
-    kmVec3Subtract(&d, pV2, pV1); //Get the direction vector
-
-
-    //TODO: Continue here!
-    /*if (fabs(kmVec3Dot(&pP->m_N, &d)) > kmEpsilon)
-    {
-	    //If we get here then the plane and line are parallel (i.e. no intersection)
-	    pOut = nullptr; //Set to nullptr
-
-	    return pOut;
-    } */
-
-    return NULL;
+     n = (Planea, Planeb, Planec)
+     d = V − U
+     Out = U − d⋅(Pd + n⋅U)⁄(d⋅n) [iff d⋅n ≠ 0]
+     */
+    kmVec3 d; // direction from V1 to V2
+    kmVec3Subtract(&d, pV2, pV1); // Get the direction vector
+    
+    kmVec3 n; // plane normal
+    n.x = pP->a;
+    n.y = pP->b;
+    n.z = pP->c;
+    kmVec3Normalize(&n, &n);
+    
+    kmScalar nt = -(n.x * pV1->x + n.y * pV1->y + n.z * pV1->z + pP->d);
+    kmScalar dt = (n.x * d.x + n.y * d.y + n.z * d.z);
+    
+    if (fabs(dt) < kmEpsilon) {
+        pOut = NULL;
+        return pOut; // line parallel or contained
+    }
+    
+    kmScalar t = nt/dt;
+    pOut->x = pV1->x + d.x * t;
+    pOut->y = pV1->y + d.y * t;
+    pOut->z = pV1->z + d.z * t;
+    
+    return pOut;
 }
 
 kmPlane* const kmPlaneNormalize(kmPlane* pOut, const kmPlane* pP)
