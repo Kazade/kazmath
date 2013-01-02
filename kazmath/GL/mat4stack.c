@@ -23,10 +23,10 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <malloc.h>
 #include <memory.h>
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define INITIAL_SIZE 30
 #define INCREMENT 50
