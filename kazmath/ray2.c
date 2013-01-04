@@ -28,82 +28,19 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmV
     }
     
     kmScalar ua = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denom;
-    //kmScalar ub = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / denom;
+    kmScalar ub = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / denom;
     
     kmScalar x = x1 + ua * (x2 - x1);
     kmScalar y = y1 + ua * (y2 - y1);
     
-    if(x < min(p1->x, p2->x) - kmEpsilon || 
-       x > max(p1->x, p2->x) + kmEpsilon ||
-       y < min(p1->y, p2->y) - kmEpsilon || 
-       y > max(p1->y, p2->y) + kmEpsilon) {
-        //Outside of line
-        //printf("Outside of line, %f %f (%f %f)(%f, %f)\n", x, y, p1->x, p1->y, p2->x, p2->y);
-        return KM_FALSE;
+    if((0.0 < ua) && (ua < 1.0) && (0.0 < ub) && (ub < 1.0)) {
+        intersection->x = x;
+        intersection->y = y;
+        
+        return KM_TRUE;    
     }
-    
-    if(x < min(x1, x2) - kmEpsilon || 
-       x > max(x1, x2) + kmEpsilon ||
-       y < min(y1, y2) - kmEpsilon || 
-       y > max(y1, y2) + kmEpsilon) {
-        //printf("Outside of ray, %f %f (%f %f)(%f, %f)\n", x, y, x1, y1, x2, y2);
-        return KM_FALSE;
-    }
-    
-    intersection->x = x;
-    intersection->y = y;
-    
-    return KM_TRUE;
-    
-    
-/*    
-    kmScalar A1, B1, C1;
-    kmScalar A2, B2, C2;
-    
-    A1 = ray->dir.y;
-    B1 = ray->dir.x;
-    C1 = A1 * ray->start.x + B1 * ray->start.y;
-    
-    A2 = p2->y - p1->y;
-    B2 = p2->x - p1->x;
-    C2 = A2 * p1->x + B2 * p1->y;
-    
-    double det = (A1 * B2) - (A2 * B1);
-    if(det == 0) {
-        printf("Parallel\n");
-        return KM_FALSE;
-    }
-    
-    double x = (B2*C1 - B1*C2) / det;
-    double y = (A1*C2 - A2*C1) / det;
-    
-    if(x < min(p1->x, p2->x) - kmEpsilon || 
-       x > max(p1->x, p2->x) + kmEpsilon ||
-       y < min(p1->y, p2->y) - kmEpsilon || 
-       y > max(p1->y, p2->y) + kmEpsilon) {
-        //Outside of line
-        printf("Outside of line, %f %f (%f %f)(%f, %f)\n", x, y, p1->x, p1->y, p2->x, p2->y);
-        return KM_FALSE;
-    }
-    
-    kmScalar x1 = ray->start.x;
-    kmScalar x2 = ray->start.x + ray->dir.x;
-    
-    kmScalar y1 = ray->start.y;
-    kmScalar y2 = ray->start.y + ray->dir.y;
-    
-    if(x < min(x1, x2) - kmEpsilon || 
-       x > max(x1, x2) + kmEpsilon ||
-       y < min(y1, y2) - kmEpsilon || 
-       y > max(y1, y2) + kmEpsilon) {
-        printf("Outside of ray, %f %f (%f %f)(%f, %f)\n", x, y, x1, y1, x2, y2);
-        return KM_FALSE;
-    }
-    
-    intersection->x = x;
-    intersection->y = y;
-    
-    return KM_TRUE;*/
+
+    return KM_FALSE;        
 }
 
 void calculate_line_normal(kmVec2 p1, kmVec2 p2, kmVec2 other_point, kmVec2* normal_out) {
