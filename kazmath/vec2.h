@@ -49,6 +49,7 @@ kmScalar kmVec2LengthSq(const kmVec2* pIn); ///< Returns the square of the lengt
 kmVec2* kmVec2Normalize(kmVec2* pOut, const kmVec2* pIn); ///< Returns the vector passed in set to unit length
 kmVec2* kmVec2Add(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2); ///< Adds 2 vectors and returns the result
 kmScalar kmVec2Dot(const kmVec2* pV1, const kmVec2* pV2); /** Returns the Dot product which is the cosine of the angle between the two vectors multiplied by their lengths */
+kmScalar kmVec2Cross(const kmVec2* pV1, const kmVec2* pV2);
 kmVec2* kmVec2Subtract(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2); ///< Subtracts 2 vectors and returns the result
 kmVec2* kmVec2Transform(kmVec2* pOut, const kmVec2* pV1, const struct kmMat3* pM); /** Transform the Vector */
 kmVec2* kmVec2TransformCoord(kmVec2* pOut, const kmVec2* pV, const struct kmMat3* pM); ///<Transforms a 2D vector by a given matrix, projecting the result back into w = 1.
