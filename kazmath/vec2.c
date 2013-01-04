@@ -173,20 +173,23 @@ kmScalar kmVec2DegreesBetween(const kmVec2* v1, const kmVec2* v2) {
 		return 0.0;
 	}
 	
+	kmVec2 t1, t2;
+	kmVec2Normalize(&t1, v1);
+	kmVec2Normalize(&t2, v2);
+	
+	kmScalar cross = kmVec2Cross(&t1, &t2);
+	kmScalar dot = kmVec2Dot(&t1, &t2);
+
 	/*
 	 * acos is only defined for -1 to 1. Outside the range we 
 	 * get NaN even if that's just because of a floating point error
 	 * so we clamp to the -1 - 1 range
 	 */
-	kmVec2 t1, t2;
-	kmVec2Normalize(&t1, v1);
-	kmVec2Normalize(&t2, v2);
-	double dot = kmVec2Dot(&t1, &t2);
-	
+
 	if(dot > 1.0) dot = 1.0;
 	if(dot < -1.0) dot = -1.0;
-	
-	return kmRadiansToDegrees(acos(dot));
+
+	return kmRadiansToDegrees(atan2(cross, dot));
 }
 
 /**
