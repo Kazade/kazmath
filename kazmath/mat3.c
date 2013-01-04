@@ -111,12 +111,21 @@ const int kmMat3IsIdentity(const kmMat3* pIn)
 /** Sets pOut to the transpose of pIn, returns pOut */
 kmMat3* const kmMat3Transpose(kmMat3* pOut, const kmMat3* pIn)
 {
-    int z, x;
-    for (z = 0; z < 3; ++z) {
-        for (x = 0; x < 3; ++x) {
-			pOut->mat[(z * 3) + x] = pIn->mat[(x * 3) + z];
-        }
-    }
+    kmScalar temp[9];
+    
+    temp[0] = pIn->mat[0];
+    temp[1] = pIn->mat[3];
+    temp[2] = pIn->mat[6];
+
+    temp[3] = pIn->mat[1];
+    temp[4] = pIn->mat[4];
+    temp[5] = pIn->mat[7];
+
+    temp[6] = pIn->mat[2];
+    temp[7] = pIn->mat[5];
+    temp[8] = pIn->mat[8];
+        
+    memcpy(&pOut->mat, temp, sizeof(kmScalar)*9);
 
 	return pOut;
 }

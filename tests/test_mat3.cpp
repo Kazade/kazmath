@@ -45,16 +45,16 @@ TEST(test_mat3_inverse) {
 
 TEST(test_mat3_transpose) {
     kmMat3 mat;
-    double temp[] = { 0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
-    memcpy(mat.mat, temp, sizeof(double) * 9);
+    kmScalar temp[] = { 1.0f, 3.0f, 5.0f, 2.0f, 4.0f, 6.0f, 8.0f, 3.0f, 1.0f };
+    memcpy(mat.mat, temp, sizeof(kmScalar) * 9);
 
     kmMat3 transpose;
-    double temp2[] = {0.0f, 3.0f, 6.0f, 1.0f, 4.0f, 7.0f, 2.0f, 5.0f, 8.0f };
-    memcpy(transpose.mat, temp2, sizeof(double) * 9);
+    kmScalar temp2[] = {1.0f, 2.0f, 8.0f, 3.0f, 4.0f, 3.0f, 5.0f, 6.0f, 1.0f };
+    memcpy(transpose.mat, temp2, sizeof(kmScalar) * 9);
 
     kmMat3 result;
     CHECK(NULL != kmMat3Transpose(&result, &mat));
-    CHECK(kmMat3AreEqual(&transpose, &result));
+    CHECK(kmMat3AreEqual(&transpose, &result));    
 }
 
 TEST(test_mat3_fill) {
