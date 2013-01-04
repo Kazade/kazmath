@@ -18,3 +18,13 @@ TEST(test_transform) {
     CHECK_CLOSE(0.0f, rotated.y, 0.001f);
 }
 
+TEST(test_degrees_between) {
+    kmVec2 v1;
+    kmVec2 v2;
+    
+    kmVec2Fill(&v1, 1, 0);
+    kmVec2Fill(&v2, 0, 1);
+    
+    CHECK_CLOSE(90.0f, kmVec2DegreesBetween(&v1, &v2), 0.001f);
+    CHECK_CLOSE(-90.0f, kmVec2DegreesBetween(&v2, &v1), 0.001f);    
+}
