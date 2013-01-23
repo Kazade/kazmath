@@ -46,7 +46,7 @@ extern "C" {
 kmMat3* const kmMat3Fill(kmMat3* pOut, const kmScalar* pMat);
 kmMat3* const kmMat3Adjugate(kmMat3* pOut, const kmMat3* pIn);
 kmMat3* const kmMat3Identity(kmMat3* pOut);
-kmMat3* const kmMat3Inverse(kmMat3* pOut, const kmScalar pDeterminate, const kmMat3* pM);
+kmMat3* const kmMat3Inverse(kmMat3* pOut, const kmMat3* pM);
 const int  kmMat3IsIdentity(const kmMat3* pIn);
 kmMat3* const kmMat3Transpose(kmMat3* pOut, const kmMat3* pIn);
 const kmScalar kmMat3Determinant(const kmMat3* pIn);

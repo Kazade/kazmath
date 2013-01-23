@@ -80,17 +80,18 @@ kmMat3* const kmMat3Adjugate(kmMat3* pOut, const kmMat3* pIn)
     return pOut;
 }
 
-kmMat3* const kmMat3Inverse(kmMat3* pOut, const kmScalar pDeterminate, const kmMat3* pM)
+kmMat3* const kmMat3Inverse(kmMat3* pOut, const kmMat3* pM)
 {
+    kmScalar determinate = kmMat3Determinant(pM);
     kmScalar detInv;
     kmMat3 adjugate;
 
-    if(pDeterminate == 0.0)
+    if(determinate == 0.0)
     {
         return NULL;
     }
 
-    detInv = 1.0 / pDeterminate;
+    detInv = 1.0 / determinate;
 
 	kmMat3Adjugate(&adjugate, pM);
 	kmMat3ScalarMultiply(pOut, &adjugate, detInv);

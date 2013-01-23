@@ -45,3 +45,24 @@ ADD_SUBDIRECTORY(kazmath)
 ADD_SUBDIRECTORY(tests)
 
 ADD_SUBDIRECTORY(java)
+
+SET(CPACK_PACKAGE_DEFAULT_LOCATION "/")
+SET(CPACK_GENERATOR "RPM")
+set(CPACK_PACKAGE_NAME "kazmath")
+set(CPACK_PACKAGE_VENDOR "Kazade")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A simple 3D math library, designed for game development")
+set(CPACK_PACKAGE_VERSION "0.5")
+set(CPACK_PACKAGE_VERSION_MAJOR "0")
+set(CPACK_PACKAGE_VERSION_MINOR "5")
+set(CPACK_PACKAGE_VERSION_PATCH "0")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "kazmath")
+
+SET(CPACK_RPM_PACKAGE_NAME "kazmath-devel")
+SET(CPACK_RPM_PACKAGE_RELEASE 1)
+SET(CPACK_RPM_PACKAGE_LICENCE "Simplified BSD")
+SET(CPACK_RPM_PACKAGE_GROUP "Development/Libraries")
+SET(CPACK_RPM_PACKAGE_DESCRIPTION "
+Kazmath is a 3D math library written in C. It's designed to be easy to use and understand.
+The library contains math functions for 2D, 3D and 4D vectors. 3x3 and 4x4 matrices, quaternions, planes and axis-aligned boxes")
+
+INCLUDE(CPack)
