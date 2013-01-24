@@ -39,7 +39,7 @@ TEST(test_mat3_inverse) {
 
     kmMat3 adj;
     CHECK(NULL != kmMat3Adjugate(&adj, &mat));
-    CHECK(NULL != kmMat3Inverse(&mat, kmMat3Determinant(&mat), &mat));
+    CHECK(NULL != kmMat3Inverse(&mat, &mat));
     CHECK(kmMat3IsIdentity(&mat));
 }
 
