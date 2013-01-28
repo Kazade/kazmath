@@ -34,6 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct kmVec3;
 struct kmQuaternion;
+struct kmMat4;
 
 typedef struct kmMat3{
 	kmScalar mat[9];
@@ -54,6 +55,7 @@ kmMat3* const kmMat3Multiply(kmMat3* pOut, const kmMat3* pM1, const kmMat3* pM2)
 kmMat3* const kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, const kmScalar pFactor);
 
 kmMat3* const kmMat3Assign(kmMat3* pOut, const kmMat3* pIn);
+kmMat3* const kmMat3AssignMat4(kmMat3* pOut, const struct kmMat4* pIn);
 const int  kmMat3AreEqual(const kmMat3* pM1, const kmMat3* pM2);
 
 struct kmVec3* const kmMat3GetUpVec3(struct kmVec3* pOut, const kmMat3* pIn);

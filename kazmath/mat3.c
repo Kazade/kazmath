@@ -30,6 +30,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "utility.h"
 #include "vec3.h"
 #include "mat3.h"
+#include "mat4.h"
 #include "quaternion.h"
 
 kmMat3* const kmMat3Fill(kmMat3* pOut, const kmScalar* pMat)
@@ -178,6 +179,21 @@ kmMat3* const kmMat3Assign(kmMat3* pOut, const kmMat3* pIn)
 	memcpy(pOut->mat, pIn->mat, sizeof(kmScalar)*9);
 
 	return pOut;
+}
+
+kmMat3* const kmMat3AssignMat4(kmMat3* pOut, const kmMat4* pIn) {
+    pOut->mat[0] = pIn->mat[0];
+    pOut->mat[1] = pIn->mat[1];
+    pOut->mat[2] = pIn->mat[2];
+
+    pOut->mat[3] = pIn->mat[4];
+    pOut->mat[4] = pIn->mat[5];
+    pOut->mat[5] = pIn->mat[6];
+
+    pOut->mat[6] = pIn->mat[8];
+    pOut->mat[7] = pIn->mat[9];
+    pOut->mat[8] = pIn->mat[10];
+    return pOut;
 }
 
 /** Returns true if the 2 matrices are equal (approximately) */

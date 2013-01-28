@@ -33,6 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "utility.h"
 #include "vec4.h"
 #include "mat4.h"
+#include "mat3.h"
 #include "vec3.h"
 
 /**
@@ -155,29 +156,46 @@ kmVec3* kmVec3Subtract(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 	return pOut;
 }
 
- /**
-  * Transforms vector (x, y, z, 1) by a given matrix. The result
-  * is stored in pOut. pOut is returned.
-  */
+kmVec3* kmVec3MultiplyMat3(kmVec3* pOut, const kmVec3* pV, const kmMat3* pM) {
+    kmVec3 v;
+
+    v.x = pV->x * pM->mat[0] + pV->y * pM->mat[3] + pV->z * pM->mat[6];
+    v.y = pV->x * pM->mat[1] + pV->y * pM->mat[4] + pV->z * pM->mat[7];
+    v.z = pV->x * pM->mat[2] + pV->y * pM->mat[5] + pV->z * pM->mat[8];
+
+    pOut->x = v.x;
+    pOut->y = v.y;
+    pOut->z = v.z;
+
+    return pOut;
+}
+
+/**
+ * Multiplies vector (x, y, z, 1) by a given matrix. The result
+ * is stored in pOut. pOut is returned.
+ */
+
+kmVec3* kmVec3MultiplyMat4(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM) {
+    kmVec3 v;
+
+    v.x = pV->x * pM->mat[0] + pV->y * pM->mat[4] + pV->z * pM->mat[8] + pM->mat[12];
+    v.y = pV->x * pM->mat[1] + pV->y * pM->mat[5] + pV->z * pM->mat[9] + pM->mat[13];
+    v.z = pV->x * pM->mat[2] + pV->y * pM->mat[6] + pV->z * pM->mat[10] + pM->mat[14];
+
+    pOut->x = v.x;
+    pOut->y = v.y;
+    pOut->z = v.z;
+
+    return pOut;
+}
+
+
 kmVec3* kmVec3Transform(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 {
 	/*
-		a = (Vx, Vy, Vz, 1)
-		b = (a×M)T
-		Out = (bx, by, bz)
+        @deprecated Should intead use kmVec3MultiplyMat4
 	*/
-
-	kmVec3 v;
-
-	v.x = pV->x * pM->mat[0] + pV->y * pM->mat[4] + pV->z * pM->mat[8] + pM->mat[12];
-	v.y = pV->x * pM->mat[1] + pV->y * pM->mat[5] + pV->z * pM->mat[9] + pM->mat[13];
-	v.z = pV->x * pM->mat[2] + pV->y * pM->mat[6] + pV->z * pM->mat[10] + pM->mat[14];
-
-	pOut->x = v.x;
-	pOut->y = v.y;
-	pOut->z = v.z;
-
-	return pOut;
+    return kmVec3MultiplyMat4(pOut, pV, pM);
 }
 
 kmVec3* kmVec3InverseTransform(kmVec3* pOut, const kmVec3* pVect, const kmMat4* pM)

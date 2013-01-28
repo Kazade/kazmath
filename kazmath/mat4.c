@@ -255,6 +255,28 @@ kmMat4* const kmMat4Assign(kmMat4* pOut, const kmMat4* pIn)
 	return pOut;
 }
 
+kmMat4* const kmMat4AssignMat3(kmMat4* pOut, const kmMat3* pIn) {
+    kmMat4Identity(pOut);
+
+    pOut->mat[0] = pIn->mat[0];
+    pOut->mat[1] = pIn->mat[1];
+    pOut->mat[2] = pIn->mat[2];
+    pOut->mat[3] = 0.0;
+
+    pOut->mat[4] = pIn->mat[3];
+    pOut->mat[5] = pIn->mat[4];
+    pOut->mat[6] = pIn->mat[5];
+    pOut->mat[7] = 0.0;
+
+    pOut->mat[8] = pIn->mat[6];
+    pOut->mat[9] = pIn->mat[7];
+    pOut->mat[10] = pIn->mat[8];
+    pOut->mat[11] = 0.0;
+
+    return pOut;
+}
+
+
 /**
  * Returns KM_TRUE if the 2 matrices are equal (approximately)
  */
