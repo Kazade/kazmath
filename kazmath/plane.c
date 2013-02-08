@@ -31,7 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "plane.h"
 #include "mat4.h"
 
-const kmScalar kmPlaneDot(const kmPlane* pP, const kmVec4* pV)
+kmScalar kmPlaneDot(const kmPlane* pP, const kmVec4* pV)
 {
     //a*x + b*y + c*z + d*w
 
@@ -41,21 +41,21 @@ const kmScalar kmPlaneDot(const kmPlane* pP, const kmVec4* pV)
 	    pP->d * pV->w);
 }
 
-const kmScalar kmPlaneDotCoord(const kmPlane* pP, const kmVec3* pV)
+kmScalar kmPlaneDotCoord(const kmPlane* pP, const kmVec3* pV)
 {
     return (pP->a * pV->x +
 	    pP->b * pV->y +
 	    pP->c * pV->z + pP->d);
 }
 
-const kmScalar kmPlaneDotNormal(const kmPlane* pP, const kmVec3* pV)
+kmScalar kmPlaneDotNormal(const kmPlane* pP, const kmVec3* pV)
 {
     return (pP->a * pV->x +
 	    pP->b * pV->y +
 	    pP->c * pV->z);
 }
 
-kmPlane* const kmPlaneFromPointNormal(kmPlane* pOut, const kmVec3* pPoint, const kmVec3* pNormal)
+kmPlane* kmPlaneFromPointNormal(kmPlane* pOut, const kmVec3* pPoint, const kmVec3* pNormal)
 {
     /*
 	Planea = Nx
@@ -77,7 +77,7 @@ kmPlane* const kmPlaneFromPointNormal(kmPlane* pOut, const kmVec3* pPoint, const
  * Creates a plane from 3 points. The result is stored in pOut.
  * pOut is returned.
  */
-kmPlane* const kmPlaneFromPoints(kmPlane* pOut, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3)
+kmPlane* kmPlaneFromPoints(kmPlane* pOut, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3)
 {
     /*
     v = (B − A) × (C − A)
@@ -104,7 +104,7 @@ kmPlane* const kmPlaneFromPoints(kmPlane* pOut, const kmVec3* p1, const kmVec3* 
 }
 
 // Added by tlensing (http://icedcoffee-framework.org)
-kmVec3* const kmPlaneIntersectLine(kmVec3* pOut, const kmPlane* pP, const kmVec3* pV1, const kmVec3* pV2)
+kmVec3* kmPlaneIntersectLine(kmVec3* pOut, const kmPlane* pP, const kmVec3* pV1, const kmVec3* pV2)
 {
     /*
      n = (Planea, Planeb, Planec)
@@ -136,7 +136,7 @@ kmVec3* const kmPlaneIntersectLine(kmVec3* pOut, const kmPlane* pP, const kmVec3
     return pOut;
 }
 
-kmPlane* const kmPlaneNormalize(kmPlane* pOut, const kmPlane* pP)
+kmPlane* kmPlaneNormalize(kmPlane* pOut, const kmPlane* pP)
 {
 	kmVec3 n;
         kmScalar l = 0;
@@ -165,7 +165,7 @@ kmPlane* const kmPlaneNormalize(kmPlane* pOut, const kmPlane* pP)
 	return pOut;
 }
 
-kmPlane* const kmPlaneScale(kmPlane* pOut, const kmPlane* pP, kmScalar s)
+kmPlane* kmPlaneScale(kmPlane* pOut, const kmPlane* pP, kmScalar s)
 {
 	assert(0 && "Not implemented");
     return NULL;
@@ -175,7 +175,7 @@ kmPlane* const kmPlaneScale(kmPlane* pOut, const kmPlane* pP, kmScalar s)
  * Returns POINT_INFRONT_OF_PLANE if pP is infront of pIn. Returns
  * POINT_BEHIND_PLANE if it is behind. Returns POINT_ON_PLANE otherwise
  */
-const POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane* pIn, const kmVec3* pP)
+POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane* pIn, const kmVec3* pP)
 {
    // This function will determine if a point is on, in front of, or behind
    // the plane.  First we store the dot product of the plane and the point.

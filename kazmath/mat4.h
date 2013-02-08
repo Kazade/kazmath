@@ -50,45 +50,45 @@ typedef struct kmMat4 {
 	kmScalar mat[16];
 } kmMat4;
 
-kmMat4* const kmMat4Fill(kmMat4* pOut, const kmScalar* pMat);
+kmMat4* kmMat4Fill(kmMat4* pOut, const kmScalar* pMat);
 
 
-kmMat4* const kmMat4Identity(kmMat4* pOut);
+kmMat4* kmMat4Identity(kmMat4* pOut);
 
-kmMat4* const kmMat4Inverse(kmMat4* pOut, const kmMat4* pM);
+kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM);
 
 
-const int kmMat4IsIdentity(const kmMat4* pIn);
+int kmMat4IsIdentity(const kmMat4* pIn);
 
-kmMat4* const kmMat4Transpose(kmMat4* pOut, const kmMat4* pIn);
-kmMat4* const kmMat4Multiply(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2);
+kmMat4* kmMat4Transpose(kmMat4* pOut, const kmMat4* pIn);
+kmMat4* kmMat4Multiply(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2);
 
-kmMat4* const kmMat4Assign(kmMat4* pOut, const kmMat4* pIn);
-kmMat4* const kmMat4AssignMat3(kmMat4* pOut, const struct kmMat3* pIn);
+kmMat4* kmMat4Assign(kmMat4* pOut, const kmMat4* pIn);
+kmMat4* kmMat4AssignMat3(kmMat4* pOut, const struct kmMat3* pIn);
 
-const int kmMat4AreEqual(const kmMat4* pM1, const kmMat4* pM2);
+int kmMat4AreEqual(const kmMat4* pM1, const kmMat4* pM2);
 
-kmMat4* const kmMat4RotationX(kmMat4* pOut, const kmScalar radians);
-kmMat4* const kmMat4RotationY(kmMat4* pOut, const kmScalar radians);
-kmMat4* const kmMat4RotationZ(kmMat4* pOut, const kmScalar radians);
-kmMat4* const kmMat4RotationPitchYawRoll(kmMat4* pOut, const kmScalar pitch, const kmScalar yaw, const kmScalar roll);
-kmMat4* const kmMat4RotationQuaternion(kmMat4* pOut, const struct kmQuaternion* pQ);
-kmMat4* const kmMat4RotationTranslation(kmMat4* pOut, const struct kmMat3* rotation, const struct kmVec3* translation);
-kmMat4* const kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z);
-kmMat4* const kmMat4Translation(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z);
+kmMat4* kmMat4RotationX(kmMat4* pOut, const kmScalar radians);
+kmMat4* kmMat4RotationY(kmMat4* pOut, const kmScalar radians);
+kmMat4* kmMat4RotationZ(kmMat4* pOut, const kmScalar radians);
+kmMat4* kmMat4RotationPitchYawRoll(kmMat4* pOut, const kmScalar pitch, const kmScalar yaw, const kmScalar roll);
+kmMat4* kmMat4RotationQuaternion(kmMat4* pOut, const struct kmQuaternion* pQ);
+kmMat4* kmMat4RotationTranslation(kmMat4* pOut, const struct kmMat3* rotation, const struct kmVec3* translation);
+kmMat4* kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z);
+kmMat4* kmMat4Translation(kmMat4* pOut, const kmScalar x, const kmScalar y, const kmScalar z);
 
-struct kmVec3* const kmMat4GetUpVec3(struct kmVec3* pOut, const kmMat4* pIn);
-struct kmVec3* const kmMat4GetRightVec3(struct kmVec3* pOut, const kmMat4* pIn);
-struct kmVec3* const kmMat4GetForwardVec3(struct kmVec3* pOut, const kmMat4* pIn);
+struct kmVec3* kmMat4GetUpVec3(struct kmVec3* pOut, const kmMat4* pIn);
+struct kmVec3* kmMat4GetRightVec3(struct kmVec3* pOut, const kmMat4* pIn);
+struct kmVec3* kmMat4GetForwardVec3(struct kmVec3* pOut, const kmMat4* pIn);
 
-kmMat4* const kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY, kmScalar aspect, kmScalar zNear, kmScalar zFar);
-kmMat4* const kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left, kmScalar right, kmScalar bottom, kmScalar top, kmScalar nearVal, kmScalar farVal);
-kmMat4* const kmMat4LookAt(kmMat4* pOut, const struct kmVec3* pEye, const struct kmVec3* pCenter, const struct kmVec3* pUp);
+kmMat4* kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY, kmScalar aspect, kmScalar zNear, kmScalar zFar);
+kmMat4* kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left, kmScalar right, kmScalar bottom, kmScalar top, kmScalar nearVal, kmScalar farVal);
+kmMat4* kmMat4LookAt(kmMat4* pOut, const struct kmVec3* pEye, const struct kmVec3* pCenter, const struct kmVec3* pUp);
 
-kmMat4* const kmMat4RotationAxisAngle(kmMat4* pOut, const struct kmVec3* axis, kmScalar radians);
-struct kmMat3* const kmMat4ExtractRotation(struct kmMat3* pOut, const kmMat4* pIn);
-struct kmPlane* const kmMat4ExtractPlane(struct kmPlane* pOut, const kmMat4* pIn, const kmEnum plane);
-struct kmVec3* const kmMat4RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat4* pIn);
+kmMat4* kmMat4RotationAxisAngle(kmMat4* pOut, const struct kmVec3* axis, kmScalar radians);
+struct kmMat3* kmMat4ExtractRotation(struct kmMat3* pOut, const kmMat4* pIn);
+struct kmPlane* kmMat4ExtractPlane(struct kmPlane* pOut, const kmMat4* pIn, const kmEnum plane);
+struct kmVec3* kmMat4RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat4* pIn);
 #ifdef __cplusplus
 }
 #endif

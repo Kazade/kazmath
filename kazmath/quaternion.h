@@ -43,9 +43,9 @@ typedef struct kmQuaternion {
 	kmScalar w;
 } kmQuaternion;
 
-kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn); ///< Returns pOut, sets pOut to the conjugate of pIn
+kmQuaternion* kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn); ///< Returns pOut, sets pOut to the conjugate of pIn
 
-const kmScalar 	kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2); ///< Returns the dot product of the 2 quaternions
+kmScalar kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2); ///< Returns the dot product of the 2 quaternions
 
 kmQuaternion* kmQuaternionExp(kmQuaternion* pOut, const kmQuaternion* pIn); ///< Returns the exponential of the quaternion
 
@@ -55,8 +55,7 @@ kmQuaternion* kmQuaternionIdentity(kmQuaternion* pOut);
 
 ///< Returns the inverse of the passed Quaternion
 
-kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
-											const kmQuaternion* pIn);
+kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut, const kmQuaternion* pIn);
 
 ///< Returns true if the quaternion is an identity quaternion
 

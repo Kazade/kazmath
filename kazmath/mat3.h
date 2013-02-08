@@ -44,36 +44,36 @@ typedef struct kmMat3{
 extern "C" {
 #endif
 
-kmMat3* const kmMat3Fill(kmMat3* pOut, const kmScalar* pMat);
-kmMat3* const kmMat3Adjugate(kmMat3* pOut, const kmMat3* pIn);
-kmMat3* const kmMat3Identity(kmMat3* pOut);
-kmMat3* const kmMat3Inverse(kmMat3* pOut, const kmMat3* pM);
-const int  kmMat3IsIdentity(const kmMat3* pIn);
-kmMat3* const kmMat3Transpose(kmMat3* pOut, const kmMat3* pIn);
-const kmScalar kmMat3Determinant(const kmMat3* pIn);
-kmMat3* const kmMat3Multiply(kmMat3* pOut, const kmMat3* pM1, const kmMat3* pM2);
-kmMat3* const kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, const kmScalar pFactor);
+kmMat3* kmMat3Fill(kmMat3* pOut, const kmScalar* pMat);
+kmMat3* kmMat3Adjugate(kmMat3* pOut, const kmMat3* pIn);
+kmMat3* kmMat3Identity(kmMat3* pOut);
+kmMat3* kmMat3Inverse(kmMat3* pOut, const kmMat3* pM);
+int  kmMat3IsIdentity(const kmMat3* pIn);
+kmMat3* kmMat3Transpose(kmMat3* pOut, const kmMat3* pIn);
+kmScalar kmMat3Determinant(const kmMat3* pIn);
+kmMat3* kmMat3Multiply(kmMat3* pOut, const kmMat3* pM1, const kmMat3* pM2);
+kmMat3* kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, const kmScalar pFactor);
 
-kmMat3* const kmMat3Assign(kmMat3* pOut, const kmMat3* pIn);
-kmMat3* const kmMat3AssignMat4(kmMat3* pOut, const struct kmMat4* pIn);
-const int  kmMat3AreEqual(const kmMat3* pM1, const kmMat3* pM2);
+kmMat3* kmMat3Assign(kmMat3* pOut, const kmMat3* pIn);
+kmMat3* kmMat3AssignMat4(kmMat3* pOut, const struct kmMat4* pIn);
+int  kmMat3AreEqual(const kmMat3* pM1, const kmMat3* pM2);
 
-struct kmVec3* const kmMat3GetUpVec3(struct kmVec3* pOut, const kmMat3* pIn);
-struct kmVec3* const kmMat3GetRightVec3(struct kmVec3* pOut, const kmMat3* pIn);
-struct kmVec3* const kmMat3GetForwardVec3(struct kmVec3* pOut, const kmMat3* pIn);
+struct kmVec3* kmMat3GetUpVec3(struct kmVec3* pOut, const kmMat3* pIn);
+struct kmVec3* kmMat3GetRightVec3(struct kmVec3* pOut, const kmMat3* pIn);
+struct kmVec3* kmMat3GetForwardVec3(struct kmVec3* pOut, const kmMat3* pIn);
 
-kmMat3* const kmMat3RotationX(kmMat3* pOut, const kmScalar radians);
-kmMat3* const kmMat3RotationY(kmMat3* pOut, const kmScalar radians);
-kmMat3* const kmMat3RotationZ(kmMat3* pOut, const kmScalar radians);
+kmMat3* kmMat3RotationX(kmMat3* pOut, const kmScalar radians);
+kmMat3* kmMat3RotationY(kmMat3* pOut, const kmScalar radians);
+kmMat3* kmMat3RotationZ(kmMat3* pOut, const kmScalar radians);
 
-kmMat3* const kmMat3Rotation(kmMat3* pOut, const kmScalar radians);
-kmMat3* const kmMat3Scaling(kmMat3* pOut, const kmScalar x, const kmScalar y);
-kmMat3* const kmMat3Translation(kmMat3* pOut, const kmScalar x, const kmScalar y);
+kmMat3* kmMat3Rotation(kmMat3* pOut, const kmScalar radians);
+kmMat3* kmMat3Scaling(kmMat3* pOut, const kmScalar x, const kmScalar y);
+kmMat3* kmMat3Translation(kmMat3* pOut, const kmScalar x, const kmScalar y);
 
-kmMat3* const kmMat3RotationQuaternion(kmMat3* pOut, const struct kmQuaternion* pIn);
+kmMat3* kmMat3RotationQuaternion(kmMat3* pOut, const struct kmQuaternion* pIn);
 
-kmMat3* const kmMat3RotationAxisAngle(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians);
-struct kmVec3* const kmMat3RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat3* pIn);
+kmMat3* kmMat3RotationAxisAngle(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians);
+struct kmVec3* kmMat3RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat3* pIn);
 
 #ifdef __cplusplus
 }
