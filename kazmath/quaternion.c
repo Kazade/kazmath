@@ -33,7 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "quaternion.h"
 
 ///< Returns pOut, sets pOut to the conjugate of pIn
-kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn)
+kmQuaternion* kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn)
 {
 	pOut->x = -pIn->x;
 	pOut->y = -pIn->y;
@@ -44,7 +44,7 @@ kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion
 }
 
 ///< Returns the dot product of the 2 quaternions
-const kmScalar kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2)
+kmScalar kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2)
 {
 	/* A dot B = B dot A = AtBt + AxBx + AyBy + AzBz */
 
