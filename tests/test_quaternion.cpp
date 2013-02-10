@@ -17,4 +17,19 @@ TEST(test_quaternion_multiply_vec3) {
     CHECK(kmVec3AreEqual(&expected, &v));
 }
 
+TEST(test_quaternion_slerp_edge_case) {
+    kmQuaternion initial, dest;
+    kmQuaternionFill(&initial, 0, 0, 0.230166689, 0.973177314);
+    kmQuaternionFill(&dest, 0, 0, 0.233441412, 0.972370863);
+
+    double step = 0.016666666666666666;
+
+    kmQuaternion result;
+    kmQuaternionSlerp(&result, &initial, &dest, step);
+
+    CHECK(!isnan(result.x));
+    CHECK(!isnan(result.y));
+    CHECK(!isnan(result.z));
+    CHECK(!isnan(result.w));
+}
 

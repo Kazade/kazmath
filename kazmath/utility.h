@@ -86,6 +86,8 @@ extern kmScalar min(kmScalar lhs, kmScalar rhs);
 extern kmScalar max(kmScalar lhs, kmScalar rhs);
 extern kmBool kmAlmostEqual(kmScalar lhs, kmScalar rhs);
 
+extern kmScalar kmClamp(kmScalar x, kmScalar min, kmScalar max);
+
 #ifdef __cplusplus
 }
 #endif

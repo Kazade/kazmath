@@ -348,42 +348,34 @@ kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut,
 								kmScalar t)
 {
 
- /*kmScalar CosTheta = Q0.DotProd(Q1);
-  kmScalar Theta = acosf(CosTheta);
-  kmScalar SinTheta = sqrtf(1.0f-CosTheta*CosTheta);
+    kmScalar dot = kmQuaternionDot(q1, q2);
+    const double DOT_THRESHOLD = 0.9995;
 
-  kmScalar Sin_T_Theta = sinf(T*Theta)/SinTheta;
-  kmScalar Sin_OneMinusT_Theta = sinf((1.0f-T)*Theta)/SinTheta;
+    if (dot > DOT_THRESHOLD) {
+        kmQuaternion diff;
+        kmQuaternionSubtract(&diff, q2, q1);
+        kmQuaternionScale(&diff, &diff, t);
 
-  Quaternion Result = Q0*Sin_OneMinusT_Theta;
-  Result += (Q1*Sin_T_Theta);
+        kmQuaternionAdd(pOut, q1, &diff);
+        kmQuaternionNormalize(pOut, pOut);
+        return pOut;
+    }
 
-  return Result;*/
+    dot = kmClamp(dot, -1, 1);
 
-	if (q1->x == q2->x &&
-	    q1->y == q2->y &&
-		q1->z == q2->z &&
-		q1->w == q2->w) {
+    kmScalar theta_0 = acos(dot);
+    kmScalar theta = theta_0 * t;
 
-		pOut->x = q1->x;
-		pOut->y = q1->y;
-		pOut->z = q1->z;
-		pOut->w = q1->w;
+    kmQuaternion tmp;
+    kmQuaternionScale(&tmp, q1, dot);
+    kmQuaternionSubtract(&tmp, q2, &tmp);
+    kmQuaternionNormalize(&tmp, &tmp);
 
-		return pOut;
-	}
+    kmQuaternion t1, t2;
+    kmQuaternionScale(&t1, q1, cos(theta));
+    kmQuaternionScale(&t2, &tmp, sin(theta));
 
-	kmScalar ct = kmQuaternionDot(q1, q2);
-	kmScalar theta = acosf(ct);
-	kmScalar st = sqrtf(1.0 - kmSQR(ct));
-
-	kmScalar stt = sinf(t * theta) / st;
-	kmScalar somt = sinf((1.0 - t) * theta) / st;
-
-	kmQuaternion temp, temp2;
-	kmQuaternionScale(&temp, q1, somt);
-	kmQuaternionScale(&temp2, q2, stt);
-	kmQuaternionAdd(pOut, &temp, &temp2);
+    kmQuaternionAdd(pOut, &t1, &t2);
 
 	return pOut;
 }
@@ -436,6 +428,15 @@ kmQuaternion* kmQuaternionAssign(kmQuaternion* pOut, const kmQuaternion* pIn)
 	memcpy(pOut, pIn, sizeof(kmScalar) * 4);
 
 	return pOut;
+}
+
+kmQuaternion* kmQuaternionSubtract(kmQuaternion* pOut, const kmQuaternion* pQ1, const kmQuaternion* pQ2) {
+    pOut->x = pQ1->x - pQ2->x;
+    pOut->y = pQ1->y - pQ2->y;
+    pOut->z = pQ1->z - pQ2->z;
+    pOut->w = pQ1->w - pQ2->w;
+
+    return pOut;
 }
 
 kmQuaternion* kmQuaternionAdd(kmQuaternion* pOut, const kmQuaternion* pQ1, const kmQuaternion* pQ2)
