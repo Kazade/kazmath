@@ -32,9 +32,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "vec3.h"
 #include "quaternion.h"
 
-
+kmQuaternion* kmQuaternionFill(kmQuaternion* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w) {
+	pOut->x = x;
+	pOut->y = y;
+	pOut->z = z;
+	pOut->w = w;
+	return pOut;
+}
 ///< Returns the dot product of the 2 quaternions
-const kmScalar kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2)
+kmScalar kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2)
 {
 	/* A dot B = B dot A = AtBt + AxBx + AyBy + AzBz */
 
@@ -517,28 +523,22 @@ kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const kmVec3* 
 
 }
 
-kmQuaternion* kmQuaternionFill(kmQuaternion* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w) {
-	pOut->x = x;
-	pOut->y = y;
-	pOut->z = z;
-	pOut->w = w;
-	return pOut;
-}
-
 kmVec3* kmQuaternionMultiplyVec3(kmVec3* pOut, const kmQuaternion* q, const kmVec3* v) {
-    kmScalar length = kmVec3Length(v);
+	kmVec3 uv, uuv, qvec;
 
-	kmQuaternion p, qi, res;
-	kmQuaternionFill(&p, v->x, v->y, v->z, 0);
-    kmQuaternionNormalize(&p, &p);
+	qvec.x = q->x;
+	qvec.y = q->y;
+	qvec.z = q->z;
 
-	kmQuaternionInverse(&qi, q);
+	kmVec3Cross(&uv, &qvec, v);
+	kmVec3Cross(&uuv, &qvec, &uv);
 
-    kmQuaternionMultiply(&res, &p, &qi);
-    kmQuaternionMultiply(&res, q, &res);
-	
-	kmVec3Fill(pOut, res.x, res.y, res.z);
-    kmVec3Scale(pOut, pOut, length);
+	kmVec3Scale(&uv, &uv, (2.0f * q->w));
+	kmVec3Scale(&uuv, &uuv, 2.0f);
+
+	kmVec3Add(pOut, v, &uv);
+	kmVec3Add(pOut, pOut, &uuv);
+
 	return pOut;
 }
 
