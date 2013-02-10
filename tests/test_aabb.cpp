@@ -1,4 +1,4 @@
-#include <unittest++/UnitTest++.h>
+#include <UnitTest++.h>
 #include <limits>
 
 #include "../kazmath/aabb.h"

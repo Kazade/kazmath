@@ -32,16 +32,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "vec3.h"
 #include "quaternion.h"
 
-///< Returns pOut, sets pOut to the conjugate of pIn
-kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn)
-{
-	pOut->x = -pIn->x;
-	pOut->y = -pIn->y;
-	pOut->z = -pIn->z;
-	pOut->w = pIn->w;
-
-	return pOut;
-}
 
 ///< Returns the dot product of the 2 quaternions
 const kmScalar kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2)
@@ -78,7 +68,6 @@ kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
 											const kmQuaternion* pIn)
 {
 	kmScalar l = kmQuaternionLength(pIn);
-    kmQuaternion tmp;
 
 	if (fabs(l) < kmEpsilon)
 	{
@@ -90,11 +79,10 @@ kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
 		return pOut;
 	}
 
-
-
-	///Get the conjugute and divide by the length
-	kmQuaternionScale(pOut,
-				kmQuaternionConjugate(&tmp, pIn), 1.0f / l);
+    pOut->x = -pIn->x;
+    pOut->y = -pIn->y;
+    pOut->z = -pIn->z;
+    pOut->w = pIn->w;
 
 	return pOut;
 }
@@ -109,14 +97,13 @@ int kmQuaternionIsIdentity(const kmQuaternion* pIn)
 ///< Returns the length of the quaternion
 kmScalar kmQuaternionLength(const kmQuaternion* pIn)
 {
-	return sqrtf(kmQuaternionLengthSq(pIn));
+    return sqrt(kmQuaternionLengthSq(pIn));
 }
 
 ///< Returns the length of the quaternion squared (prevents a sqrt)
 kmScalar kmQuaternionLengthSq(const kmQuaternion* pIn)
 {
-	return pIn->x * pIn->x + pIn->y * pIn->y +
-						pIn->z * pIn->z + pIn->w * pIn->w;
+    return pIn->x * pIn->x + pIn->y * pIn->y + pIn->z * pIn->z + pIn->w * pIn->w;
 }
 
 ///< Returns the natural logarithm
@@ -137,9 +124,17 @@ kmQuaternion* kmQuaternionLn(kmQuaternion* pOut,
 ///< Multiplies 2 quaternions together
 extern
 kmQuaternion* kmQuaternionMultiply(kmQuaternion* pOut,
-								 const kmQuaternion* q1,
-								 const kmQuaternion* q2)
+                                 const kmQuaternion* qu1,
+                                 const kmQuaternion* qu2)
 {
+    kmQuaternion tmp1, tmp2;
+    kmQuaternionAssign(&tmp1, qu1);
+    kmQuaternionAssign(&tmp2, qu2);
+
+    //Just aliasing
+    kmQuaternion* q1 = &tmp1;
+    kmQuaternion* q2 = &tmp2;
+
 	pOut->x = q1->w * q2->x + q1->x * q2->w + q1->y * q2->z - q1->z * q2->y;
 	pOut->y = q1->w * q2->y + q1->y * q2->w + q1->z * q2->x - q1->x * q2->z;
 	pOut->z = q1->w * q2->z + q1->z * q2->w + q1->x * q2->y - q1->y * q2->x;
@@ -153,8 +148,23 @@ kmQuaternion* kmQuaternionNormalize(kmQuaternion* pOut,
 											const kmQuaternion* pIn)
 {
 	kmScalar length = kmQuaternionLength(pIn);
-	assert(fabs(length) > kmEpsilon);
-	kmQuaternionScale(pOut, pIn, 1.0f / length);
+
+    if (fabs(length) < kmEpsilon)
+    {
+        pOut->x = 0.0;
+        pOut->y = 0.0;
+        pOut->z = 0.0;
+        pOut->w = 0.0;
+
+        return pOut;
+    }
+
+    kmQuaternionFill(pOut,
+        pOut->x / length,
+        pOut->y / length,
+        pOut->z / length,
+        pOut->w / length
+    );
 
 	return pOut;
 }
@@ -171,6 +181,8 @@ kmQuaternion* kmQuaternionRotationAxis(kmQuaternion* pOut,
 	pOut->x = pV->x * scale;
 	pOut->y = pV->y * scale;
 	pOut->z = pV->z * scale;
+
+	kmQuaternionNormalize(pOut, pOut);
 
 	return pOut;
 }
@@ -296,38 +308,31 @@ taken from the Matrix and Quaternion FAQ
 }
 
 ///< Create a quaternion from yaw, pitch and roll
-kmQuaternion* kmQuaternionRotationYawPitchRoll(kmQuaternion* pOut,
-												kmScalar yaw,
-												kmScalar pitch,
+kmQuaternion* kmQuaternionRotationPitchYawRoll(kmQuaternion* pOut,
+                                                kmScalar pitch,
+                                                kmScalar yaw,
 												kmScalar roll)
 {
-	kmScalar	ex, ey, ez;		// temp half euler angles
-	kmScalar	cr, cp, cy, sr, sp, sy, cpcy, spsy;		// temp vars in roll,pitch yaw
+    assert(pitch <= 2*kmPI);
+    assert(yaw <= 2*kmPI);
+    assert(roll <= 2*kmPI);
 
-	ex = kmDegreesToRadians(pitch) / 2.0f;	// convert to rads and half them
-	ey = kmDegreesToRadians(yaw) / 2.0f;
-	ez = kmDegreesToRadians(roll) / 2.0f;
+    kmVec3 x, y, z;
+    kmQuaternion qx, qy, qz;
 
-	cr = cosf(ex);
-	cp = cosf(ey);
-	cy = cosf(ez);
+    kmVec3Fill(&x, 1, 0, 0);
+    kmVec3Fill(&y, 0, 1, 0);
+    kmVec3Fill(&z, 0, 0, 1);
 
-	sr = sinf(ex);
-	sp = sinf(ey);
-	sy = sinf(ez);
+    kmQuaternionRotationAxis(&qx, &x, pitch);
+    kmQuaternionRotationAxis(&qy, &y, yaw);
+    kmQuaternionRotationAxis(&qz, &z, roll);
 
-	cpcy = cp * cy;
-	spsy = sp * sy;
+    kmQuaternionMultiply(pOut, &qx, &qy);
+    kmQuaternionMultiply(pOut, pOut, &qz);
+    kmQuaternionNormalize(pOut, pOut);
 
-	pOut->w = cr * cpcy + sr * spsy;
-
-	pOut->x = sr * cpcy - cr * spsy;
-	pOut->y = cr * sp * cy + sr * cp * sy;
-	pOut->z = cr * cp * sy - sr * sp * cy;
-
-	kmQuaternionNormalize(pOut, pOut);
-
-	return pOut;
+    return pOut;
 }
 
 ///< Interpolate between 2 quaternions
@@ -512,22 +517,28 @@ kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const kmVec3* 
 
 }
 
+kmQuaternion* kmQuaternionFill(kmQuaternion* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w) {
+	pOut->x = x;
+	pOut->y = y;
+	pOut->z = z;
+	pOut->w = w;
+	return pOut;
+}
+
 kmVec3* kmQuaternionMultiplyVec3(kmVec3* pOut, const kmQuaternion* q, const kmVec3* v) {
-	kmVec3 uv, uuv, qvec;
+    kmScalar length = kmVec3Length(v);
 
-	qvec.x = q->x;
-	qvec.y = q->y;
-	qvec.z = q->z;
+	kmQuaternion p, qi, res;
+	kmQuaternionFill(&p, v->x, v->y, v->z, 0);
+    kmQuaternionNormalize(&p, &p);
 
-	kmVec3Cross(&uv, &qvec, v);
-	kmVec3Cross(&uuv, &qvec, &uv);
+	kmQuaternionInverse(&qi, q);
 
-	kmVec3Scale(&uv, &uv, (2.0f * q->w));
-	kmVec3Scale(&uuv, &uuv, 2.0f);
-
-	kmVec3Add(pOut, v, &uv);
-	kmVec3Add(pOut, pOut, &uuv);
-
+    kmQuaternionMultiply(&res, &p, &qi);
+    kmQuaternionMultiply(&res, q, &res);
+	
+	kmVec3Fill(pOut, res.x, res.y, res.z);
+    kmVec3Scale(pOut, pOut, length);
 	return pOut;
 }
 

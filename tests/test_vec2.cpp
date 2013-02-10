@@ -1,4 +1,4 @@
-#include <unittest++/UnitTest++.h>
+#include <UnitTest++.h>
 
 #include "../kazmath/vec2.h"
 #include "../kazmath/utility.h"

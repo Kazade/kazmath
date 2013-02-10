@@ -79,3 +79,4 @@ tests/test_vec2.cpp
 ChangeLog
 CMakeLists.txt
 README
+tests/test_quaternion.cpp

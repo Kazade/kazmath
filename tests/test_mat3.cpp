@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <cstring>
-#include <unittest++/UnitTest++.h>
+#include <UnitTest++.h>
 
 #include "../kazmath/mat3.h"
 #include "../kazmath/vec3.h"
