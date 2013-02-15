@@ -36,6 +36,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mat3.h"
 #include "vec3.h"
 
+kmVec3 KM_VEC3_FORWARD = { 0, 0, 1 };
+kmVec3 KM_VEC3_BACKWARD = { 0, 0, -1 };
+kmVec3 KM_VEC3_UP = { 0, 1, 0 };
+kmVec3 KM_VEC3_DOWN = { 0, -1, 0 };
+kmVec3 KM_VEC3_LEFT = { -1, 0, 0 };
+kmVec3 KM_VEC3_RIGHT = { 1, 0, 0 };
+
 /**
  * Fill a kmVec3 structure using 3 floating point values
  * The result is store in pOut, returns pOut

@@ -67,6 +67,13 @@ kmVec3* kmVec3Zero(kmVec3* pOut);
 kmVec3* kmVec3GetHorizontalAngle(kmVec3* pOut, const kmVec3 *pIn); /** Get the rotations that would make a (0,0,1) direction vector point in the same direction as this direction vector. */
 kmVec3* kmVec3RotationToDirection(kmVec3* pOut, const kmVec3* pIn, const kmVec3* forwards); /** Builds a direction vector from input vector. */
 
+extern kmVec3 KM_VEC3_FORWARD;
+extern kmVec3 KM_VEC3_BACKWARD;
+extern kmVec3 KM_VEC3_UP;
+extern kmVec3 KM_VEC3_DOWN;
+extern kmVec3 KM_VEC3_LEFT;
+extern kmVec3 KM_VEC3_RIGHT;
+
 #ifdef __cplusplus
 }
 #endif

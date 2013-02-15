@@ -55,7 +55,16 @@ kmScalar kmPlaneDotNormal(const kmPlane* pP, const kmVec3* pV)
 	    pP->c * pV->z);
 }
 
-kmPlane* kmPlaneFromPointNormal(kmPlane* pOut, const kmVec3* pPoint, const kmVec3* pNormal)
+kmPlane* kmPlaneFromNormalAndDistance(kmPlane* plane, const struct kmVec3* normal, const kmScalar dist) {
+    plane->a = normal->x;
+    plane->b = normal->y;
+    plane->c = normal->z;
+    plane->d = dist;
+
+    return plane;
+}
+
+kmPlane* kmPlaneFromPointAndNormal(kmPlane* pOut, const kmVec3* pPoint, const kmVec3* pNormal)
 {
     /*
 	Planea = Nx

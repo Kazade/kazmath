@@ -56,7 +56,8 @@ typedef enum POINT_CLASSIFICATION {
 kmScalar kmPlaneDot(const kmPlane* pP, const struct kmVec4* pV);
 kmScalar kmPlaneDotCoord(const kmPlane* pP, const struct kmVec3* pV);
 kmScalar kmPlaneDotNormal(const kmPlane* pP, const struct kmVec3* pV);
-kmPlane* kmPlaneFromPointNormal(kmPlane* pOut, const struct kmVec3* pPoint, const struct kmVec3* pNormal);
+kmPlane* kmPlaneFromNormalAndDistance(kmPlane* plane, const struct kmVec3* normal, const kmScalar dist);
+kmPlane* kmPlaneFromPointAndNormal(kmPlane* pOut, const struct kmVec3* pPoint, const struct kmVec3* pNormal);
 kmPlane* kmPlaneFromPoints(kmPlane* pOut, const struct kmVec3* p1, const struct kmVec3* p2, const struct kmVec3* p3);
 struct kmVec3* kmPlaneIntersectLine(struct kmVec3* pOut, const kmPlane* pP, const struct kmVec3* pV1, const struct kmVec3* pV2);
 kmPlane* kmPlaneNormalize(kmPlane* pOut, const kmPlane* pP);
