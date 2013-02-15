@@ -244,3 +244,11 @@ kmVec3* kmPlaneGetIntersection(kmVec3* pOut, const kmPlane* p1, const kmPlane* p
     return pOut;
 }
 
+kmPlane* kmPlaneFill(kmPlane* plane, kmScalar a, kmScalar b, kmScalar c, kmScalar d) {
+    plane->a = a;
+    plane->b = b;
+    plane->c = c;
+    plane->d = d;
+
+    return plane;
+}

@@ -31,6 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct kmMat4;
 struct kmMat3;
+struct kmPlane;
 
 typedef struct kmVec3 {
 	kmScalar x;
@@ -66,6 +67,8 @@ kmVec3* kmVec3Assign(kmVec3* pOut, const kmVec3* pIn);
 kmVec3* kmVec3Zero(kmVec3* pOut);
 kmVec3* kmVec3GetHorizontalAngle(kmVec3* pOut, const kmVec3 *pIn); /** Get the rotations that would make a (0,0,1) direction vector point in the same direction as this direction vector. */
 kmVec3* kmVec3RotationToDirection(kmVec3* pOut, const kmVec3* pIn, const kmVec3* forwards); /** Builds a direction vector from input vector. */
+
+kmVec3* kmVec3ProjectOnToPlane(kmVec3* pOut, const kmVec3* point, const struct kmPlane* plane);
 
 extern kmVec3 KM_VEC3_FORWARD;
 extern kmVec3 KM_VEC3_BACKWARD;

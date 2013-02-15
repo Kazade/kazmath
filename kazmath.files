@@ -83,3 +83,4 @@ tests/test_quaternion.cpp
 kazmath/ray3.h
 kazmath/ray3.c
 tests/test_ray3.cpp
+tests/test_vec3.cpp

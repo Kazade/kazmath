@@ -53,6 +53,7 @@ typedef enum POINT_CLASSIFICATION {
 	POINT_ON_PLANE,
 } POINT_CLASSIFICATION;
 
+kmPlane* kmPlaneFill(kmPlane* plane, float a, float b, float c, float d);
 kmScalar kmPlaneDot(const kmPlane* pP, const struct kmVec4* pV);
 kmScalar kmPlaneDotCoord(const kmPlane* pP, const struct kmVec3* pV);
 kmScalar kmPlaneDotNormal(const kmPlane* pP, const struct kmVec3* pV);

@@ -35,5 +35,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "plane.h"
 #include "aabb.h"
 #include "ray2.h"
+#include "ray3.h"
 
 #endif // KAZMATH_H_INCLUDED

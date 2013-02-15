@@ -35,6 +35,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mat4.h"
 #include "mat3.h"
 #include "vec3.h"
+#include "plane.h"
+#include "ray3.h"
 
 kmVec3 KM_VEC3_FORWARD = { 0, 0, 1 };
 kmVec3 KM_VEC3_BACKWARD = { 0, 0, -1 };
@@ -403,4 +405,15 @@ kmVec3* kmVec3RotationToDirection(kmVec3* pOut, const kmVec3* pIn, const kmVec3*
              forwards->z * pseudoMatrix[8];
 
    return pOut;
+}
+
+kmVec3* kmVec3ProjectOnToPlane(kmVec3* pOut, const kmVec3* point, const struct kmPlane* plane) {
+    kmRay3 ray;
+    kmVec3Assign(&ray.start, point);
+    ray.dir.x = -plane->a;
+    ray.dir.y = -plane->b;
+    ray.dir.z = -plane->c;
+
+    kmRay3IntersectPlane(pOut, &ray, plane);
+    return pOut;
 }
