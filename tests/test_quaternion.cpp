@@ -33,3 +33,26 @@ TEST(test_quaternion_slerp_edge_case) {
     CHECK(!isnan(result.w));
 }
 
+TEST(test_quaternion_get_up_vector) {
+    kmQuaternion q;
+    kmVec3 axis;
+    kmVec3Fill(&axis, 1, 0, 0);
+    kmQuaternionRotationAxis(&q, &axis, kmDegreesToRadians(90));
+
+    kmVec3 up, right, forward;
+    kmQuaternionGetUpVector(&up, &q);
+    kmQuaternionGetRightVector(&right, &q);
+    kmQuaternionGetForwardVector(&forward, &q);
+
+    CHECK_CLOSE(0.0, up.x, 0.0001);
+    CHECK_CLOSE(0.0, up.y, 0.0001);
+    CHECK_CLOSE(1.0, up.z, 0.0001);
+
+    CHECK_CLOSE(1.0, right.x, 0.0001);
+    CHECK_CLOSE(0.0, right.y, 0.0001);
+    CHECK_CLOSE(0.0, right.z, 0.0001);
+
+    CHECK_CLOSE(0.0, forward.x, 0.0001);
+    CHECK_CLOSE(-1.0, forward.y, 0.0001);
+    CHECK_CLOSE(0.0, forward.z, 0.0001);
+}

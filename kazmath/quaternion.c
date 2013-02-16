@@ -543,3 +543,25 @@ kmVec3* kmQuaternionMultiplyVec3(kmVec3* pOut, const kmQuaternion* q, const kmVe
 	return pOut;
 }
 
+kmVec3* kmQuaternionGetUpVector(kmVec3* pOut, const kmQuaternion* pIn) {
+    pOut->x = 2 * (pIn->x * pIn->y - pIn->w * pIn->z);
+    pOut->y = 1 - 2 * (pIn->x * pIn->x + pIn->z * pIn->z);
+    pOut->z = 2 * (pIn->y * pIn->z + pIn->w * pIn->x);
+
+    return pOut;
+}
+
+kmVec3* kmQuaternionGetRightVector(kmVec3* pOut, const kmQuaternion* pIn) {
+    pOut->x = 1 - 2 * (pIn->y * pIn->y + pIn->z * pIn->z);
+    pOut->y = 2 * (pIn->x * pIn->y + pIn->w * pIn->z);
+    pOut->z = 2 * (pIn->x * pIn->z - pIn->w * pIn->y);
+
+    return pOut;
+}
+
+kmVec3* kmQuaternionGetForwardVector(kmVec3* pOut, const kmQuaternion* pIn) {
+    pOut->x = 2 * (pIn->x * pIn->z + pIn->w * pIn->y);
+    pOut->y = 2 * (pIn->y * pIn->x - pIn->w * pIn->x);
+    pOut->z = 1 - 2 * (pIn->x * pIn->x + pIn->y * pIn->y);
+    return pOut;
+}

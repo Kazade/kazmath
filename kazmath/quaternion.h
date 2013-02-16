@@ -106,6 +106,10 @@ kmQuaternion* kmQuaternionSubtract(kmQuaternion* pOut, const kmQuaternion* pQ1, 
 kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const struct kmVec3* vec1, const struct kmVec3* vec2, const struct kmVec3* fallback);
 struct kmVec3* kmQuaternionMultiplyVec3(struct kmVec3* pOut, const kmQuaternion* q, const struct kmVec3* v);
 
+kmVec3* kmQuaternionGetUpVector(kmVec3* pOut, const kmQuaternion* pIn);
+kmVec3* kmQuaternionGetRightVector(kmVec3* pOut, const kmQuaternion* pIn);
+kmVec3* kmQuaternionGetForwardVector(kmVec3* pOut, const kmQuaternion* pIn);
+
 #ifdef __cplusplus
 }
 #endif
