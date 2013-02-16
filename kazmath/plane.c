@@ -184,7 +184,7 @@ kmPlane* kmPlaneScale(kmPlane* pOut, const kmPlane* pP, kmScalar s)
  * Returns POINT_INFRONT_OF_PLANE if pP is infront of pIn. Returns
  * POINT_BEHIND_PLANE if it is behind. Returns POINT_ON_PLANE otherwise
  */
-POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane* pIn, const kmVec3* pP)
+KM_POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane* pIn, const kmVec3* pP)
 {
    // This function will determine if a point is on, in front of, or behind
    // the plane.  First we store the dot product of the plane and the point.
