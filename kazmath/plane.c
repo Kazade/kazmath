@@ -192,8 +192,8 @@ KM_POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane* pIn, const kmVec3* p
 
    // Simply put if the dot product is greater than 0 then it is infront of it.
    // If it is less than 0 then it is behind it.  And if it is 0 then it is on it.
-   if(distance > 0.001) return POINT_INFRONT_OF_PLANE;
-   if(distance < -0.001) return POINT_BEHIND_PLANE;
+   if(distance > kmEpsilon) return POINT_INFRONT_OF_PLANE;
+   if(distance < -kmEpsilon) return POINT_BEHIND_PLANE;
 
    return POINT_ON_PLANE;
 }
