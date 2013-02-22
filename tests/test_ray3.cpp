@@ -1,4 +1,4 @@
-#include <unittest++/UnitTest++.h>
+#include <UnitTest++.h>
 
 #include "../kazmath/ray3.h"
 #include "../kazmath/plane.h"
