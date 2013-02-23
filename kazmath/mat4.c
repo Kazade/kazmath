@@ -304,7 +304,7 @@ int kmMat4AreEqual(const kmMat4* pMat1, const kmMat4* pMat2)
 kmMat4* kmMat4RotationAxisAngle(kmMat4* pOut, const kmVec3* axis, kmScalar radians)
 {
     kmQuaternion quat;
-    kmQuaternionRotationAxis(&quat, axis, radians);
+    kmQuaternionRotationAxisAngle(&quat, axis, radians);
     kmMat4RotationQuaternion(pOut, &quat);
     return pOut;
 }

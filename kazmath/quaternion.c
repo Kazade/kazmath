@@ -187,7 +187,7 @@ kmQuaternion* kmQuaternionNormalize(kmQuaternion* pOut,
 }
 
 ///< Rotates a quaternion around an axis
-kmQuaternion* kmQuaternionRotationAxis(kmQuaternion* pOut,
+kmQuaternion* kmQuaternionRotationAxisAngle(kmQuaternion* pOut,
 									const kmVec3* pV,
 									kmScalar angle)
 {
@@ -490,7 +490,7 @@ kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const kmVec3* 
 
 	if (a < (1e-6f - 1.0f))	{
 		if (fabs(kmVec3LengthSq(fallback)) < kmEpsilon) {
-			kmQuaternionRotationAxis(pOut, fallback, kmPI);
+            kmQuaternionRotationAxisAngle(pOut, fallback, kmPI);
 		} else {
 			kmVec3 axis;
 			kmVec3 X;
@@ -513,7 +513,7 @@ kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const kmVec3* 
 
 			kmVec3Normalize(&axis, &axis);
 
-			kmQuaternionRotationAxis(pOut, &axis, kmPI);
+            kmQuaternionRotationAxisAngle(pOut, &axis, kmPI);
 		}
 	} else {
 		kmScalar s = sqrtf((1+a) * 2);

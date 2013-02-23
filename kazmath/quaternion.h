@@ -83,7 +83,7 @@ kmQuaternion* kmQuaternionNormalize(kmQuaternion* pOut, const kmQuaternion* pIn)
 
 ///< Rotates a quaternion around an axis
 
-kmQuaternion* kmQuaternionRotationAxis(kmQuaternion* pOut, const struct kmVec3* pV, kmScalar angle);
+kmQuaternion* kmQuaternionRotationAxisAngle(kmQuaternion* pOut, const struct kmVec3* pV, kmScalar angle);
 
 ///< Creates a quaternion from a rotation matrix
 

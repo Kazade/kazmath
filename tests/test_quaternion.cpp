@@ -36,7 +36,7 @@ TEST(test_quaternion_slerp_edge_case) {
 
 TEST(test_quaternion_get_up_vector) {
     kmQuaternion q;
-    kmQuaternionRotationAxis(&q, &KM_VEC3_POS_X, kmDegreesToRadians(90));
+    kmQuaternionRotationAxisAngle(&q, &KM_VEC3_POS_X, kmDegreesToRadians(90));
 
     kmVec3 up, right, forward;
     kmQuaternionGetUpVec3(&up, &q);
@@ -81,7 +81,7 @@ TEST(test_rotation_around_axis) {
     CHECK(kmVec3AreEqual(&forward, &KM_VEC3_NEG_Z));
 
     kmQuaternion rot2;
-    kmQuaternionRotationAxis(&rot2, &KM_VEC3_POS_X, kmDegreesToRadians(90));
+    kmQuaternionRotationAxisAngle(&rot2, &KM_VEC3_POS_X, kmDegreesToRadians(90));
 
     CHECK_CLOSE(kmDegreesToRadians(90), kmQuaternionGetPitch(&rot2), 0.0001);
 
@@ -96,6 +96,6 @@ TEST(test_rotation_around_axis) {
     CHECK(kmVec3AreEqual(&right, &KM_VEC3_POS_X));
     CHECK(kmVec3AreEqual(&forward, &KM_VEC3_POS_Y));
 
-    kmQuaternionRotationAxis(&rot2, &KM_VEC3_POS_X, kmDegreesToRadians(-90));
+    kmQuaternionRotationAxisAngle(&rot2, &KM_VEC3_POS_X, kmDegreesToRadians(-90));
     CHECK_CLOSE(kmDegreesToRadians(-90), kmQuaternionGetPitch(&rot2), 0.0001);
 }

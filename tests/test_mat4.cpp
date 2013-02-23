@@ -57,7 +57,7 @@ TEST(test_mat4_transpose) {
 
 TEST(test_mat4_rotation_y) {
     kmQuaternion q;
-    kmQuaternionRotationAxis(&q, &KM_VEC3_POS_X, kmDegreesToRadians(90));
+    kmQuaternionRotationAxisAngle(&q, &KM_VEC3_POS_X, kmDegreesToRadians(90));
 
     kmMat4 quaternion_rotated;
     kmMat4RotationQuaternion(&quaternion_rotated, &q);
@@ -79,7 +79,7 @@ TEST(test_mat4_rotation_z) {
     kmMat4 initialized;
     kmMat4 quaternion_rotated;
 
-    kmQuaternionRotationAxis(&q, &KM_VEC3_POS_Z, kmDegreesToRadians(90));
+    kmQuaternionRotationAxisAngle(&q, &KM_VEC3_POS_Z, kmDegreesToRadians(90));
     kmMat4RotationAxisAngle(&initialized, &KM_VEC3_POS_Z, kmDegreesToRadians(90));
 
     kmMat4RotationQuaternion(&quaternion_rotated, &q);
