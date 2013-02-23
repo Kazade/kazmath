@@ -2,7 +2,11 @@
 #include <cstdio>
 #include <memory.h>
 #include <UnitTest++.h>
+
 #include "../kazmath/mat4.h"
+#include "../kazmath/quaternion.h"
+#include "../kazmath/vec3.h"
+#include "../kazmath/mat3.h"
 
 void print_matrix4(const kmMat4* mat)
 {
@@ -51,3 +55,83 @@ TEST(test_mat4_transpose) {
     CHECK(kmMat4AreEqual(&transpose, &result));
 }
 
+TEST(test_mat4_rotation_y) {
+    kmQuaternion q;
+    kmQuaternionRotationAxis(&q, &KM_VEC3_POS_X, kmDegreesToRadians(90));
+
+    kmMat4 quaternion_rotated;
+    kmMat4RotationQuaternion(&quaternion_rotated, &q);
+
+    kmMat4 initialized;
+    kmMat4RotationYawPitchRoll(&initialized, kmDegreesToRadians(90), 0, 0);
+
+    CHECK(kmMat4AreEqual(&initialized, &quaternion_rotated));
+
+    kmVec3 mat_forward, quat_forward;
+    kmMat4GetForwardVec3RH(&mat_forward, &initialized);
+    kmQuaternionGetForwardVec3RH(&quat_forward, &q);
+
+    CHECK(kmVec3AreEqual(&mat_forward, &quat_forward));
+}
+
+TEST(test_mat4_rotation_z) {
+    kmQuaternion q;
+    kmMat4 initialized;
+    kmMat4 quaternion_rotated;
+
+    kmQuaternionRotationAxis(&q, &KM_VEC3_POS_Z, kmDegreesToRadians(90));
+    kmMat4RotationAxisAngle(&initialized, &KM_VEC3_POS_Z, kmDegreesToRadians(90));
+
+    kmMat4RotationQuaternion(&quaternion_rotated, &q);
+
+    kmVec3 initialized_forward;
+    kmVec3 rotated_forward;
+    kmMat4GetForwardVec3RH(&initialized_forward, &quaternion_rotated);
+    kmMat4GetForwardVec3RH(&rotated_forward, &initialized);
+
+    kmVec3 initialized_up;
+    kmVec3 rotated_up;
+    kmMat4GetUpVec3(&initialized_up, &quaternion_rotated);
+    kmMat4GetUpVec3(&rotated_up, &initialized);
+
+    CHECK(kmVec3AreEqual(&initialized_up, &rotated_up));
+    CHECK(kmMat4AreEqual(&initialized, &quaternion_rotated));
+
+    kmVec3 mat_right, quat_right;
+    kmMat4GetRightVec3(&mat_right, &initialized);
+    kmQuaternionGetRightVec3(&quat_right, &q);
+
+    kmQuaternion from_matrix;
+    kmMat3 rot;
+    kmMat3AssignMat4(&rot, &initialized);
+    kmQuaternionRotationMatrix(&from_matrix, &rot);
+
+    CHECK(kmQuaternionAreEqual(&q, &from_matrix));
+    CHECK(kmVec3AreEqual(&mat_right, &quat_right));
+}
+
+TEST(test_mat4_handedness) {
+    kmMat4 m;
+    kmMat4Identity(&m);
+
+    kmVec3 forward;
+    kmMat4GetForwardVec3RH(&forward, &m);
+
+    CHECK_CLOSE(0, forward.x, 0.0001);
+    CHECK_CLOSE(0, forward.y, 0.0001);
+    CHECK_CLOSE(-1, forward.z, 0.0001);
+
+    kmVec3 right;
+    kmMat4GetRightVec3(&right, &m);
+
+    CHECK_CLOSE(1, right.x, 0.0001);
+    CHECK_CLOSE(0, right.y, 0.0001);
+    CHECK_CLOSE(0, right.z, 0.0001);
+
+    kmVec3 up;
+    kmMat4GetUpVec3(&up, &m);
+
+    CHECK_CLOSE(0, up.x, 0.0001);
+    CHECK_CLOSE(1, up.y, 0.0001);
+    CHECK_CLOSE(0, up.z, 0.0001);
+}

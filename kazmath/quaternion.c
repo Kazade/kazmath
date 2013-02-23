@@ -32,6 +32,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "vec3.h"
 #include "quaternion.h"
 
+int kmQuaternionAreEqual(const kmQuaternion* p1, const kmQuaternion* p2) {
+    if ((p1->x < (p2->x + kmEpsilon) && p1->x > (p2->x - kmEpsilon)) &&
+        (p1->y < (p2->y + kmEpsilon) && p1->y > (p2->y - kmEpsilon)) &&
+        (p1->z < (p2->z + kmEpsilon) && p1->z > (p2->z - kmEpsilon)) &&
+        (p1->w < (p2->w + kmEpsilon) && p1->w > (p2->w - kmEpsilon))) {
+        return 1;
+    }
+
+    return 0;
+}
+
 kmQuaternion* kmQuaternionFill(kmQuaternion* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w) {
 	pOut->x = x;
 	pOut->y = y;
@@ -183,10 +194,10 @@ kmQuaternion* kmQuaternionRotationAxis(kmQuaternion* pOut,
 	kmScalar rad = angle * 0.5f;
 	kmScalar scale	= sinf(rad);
 
-	pOut->w = cosf(rad);
 	pOut->x = pV->x * scale;
 	pOut->y = pV->y * scale;
 	pOut->z = pV->z * scale;
+    pOut->w = cosf(rad);
 
 	kmQuaternionNormalize(pOut, pOut);
 
@@ -323,20 +334,19 @@ kmQuaternion* kmQuaternionRotationPitchYawRoll(kmQuaternion* pOut,
     assert(yaw <= 2*kmPI);
     assert(roll <= 2*kmPI);
 
-    kmVec3 x, y, z;
-    kmQuaternion qx, qy, qz;
+    // Finds the Sin and Cosin for each half angles.
+    float sY = sinf(yaw * 0.5);
+    float cY = cosf(yaw * 0.5);
+    float sZ = sinf(roll * 0.5);
+    float cZ = cosf(roll * 0.5);
+    float sX = sinf(pitch * 0.5);
+    float cX = cosf(pitch * 0.5);
 
-    kmVec3Fill(&x, 1, 0, 0);
-    kmVec3Fill(&y, 0, 1, 0);
-    kmVec3Fill(&z, 0, 0, 1);
-
-    kmQuaternionRotationAxis(&qx, &x, pitch);
-    kmQuaternionRotationAxis(&qy, &y, yaw);
-    kmQuaternionRotationAxis(&qz, &z, roll);
-
-    kmQuaternionMultiply(pOut, &qx, &qy);
-    kmQuaternionMultiply(pOut, pOut, &qz);
-    kmQuaternionNormalize(pOut, pOut);
+    // Formula to construct a new Quaternion based on Euler Angles.
+    pOut->w = cY * cZ * cX - sY * sZ * sX;
+    pOut->x = sY * sZ * cX + cY * cZ * sX;
+    pOut->y = sY * cZ * cX + cY * sZ * sX;
+    pOut->z = cY * sZ * cX - sY * cZ * sX;
 
     return pOut;
 }
@@ -543,25 +553,33 @@ kmVec3* kmQuaternionMultiplyVec3(kmVec3* pOut, const kmQuaternion* q, const kmVe
 	return pOut;
 }
 
-kmVec3* kmQuaternionGetUpVector(kmVec3* pOut, const kmQuaternion* pIn) {
-    pOut->x = 2 * (pIn->x * pIn->y - pIn->w * pIn->z);
-    pOut->y = 1 - 2 * (pIn->x * pIn->x + pIn->z * pIn->z);
-    pOut->z = 2 * (pIn->y * pIn->z + pIn->w * pIn->x);
-
-    return pOut;
+kmVec3* kmQuaternionGetUpVec3(kmVec3* pOut, const kmQuaternion* pIn) {
+    return kmQuaternionMultiplyVec3(pOut, pIn, &KM_VEC3_POS_Y);
 }
 
-kmVec3* kmQuaternionGetRightVector(kmVec3* pOut, const kmQuaternion* pIn) {
-    pOut->x = 1 - 2 * (pIn->y * pIn->y + pIn->z * pIn->z);
-    pOut->y = 2 * (pIn->x * pIn->y + pIn->w * pIn->z);
-    pOut->z = 2 * (pIn->x * pIn->z - pIn->w * pIn->y);
-
-    return pOut;
+kmVec3* kmQuaternionGetRightVec3(kmVec3* pOut, const kmQuaternion* pIn) {
+    return kmQuaternionMultiplyVec3(pOut, pIn, &KM_VEC3_POS_X);
 }
 
-kmVec3* kmQuaternionGetForwardVector(kmVec3* pOut, const kmQuaternion* pIn) {
-    pOut->x = 2 * (pIn->x * pIn->z + pIn->w * pIn->y);
-    pOut->y = 2 * (pIn->y * pIn->x - pIn->w * pIn->x);
-    pOut->z = 1 - 2 * (pIn->x * pIn->x + pIn->y * pIn->y);
-    return pOut;
+kmVec3* kmQuaternionGetForwardVec3RH(kmVec3* pOut, const kmQuaternion* pIn) {
+    return kmQuaternionMultiplyVec3(pOut, pIn, &KM_VEC3_NEG_Z);
+}
+
+kmVec3* kmQuaternionGetForwardVec3LH(kmVec3* pOut, const kmQuaternion* pIn) {
+    return kmQuaternionMultiplyVec3(pOut, pIn, &KM_VEC3_POS_Z);
+}
+
+kmScalar kmQuaternionGetPitch(const kmQuaternion* q) {
+    float result = atan2(2 * (q->y * q->z + q->w * q->x), q->w * q->w - q->x * q->x - q->y * q->y + q->z * q->z);
+    return result;
+}
+
+kmScalar kmQuaternionGetYaw(const kmQuaternion* q) {
+    float result = asin(-2 * (q->x * q->z - q->w * q->y));
+    return result;
+}
+
+kmScalar kmQuaternionGetRoll(const kmQuaternion* q) {
+    float result = atan2(2 * (q->x * q->y + q->w * q->z), q->w * q->w + q->x * q->x - q->y * q->y - q->z * q->z);
+    return result;
 }

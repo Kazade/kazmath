@@ -43,6 +43,7 @@ typedef struct kmQuaternion {
 	kmScalar w;
 } kmQuaternion;
 
+int kmQuaternionAreEqual(const kmQuaternion* p1, const kmQuaternion* p2);
 kmQuaternion* kmQuaternionFill(kmQuaternion* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w);
 kmScalar 	kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2); ///< Returns the dot product of the 2 quaternions
 
@@ -106,9 +107,14 @@ kmQuaternion* kmQuaternionSubtract(kmQuaternion* pOut, const kmQuaternion* pQ1, 
 kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const struct kmVec3* vec1, const struct kmVec3* vec2, const struct kmVec3* fallback);
 struct kmVec3* kmQuaternionMultiplyVec3(struct kmVec3* pOut, const kmQuaternion* q, const struct kmVec3* v);
 
-kmVec3* kmQuaternionGetUpVector(kmVec3* pOut, const kmQuaternion* pIn);
-kmVec3* kmQuaternionGetRightVector(kmVec3* pOut, const kmQuaternion* pIn);
-kmVec3* kmQuaternionGetForwardVector(kmVec3* pOut, const kmQuaternion* pIn);
+kmVec3* kmQuaternionGetUpVec3(kmVec3* pOut, const kmQuaternion* pIn);
+kmVec3* kmQuaternionGetRightVec3(kmVec3* pOut, const kmQuaternion* pIn);
+kmVec3* kmQuaternionGetForwardVec3RH(kmVec3* pOut, const kmQuaternion* pIn);
+kmVec3* kmQuaternionGetForwardVec3LH(kmVec3* pOut, const kmQuaternion* pIn);
+
+kmScalar kmQuaternionGetPitch(const kmQuaternion* q);
+kmScalar kmQuaternionGetYaw(const kmQuaternion* q);
+kmScalar kmQuaternionGetRoll(const kmQuaternion* q);
 
 #ifdef __cplusplus
 }

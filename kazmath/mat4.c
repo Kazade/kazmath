@@ -303,33 +303,10 @@ int kmMat4AreEqual(const kmMat4* pMat1, const kmMat4* pMat2)
  */
 kmMat4* kmMat4RotationAxisAngle(kmMat4* pOut, const kmVec3* axis, kmScalar radians)
 {
-	kmScalar rcos = cosf(radians);
-	kmScalar rsin = sinf(radians);
-
-	kmVec3 normalizedAxis;
-	kmVec3Normalize(&normalizedAxis, axis);
-
-	pOut->mat[0] = rcos + normalizedAxis.x * normalizedAxis.x * (1 - rcos);
-	pOut->mat[1] = normalizedAxis.z * rsin + normalizedAxis.y * normalizedAxis.x * (1 - rcos);
-	pOut->mat[2] = -normalizedAxis.y * rsin + normalizedAxis.z * normalizedAxis.x * (1 - rcos);
-	pOut->mat[3] = 0.0f;
-
-	pOut->mat[4] = -normalizedAxis.z * rsin + normalizedAxis.x * normalizedAxis.y * (1 - rcos);
-	pOut->mat[5] = rcos + normalizedAxis.y * normalizedAxis.y * (1 - rcos);
-	pOut->mat[6] = normalizedAxis.x * rsin + normalizedAxis.z * normalizedAxis.y * (1 - rcos);
-	pOut->mat[7] = 0.0f;
-
-	pOut->mat[8] = normalizedAxis.y * rsin + normalizedAxis.x * normalizedAxis.z * (1 - rcos);
-	pOut->mat[9] = -normalizedAxis.x * rsin + normalizedAxis.y * normalizedAxis.z * (1 - rcos);
-	pOut->mat[10] = rcos + normalizedAxis.z * normalizedAxis.z * (1 - rcos);
-	pOut->mat[11] = 0.0f;
-
-	pOut->mat[12] = 0.0f;
-	pOut->mat[13] = 0.0f;
-	pOut->mat[14] = 0.0f;
-	pOut->mat[15] = 1.0f;
-
-	return pOut;
+    kmQuaternion quat;
+    kmQuaternionRotationAxis(&quat, axis, radians);
+    kmMat4RotationQuaternion(pOut, &quat);
+    return pOut;
 }
 
 /**
@@ -444,74 +421,62 @@ kmMat4* kmMat4RotationZ(kmMat4* pOut, const kmScalar radians)
  * Builds a rotation matrix from pitch, yaw and roll. The resulting
  * matrix is stored in pOut and pOut is returned
  */
-kmMat4* kmMat4RotationPitchYawRoll(kmMat4* pOut, const kmScalar pitch, const kmScalar yaw, const kmScalar roll)
+kmMat4* kmMat4RotationYawPitchRoll(kmMat4* pOut, const kmScalar pitch, const kmScalar yaw, const kmScalar roll)
 {
-	double cr = cos(pitch);
-	double sr = sin(pitch);
-	double cp = cos(yaw);
-	double sp = sin(yaw);
-	double cy = cos(roll);
-	double sy = sin(roll);
-	double srsp = sr * sp;
-	double crsp = cr * sp;
 
-	pOut->mat[0] = (kmScalar) cp * cy;
-	pOut->mat[4] = (kmScalar) cp * sy;
-	pOut->mat[8] = (kmScalar) - sp;
+    kmMat4 yaw_matrix;
+    kmMat4RotationY(&yaw_matrix, yaw);
 
-	pOut->mat[1] = (kmScalar) srsp * cy - cr * sy;
-	pOut->mat[5] = (kmScalar) srsp * sy + cr * cy;
-	pOut->mat[9] = (kmScalar) sr * cp;
+    kmMat4 pitch_matrix;
+    kmMat4RotationX(&pitch_matrix, pitch);
 
-	pOut->mat[2] = (kmScalar) crsp * cy + sr * sy;
-	pOut->mat[6] = (kmScalar) crsp * sy - sr * cy;
-	pOut->mat[10] = (kmScalar) cr * cp;
+    kmMat4 roll_matrix;
+    kmMat4RotationZ(&roll_matrix, roll);
 
-	pOut->mat[3] = pOut->mat[7] = pOut->mat[11] = 0.0;
-	pOut->mat[15] = 1.0;
+    kmMat4Multiply(pOut, &pitch_matrix, &roll_matrix);
+    kmMat4Multiply(pOut, &yaw_matrix, pOut);
 
-	return pOut;
+    return pOut;
 }
 
 /** Converts a quaternion to a rotation matrix,
  * the result is stored in pOut, returns pOut
  */
 kmMat4* kmMat4RotationQuaternion(kmMat4* pOut, const kmQuaternion* pQ)
-{
-    kmScalar x2 = pQ->x * pQ->x;
-    kmScalar y2 = pQ->y * pQ->y;
-    kmScalar z2 = pQ->z * pQ->z;
-    kmScalar xy = pQ->x * pQ->y;
-    kmScalar xz = pQ->x * pQ->z;
-    kmScalar yz = pQ->y * pQ->z;
-    kmScalar wx = pQ->w * pQ->x;
-    kmScalar wy = pQ->w * pQ->y;
-    kmScalar wz = pQ->w * pQ->z;
+{    
+    double xx = pQ->x * pQ->x;
+    double xy = pQ->x * pQ->y;
+    double xz = pQ->x * pQ->z;
+    double xw = pQ->x * pQ->w;
 
-	pOut->mat[0] = 1.0 - 2.0 * (y2 + z2);
-	pOut->mat[1] = 2.0 * (xy - wz);
-	pOut->mat[2] = 2.0 * (xz + wy);
-	pOut->mat[3] = 0.0;
+    double yy = pQ->y * pQ->y;
+    double yz = pQ->y * pQ->z;
+    double yw = pQ->y * pQ->w;
 
-	// Second row
-	pOut->mat[4] = 2.0 * (xy + wz);
-	pOut->mat[5] = 1.0 - 2.0 * (x2 + z2);
-	pOut->mat[6] = 2.0 * (yz - wx);
-	pOut->mat[7] = 0.0;
+    double zz = pQ->z * pQ->z;
+    double zw = pQ->z * pQ->w;
 
-	// Third row
-	pOut->mat[8] = 2.0 * (xz - wy);
-	pOut->mat[9] = 2.0 * (yz + wx);
-	pOut->mat[10] = 1.0 - 2.0 * (x2 + y2);
-	pOut->mat[11] = 0.0;
+    pOut->mat[0] = 1 - 2 * (yy + zz);
+    pOut->mat[1] = 2 * (xy + zw);
+    pOut->mat[2] = 2 * (xz - yw);
+    pOut->mat[3] = 0;
 
-	// Fourth row
-	pOut->mat[12] = 0;
-	pOut->mat[13] = 0;
-	pOut->mat[14] = 0;
-	pOut->mat[15] = 1.0;
+    pOut->mat[4] = 2 * (xy - zw);
+    pOut->mat[5] = 1 - 2 * (xx + zz);
+    pOut->mat[6] = 2 * (yz + xw);
+    pOut->mat[7] = 0.0;
 
-	return pOut;
+    pOut->mat[8] = 2 * (xz + yw);
+    pOut->mat[9] = 2 * (yz - xw);
+    pOut->mat[10] = 1 - 2 * (xx + yy);
+    pOut->mat[11] = 0.0;
+
+    pOut->mat[12] = 0.0;
+    pOut->mat[13] = 0.0;
+    pOut->mat[14] = 0.0;
+    pOut->mat[15] = 1.0;
+
+    return pOut;
 }
 
 /** Builds a scaling matrix */
@@ -556,13 +521,9 @@ kmMat4* kmMat4Translation(kmMat4* pOut, const kmScalar x,
  */
 kmVec3* kmMat4GetUpVec3(kmVec3* pOut, const kmMat4* pIn)
 {
-	pOut->x = pIn->mat[4];
-	pOut->y = pIn->mat[5];
-	pOut->z = pIn->mat[6];
-
-	kmVec3Normalize(pOut, pOut);
-
-	return pOut;
+    kmVec3MultiplyMat4(pOut, &KM_VEC3_POS_Y, pIn);
+    kmVec3Normalize(pOut, pOut);
+    return pOut;
 }
 
 /** Extract the right vector from a 4x4 matrix. The result is
@@ -570,27 +531,26 @@ kmVec3* kmMat4GetUpVec3(kmVec3* pOut, const kmMat4* pIn)
  */
 kmVec3* kmMat4GetRightVec3(kmVec3* pOut, const kmMat4* pIn)
 {
-	pOut->x = pIn->mat[0];
-	pOut->y = pIn->mat[1];
-	pOut->z = pIn->mat[2];
-
-	kmVec3Normalize(pOut, pOut);
-
-	return pOut;
+    kmVec3MultiplyMat4(pOut, &KM_VEC3_POS_X, pIn);
+    kmVec3Normalize(pOut, pOut);
+    return pOut;
 }
 
 /**
  * Extract the forward vector from a 4x4 matrix. The result is
  * stored in pOut. Returns pOut.
  */
-kmVec3* kmMat4GetForwardVec3(kmVec3* pOut, const kmMat4* pIn)
+kmVec3* kmMat4GetForwardVec3RH(kmVec3* pOut, const kmMat4* pIn)
 {
-	pOut->x = pIn->mat[8];
-	pOut->y = pIn->mat[9];
-	pOut->z = pIn->mat[10];
+    kmVec3MultiplyMat4(pOut, &KM_VEC3_NEG_Z, pIn);
+    kmVec3Normalize(pOut, pOut);
+    return pOut;
+}
 
-	kmVec3Normalize(pOut, pOut);
-
+kmVec3* kmMat4GetForwardVec3LH(kmVec3* pOut, const kmMat4* pIn)
+{
+    kmVec3MultiplyMat4(pOut, &KM_VEC3_POS_Z, pIn);
+    kmVec3Normalize(pOut, pOut);
 	return pOut;
 }
 

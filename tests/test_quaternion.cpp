@@ -1,6 +1,7 @@
 #include <UnitTest++.h>
 #include "../kazmath/quaternion.h"
 #include "../kazmath/vec3.h"
+#include "../kazmath/mat4.h"
 
 TEST(test_quaternion_multiply_vec3) {
     kmVec3 v;
@@ -12,7 +13,7 @@ TEST(test_quaternion_multiply_vec3) {
     kmQuaternionMultiplyVec3(&v, &q, &v);
     
     kmVec3 expected;
-    kmVec3Fill(&expected, 1, 0, 0);
+    kmVec3Fill(&expected, -1, 0, 0);
     
     CHECK(kmVec3AreEqual(&expected, &v));
 }
@@ -35,14 +36,12 @@ TEST(test_quaternion_slerp_edge_case) {
 
 TEST(test_quaternion_get_up_vector) {
     kmQuaternion q;
-    kmVec3 axis;
-    kmVec3Fill(&axis, 1, 0, 0);
-    kmQuaternionRotationAxis(&q, &axis, kmDegreesToRadians(90));
+    kmQuaternionRotationAxis(&q, &KM_VEC3_POS_X, kmDegreesToRadians(90));
 
     kmVec3 up, right, forward;
-    kmQuaternionGetUpVector(&up, &q);
-    kmQuaternionGetRightVector(&right, &q);
-    kmQuaternionGetForwardVector(&forward, &q);
+    kmQuaternionGetUpVec3(&up, &q);
+    kmQuaternionGetRightVec3(&right, &q);
+    kmQuaternionGetForwardVec3RH(&forward, &q);
 
     CHECK_CLOSE(0.0, up.x, 0.0001);
     CHECK_CLOSE(0.0, up.y, 0.0001);
@@ -53,6 +52,50 @@ TEST(test_quaternion_get_up_vector) {
     CHECK_CLOSE(0.0, right.z, 0.0001);
 
     CHECK_CLOSE(0.0, forward.x, 0.0001);
-    CHECK_CLOSE(-1.0, forward.y, 0.0001);
+    CHECK_CLOSE(1.0, forward.y, 0.0001);
     CHECK_CLOSE(0.0, forward.z, 0.0001);
+
+    kmMat4 check;
+    kmMat4RotationQuaternion(&check, &q);
+
+    kmVec3 mat_forward;
+    kmMat4GetForwardVec3RH(&mat_forward, &check);
+
+    CHECK_CLOSE(mat_forward.x, forward.x, 0.0001);
+    CHECK_CLOSE(mat_forward.y, forward.y, 0.0001);
+    CHECK_CLOSE(mat_forward.z, forward.z, 0.0001);
+}
+
+TEST(test_rotation_around_axis) {
+    kmQuaternion rot;
+    kmQuaternionIdentity(&rot);
+
+    kmVec3 up, right, forward;
+
+    kmQuaternionGetUpVec3(&up, &rot);
+    kmQuaternionGetRightVec3(&right, &rot);
+    kmQuaternionGetForwardVec3RH(&forward, &rot);
+
+    CHECK(kmVec3AreEqual(&up, &KM_VEC3_POS_Y));
+    CHECK(kmVec3AreEqual(&right, &KM_VEC3_POS_X));
+    CHECK(kmVec3AreEqual(&forward, &KM_VEC3_NEG_Z));
+
+    kmQuaternion rot2;
+    kmQuaternionRotationAxis(&rot2, &KM_VEC3_POS_X, kmDegreesToRadians(90));
+
+    CHECK_CLOSE(kmDegreesToRadians(90), kmQuaternionGetPitch(&rot2), 0.0001);
+
+    kmQuaternion final;
+    kmQuaternionMultiply(&final, &rot, &rot2);
+
+    kmQuaternionGetUpVec3(&up, &final);
+    kmQuaternionGetRightVec3(&right, &final);
+    kmQuaternionGetForwardVec3RH(&forward, &final);
+
+    CHECK(kmVec3AreEqual(&up, &KM_VEC3_POS_Z));
+    CHECK(kmVec3AreEqual(&right, &KM_VEC3_POS_X));
+    CHECK(kmVec3AreEqual(&forward, &KM_VEC3_POS_Y));
+
+    kmQuaternionRotationAxis(&rot2, &KM_VEC3_POS_X, kmDegreesToRadians(-90));
+    CHECK_CLOSE(kmDegreesToRadians(-90), kmQuaternionGetPitch(&rot2), 0.0001);
 }
