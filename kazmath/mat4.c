@@ -62,119 +62,140 @@ kmMat4* kmMat4Identity(kmMat4* pOut)
 	return pOut;
 }
 
-
-inline static kmScalar get(kmMat4 * pIn, int row, int col)
-{
-	return pIn->mat[row + 4*col];
-}
-
-inline static void set(kmMat4 * pIn, int row, int col, kmScalar value)
-{
-	pIn->mat[row + 4*col] = value;
-}
-
-void swap(kmMat4 * pIn, int r1, int c1, int r2, int c2)
-{
-	kmScalar tmp = get(pIn,r1,c1);
-	set(pIn,r1,c1,get(pIn,r2,c2));
-	set(pIn,r2,c2, tmp);
-}
-
-//Returns an upper and a lower triangular matrix which are L and R in the Gauss algorithm
-int gaussj(kmMat4 *a, kmMat4 *b)
-{
-    int i, icol = 0, irow = 0, j, k, l, ll, n = 4, m = 4;
-    kmScalar big, dum, pivinv;
-    int indxc[n];
-    int indxr[n];
-    int ipiv[n];
-
-    for (j = 0; j < n; j++) {
-        ipiv[j] = 0;
-    }
-
-    for (i = 0; i < n; i++) {
-        big = 0.0f;
-        for (j = 0; j < n; j++) {
-            if (ipiv[j] != 1) {
-                for (k = 0; k < n; k++) {
-                    if (ipiv[k] == 0) {
-                        if (abs(get(a,j, k)) >= big) {
-                            big = abs(get(a,j, k));
-                            irow = j;
-                            icol = k;
-                        }
-                    }
-                }
-            }
-        }
-        ++(ipiv[icol]);
-        if (irow != icol) {
-            for (l = 0; l < n; l++) {
-                swap(a,irow, l, icol, l);
-            }
-            for (l = 0; l < m; l++) {
-                swap(b,irow, l, icol, l);
-            }
-        }
-        indxr[i] = irow;
-        indxc[i] = icol;
-        if (get(a,icol, icol) == 0.0) {
-            return KM_FALSE;
-        }
-        pivinv = 1.0f / get(a,icol, icol);
-        set(a,icol, icol, 1.0f);
-        for (l = 0; l < n; l++) {
-            set(a,icol, l, get(a,icol, l) * pivinv);
-        }
-        for (l = 0; l < m; l++) {
-            set(b,icol, l, get(b,icol, l) * pivinv);
-        }
-
-        for (ll = 0; ll < n; ll++) {
-            if (ll != icol) {
-                dum = get(a,ll, icol);
-                set(a,ll, icol, 0.0f);
-                for (l = 0; l < n; l++) {
-                    set(a,ll, l, get(a,ll, l) - get(a,icol, l) * dum);
-                }
-                for (l = 0; l < m; l++) {
-                    set(b,ll, l, get(a,ll, l) - get(b,icol, l) * dum);
-                }
-            }
-        }
-    }
-//    This is the end of the main loop over columns of the reduction. It only remains to unscram-
-//    ble the solution in view of the column interchanges. We do this by interchanging pairs of
-//    columns in the reverse order that the permutation was built up.
-    for (l = n - 1; l >= 0; l--) {
-        if (indxr[l] != indxc[l]) {
-            for (k = 0; k < n; k++) {
-                swap(a,k, indxr[l], k, indxc[l]);
-            }
-        }
-    }
-    return KM_TRUE;
-}
-
 /**
  * Calculates the inverse of pM and stores the result in
  * pOut.
  * @Return Returns NULL if there is no inverse, else pOut
  */
-kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM)
-{
-    kmMat4 inv;
-    kmMat4Assign(&inv, pM);
-
+kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM) {
     kmMat4 tmp;
-    kmMat4Identity(&tmp);
+    double det;
+    int i;
 
-    if(gaussj(&inv, &tmp) == KM_FALSE) {
+    tmp.mat[0] = pM->mat[5]  * pM->mat[10] * pM->mat[15] -
+             pM->mat[5]  * pM->mat[11] * pM->mat[14] -
+             pM->mat[9]  * pM->mat[6]  * pM->mat[15] +
+             pM->mat[9]  * pM->mat[7]  * pM->mat[14] +
+             pM->mat[13] * pM->mat[6]  * pM->mat[11] -
+             pM->mat[13] * pM->mat[7]  * pM->mat[10];
+
+    tmp.mat[4] = -pM->mat[4]  * pM->mat[10] * pM->mat[15] +
+              pM->mat[4]  * pM->mat[11] * pM->mat[14] +
+              pM->mat[8]  * pM->mat[6]  * pM->mat[15] -
+              pM->mat[8]  * pM->mat[7]  * pM->mat[14] -
+              pM->mat[12] * pM->mat[6]  * pM->mat[11] +
+              pM->mat[12] * pM->mat[7]  * pM->mat[10];
+
+    tmp.mat[8] = pM->mat[4]  * pM->mat[9] * pM->mat[15] -
+             pM->mat[4]  * pM->mat[11] * pM->mat[13] -
+             pM->mat[8]  * pM->mat[5] * pM->mat[15] +
+             pM->mat[8]  * pM->mat[7] * pM->mat[13] +
+             pM->mat[12] * pM->mat[5] * pM->mat[11] -
+             pM->mat[12] * pM->mat[7] * pM->mat[9];
+
+    tmp.mat[12] = -pM->mat[4]  * pM->mat[9] * pM->mat[14] +
+               pM->mat[4]  * pM->mat[10] * pM->mat[13] +
+               pM->mat[8]  * pM->mat[5] * pM->mat[14] -
+               pM->mat[8]  * pM->mat[6] * pM->mat[13] -
+               pM->mat[12] * pM->mat[5] * pM->mat[10] +
+               pM->mat[12] * pM->mat[6] * pM->mat[9];
+
+    tmp.mat[1] = -pM->mat[1]  * pM->mat[10] * pM->mat[15] +
+              pM->mat[1]  * pM->mat[11] * pM->mat[14] +
+              pM->mat[9]  * pM->mat[2] * pM->mat[15] -
+              pM->mat[9]  * pM->mat[3] * pM->mat[14] -
+              pM->mat[13] * pM->mat[2] * pM->mat[11] +
+              pM->mat[13] * pM->mat[3] * pM->mat[10];
+
+    tmp.mat[5] = pM->mat[0]  * pM->mat[10] * pM->mat[15] -
+             pM->mat[0]  * pM->mat[11] * pM->mat[14] -
+             pM->mat[8]  * pM->mat[2] * pM->mat[15] +
+             pM->mat[8]  * pM->mat[3] * pM->mat[14] +
+             pM->mat[12] * pM->mat[2] * pM->mat[11] -
+             pM->mat[12] * pM->mat[3] * pM->mat[10];
+
+    tmp.mat[9] = -pM->mat[0]  * pM->mat[9] * pM->mat[15] +
+              pM->mat[0]  * pM->mat[11] * pM->mat[13] +
+              pM->mat[8]  * pM->mat[1] * pM->mat[15] -
+              pM->mat[8]  * pM->mat[3] * pM->mat[13] -
+              pM->mat[12] * pM->mat[1] * pM->mat[11] +
+              pM->mat[12] * pM->mat[3] * pM->mat[9];
+
+    tmp.mat[13] = pM->mat[0]  * pM->mat[9] * pM->mat[14] -
+              pM->mat[0]  * pM->mat[10] * pM->mat[13] -
+              pM->mat[8]  * pM->mat[1] * pM->mat[14] +
+              pM->mat[8]  * pM->mat[2] * pM->mat[13] +
+              pM->mat[12] * pM->mat[1] * pM->mat[10] -
+              pM->mat[12] * pM->mat[2] * pM->mat[9];
+
+    tmp.mat[2] = pM->mat[1]  * pM->mat[6] * pM->mat[15] -
+             pM->mat[1]  * pM->mat[7] * pM->mat[14] -
+             pM->mat[5]  * pM->mat[2] * pM->mat[15] +
+             pM->mat[5]  * pM->mat[3] * pM->mat[14] +
+             pM->mat[13] * pM->mat[2] * pM->mat[7] -
+             pM->mat[13] * pM->mat[3] * pM->mat[6];
+
+    tmp.mat[6] = -pM->mat[0]  * pM->mat[6] * pM->mat[15] +
+              pM->mat[0]  * pM->mat[7] * pM->mat[14] +
+              pM->mat[4]  * pM->mat[2] * pM->mat[15] -
+              pM->mat[4]  * pM->mat[3] * pM->mat[14] -
+              pM->mat[12] * pM->mat[2] * pM->mat[7] +
+              pM->mat[12] * pM->mat[3] * pM->mat[6];
+
+    tmp.mat[10] = pM->mat[0]  * pM->mat[5] * pM->mat[15] -
+              pM->mat[0]  * pM->mat[7] * pM->mat[13] -
+              pM->mat[4]  * pM->mat[1] * pM->mat[15] +
+              pM->mat[4]  * pM->mat[3] * pM->mat[13] +
+              pM->mat[12] * pM->mat[1] * pM->mat[7] -
+              pM->mat[12] * pM->mat[3] * pM->mat[5];
+
+    tmp.mat[14] = -pM->mat[0]  * pM->mat[5] * pM->mat[14] +
+               pM->mat[0]  * pM->mat[6] * pM->mat[13] +
+               pM->mat[4]  * pM->mat[1] * pM->mat[14] -
+               pM->mat[4]  * pM->mat[2] * pM->mat[13] -
+               pM->mat[12] * pM->mat[1] * pM->mat[6] +
+               pM->mat[12] * pM->mat[2] * pM->mat[5];
+
+    tmp.mat[3] = -pM->mat[1] * pM->mat[6] * pM->mat[11] +
+              pM->mat[1] * pM->mat[7] * pM->mat[10] +
+              pM->mat[5] * pM->mat[2] * pM->mat[11] -
+              pM->mat[5] * pM->mat[3] * pM->mat[10] -
+              pM->mat[9] * pM->mat[2] * pM->mat[7] +
+              pM->mat[9] * pM->mat[3] * pM->mat[6];
+
+    tmp.mat[7] = pM->mat[0] * pM->mat[6] * pM->mat[11] -
+             pM->mat[0] * pM->mat[7] * pM->mat[10] -
+             pM->mat[4] * pM->mat[2] * pM->mat[11] +
+             pM->mat[4] * pM->mat[3] * pM->mat[10] +
+             pM->mat[8] * pM->mat[2] * pM->mat[7] -
+             pM->mat[8] * pM->mat[3] * pM->mat[6];
+
+    tmp.mat[11] = -pM->mat[0] * pM->mat[5] * pM->mat[11] +
+               pM->mat[0] * pM->mat[7] * pM->mat[9] +
+               pM->mat[4] * pM->mat[1] * pM->mat[11] -
+               pM->mat[4] * pM->mat[3] * pM->mat[9] -
+               pM->mat[8] * pM->mat[1] * pM->mat[7] +
+               pM->mat[8] * pM->mat[3] * pM->mat[5];
+
+    tmp.mat[15] = pM->mat[0] * pM->mat[5] * pM->mat[10] -
+              pM->mat[0] * pM->mat[6] * pM->mat[9] -
+              pM->mat[4] * pM->mat[1] * pM->mat[10] +
+              pM->mat[4] * pM->mat[2] * pM->mat[9] +
+              pM->mat[8] * pM->mat[1] * pM->mat[6] -
+              pM->mat[8] * pM->mat[2] * pM->mat[5];
+
+    det = pM->mat[0] * tmp.mat[0] + pM->mat[1] * tmp.mat[4] + pM->mat[2] * tmp.mat[8] + pM->mat[3] * tmp.mat[12];
+
+    if (det == 0) {
         return NULL;
     }
 
-    kmMat4Assign(pOut, &inv);
+    det = 1.0 / det;
+
+    for (i = 0; i < 16; i++) {
+        pOut->mat[i] = tmp.mat[i] * det;
+    }
+
     return pOut;
 }
 /**
