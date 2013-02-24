@@ -63,12 +63,12 @@ kmMat4* kmMat4Identity(kmMat4* pOut)
 }
 
 
-kmScalar get(kmMat4 * pIn, int row, int col)
+inline static kmScalar get(kmMat4 * pIn, int row, int col)
 {
 	return pIn->mat[row + 4*col];
 }
 
-void set(kmMat4 * pIn, int row, int col, kmScalar value)
+inline static void set(kmMat4 * pIn, int row, int col, kmScalar value)
 {
 	pIn->mat[row + 4*col] = value;
 }
