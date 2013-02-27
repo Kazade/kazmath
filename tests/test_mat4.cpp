@@ -40,6 +40,32 @@ TEST(test_mat4_inverse) {
     CHECK(kmMat4IsIdentity(&mat));
 }
 
+TEST(test_mat4_and_quaternion_consistency) {
+    kmMat4 mat;
+    CHECK(NULL != kmMat4Identity(&mat));
+
+    kmQuaternion quat;
+    kmQuaternionIdentity(&quat);
+
+    kmMat4RotationQuaternion(&mat, &quat);
+    CHECK(kmMat4IsIdentity(&mat));
+
+    kmQuaternionRotationAxisAngle(&quat, &KM_VEC3_POS_Y, kmDegreesToRadians(90));
+    kmMat4RotationAxisAngle(&mat, &KM_VEC3_POS_Y, kmDegreesToRadians(90));
+
+    kmMat4 tmp;
+    kmMat4RotationQuaternion(&tmp, &quat);
+
+    CHECK(kmMat4AreEqual(&tmp, &mat));
+
+    kmQuaternionInverse(&quat, &quat);
+    kmMat4RotationQuaternion(&tmp, &quat);
+
+    kmMat4Inverse(&mat, &mat);
+
+    CHECK(kmMat4AreEqual(&tmp, &mat));
+}
+
 
 TEST(test_mat4_transpose) {
     kmMat4 mat;

@@ -191,7 +191,7 @@ kmQuaternion* kmQuaternionRotationAxisAngle(kmQuaternion* pOut,
 									const kmVec3* pV,
 									kmScalar angle)
 {
-    kmScalar rad = angle * -0.5f;
+    kmScalar rad = angle * 0.5f;
 	kmScalar scale	= sinf(rad);
 
 	pOut->x = pV->x * scale;
