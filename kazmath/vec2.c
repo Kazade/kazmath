@@ -204,10 +204,10 @@ kmScalar kmVec2DistanceBetween(const kmVec2* v1, const kmVec2* v2) {
  * Returns the point mid-way between two others
  */
 kmVec2* kmVec2MidPointBetween(kmVec2* pOut, const kmVec2* v1, const kmVec2* v2) {
-	kmVec2 diff;
-	kmVec2Subtract(&diff, v2, v1);
-	kmVec2Normalize(&diff, &diff);
-	kmVec2Scale(&diff, &diff, kmVec2DistanceBetween(v1, v2) * 0.5);
-	kmVec2Add(pOut, v1, &diff);
+	kmVec2 sum;
+    kmVec2Add(&sum, v1, v2);
+    pOut->x = sum.x / 2.0f;
+    pOut->y = sum.y / 2.0f;
+
 	return pOut;
 }
