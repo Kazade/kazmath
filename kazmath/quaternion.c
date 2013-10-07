@@ -26,6 +26,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <assert.h>
 #include <memory.h>
+#include <string.h>
 
 #include "utility.h"
 #include "mat3.h"
