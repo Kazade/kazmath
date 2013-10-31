@@ -47,6 +47,7 @@ kmVec2* kmVec2Fill(kmVec2* pOut, kmScalar x, kmScalar y);
 kmScalar kmVec2Length(const kmVec2* pIn); ///< Returns the length of the vector
 kmScalar kmVec2LengthSq(const kmVec2* pIn); ///< Returns the square of the length of the vector
 kmVec2* kmVec2Normalize(kmVec2* pOut, const kmVec2* pIn); ///< Returns the vector passed in set to unit length
+kmVec2* kmVec2Lerp(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2, kmScalar t);
 kmVec2* kmVec2Add(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2); ///< Adds 2 vectors and returns the result
 kmScalar kmVec2Dot(const kmVec2* pV1, const kmVec2* pV2); /** Returns the Dot product which is the cosine of the angle between the two vectors multiplied by their lengths */
 kmScalar kmVec2Cross(const kmVec2* pV1, const kmVec2* pV2);

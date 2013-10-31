@@ -62,3 +62,8 @@ kmScalar kmClamp(kmScalar x, kmScalar min, kmScalar max)
 {
     return x < min ? min : (x > max ? max : x);
 }
+
+kmScalar kmLerp(kmScalar x, kmScalar y, kmScalar t )
+{
+    return x + t * ( y - x );
+}
