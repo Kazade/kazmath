@@ -47,6 +47,12 @@ kmScalar kmVec2LengthSq(const kmVec2* pIn)
     return kmSQR(pIn->x) + kmSQR(pIn->y);
 }
 
+kmVec2* kmVec3Lerp(kmVec2* pOut, const kmVec2* pV1, const kmVec2* pV2, kmScalar t) {
+    pOut->x = pV1->x + t * ( pV2->x - pV1->x ); 
+    pOut->y = pV1->y + t * ( pV2->y - pV1->y ); 
+    return pOut;
+}
+
 kmVec2* kmVec2Normalize(kmVec2* pOut, const kmVec2* pIn)
 {
         if (!pIn->x && !pIn->y)

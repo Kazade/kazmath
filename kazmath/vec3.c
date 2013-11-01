@@ -74,6 +74,14 @@ kmScalar kmVec3LengthSq(const kmVec3* pIn)
 	return kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z);
 }
 
+/// Returns the interpolation of 2 4D vectors based on t.
+kmVec3* kmVec3Lerp(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2, kmScalar t) {
+    pOut->x = pV1->x + t * ( pV2->x - pV1->x ); 
+    pOut->y = pV1->y + t * ( pV2->y - pV1->y ); 
+    pOut->z = pV1->z + t * ( pV2->z - pV1->z ); 
+    return pOut;
+}
+
  /**
   * Returns the vector passed in set to unit length
   * the result is stored in pOut.
