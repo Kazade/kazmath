@@ -44,7 +44,7 @@ public class jkazmath {
     public static native boolean kmRay2IntersectCircle(FloatBuffer ray, FloatBuffer centre, float radius, FloatBuffer intersection);
     
     // quaternion
-    public static native FloatBuffer  kmQuaternionConjugate(FloatBuffer pOut,  FloatBuffer pIn);
+//    public static native FloatBuffer  kmQuaternionConjugate(FloatBuffer pOut,  FloatBuffer pIn);
     public static native float 	kmQuaternionDot( FloatBuffer q1,  FloatBuffer q2); 
     public static native FloatBuffer kmQuaternionExp(FloatBuffer pOut,  FloatBuffer pIn);
     public static native FloatBuffer kmQuaternionIdentity(FloatBuffer pOut);
@@ -55,9 +55,9 @@ public class jkazmath {
     public static native FloatBuffer kmQuaternionLn(FloatBuffer pOut,  FloatBuffer pIn);
     public static native FloatBuffer kmQuaternionMultiply(FloatBuffer pOut,  FloatBuffer q1,  FloatBuffer q2);
     public static native FloatBuffer kmQuaternionNormalize(FloatBuffer pOut,  FloatBuffer pIn);
-    public static native FloatBuffer kmQuaternionRotationAxis(FloatBuffer pOut,  FloatBuffer pV, float angle);
+    public static native FloatBuffer kmQuaternionRotationAxisAngle(FloatBuffer pOut,  FloatBuffer pV, float angle);
     public static native FloatBuffer kmQuaternionRotationMatrix(FloatBuffer pOut,  FloatBuffer pIn);
-    public static native FloatBuffer kmQuaternionRotationYawPitchRoll(FloatBuffer pOut, float yaw, float pitch, float roll);
+    public static native FloatBuffer kmQuaternionRotationPitchYawRoll(FloatBuffer pOut, float pitch, float yaw, float roll);
     public static native FloatBuffer kmQuaternionSlerp(FloatBuffer pOut,  FloatBuffer q1,  FloatBuffer q2, float t);
     public static native void kmQuaternionToAxisAngle( FloatBuffer pIn, FloatBuffer pVector, FloatBuffer pAngle);
     public static native FloatBuffer kmQuaternionScale(FloatBuffer pOut,  FloatBuffer pIn, float s);
@@ -70,7 +70,7 @@ public class jkazmath {
     public static native float kmPlaneDot(FloatBuffer pP, FloatBuffer pV);
     public static native float kmPlaneDotCoord(FloatBuffer pP, FloatBuffer pV);
     public static native float kmPlaneDotNormal(FloatBuffer pP, FloatBuffer pV);
-    public static native FloatBuffer kmPlaneFromPointNormal(FloatBuffer pOut, FloatBuffer pPoint, FloatBuffer pNormal);
+    public static native FloatBuffer kmPlaneFromPointAndNormal(FloatBuffer pOut, FloatBuffer pPoint, FloatBuffer pNormal);
     public static native FloatBuffer kmPlaneFromPoints(FloatBuffer pOut, FloatBuffer p1, FloatBuffer p2, FloatBuffer p3);
     public static native FloatBuffer kmPlaneIntersectLine(FloatBuffer pOut, FloatBuffer pP, FloatBuffer pV1, FloatBuffer pV2);
     public static native FloatBuffer kmPlaneNormalize(FloatBuffer pOut, FloatBuffer pP);
@@ -83,7 +83,7 @@ public class jkazmath {
     public static native FloatBuffer kmMat3Fill(FloatBuffer pOut,  FloatBuffer pMat);
     public static native FloatBuffer kmMat3Adjugate(FloatBuffer pOut,  FloatBuffer pIn);
     public static native FloatBuffer kmMat3Identity(FloatBuffer pOut);
-    public static native FloatBuffer kmMat3Inverse(FloatBuffer pOut,  float pDeterminate,  FloatBuffer pM);
+    public static native FloatBuffer kmMat3Inverse(FloatBuffer pOut, FloatBuffer pM);
     public static native int kmMat3IsIdentity( FloatBuffer pIn);
     public static native FloatBuffer kmMat3Transpose(FloatBuffer pOut,  FloatBuffer pIn);
     public static native float kmMat3Determinant( FloatBuffer pIn);
@@ -127,14 +127,13 @@ public class jkazmath {
     public static native FloatBuffer kmMat4RotationX(FloatBuffer mat, float rad);
     public static native FloatBuffer kmMat4RotationY(FloatBuffer mat, float rad);
     public static native FloatBuffer kmMat4RotationZ(FloatBuffer mat, float rad);
-    public static native FloatBuffer kmMat4RotationPitchYawRoll(FloatBuffer mat, float x, float y, float z);
+    public static native FloatBuffer kmMat4RotationYawPitchRoll(FloatBuffer mat, float x, float y, float z);
     public static native FloatBuffer kmMat4RotationQuaternion(FloatBuffer pOut, FloatBuffer pQ);
     public static native FloatBuffer kmMat4RotationTranslation(FloatBuffer pOut, FloatBuffer rotation,  FloatBuffer translation);
     public static native FloatBuffer kmMat4Scaling(FloatBuffer pOut, float  x, float  y, float  z);
     public static native FloatBuffer kmMat4Translation(FloatBuffer mat, float x, float y, float z);
     public static native FloatBuffer  kmMat4GetUpVec3(FloatBuffer pOut, FloatBuffer pIn);
     public static native FloatBuffer  kmMat4GetRightVec3(FloatBuffer pOut, FloatBuffer pIn);
-    public static native FloatBuffer  kmMat4GetForwardVec3(FloatBuffer pOut, FloatBuffer pIn);
     public static native FloatBuffer kmMat4PerspectiveProjection(FloatBuffer projection, float fov, float aspect, float near, float far);
     public static native FloatBuffer kmMat4OrthographicProjection(FloatBuffer pOut, float left, float right, float bottom, float top, float nearVal, float farVal);
     public static native FloatBuffer kmMat4LookAt(FloatBuffer view,FloatBuffer eye,FloatBuffer centre,FloatBuffer up);
@@ -142,6 +141,8 @@ public class jkazmath {
     public static native FloatBuffer kmMat4ExtractRotation(FloatBuffer pOut, FloatBuffer pIn);
     public static native FloatBuffer kmMat4ExtractPlane(FloatBuffer pOut, FloatBuffer pIn, int plane);
     public static native FloatBuffer  kmMat4RotationToAxisAngle(FloatBuffer pAxis, float radians, FloatBuffer pIn);
+    public static native FloatBuffer  kmMat4GetForwardVec3RH(FloatBuffer pOut, FloatBuffer pIn);
+    public static native FloatBuffer  kmMat4GetForwardVec3LH(FloatBuffer pOut, FloatBuffer pIn);
 
     // vec3
     public static native FloatBuffer kmVec3Fill(FloatBuffer v, float x, float y, float z);
