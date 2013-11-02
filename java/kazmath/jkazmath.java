@@ -20,6 +20,10 @@ public class jkazmath {
     public static int POINT_BEHIND_PLANE        =   1;
     public static int POINT_ON_PLANE            =   2;
     
+
+    //util
+    public static native float kmLerp(float x, float y, float factor);
+    
     //vec4
     public static native FloatBuffer kmVec4Fill(FloatBuffer pOut, float x, float y, float z, float w);
     public static native FloatBuffer kmVec4Add(FloatBuffer pOut, FloatBuffer pV1, FloatBuffer pV2);
@@ -164,7 +168,7 @@ public class jkazmath {
     public static native FloatBuffer kmVec3Zero(FloatBuffer pOut);
     public static native FloatBuffer kmVec3GetHorizontalAngle(FloatBuffer pOut, FloatBuffer pIn);
     public static native FloatBuffer kmVec3RotationToDirection(FloatBuffer pOut, FloatBuffer pIn, FloatBuffer forwards);
-
+    public static native FloatBuffer kmVec3Lerp(FloatBuffer pOut, FloatBuffer pV1, FloatBuffer pV2, float t);
 
     
 

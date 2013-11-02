@@ -1211,4 +1211,21 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat4ExtractPlane
     return jo;
 }
 
+// kmScalar kmLerp(kmScalar x, kmScalar y, kmScalar factor);
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmLerp
+  (JNIEnv *e, jclass c, jfloat x, jfloat y, jfloat f)
+{
+	return kmLerp(x,y,f);
+	
+}
 
+// kmVec3* kmVec3Lerp(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2, kmScalar t);
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec3Lerp
+   (JNIEnv *e , jclass c, jobject jo, jobject jv1, jobject jv2, jfloat t)
+{
+	kmVec3* o = (kmVec3*)(*e)->GetDirectBufferAddress(e, jo);
+	kmVec3* v1 = (kmVec3*)(*e)->GetDirectBufferAddress(e, jv1);
+	kmVec3* v2 = (kmVec3*)(*e)->GetDirectBufferAddress(e, jv2);
+	kmVec3Lerp(o,v1,v2,t);
+	return jo;
+}

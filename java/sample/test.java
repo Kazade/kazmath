@@ -46,6 +46,17 @@ public class test {
         System.out.println(df.format(mat.get( 4))+", "+df.format(mat.get( 5))+", "+df.format(mat.get( 6))+", "+df.format(mat.get( 7)));
         System.out.println(df.format(mat.get( 8))+", "+df.format(mat.get( 9))+", "+df.format(mat.get(10))+", "+df.format(mat.get(11)));
         System.out.println(df.format(mat.get(12))+", "+df.format(mat.get(13))+", "+df.format(mat.get(14))+", "+df.format(mat.get(15)));
+        
+        FloatBuffer v1 = createFloatBuffer(3);
+        FloatBuffer v2 = createFloatBuffer(3);
+        
+        kmVec3Fill(v1, 0, 0, 0);
+        kmVec3Fill(v2, 1, 2, 3);
+        
+        kmVec3Lerp(v1, v1, v2, 0.5f);
+        
+        System.out.println("\n" + df.format(v1.get( 0))+", "+df.format(v1.get( 1))+", "+df.format(v1.get( 2)));
+        
                
     }
     
