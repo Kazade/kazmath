@@ -2,15 +2,11 @@
 import static kazmath.jkazmath.*;
 
 import java.nio.FloatBuffer;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.text.DecimalFormat;
 
 public class test {
 
-	public static FloatBuffer createFloatBuffer(int size) {
-		return ByteBuffer.allocateDirect(size*4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-	}
+
 
     public static void main(String[] args) {
         test t=new test();
@@ -21,14 +17,14 @@ public class test {
     
     public void run() {
         // create a mat4 struct...
-        FloatBuffer mat = createFloatBuffer(16);
+        FloatBuffer mat = kmCreateKmMat4();
         
         kmMat4Identity(mat);
 
         // vec3 structs
-        FloatBuffer eye = createFloatBuffer(3);
-        FloatBuffer centre = createFloatBuffer(3);
-        FloatBuffer up = createFloatBuffer(3);
+        FloatBuffer eye = kmCreateKmVec3();
+        FloatBuffer centre = kmCreateKmVec3();
+        FloatBuffer up = kmCreateKmVec3();
 
         
         kmVec3Fill(eye,    0, 0, 0);
@@ -47,8 +43,8 @@ public class test {
         System.out.println(df.format(mat.get( 8))+", "+df.format(mat.get( 9))+", "+df.format(mat.get(10))+", "+df.format(mat.get(11)));
         System.out.println(df.format(mat.get(12))+", "+df.format(mat.get(13))+", "+df.format(mat.get(14))+", "+df.format(mat.get(15)));
         
-        FloatBuffer v1 = createFloatBuffer(3);
-        FloatBuffer v2 = createFloatBuffer(3);
+        FloatBuffer v1 = kmCreateKmVec3();
+        FloatBuffer v2 = kmCreateKmVec3();
         
         kmVec3Fill(v1, 0, 0, 0);
         kmVec3Fill(v2, 1, 2, 3);
