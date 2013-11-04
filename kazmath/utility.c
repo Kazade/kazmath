@@ -46,11 +46,11 @@ kmScalar kmRadiansToDegrees(kmScalar radians) {
 	return radians * kmPIUnder180;
 }
 
-kmScalar min(kmScalar lhs, kmScalar rhs) {
+kmScalar kmMin(kmScalar lhs, kmScalar rhs) {
     return (lhs < rhs)? lhs : rhs;
 }
 
-kmScalar max(kmScalar lhs, kmScalar rhs) {
+kmScalar kmMax(kmScalar lhs, kmScalar rhs) {
     return (lhs > rhs)? lhs : rhs;
 }
 

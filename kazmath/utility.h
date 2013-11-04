@@ -82,8 +82,8 @@ extern kmScalar kmSQR(kmScalar s);
 extern kmScalar kmDegreesToRadians(kmScalar degrees);
 extern kmScalar kmRadiansToDegrees(kmScalar radians);
 
-extern kmScalar min(kmScalar lhs, kmScalar rhs);
-extern kmScalar max(kmScalar lhs, kmScalar rhs);
+extern kmScalar kmMin(kmScalar lhs, kmScalar rhs);
+extern kmScalar kmMax(kmScalar lhs, kmScalar rhs);
 extern kmBool kmAlmostEqual(kmScalar lhs, kmScalar rhs);
 
 extern kmScalar kmClamp(kmScalar x, kmScalar min, kmScalar max);
