@@ -1,6 +1,6 @@
 
 /*
-* this file is public domain originally written by chris_c
+* this file is public domain originally written by chris_c (codifies at googles mail)
 * by using this source you agree to
 * indemnify all authors from all damages and costs involved in the use of this code 
 */
@@ -15,6 +15,7 @@
 #include <quaternion.h>
 #include <plane.h>
 #include <ray2.h>
+#include <ray3.h>
 
 #include <assert.h>
 
@@ -126,6 +127,7 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec4TransformArray
     kmVec4* v = (kmVec4*)(*e)->GetDirectBufferAddress(e, jv);
     kmMat4* m = (kmMat4*)(*e)->GetDirectBufferAddress(e, jm);
     kmVec4TransformArray(o,os,v,vs,m,cnt);            
+    return jo;
 }
 
 //int 	kmVec4AreEqual(const kmVec4* p1, const kmVec4* p2);
@@ -205,6 +207,7 @@ JNIEXPORT jboolean JNICALL Java_kazmath_jkazmath_kmRay2IntersectCircle
     return kmRay2IntersectCircle(r,*ct,rd,i);   
 }
 
+/*
 //kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn);
 JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionConjugate
   (JNIEnv *e, jclass c, jobject jo, jobject ji)
@@ -214,6 +217,7 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionConjugate
     kmQuaternionConjugate(o,i);
     return jo;    
 }
+*/
 
 //const kmScalar 	kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2);
 JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmQuaternionDot
@@ -304,16 +308,17 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionNormalize
 {
     kmQuaternion* o = (kmQuaternion*)(*e)->GetDirectBufferAddress(e, jo);
     kmQuaternion* i = (kmQuaternion*)(*e)->GetDirectBufferAddress(e, ji);
+    kmQuaternionNormalize(o,i);
     return jo;    
 }
 
-//kmQuaternion* kmQuaternionRotationAxis(kmQuaternion* pOut, const struct kmVec3* pV, kmScalar angle);
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionRotationAxis
+//kmQuaternion* kmQuaternionRotationAxisAngle(kmQuaternion* pOut, const struct kmVec3* pV, kmScalar angle);
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionRotationAxisAngle
   (JNIEnv *e, jclass c, jobject jo, jobject jv, jfloat a)
 {
     kmQuaternion* o = (kmQuaternion*)(*e)->GetDirectBufferAddress(e, jo);
     kmVec3* v = (kmVec3*)(*e)->GetDirectBufferAddress(e, jv); 
-    kmQuaternionRotationAxis(o,v,a);
+    kmQuaternionRotationAxisAngle(o,v,a);
     return jo;      
 }
 
@@ -327,12 +332,12 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionRotationMatrix
     return jo;  
 }
 
-//kmQuaternion* kmQuaternionRotationYawPitchRoll(kmQuaternion* pOut, kmScalar yaw, kmScalar pitch, kmScalar roll);
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionRotationYawPitchRoll
-  (JNIEnv *e, jclass c, jobject jo, jfloat y, jfloat p, jfloat r)
+//kmQuaternion* kmQuaternionRotationPitchYawRoll(kmQuaternion* pOut, kmScalar yaw, kmScalar pitch, kmScalar roll);
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionRotationPitchYawRoll
+  (JNIEnv *e, jclass c, jobject jo, jfloat p, jfloat y, jfloat r)
 {
     kmQuaternion* o = (kmQuaternion*)(*e)->GetDirectBufferAddress(e, jo);
-    kmQuaternionRotationYawPitchRoll(o,y,p,r);
+    kmQuaternionRotationPitchYawRoll(o,p,y,r);
     return jo;    
 }
 
@@ -439,14 +444,14 @@ JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmPlaneDotNormal
     return kmPlaneDotNormal(p,v);
 }
 
-//kmPlane* const kmPlaneFromPointNormal(kmPlane* pOut, const struct kmVec3* pPoint, const struct kmVec3* pNormal);
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmPlaneFromPointNormal
+//kmPlane* const kmPlaneFromPointAndNormal(kmPlane* pOut, const struct kmVec3* pPoint, const struct kmVec3* pNormal);
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmPlaneFromPointAndNormal
   (JNIEnv *e, jclass c, jobject jo, jobject jp, jobject jn)
 {
     kmPlane* o = (kmPlane*)(*e)->GetDirectBufferAddress(e, jo);
     kmVec3* p = (kmVec3*)(*e)->GetDirectBufferAddress(e, jp);
     kmVec3* n = (kmVec3*)(*e)->GetDirectBufferAddress(e, jn);
-    kmPlaneFromPointNormal(o,p,n);
+    kmPlaneFromPointAndNormal(o,p,n);
     return jo;
 }
 
@@ -557,7 +562,7 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3Identity
     return jm;
 }
 
-//kmMat3* const kmMat3Inverse(kmMat3* pOut, const kmScalar pDeterminate, const kmMat3* pM);
+//kmMat3* const kmMat3Inverse(kmMat3* pOut, const kmMat3* pM);
 JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3Inverse
   (JNIEnv *e, jclass c, jobject jo, jobject jm)
 {
@@ -1084,11 +1089,11 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat4RotationZ
     return m;
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat4RotationPitchYawRoll
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat4RotationYawPitchRoll
   (JNIEnv *e, jclass c, jobject m, jfloat x, jfloat y, jfloat z)
 {
     kmMat4* mat = (kmMat4*)(*e)->GetDirectBufferAddress(e, m);
-    kmMat4RotationPitchYawRoll(mat,x,y,z);
+    kmMat4RotationYawPitchRoll(mat,x,y,z);
     return m;
 }
 
@@ -1135,12 +1140,21 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat4GetRightVec3
     return jv;
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat4GetForwardVec3
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat4GetForwardVec3RH
   (JNIEnv *e, jclass c, jobject jv, jobject jm)
 {
     kmVec3* v = (kmVec3*)(*e)->GetDirectBufferAddress(e, jv);
     kmMat4* mat = (kmMat4*)(*e)->GetDirectBufferAddress(e, jm);   
-    kmMat4GetForwardVec3(v,mat);
+    kmMat4GetForwardVec3RH(v,mat);
+    return jv;
+}
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat4GetForwardVec3LH
+  (JNIEnv *e, jclass c, jobject jv, jobject jm)
+{
+    kmVec3* v = (kmVec3*)(*e)->GetDirectBufferAddress(e, jv);
+    kmMat4* mat = (kmMat4*)(*e)->GetDirectBufferAddress(e, jm);   
+    kmMat4GetForwardVec3LH(v,mat);
     return jv;
 }
 
@@ -1196,6 +1210,449 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat4ExtractPlane
     kmMat4* i = (kmMat4*)(*e)->GetDirectBufferAddress(e, ji);       
     kmMat4ExtractPlane(o, i, p);
     return jo;
+}
+
+// kmScalar kmLerp(kmScalar x, kmScalar y, kmScalar factor);
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmLerp
+  (JNIEnv *e, jclass c, jfloat x, jfloat y, jfloat f)
+{
+	return kmLerp(x,y,f);
+	
+}
+
+// kmVec3* kmVec3Lerp(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2, kmScalar t);
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec3Lerp
+   (JNIEnv *e , jclass c, jobject jo, jobject jv1, jobject jv2, jfloat t)
+{
+	kmVec3* o = (kmVec3*)(*e)->GetDirectBufferAddress(e, jo);
+	kmVec3* v1 = (kmVec3*)(*e)->GetDirectBufferAddress(e, jv1);
+	kmVec3* v2 = (kmVec3*)(*e)->GetDirectBufferAddress(e, jv2);
+	kmVec3Lerp(o,v1,v2,t);
+	return jo;
+}
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmAABBCentre
+  (JNIEnv *e, jclass c, jobject jaabb, jobject jo)
+{
+	kmVec3* o = (kmVec3*)(*e)->GetDirectBufferAddress(e, jo);
+	kmAABB* a = (kmAABB*)(*e)->GetDirectBufferAddress(e, jaabb);
+	kmAABBCentre(a,o);
+	return jo;
+}
+
+//kmAABB* kmAABBInitialize(kmAABB* pBox, const kmVec3* centre, const kmScalar width, const kmScalar height, const kmScalar depth);
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmAABBInitialize
+  (JNIEnv *e, jclass c, jobject jo, jobject jct, jfloat w, jfloat h, jfloat d)
+{
+	kmAABB* o = (kmAABB*)(*e)->GetDirectBufferAddress(e, jo);
+	kmVec3* ct = (kmVec3*)(*e)->GetDirectBufferAddress(e, jct);
+	kmAABBInitialize(o, ct, w, h, d);
+	return jo;
+}
+
+JNIEXPORT jboolean JNICALL Java_kazmath_jkazmath_kmAlmostEqual
+  (JNIEnv *e, jclass c, jfloat l, jfloat r)
+{
+	return kmAlmostEqual(l,r);
+}
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmClamp
+  (JNIEnv *e, jclass c, jfloat x, jfloat min, jfloat max)
+{
+	return kmClamp(x, min, max);
+}
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmSQR
+  (JNIEnv *e, jclass c, jfloat n)
+{
+	return kmSQR(n);
+}
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmDegreesToRadians
+  (JNIEnv *e, jclass c, jfloat n)
+{
+	return kmDegreesToRadians(n);
+}
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmRadiansToDegrees
+  (JNIEnv *e, jclass c, jfloat n)
+{
+	return kmRadiansToDegrees(n);
+}
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3AssignMat4
+  (JNIEnv *e, jclass c, jobject jo, jobject ji)
+{
+	kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
+	kmMat4* i = (kmMat4*)(*e)->GetDirectBufferAddress(e, ji);
+	kmMat3AssignMat4(o,i);
+	return jo;
+}
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmPlaneFill
+  (JNIEnv *e, jclass z, jobject jo, jfloat a, jfloat b, jfloat c, jfloat d)
+{
+	kmPlane* o = (kmPlane*)(*e)->GetDirectBufferAddress(e, jo);
+	kmPlaneFill(o, a, b, c, d);
+	return jo;
+}
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmPlaneFromNormalAndDistance
+  (JNIEnv *e, jclass c, jobject jo, jobject jn, jfloat d)
+{
+	kmPlane* o = (kmPlane*)(*e)->GetDirectBufferAddress(e, jo);
+	kmVec3* n = (kmVec3*)(*e)->GetDirectBufferAddress(e, jn);
+	kmPlaneFromNormalAndDistance(o, n, d);
+	return jo;
+}
+
+
+
+
+
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionSubtract
+  (JNIEnv *env, jclass class, jobject jo, jobject jq1, jobject jq2)
+{
+	kmQuaternion* o = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, jo);
+	kmQuaternion* q1 = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, jq1);
+	kmQuaternion* q2 = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, jq2);
+	kmQuaternionSubtract(o, q1, q2);
+	return jo;
+}
+
+JNIEXPORT jint JNICALL Java_kazmath_jkazmath_kmQuaternionAreEqual
+  (JNIEnv *env, jclass class, jobject jq1, jobject jq2)
+{
+	kmQuaternion* q1 = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, jq1);
+	kmQuaternion* q2 = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, jq2);	
+	return kmQuaternionAreEqual(q1, q2);
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionFill
+  (JNIEnv *env, jclass class, jobject jo, jfloat x, jfloat y, jfloat z, jfloat w)
+{
+	kmQuaternion* o = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, jo);
+	kmQuaternionFill(o, x, y, z, w);
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionGetUpVec3
+  (JNIEnv *env, jclass class, jobject jo, jobject ji)
+{
+	kmVec3* o = (kmVec3*)(*env)->GetDirectBufferAddress(env, jo);
+	kmQuaternion* i = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, ji);
+	kmQuaternionGetUpVec3(o, i);
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionGetRightVec3
+  (JNIEnv *env, jclass class, jobject jo, jobject ji)
+{
+	kmVec3* o = (kmVec3*)(*env)->GetDirectBufferAddress(env, jo);
+	kmQuaternion* i = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, ji);
+	kmQuaternionGetRightVec3(o, i);
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionGetForwardVec3RH
+  (JNIEnv *env, jclass class, jobject jo, jobject ji)
+{
+	kmVec3* o = (kmVec3*)(*env)->GetDirectBufferAddress(env, jo);
+	kmQuaternion* i = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, ji);
+	kmQuaternionGetForwardVec3RH(o, i);
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmQuaternionGetForwardVec3LH
+  (JNIEnv *env, jclass class, jobject jo, jobject ji)
+{
+	kmVec3* o = (kmVec3*)(*env)->GetDirectBufferAddress(env, jo);
+	kmQuaternion* i = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, ji);
+	kmQuaternionGetForwardVec3LH(o, i);
+	return jo;
+}
+
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmQuaternionGetPitch
+  (JNIEnv *env, jclass class, jobject jq)
+{
+	kmQuaternion* q = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, jq);	
+	return kmQuaternionGetPitch(q);
+}
+
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmQuaternionGetYaw
+  (JNIEnv *env, jclass class, jobject jq)
+{
+	kmQuaternion* q = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, jq);	
+	return kmQuaternionGetYaw(q);
+}
+
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmQuaternionGetRoll
+  (JNIEnv *env, jclass class, jobject jq)
+{
+	kmQuaternion* q = (kmQuaternion*)(*env)->GetDirectBufferAddress(env, jq);
+	return kmQuaternionGetRoll(q);		
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmRay3Fill
+  (JNIEnv *env, jclass class, jobject jo, jfloat px, jfloat py, jfloat pz, jfloat vx, jfloat vy, jfloat vz)
+{
+	kmRay3* o = (kmRay3*)(*env)->GetDirectBufferAddress(env, jo);
+	kmRay3Fill(o, px, py, pz, vx, vy, vz);
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmRay3FromPointAndDirection
+  (JNIEnv *env, jclass class, jobject jo, jobject jp, jobject jd)
+{
+	kmRay3* o = (kmRay3*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec3* p = (kmVec3*)(*env)->GetDirectBufferAddress(env, jp);
+	kmVec3* d = (kmVec3*)(*env)->GetDirectBufferAddress(env, jd);
+	kmRay3FromPointAndDirection(o, p, d);
+	return jo;	
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmRay3IntersectPlane
+  (JNIEnv *env, jclass class, jobject jo, jobject jr, jobject jp)
+{
+	kmVec3* o = (kmVec3*)(*env)->GetDirectBufferAddress(env, jo);
+	kmRay3* r = (kmRay3*)(*env)->GetDirectBufferAddress(env, jr);
+	kmPlane* p = (kmPlane*)(*env)->GetDirectBufferAddress(env, jp);
+	kmRay3IntersectPlane(o, r, p);
+	return jo;	
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec3MultiplyMat3
+  (JNIEnv *env, jclass class, jobject jo, jobject jv, jobject jm)
+{
+	kmVec3* o = (kmVec3*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec3* v = (kmVec3*)(*env)->GetDirectBufferAddress(env, jv);
+	kmMat3* m = (kmMat3*)(*env)->GetDirectBufferAddress(env, jm);	
+	kmVec3MultiplyMat3(o, v, m);
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec3MultiplyMat4
+  (JNIEnv *env, jclass class, jobject jo, jobject jv, jobject jm)
+{
+	kmVec3* o = (kmVec3*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec3* v = (kmVec3*)(*env)->GetDirectBufferAddress(env, jv);
+	kmMat4* m = (kmMat4*)(*env)->GetDirectBufferAddress(env, jm);	
+	kmVec3MultiplyMat4(o, v, m);	
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec3ProjectOnToPlane
+  (JNIEnv *env, jclass class, jobject jo, jobject jp, jobject jpl)
+{
+	kmVec3* o = (kmVec3*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec3* p = (kmVec3*)(*env)->GetDirectBufferAddress(env, jp);
+	kmPlane* pl = (kmPlane*)(*env)->GetDirectBufferAddress(env, jpl);
+	kmVec3ProjectOnToPlane(o, p, pl);	
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec4MultiplyMat4
+  (JNIEnv *env, jclass class, jobject jo, jobject jv, jobject jm)
+{
+	kmVec4* o = (kmVec4*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec4* v = (kmVec4*)(*env)->GetDirectBufferAddress(env, jv);
+	kmMat4* m = (kmMat4*)(*env)->GetDirectBufferAddress(env, jm);	
+	kmVec4MultiplyMat4(o, v, m);	
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec2Fill
+  (JNIEnv *env, jclass class, jobject jo, jfloat x, jfloat y)
+{
+	kmVec2* o = (kmVec2*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec2Fill(o, x, y);
+	return jo;	
+}
+
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmVec2Length
+  (JNIEnv *env, jclass class, jobject ji)
+{
+	kmVec2* i = (kmVec2*)(*env)->GetDirectBufferAddress(env, ji);
+	return kmVec2Length(i);
+}
+
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmVec2LengthSq
+  (JNIEnv *env, jclass class, jobject ji)
+{
+	kmVec2* i = (kmVec2*)(*env)->GetDirectBufferAddress(env, ji);
+	return kmVec2LengthSq(i); 
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec2Normalize
+  (JNIEnv *env, jclass class, jobject jo, jobject ji) 
+{
+	kmVec2* o = (kmVec2*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec2* i = (kmVec2*)(*env)->GetDirectBufferAddress(env, ji);
+	kmVec2Normalize(o, i);
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec2Lerp
+  (JNIEnv *env, jclass class, jobject jo, jobject jv1, jobject jv2, jfloat t)
+{
+	kmVec2* o = (kmVec2*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec2* v1 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv1);
+	kmVec2* v2 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv2);
+	kmVec2Lerp(o, v1, v2, t);
+	return jo;	
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec2Add
+  (JNIEnv *env, jclass class, jobject jo, jobject jv1, jobject jv2)
+{
+	kmVec2* o = (kmVec2*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec2* v1 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv1);
+	kmVec2* v2 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv2);
+	kmVec2Add(o, v1, v2);
+	return jo;
+}
+
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmVec2Dot
+  (JNIEnv *env, jclass class, jobject jv1, jobject jv2)
+{
+	kmVec2* v1 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv1);
+	kmVec2* v2 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv2);
+	return kmVec2Dot(v1, v2);	
+}
+
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmVec2Cross
+  (JNIEnv *env, jclass class, jobject jv1, jobject jv2)
+{
+	kmVec2* v1 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv1);
+	kmVec2* v2 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv2);
+	return kmVec2Cross(v1, v2);	
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec2Subtract
+  (JNIEnv *env, jclass class, jobject jo, jobject jv1, jobject jv2)
+{
+	kmVec2* o = (kmVec2*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec2* v1 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv1);
+	kmVec2* v2 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv2);
+	kmVec2Subtract(o, v1, v2);
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec2Transform
+  (JNIEnv *env, jclass class, jobject jo, jobject jv, jobject jm)
+{
+	kmVec2* o = (kmVec2*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec2* v = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv);
+	kmMat3* m = (kmMat3*)(*env)->GetDirectBufferAddress(env, jm);	
+	kmVec2Transform(o, v, m);	
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec2TransformCoord
+  (JNIEnv *env, jclass class, jobject jo, jobject jv, jobject jm)
+{
+	kmVec2* o = (kmVec2*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec2* v = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv);
+	kmMat3* m = (kmMat3*)(*env)->GetDirectBufferAddress(env, jm);	
+	kmVec2TransformCoord(o, v, m);	
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec2Scale
+  (JNIEnv *env, jclass class, jobject jo, jobject ji, jfloat s)
+{
+	kmVec2* o = (kmVec2*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec2* i = (kmVec2*)(*env)->GetDirectBufferAddress(env, ji);
+	kmVec2Scale(o, i, s);	
+	return jo;
+}
+
+
+JNIEXPORT jint JNICALL Java_kazmath_jkazmath_kmVec2AreEqual
+  (JNIEnv *env, jclass class, jobject jv1, jobject jv2)
+{
+	kmVec2* v1 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv1);
+	kmVec2* v2 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv2);
+	return kmVec2AreEqual(v1, v2);	
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec2Assign
+  (JNIEnv *env, jclass class, jobject jo, jobject ji)
+{
+	kmVec2* o = (kmVec2*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec2* i = (kmVec2*)(*env)->GetDirectBufferAddress(env, ji);
+	kmVec2Assign(o, i);
+	return jo;
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec2RotateBy
+  (JNIEnv *env, jclass class, jobject jo, jobject ji, jfloat d, jobject jc)
+{
+	kmVec2* o = (kmVec2*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec2* i = (kmVec2*)(*env)->GetDirectBufferAddress(env, ji);
+	kmVec2* c = (kmVec2*)(*env)->GetDirectBufferAddress(env, jc);
+	kmVec2RotateBy(o, i, d, c);	
+	return jo;
+}
+
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmVec2DegreesBetween
+  (JNIEnv *env, jclass class, jobject jv1, jobject jv2)
+{
+	kmVec2* v1 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv1);
+	kmVec2* v2 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv2);
+	return kmVec2DegreesBetween(v1, v2);	
+}
+
+
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmVec2DistanceBetween
+  (JNIEnv *env, jclass class, jobject jv1, jobject jv2)
+{
+	kmVec2* v1 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv1);
+	kmVec2* v2 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv2);
+	return kmVec2DistanceBetween(v1, v2);	
+}
+
+
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec2MidPointBetween
+  (JNIEnv *env, jclass class, jobject jo, jobject jv1, jobject jv2)
+{
+	kmVec2* v1 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv1);
+	kmVec2* v2 = (kmVec2*)(*env)->GetDirectBufferAddress(env, jv2);
+	kmVec2* o = (kmVec2*)(*env)->GetDirectBufferAddress(env, jo);
+	kmVec2MidPointBetween(o, v1, v2);	
+	return jo;
 }
 
 
