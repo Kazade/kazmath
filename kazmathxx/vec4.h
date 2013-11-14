@@ -158,7 +158,7 @@ namespace km
 		vec4 result;
 		kmVec4Add(&result, &lhs, &rhs);
 		return result;
-	};
+    }
 
 	///< Vector subtraction
 	inline const vec4 operator-(const vec4& lhs, const vec4& rhs)
@@ -166,13 +166,13 @@ namespace km
 		vec4 result;
 		kmVec4Subtract(&result, &lhs, &rhs);
 		return result;
-	};
+    }
 	
 	///< Dot product - which is the cosine of the angle between the two vectors multiplied by their lengths
 	inline const float operator*(const vec4& lhs, const vec4& rhs)
 	{
 		return kmVec4Dot(&lhs, &rhs);
-	};
+    }
 	
 	///< Multiply with scalar
 	inline const vec4 operator*(const kmScalar lhs, const vec4& rhs)
@@ -180,7 +180,7 @@ namespace km
 		vec4 result;
 		kmVec4Scale(&result, &rhs, lhs);
 		return result;
-	};
+    }
 
 	///< Multiply with scalar	
 	inline const vec4 operator*(const vec4& lhs, const kmScalar rhs)
@@ -188,7 +188,7 @@ namespace km
 		vec4 result;
 		kmVec4Scale(&result, &lhs, rhs);
 		return result;
-	};
+    }
 	
 	///< Transform through matrix	
 	inline const vec4 operator*(const kmMat4& lhs, const vec4& rhs)
@@ -196,13 +196,13 @@ namespace km
 		vec4 result;
 		kmVec4Transform(&result, &rhs, &lhs);
 		return result;
-	};
+    }
 	
 	///< Checks for equality (with a small threshold epsilon)
 	inline const bool operator==(const vec4& lhs, const vec4& rhs)
 	{
 		return (kmVec4AreEqual(&lhs,&rhs) != 0);
-	};
+    }
 } //end of namespace km
 
 #endif

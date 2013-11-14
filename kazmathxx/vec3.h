@@ -182,7 +182,7 @@ namespace km
 		vec3 result;
 		kmVec3Add(&result, &lhs, &rhs);
 		return result;
-	};
+    }
 
 	///< Vector subtraction
 	inline const vec3 operator-(const vec3& lhs, const vec3& rhs)
@@ -190,13 +190,13 @@ namespace km
 		vec3 result;
 		kmVec3Subtract(&result, &lhs, &rhs);
 		return result;
-	};
+    }
 	
 	///< Dot product - which is the cosine of the angle between the two vectors multiplied by their lengths
 	inline const float operator*(const vec3& lhs, const vec3& rhs)
 	{
 		return kmVec3Dot(&lhs, &rhs);
-	};
+    }
 	
 	///< Multiply with scalar
 	inline const vec3 operator*(const kmScalar lhs, const vec3& rhs)
@@ -204,7 +204,7 @@ namespace km
 		vec3 result;
 		kmVec3Scale(&result, &rhs, lhs);
 		return result;
-	};
+    }
 
 	///< Multiply with scalar	
 	inline const vec3 operator*(const vec3& lhs, const kmScalar rhs)
@@ -212,7 +212,7 @@ namespace km
 		vec3 result;
 		kmVec3Scale(&result, &lhs, rhs);
 		return result;
-	};
+    }
 	
 	///< Transform through matrix	
 	inline const vec3 operator*(const kmMat4& lhs, const vec3& rhs)
@@ -220,13 +220,13 @@ namespace km
 		vec3 result;
 		kmVec3Transform(&result, &rhs, &lhs);
 		return result;
-	};
+    }
 	
 	///< Checks for equality (with a small threshold epsilon)
 	inline const bool operator==(const vec3& lhs, const vec3& rhs)
 	{
 		return (kmVec3AreEqual(&lhs,&rhs) != 0);
-	};
+    }
 } //end of namespace km
 
 #endif

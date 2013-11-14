@@ -102,11 +102,11 @@ namespace km
 		mat3 result;
 		kmMat3Multiply(&result, &lhs, &rhs);
 		return result;
-	};
+    }
 	
 	///< Checks for equality (with a small threshold epsilon)
 	inline const bool operator==(const mat3& lhs, const mat3& rhs)
 	{
 		return kmMat3AreEqual(&lhs,&rhs);
-	};
+    }
 }

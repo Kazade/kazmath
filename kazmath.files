@@ -84,3 +84,11 @@ kazmath/ray3.h
 kazmath/ray3.c
 tests/test_ray3.cpp
 tests/test_vec3.cpp
+kazmathxx/vec4.h
+kazmathxx/vec3.h
+kazmathxx/vec2.h
+kazmathxx/quaternion.h
+kazmathxx/plane.h
+kazmathxx/mat4.h
+kazmathxx/mat3.h
+kazmathxx/aabb.h
