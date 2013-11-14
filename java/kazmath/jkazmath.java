@@ -83,7 +83,7 @@ public class jkazmath {
     public static native FloatBuffer kmMat3Fill(FloatBuffer pOut,  FloatBuffer pMat);
     public static native FloatBuffer kmMat3Adjugate(FloatBuffer pOut,  FloatBuffer pIn);
     public static native FloatBuffer kmMat3Identity(FloatBuffer pOut);
-    public static native FloatBuffer kmMat3Inverse(FloatBuffer pOut,  float pDeterminate,  FloatBuffer pM);
+    public static native FloatBuffer kmMat3Inverse(FloatBuffer pOut,  FloatBuffer pM);
     public static native int kmMat3IsIdentity( FloatBuffer pIn);
     public static native FloatBuffer kmMat3Transpose(FloatBuffer pOut,  FloatBuffer pIn);
     public static native float kmMat3Determinant( FloatBuffer pIn);

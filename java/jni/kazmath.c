@@ -559,11 +559,11 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3Identity
 
 //kmMat3* const kmMat3Inverse(kmMat3* pOut, const kmScalar pDeterminate, const kmMat3* pM);
 JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3Inverse
-  (JNIEnv *e, jclass c, jobject jo, jfloat d, jobject jm)
+  (JNIEnv *e, jclass c, jobject jo, jobject jm)
 {
     kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);    
     kmMat3* m = (kmMat3*)(*e)->GetDirectBufferAddress(e, jm);  
-    kmMat3Inverse(o,d,m);
+    kmMat3Inverse(o,m);
     return jo;  
 }
 
