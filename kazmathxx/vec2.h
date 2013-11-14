@@ -39,6 +39,7 @@ namespace km
 			    x = _x;
 			    y = _y;
 			}
+
 			vec2()
 			{
 			    x = kmScalar(0.0);
@@ -81,6 +82,69 @@ namespace km
 				kmVec2TransformCoord(&result, this, &mat);
 				return result;
 			}
+
+            inline const vec2 operator+=( const vec2& rhs )
+            {
+                kmVec2Add( this, this, &rhs);
+                return *this;
+            }
+
+            inline const vec2 operator+=( kmScalar rhs )
+            {
+                kmVec2Add( this, this, vec2( rhs, rhs ) );
+                return *this;
+            }
+
+            inline const vec2 operator-=( const vec2& rhs )
+            {
+                kmVec2Subtract( this, this, &rhs);
+                return *this;
+            }
+
+            inline const vec2 operator-=( kmScalar rhs )
+            {
+                kmVec2Subtract( this, this, vec2( rhs, rhs ) );
+                return *this;
+            }
+
+            inline const vec2 operator*=( const vec2& rhs )
+            {
+                this->x *= rhs->x;
+                this->y *= rhs->y;
+                return *this;
+            }
+
+            inline const vec2 operator*=( kmScalar rhs  )
+            {
+                this->x *= rhs;
+                this->y *= rhs;
+                return *this;
+            }
+
+            inline const vec2 operator/=( const vec2& rhs )
+            {
+                this->x /= rhs->x;
+                this->y /= rhs->y;
+                return *this;
+            }
+
+            inline const vec2 operator/=( kmScalar rhs  )
+            {
+                this->x /= rhs;
+                this->y /= rhs;
+                return *this;
+            }
+
+            inline kmScalar dot( const vec2& rhs )
+            {
+                return kmVec2Dot(this, &rhs);
+            }
+
+            inline const vec2 cross( const vec2& rhs )
+            {
+                kmVec2Cross( this, &rhs )
+                return *this;
+            }
 	};
 	
 	///< Vector addition
@@ -132,7 +196,7 @@ namespace km
 	///< Checks for equality (with a small threshold epsilon)
     inline const bool operator==(const vec2& lhs, const vec2& rhs)
 	{
-		return kmVec2AreEqual(&lhs,&rhs);
+		return (kmVec2AreEqual(&lhs,&rhs) != 0);
 	};
 } //end of namespace km
 

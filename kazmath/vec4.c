@@ -117,6 +117,24 @@ kmVec4* kmVec4Subtract(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2) {
 	return pOut;
 }
 
+kmVec4* kmVec4Mul( kmVec4* pOut,const kmVec4* pV1, const kmVec4* pV2 ) {
+    pOut->x = pV1->x * pV2->x;
+    pOut->y = pV1->y * pV2->y;
+    pOut->z = pV1->z * pV2->z;
+    pOut->w = pV1->w * pV2->w;
+    return pOut;
+}
+
+kmVec4* kmVec4Div( kmVec4* pOut,const kmVec4* pV1, const kmVec4* pV2 ) {
+    if ( pV2->x && pV2->y && pV2->z && pV2->w){
+        pOut->x = pV1->x / pV2->x;
+        pOut->y = pV1->y / pV2->y;
+        pOut->z = pV1->z / pV2->z;
+        pOut->w = pV1->w / pV2->w;
+    }
+    return pOut;
+}
+
 /// Multiplies a 4D vector by a matrix, the result is stored in pOut, and pOut is returned.
 kmVec4* kmVec4MultiplyMat4(kmVec4* pOut, const kmVec4* pV, const struct kmMat4* pM) {
     pOut->x = pV->x * pM->mat[0] + pV->y * pM->mat[4] + pV->z * pM->mat[8] + pV->w * pM->mat[12];

@@ -173,6 +173,22 @@ kmVec3* kmVec3Subtract(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 	return pOut;
 }
 
+kmVec3* kmVec3Mul( kmVec3* pOut,const kmVec3* pV1, const kmVec3* pV2 ) {
+    pOut->x = pV1->x * pV2->x;
+    pOut->y = pV1->y * pV2->y;
+    pOut->z = pV1->z * pV2->z;
+    return pOut;
+}
+
+kmVec3* kmVec3Div( kmVec3* pOut,const kmVec3* pV1, const kmVec3* pV2 ) {
+    if ( pV2->x && pV2->y && pV2->z ){
+        pOut->x = pV1->x / pV2->x;
+        pOut->y = pV1->y / pV2->y;
+        pOut->z = pV1->z / pV2->z;
+    }
+    return pOut;
+}
+
 kmVec3* kmVec3MultiplyMat3(kmVec3* pOut, const kmVec3* pV, const kmMat3* pM) {
     kmVec3 v;
 

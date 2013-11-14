@@ -85,6 +85,71 @@ namespace km
 				kmVec4Lerp(&result, &pV1, &pV2, t);
 				return result;
 			}
+
+            inline const vec4 operator+=( const vec4& rhs )
+            {
+                kmVec4Add( this, this, &rhs);
+                return *this;
+            }
+
+            inline const vec4 operator+=( kmScalar rhs )
+            {
+                kmVec4Add( this, this, vec4( rhs, rhs, rhs, rhs ) );
+                return *this;
+            }
+
+            inline const vec4 operator-=( const vec4& rhs )
+            {
+                kmVec4Subtract( this, this, &rhs);
+                return *this;
+            }
+
+            inline const vec4 operator-=( kmScalar rhs )
+            {
+                kmVec4Subtract( this, this, vec4( rhs, rhs, rhs, rhs ) );
+                return *this;
+            }
+
+            inline const vec4 operator*=( const vec4& rhs )
+            {
+                this->x *= rhs->x;
+                this->y *= rhs->y;
+                this->z *= rhs->z;
+                this->w *= rhs->w;
+                return *this;
+            }
+
+            inline const vec4 operator*=( kmScalar rhs  )
+            {
+                this->x *= rhs;
+                this->y *= rhs;
+                this->z *= rhs;
+                this->w *= rhs; 
+                return *this;
+            }
+
+            inline const vec4 operator/=( const vec4& rhs )
+            {
+                this->x /= rhs->x;
+                this->y /= rhs->y;
+                this->z /= rhs->z;
+                this->w /= rhs->w;
+                return *this;
+            }
+
+            inline const vec4 operator/=( kmScalar rhs  )
+            {
+                this->x /= rhs;
+                this->y /= rhs;
+                this->z /= rhs;
+                this->w /= rhs;
+                return *this;
+            }
+
+            inline kmScalar dot( const vec4& rhs )
+            {
+                return kmVec4Dot(this, &rhs);
+            }
 	};
 	
 	///< Vector addition
@@ -136,7 +201,7 @@ namespace km
 	///< Checks for equality (with a small threshold epsilon)
 	inline const bool operator==(const vec4& lhs, const vec4& rhs)
 	{
-		return kmVec4AreEqual(&lhs,&rhs);
+		return (kmVec4AreEqual(&lhs,&rhs) != 0);
 	};
 } //end of namespace km
 

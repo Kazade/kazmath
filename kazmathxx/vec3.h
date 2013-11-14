@@ -113,6 +113,67 @@ namespace km
 				kmVec3InverseTransformNormal(&result,this, &mat);
 				return result;
 			}
+
+            inline const vec3 operator+=( const vec3& rhs )
+            {
+                kmVec3Add( this, this, &rhs);
+                return *this;
+            }
+
+            inline const vec3 operator+=( kmScalar rhs )
+            {
+                kmVec3Add( this, this, vec3( rhs, rhs ) );
+                return *this;
+            }
+
+            inline const vec3 operator-=( const vec3& rhs )
+            {
+                kmVec3Subtract( this, this, &rhs);
+                return *this;
+            }
+
+            inline const vec3 operator-=( kmScalar rhs )
+            {
+                kmVec3Subtract( this, this, vec3( rhs, rhs, rhs ) );
+                return *this;
+            }
+
+            inline const vec3 operator*=( const vec3& rhs )
+            {
+                this->x *= rhs->x;
+                this->y *= rhs->y;
+                this->z *= rhs->z;
+                return *this;
+            }
+
+            inline const vec3 operator*=( kmScalar rhs  )
+            {
+                this->x *= rhs;
+                this->y *= rhs;
+                this->z *= rhs;
+                return *this;
+            }
+
+            inline const vec3 operator/=( const vec3& rhs )
+            {
+                this->x /= rhs->x;
+                this->y /= rhs->y;
+                this->z /= rhs->z;
+                return *this;
+            }
+
+            inline const vec3 operator/=( kmScalar rhs  )
+            {
+                this->x /= rhs;
+                this->y /= rhs;
+                this->z /= rhs;
+                return *this;
+            }
+
+            inline kmScalar dot( const vec3& rhs )
+            {
+                return kmVec3Dot(this, &rhs);
+            }
 	};
 	
 	///< Vector addition
@@ -164,7 +225,7 @@ namespace km
 	///< Checks for equality (with a small threshold epsilon)
 	inline const bool operator==(const vec3& lhs, const vec3& rhs)
 	{
-		return kmVec3AreEqual(&lhs,&rhs);
+		return (kmVec3AreEqual(&lhs,&rhs) != 0);
 	};
 } //end of namespace km
 
