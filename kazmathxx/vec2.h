@@ -83,55 +83,102 @@ namespace km
 				return result;
 			}
 
-            inline const vec2 operator+=( const vec2& rhs )
+            inline vec2 operator+(const vec2& rhs) const
             {
-                kmVec2Add( this, this, &rhs);
+                return vec2( x + rhs.x, y + rhs.y );
+            }
+
+            inline vec2 operator+( kmScalar rhs ) const 
+            {
+                return vec2( x + rhs, y + rhs );
+            }
+
+            inline vec2& operator+=( const vec2& rhs )
+            {
+                x += rhs.x;
+                y += rhs.y;
                 return *this;
             }
 
-            inline const vec2 operator+=( kmScalar rhs )
+            inline vec2& operator+=( kmScalar rhs )
             {
-                kmVec2Add( this, this, vec2( rhs, rhs ) );
+                x += rhs;
+                y += rhs;
                 return *this;
             }
 
-            inline const vec2 operator-=( const vec2& rhs )
+            inline vec2 operator-(const vec2& rhs) const
+	        {
+		        return vec2( x - rhs.x, y - rhs.y );
+	        }
+
+            inline vec2& operator-=( const vec2& rhs )
             {
-                kmVec2Subtract( this, this, &rhs);
+                x -= rhs.x;
+                y -= rhs.y;
                 return *this;
             }
 
-            inline const vec2 operator-=( kmScalar rhs )
+            inline vec2& operator-=( kmScalar rhs )
             {
-                kmVec2Subtract( this, this, vec2( rhs, rhs ) );
+                x -= rhs;
+                y -= rhs;
                 return *this;
             }
 
-            inline const vec2 operator*=( const vec2& rhs )
+            inline vec2 operator*(const vec2& rhs) const
             {
-                this->x *= rhs->x;
-                this->y *= rhs->y;
+                return vec2( x * rhs.x, y * rhs.y );
+	        }
+
+            inline vec2 operator*( kmScalar rhs ) const
+            {
+                return vec2( x * rhs, y * rhs );
+            }
+
+            inline vec2& operator*=( const vec2& rhs )
+            {
+                x *= rhs.x;
+                y *= rhs.y;
                 return *this;
             }
 
-            inline const vec2 operator*=( kmScalar rhs  )
+            inline vec2& operator*=( kmScalar rhs  )
             {
-                this->x *= rhs;
-                this->y *= rhs;
+                x *= rhs;
+                y *= rhs;
                 return *this;
             }
 
-            inline const vec2 operator/=( const vec2& rhs )
+            inline vec2 operator/(const vec2& rhs) const
             {
-                this->x /= rhs->x;
-                this->y /= rhs->y;
+                return vec2( x / rhs.x, y / rhs.y );
+	        }
+
+            inline vec2 operator/( kmScalar rhs ) const
+            {
+                if( rhs ){ 
+                    return vec2( x / rhs, y / rhs );
+                }else{ 
+                    return *this;
+                }
+            }
+
+            inline vec2& operator/=( const vec2& rhs )
+            {
+                if( rhs.x && rhs.y ){ 
+                    x /= rhs.x;
+                    y /= rhs.y;
+                }
                 return *this;
             }
 
-            inline const vec2 operator/=( kmScalar rhs  )
+            inline vec2& operator/=( kmScalar rhs  )
             {
-                this->x /= rhs;
-                this->y /= rhs;
+                if( rhs ){ 
+                    x /= rhs;
+                    y /= rhs;
+                }
                 return *this;
             }
 
@@ -140,50 +187,18 @@ namespace km
                 return kmVec2Dot(this, &rhs);
             }
 
-            inline const vec2 cross( const vec2& rhs )
+            inline float cross(const vec2& rhs)
             {
-                kmVec2Cross(this, &rhs);
-                return *this;
+                return kmVec2Cross(this, &rhs);
             }
 	};
 	
-	///< Vector addition
-	inline const vec2 operator+(const vec2& lhs, const vec2& rhs)
-	{
-		vec2 result;
-		kmVec2Add(&result, &lhs, &rhs);
-		return result;
-    }
-
-	///< Vector subtraction
-	inline const vec2 operator-(const vec2& lhs, const vec2& rhs)
-	{
-		vec2 result;
-		kmVec2Subtract(&result, &lhs, &rhs);
-		return result;
-    }
-	
-	///< Dot product - which is the cosine of the angle between the two vectors multiplied by their lengths
-	inline const float operator*(const vec2& lhs, const vec2& rhs)
-	{
-		return kmVec2Dot(&lhs, &rhs);
-    }
 	
 	///< Multiply with scalar
 	inline const vec2 operator*(const kmScalar lhs, const vec2& rhs)
-	{
-		vec2 result;
-		kmVec2Scale(&result, &rhs, lhs);
-		return result;
-    }
-
-	///< Multiply with scalar	
-	inline const vec2 operator*(const vec2& lhs, const kmScalar rhs)
-	{
-		vec2 result;
-		kmVec2Scale(&result, &lhs, rhs);
-		return result;
-    }
+    {
+        return rhs * lhs;
+    };
 	
 	///< Transform through matrix	
 	inline const vec2 operator*(const kmMat3& lhs, const vec2& rhs)
@@ -191,14 +206,13 @@ namespace km
 		vec2 result;
 		kmVec2Transform(&result, &rhs, &lhs);
 		return result;
-    }
+	};
 	
 	///< Checks for equality (with a small threshold epsilon)
     inline const bool operator==(const vec2& lhs, const vec2& rhs)
 	{
 		return (kmVec2AreEqual(&lhs,&rhs) != 0);
-    }
+	};
 } //end of namespace km
 
 #endif
-
