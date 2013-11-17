@@ -86,63 +86,127 @@ namespace km
 				return result;
 			}
 
-            inline const vec4 operator+=( const vec4& rhs )
+            inline vec4 operator+( const vec4& rhs ) const
             {
-                kmVec4Add( this, this, &rhs);
+                return vec4( x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w );
+            }
+
+            inline vec4 operator+( kmScalar rhs ) const
+            {
+                return vec4( x + rhs, y + rhs, z + rhs, w + rhs );
+            }
+
+            inline vec4& operator+=( const vec4& rhs )
+            {
+                x += rhs.x;
+                y += rhs.y;
+                z += rhs.z;
+                w += rhs.w;
                 return *this;
             }
 
-            inline const vec4 operator+=( kmScalar rhs )
+            inline vec4& operator+=( kmScalar rhs )
             {
-                kmVec4Add( this, this, vec4( rhs, rhs, rhs, rhs ) );
+                x += rhs;
+                y += rhs;
+                z += rhs;
+                w += rhs;
                 return *this;
             }
 
-            inline const vec4 operator-=( const vec4& rhs )
+            inline vec4 operator-( const vec4& rhs ) const
             {
-                kmVec4Subtract( this, this, &rhs);
+                return vec4( x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w );
+            }
+
+            inline vec4 operator-( kmScalar rhs ) const
+            {
+                return vec4( x - rhs, y - rhs, z - rhs, w - rhs );
+            }
+
+            inline vec4& operator-=( const vec4& rhs )
+            {
+                x -= rhs.x;
+                y -= rhs.y;
+                z -= rhs.z;
+                w -= rhs.w;
                 return *this;
             }
 
-            inline const vec4 operator-=( kmScalar rhs )
+            inline vec4& operator-=( kmScalar rhs )
             {
-                kmVec4Subtract( this, this, vec4( rhs, rhs, rhs, rhs ) );
+                x -= rhs;
+                y -= rhs;
+                z -= rhs;
+                w -= rhs;
                 return *this;
             }
 
-            inline const vec4 operator*=( const vec4& rhs )
+            inline vec4 operator*( const vec4& rhs ) const
             {
-                this->x *= rhs->x;
-                this->y *= rhs->y;
-                this->z *= rhs->z;
-                this->w *= rhs->w;
+                return vec4( x * rhs.x, y * rhs.y, z * rhs.z, w * rhs.w );
+            }
+
+            inline vec4 operator*( kmScalar rhs ) const
+            {
+                return vec4( x * rhs, y * rhs, z * rhs, w * rhs );
+            }
+
+            inline vec4& operator*=( const vec4& rhs )
+            {
+                this->x *= rhs.x;
+                this->y *= rhs.y;
+                this->z *= rhs.z;
+                this->w *= rhs.w;
                 return *this;
             }
 
-            inline const vec4 operator*=( kmScalar rhs  )
+            inline vec4& operator*=( kmScalar rhs  )
             {
                 this->x *= rhs;
                 this->y *= rhs;
                 this->z *= rhs;
-                this->w *= rhs; 
+                this->w *= rhs;
                 return *this;
             }
 
-            inline const vec4 operator/=( const vec4& rhs )
+            inline vec4 operator/( const vec4& rhs ) const
             {
-                this->x /= rhs->x;
-                this->y /= rhs->y;
-                this->z /= rhs->z;
-                this->w /= rhs->w;
+                if( rhs.x && rhs.y && rhs.z && rhs.w ){
+                    return vec4( x / rhs.x, y / rhs.y, z / rhs.z, w / rhs.w );
+                }else{
+                    return vec4( x, y, z, w );
+                }
+            }
+
+            inline vec4 operator/( kmScalar rhs ) const
+            {
+                if( rhs != 0.0 ){
+                    return vec4( x / rhs, y / rhs, z / rhs, w / rhs );
+                }else{
+                    return vec4( x, y, z, w );
+                }
+            }
+
+            inline vec4& operator/=( const vec4& rhs )
+            {
+                if( rhs.x && rhs.y && rhs.z && rhs.w ){
+                    x /= rhs.x;
+                    y /= rhs.y;
+                    z /= rhs.z;
+                    w /= rhs.w;
+                }
                 return *this;
             }
 
-            inline const vec4 operator/=( kmScalar rhs  )
+            inline vec4& operator/=( kmScalar rhs  )
             {
-                this->x /= rhs;
-                this->y /= rhs;
-                this->z /= rhs;
-                this->w /= rhs;
+                if( rhs ){
+                    x /= rhs;
+                    y /= rhs;
+                    z /= rhs;
+                    w /= rhs;
+                }
                 return *this;
             }
 
@@ -152,57 +216,28 @@ namespace km
             }
 	};
 	
-	///< Vector addition
-	inline const vec4 operator+(const vec4& lhs, const vec4& rhs)
-	{
-		vec4 result;
-		kmVec4Add(&result, &lhs, &rhs);
-		return result;
-    }
 
-	///< Vector subtraction
-	inline const vec4 operator-(const vec4& lhs, const vec4& rhs)
-	{
-		vec4 result;
-		kmVec4Subtract(&result, &lhs, &rhs);
-		return result;
-    }
-	
-	///< Dot product - which is the cosine of the angle between the two vectors multiplied by their lengths
-	inline const float operator*(const vec4& lhs, const vec4& rhs)
-	{
-		return kmVec4Dot(&lhs, &rhs);
-    }
 	
 	///< Multiply with scalar
 	inline const vec4 operator*(const kmScalar lhs, const vec4& rhs)
 	{
-		vec4 result;
-		kmVec4Scale(&result, &rhs, lhs);
-		return result;
-    }
+        return rhs * lhs;
+	}
 
-	///< Multiply with scalar	
-	inline const vec4 operator*(const vec4& lhs, const kmScalar rhs)
-	{
-		vec4 result;
-		kmVec4Scale(&result, &lhs, rhs);
-		return result;
-    }
-	
+
 	///< Transform through matrix	
 	inline const vec4 operator*(const kmMat4& lhs, const vec4& rhs)
 	{
 		vec4 result;
 		kmVec4Transform(&result, &rhs, &lhs);
 		return result;
-    }
+	}
 	
 	///< Checks for equality (with a small threshold epsilon)
 	inline const bool operator==(const vec4& lhs, const vec4& rhs)
 	{
 		return (kmVec4AreEqual(&lhs,&rhs) != 0);
-    }
+	}
 } //end of namespace km
 
 #endif
