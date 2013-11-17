@@ -113,40 +113,78 @@ namespace km
 				kmVec3InverseTransformNormal(&result,this, &mat);
 				return result;
 			}
-
-            inline const vec3 operator+=( const vec3& rhs )
+            
+            inline vec3 operator+( const vec3& rhs ) const
             {
-                kmVec3Add( this, this, &rhs);
+                return vec3( x + rhs.x, y + rhs.y, z + rhs.z );
+            }
+
+            inline vec3 operator+( kmScalar rhs ) const
+            {
+                return vec3( x + rhs, y + rhs, z + rhs );
+            }
+
+            inline vec3& operator+=( const vec3& rhs )
+            {
+                x += rhs.x;
+                y += rhs.y;
+                z += rhs.z;
                 return *this;
             }
 
-            inline const vec3 operator+=( kmScalar rhs )
+            inline vec3& operator+=( kmScalar rhs )
             {
-                kmVec3Add( this, this, vec3( rhs, rhs ) );
+                x += rhs;
+                y += rhs;
+                z += rhs;
                 return *this;
             }
 
-            inline const vec3 operator-=( const vec3& rhs )
+            inline vec3 operator-( const vec3& rhs ) const
             {
-                kmVec3Subtract( this, this, &rhs);
+                return vec3( x - rhs.x, y - rhs.y, z - rhs.z );
+            }
+
+            inline vec3 operator-( kmScalar rhs ) const
+            {
+                return vec3( x - rhs, y - rhs, z - rhs );
+            }
+
+            inline vec3& operator-=( const vec3& rhs )
+            {
+                x -= rhs.x;
+                y -= rhs.y;
+                z -= rhs.z;
                 return *this;
             }
 
-            inline const vec3 operator-=( kmScalar rhs )
+            inline vec3& operator-=( kmScalar rhs )
             {
-                kmVec3Subtract( this, this, vec3( rhs, rhs, rhs ) );
+                x -= rhs;
+                y -= rhs;
+                z -= rhs;
                 return *this;
             }
 
-            inline const vec3 operator*=( const vec3& rhs )
+            inline vec3 operator*( const vec3& rhs ) const
             {
-                this->x *= rhs->x;
-                this->y *= rhs->y;
-                this->z *= rhs->z;
+                return vec3( x * rhs.x, y * rhs.y, z * rhs.z);
+            }
+
+            inline vec3 operator*( kmScalar rhs ) const
+            {
+                return vec3( x * rhs, y * rhs, z * rhs );
+            }
+
+            inline vec3& operator*=( const vec3& rhs )
+            {
+                this->x *= rhs.x;
+                this->y *= rhs.y;
+                this->z *= rhs.z;
                 return *this;
             }
 
-            inline const vec3 operator*=( kmScalar rhs  )
+            inline vec3& operator*=( kmScalar rhs  )
             {
                 this->x *= rhs;
                 this->y *= rhs;
@@ -154,19 +192,41 @@ namespace km
                 return *this;
             }
 
-            inline const vec3 operator/=( const vec3& rhs )
+            inline vec3 operator/( const vec3& rhs ) const
             {
-                this->x /= rhs->x;
-                this->y /= rhs->y;
-                this->z /= rhs->z;
+                if( rhs != .0 ){ 
+                    return vec3( x / rhs.x, y / rhs.y, z / rhs.z );
+                }else{ 
+                    return vec3( x, y , z );
+                }
+            }
+
+            inline vec3 operator/( kmScalar rhs ) const
+            {
+                if( rhs != 0 ){ 
+                    return vec3( x / rhs, y / rhs, z / rhs );
+                }else{ 
+                    return vec3( x, y , z ); 
+                }
+            }
+
+            inline vec3& operator/=( const vec3& rhs )
+            {
+                if( rhs.x && rhs.y && rhs.z ){ 
+                    x /= rhs.x;
+                    y /= rhs.y;
+                    z /= rhs.z;
+                }
                 return *this;
             }
 
-            inline const vec3 operator/=( kmScalar rhs  )
+            inline vec3& operator/=( kmScalar rhs  )
             {
-                this->x /= rhs;
-                this->y /= rhs;
-                this->z /= rhs;
+                if( rhs ){
+                    x /= rhs;
+                    y /= rhs;
+                    z /= rhs;
+                }
                 return *this;
             }
 
@@ -176,44 +236,13 @@ namespace km
             }
 	};
 	
-	///< Vector addition
-	inline const vec3 operator+(const vec3& lhs, const vec3& rhs)
-	{
-		vec3 result;
-		kmVec3Add(&result, &lhs, &rhs);
-		return result;
-	};
-
-	///< Vector subtraction
-	inline const vec3 operator-(const vec3& lhs, const vec3& rhs)
-	{
-		vec3 result;
-		kmVec3Subtract(&result, &lhs, &rhs);
-		return result;
-	};
-	
-	///< Dot product - which is the cosine of the angle between the two vectors multiplied by their lengths
-	inline const float operator*(const vec3& lhs, const vec3& rhs)
-	{
-		return kmVec3Dot(&lhs, &rhs);
-	};
 	
 	///< Multiply with scalar
 	inline const vec3 operator*(const kmScalar lhs, const vec3& rhs)
-	{
-		vec3 result;
-		kmVec3Scale(&result, &rhs, lhs);
-		return result;
+    {
+        return rhs * lhs;
 	};
 
-	///< Multiply with scalar	
-	inline const vec3 operator*(const vec3& lhs, const kmScalar rhs)
-	{
-		vec3 result;
-		kmVec3Scale(&result, &lhs, rhs);
-		return result;
-	};
-	
 	///< Transform through matrix	
 	inline const vec3 operator*(const kmMat4& lhs, const vec3& rhs)
 	{
