@@ -123,7 +123,7 @@ TEST(test_look_rotation) {
     kmQuaternionRotationAxisAngle(&rot, &KM_VEC3_POS_Y, kmDegreesToRadians(90));
 
     //Get the rotation from the negative X, it should be the same
-    kmQuaternionLookRotation(&res, &KM_VEC3_NEG_X, &KM_VEC3_POS_Y);
+    kmQuaternionLookRotation(&res, &KM_VEC3_POS_X, &KM_VEC3_POS_Y);
 
     CHECK(kmQuaternionAreEqual(&rot, &res));
 }

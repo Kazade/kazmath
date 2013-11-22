@@ -597,5 +597,5 @@ kmQuaternion* kmQuaternionLookRotation(kmQuaternion* pOut, const kmVec3* directi
     pOut->y = (direction->x - right.z) * w4_recip;
     pOut->z = (right.y - up->x) * w4_recip;
 
-    return pOut;
+    return kmQuaternionNormalize(pOut, pOut);
 }
