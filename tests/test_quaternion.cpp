@@ -113,7 +113,7 @@ TEST(test_look_rotation) {
     //LookRotation on 0,0,0 should return an identity quaternion
     CHECK(kmQuaternionAreEqual(&identity, &res));
 
-    kmQuaternionLookRotation(&res, &KM_VEC3_POS_Z, &KM_VEC3_POS_Y);
+    kmQuaternionLookRotation(&res, &KM_VEC3_NEG_Z, &KM_VEC3_POS_Y);
 
     //LookRotation on 0,0,1 should return an identity quaternion
     CHECK(kmQuaternionAreEqual(&identity, &res));
@@ -125,5 +125,10 @@ TEST(test_look_rotation) {
     //Get the rotation from the negative X, it should be the same
     kmQuaternionLookRotation(&res, &KM_VEC3_POS_X, &KM_VEC3_POS_Y);
 
+    CHECK(kmQuaternionAreEqual(&rot, &res));
+
+    kmQuaternionRotationAxisAngle(&rot, &KM_VEC3_POS_Y, kmDegreesToRadians(180));
+    //Get the rotation from the positive Z, it should be the same
+    kmQuaternionLookRotation(&res, &KM_VEC3_POS_Z, &KM_VEC3_POS_Y);
     CHECK(kmQuaternionAreEqual(&rot, &res));
 }

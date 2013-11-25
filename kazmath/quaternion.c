@@ -27,7 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assert.h>
 #include <memory.h>
 #include <string.h>
-
+#include "mat4.h"
 #include "utility.h"
 #include "mat3.h"
 #include "vec3.h"
@@ -586,6 +586,14 @@ kmScalar kmQuaternionGetRoll(const kmQuaternion* q) {
 }
 
 kmQuaternion* kmQuaternionLookRotation(kmQuaternion* pOut, const kmVec3* direction, const kmVec3* up) {
+    kmMat3 tmp;
+    kmMat3LookAt(&tmp, &KM_VEC3_ZERO, direction, up);
+    return kmQuaternionNormalize(pOut, kmQuaternionRotationMatrix(pOut, &tmp));
+/*
+    if(!direction->x && !direction->y && !direction->z) {
+        return kmQuaternionIdentity(pOut);
+    }
+
     kmVec3 right;
     kmVec3Cross(&right, up, direction);
 
@@ -597,5 +605,5 @@ kmQuaternion* kmQuaternionLookRotation(kmQuaternion* pOut, const kmVec3* directi
     pOut->y = (direction->x - right.z) * w4_recip;
     pOut->z = (right.y - up->x) * w4_recip;
 
-    return kmQuaternionNormalize(pOut, pOut);
+    return kmQuaternionNormalize(pOut, pOut);*/
 }

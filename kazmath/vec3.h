@@ -79,6 +79,7 @@ extern const kmVec3 KM_VEC3_POS_Y;
 extern const kmVec3 KM_VEC3_NEG_Y;
 extern const kmVec3 KM_VEC3_NEG_X;
 extern const kmVec3 KM_VEC3_POS_X;
+extern const kmVec3 KM_VEC3_ZERO;
 
 #ifdef __cplusplus
 }
