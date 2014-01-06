@@ -420,7 +420,7 @@ kmMat4* kmMat4RotationZ(kmMat4* pOut, const kmScalar radians)
 	pOut->mat[2] = 0.0f;
 	pOut->mat[3] = 0.0f;
 
-	pOut->mat[4] = -sinf(radians);;
+	pOut->mat[4] = -sinf(radians);
 	pOut->mat[5] = cosf(radians);
 	pOut->mat[6] = 0.0f;
 	pOut->mat[7] = 0.0f;

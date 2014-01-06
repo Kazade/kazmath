@@ -227,7 +227,7 @@ kmMat3* kmMat3Rotation(kmMat3* pOut, const kmScalar radians)
 	pOut->mat[1] = sinf(radians);
 	pOut->mat[2] = 0.0f;
 
-	pOut->mat[3] = -sinf(radians);;
+	pOut->mat[3] = -sinf(radians);
 	pOut->mat[4] = cosf(radians);
 	pOut->mat[5] = 0.0f;
 
@@ -384,7 +384,7 @@ kmMat3* kmMat3RotationZ(kmMat3* pOut, const kmScalar radians)
 	pOut->mat[1] =-sinf(radians);
 	pOut->mat[2] = 0.0f;
 
-	pOut->mat[3] = sinf(radians);;
+	pOut->mat[3] = sinf(radians);
 	pOut->mat[4] = cosf(radians);
 	pOut->mat[5] = 0.0f;
 
