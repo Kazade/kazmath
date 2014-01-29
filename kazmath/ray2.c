@@ -33,7 +33,7 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmV
     kmScalar x = x1 + ua * (x2 - x1);
     kmScalar y = y1 + ua * (y2 - y1);
     
-    if((0.0 < ua) && (ua < 1.0) && (0.0 < ub) && (ub < 1.0)) {
+    if((0.0 <= ua) && (ua <= 1.0) && (0.0 <= ub) && (ub <= 1.0)) {
         intersection->x = x;
         intersection->y = y;
         
