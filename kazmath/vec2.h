@@ -64,6 +64,12 @@ kmScalar kmVec2DegreesBetween(const kmVec2* v1, const kmVec2* v2);
 kmScalar kmVec2DistanceBetween(const kmVec2* v1, const kmVec2* v2);
 kmVec2* kmVec2MidPointBetween(kmVec2* pOut, const kmVec2* v1, const kmVec2* v2);
 
+extern const kmVec2 KM_VEC2_POS_Y;
+extern const kmVec2 KM_VEC2_NEG_Y;
+extern const kmVec2 KM_VEC2_NEG_X;
+extern const kmVec2 KM_VEC2_POS_X;
+extern const kmVec2 KM_VEC2_ZERO;
+
 #ifdef __cplusplus
 }
 #endif
