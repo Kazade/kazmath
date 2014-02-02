@@ -28,3 +28,22 @@ TEST(test_degrees_between) {
     CHECK_CLOSE(90.0f, kmVec2DegreesBetween(&v1, &v2), 0.001f);
     CHECK_CLOSE(-90.0f, kmVec2DegreesBetween(&v2, &v1), 0.001f);    
 }
+
+TEST(test_vec2_rotate_by) {
+    kmVec2 res;
+    kmVec2RotateBy(&res, &KM_VEC2_POS_Y, 90, &KM_VEC2_ZERO);
+
+    CHECK_CLOSE(-1, res.x, 0.001f);
+    CHECK_CLOSE(0, res.y, 0.001f);
+
+    kmVec2RotateBy(&res, &KM_VEC2_POS_Y, -90, &KM_VEC2_ZERO);
+
+    CHECK_CLOSE(1, res.x, 0.001f);
+    CHECK_CLOSE(0, res.y, 0.001f);
+
+    kmVec2RotateBy(&res, &KM_VEC2_POS_Y, 180, &KM_VEC2_ZERO);
+
+    CHECK_CLOSE(0, res.x, 0.001f);
+    CHECK_CLOSE(-1, res.y, 0.001f);
+
+}
