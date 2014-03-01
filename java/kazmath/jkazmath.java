@@ -233,7 +233,7 @@ public class jkazmath {
     public static native float kmQuaternionGetRoll(FloatBuffer q);
     public static native FloatBuffer kmRay3Fill(FloatBuffer ray, float px, float py, float pz, float vx, float vy, float vz);
     public static native FloatBuffer kmRay3FromPointAndDirection(FloatBuffer ray, FloatBuffer point, FloatBuffer direction);
-    public static native FloatBuffer kmRay3IntersectPlane(FloatBuffer pOut, FloatBuffer ray,  FloatBuffer plane);
+    public static native boolean kmRay3IntersectPlane(FloatBuffer pOut, FloatBuffer ray,  FloatBuffer plane);
     public static native FloatBuffer kmVec3MultiplyMat3(FloatBuffer pOut, FloatBuffer pV,  FloatBuffer pM);
     public static native FloatBuffer kmVec3MultiplyMat4(FloatBuffer pOut, FloatBuffer pV,  FloatBuffer pM);
     public static native FloatBuffer kmVec3ProjectOnToPlane(FloatBuffer pOut, FloatBuffer point,  FloatBuffer plane);
