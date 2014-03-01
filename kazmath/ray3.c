@@ -19,7 +19,7 @@ kmRay3* kmRay3FromPointAndDirection(kmRay3* ray, const kmVec3* point, const kmVe
     return ray;
 }
 
-kmVec3* kmRay3IntersectPlane(kmVec3* pOut, const kmRay3* ray, const kmPlane* plane) {
+kmBool kmRay3IntersectPlane(kmVec3* pOut, const kmRay3* ray, const kmPlane* plane) {
     //t = - (A*org.x + B*org.y + C*org.z + D) / (A*dir.x + B*dir.y + C*dir.z )
     double t = -(plane->a * ray->start.x +
                  plane->b * ray->start.y +
@@ -28,9 +28,13 @@ kmVec3* kmRay3IntersectPlane(kmVec3* pOut, const kmRay3* ray, const kmPlane* pla
                  plane->b * ray->dir.y +
                  plane->c * ray->dir.z);
 
+    if(t < 0)
+    {
+      return KM_FALSE;
+    }
 
     kmVec3 scaled_dir;
     kmVec3Scale(&scaled_dir, &ray->dir, t);
     kmVec3Add(pOut, &ray->start, &scaled_dir);
-    return pOut;
+    return KM_TRUE;
 }
