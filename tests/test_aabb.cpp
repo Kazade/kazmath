@@ -2,6 +2,34 @@
 #include <limits>
 
 #include "../kazmath/aabb.h"
+
+TEST(test_aabb_expand_to_contain) {
+    kmAABB box;
+
+    box.min.x = -1;
+    box.min.y = -1;
+    box.min.z = -1;
+
+    box.max.x = 1;
+    box.max.y = 1;
+    box.max.z = 1;
+
+    kmAABB other;
+
+    other.max.y = other.min.z = other.max.z = 0;
+
+    other.max.x = 2;
+    other.min.x = -2;
+    other.min.y = -2;
+
+    kmAABBExpandToContain(&box, &box, &other);
+
+    CHECK_EQUAL(box.max.x, 2);
+    CHECK_EQUAL(box.min.x, -2);
+    CHECK_EQUAL(box.max.y, 1);
+    CHECK_EQUAL(box.min.y, -2);
+}
+
 /*
 TEST(test_aabb_triangle_intersection) {
 

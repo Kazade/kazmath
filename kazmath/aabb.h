@@ -53,6 +53,7 @@ kmScalar kmAABBDiameterX(const kmAABB* aabb);
 kmScalar kmAABBDiameterY(const kmAABB* aabb);
 kmScalar kmAABBDiameterZ(const kmAABB* aabb);
 kmVec3* kmAABBCentre(const kmAABB* aabb, kmVec3* pOut);
+kmAABB* kmAABBExpandToContain(kmAABB* pOut, const kmAABB* pIn, const kmAABB* other);
 
 #ifdef __cplusplus
 }
