@@ -9,11 +9,11 @@ If you are using Kazmath in a project, I'd be happy to hear about it. Find me on
 
 Compiling is simple using CMake, on Linux:
 
-mkdir build
-cd build
-cmake ..
-make
-sudo make install
+    mkdir build
+    cd build
+    cmake ..
+    make
+    sudo make install
 
 On other platforms use CMake to generate an appropriate project file.
 
