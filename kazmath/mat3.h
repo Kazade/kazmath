@@ -79,7 +79,7 @@ kmMat3* kmMat3LookAt(kmMat3* pOut, const struct kmVec3* pEye, const struct kmVec
 #ifdef __cplusplus
 }
 #endif
-#endif // MAT3_H_INCLUDED
+#endif /* MAT3_H_INCLUDED */
 
 
-#endif // header guard
+#endif /* header guard */

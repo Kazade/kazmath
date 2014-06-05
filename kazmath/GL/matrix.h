@@ -39,7 +39,7 @@ typedef unsigned int kmGLEnum;
 extern "C" {
 #endif
     
-// Added by Tobias Lensing for icedcoffee-framework.org
+/* Added by Tobias Lensing for icedcoffee-framework.org*/
 void kmGLSetCurrentContext(void *contextRef);
 void *kmGLGetCurrentContext();
 void kmGLClearCurrentContext();
@@ -60,4 +60,4 @@ void kmGLGetMatrix(kmGLEnum mode, kmMat4* pOut);
 }
 #endif
 
-#endif // MATRIX_H_INCLUDED
+#endif /* MATRIX_H_INCLUDED */
