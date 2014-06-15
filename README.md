@@ -29,3 +29,9 @@ There are many improvements that could be made to kazmath, including:
  - More bindings (e.g. Python)
 
 All contributions are welcome. Just send me a pull request on GitHub and I'll review and probably merge! 
+
+# Donations
+
+If you like what I do, I'm happy to receive donations in DOGE to this address: D6uwEfChxWmWjFGs4jT8VRtabYaza5oAGx :)
+
+Thank you!
