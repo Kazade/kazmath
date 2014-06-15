@@ -22,7 +22,7 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmV
 
     kmScalar denom = (y4 -y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
     
-    //If denom is zero, the lines are parallel
+    /*If denom is zero, the lines are parallel*/
     if(denom > -kmEpsilon && denom < kmEpsilon) {
         return KM_FALSE;
     }

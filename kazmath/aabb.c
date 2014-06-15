@@ -105,8 +105,8 @@ kmEnum kmAABBContainsAABB(const kmAABB* container, const kmAABB* to_check) {
         if(!kmAABBContainsPoint(container, &corners[i])) {
             result = KM_CONTAINS_PARTIAL;
             if(found) {
-                //If we previously found a corner that was within the container
-                //We know that partial is the final result
+                /*If we previously found a corner that was within the container*/
+                /*We know that partial is the final result*/
                 return result;
             }
         } else {

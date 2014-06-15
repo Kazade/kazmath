@@ -23,4 +23,4 @@ kmBool kmRay3IntersectPlane(kmVec3* pOut, const kmRay3* ray, const struct kmPlan
 }
 #endif
 
-#endif // RAY3_H
+#endif /* RAY3_H */
