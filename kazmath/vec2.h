@@ -62,7 +62,6 @@ kmVec2* kmVec2Assign(kmVec2* pOut, const kmVec2* pIn);
 kmVec2* kmVec2RotateBy(kmVec2* pOut, const kmVec2* pIn, const kmScalar degrees, const kmVec2* center); ///<Rotates the point anticlockwise around a center by an amount of degrees.
 kmScalar kmVec2DegreesBetween(const kmVec2* v1, const kmVec2* v2);
 kmScalar kmVec2DistanceBetween(const kmVec2* v1, const kmVec2* v2);
-kmVec2* kmVec2MidPointBetween(kmVec2* pOut, const kmVec2* v1, const kmVec2* v2);
 
 #ifdef __cplusplus
 }

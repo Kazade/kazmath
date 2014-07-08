@@ -83,6 +83,16 @@ namespace km
 				return result;
 			}
 
+            inline bool operator==( const vec2& rhs ) const
+            {
+                return (kmVec2AreEqual( this, &rhs) != 0);
+            }
+
+            inline bool operator!=(const vec2& rhs ) const
+            {
+                return (kmVec2AreEqual( this, &rhs) == 0);
+            }
+
             inline vec2 operator+(const vec2& rhs) const
             {
                 return vec2( x + rhs.x, y + rhs.y );
@@ -152,7 +162,11 @@ namespace km
 
             inline vec2 operator/(const vec2& rhs) const
             {
-                return vec2( x / rhs.x, y / rhs.y );
+                if( rhs.x && rhs.y ){
+                    return vec2( x / rhs.x, y / rhs.y );
+                }else{ 
+                    return *this; 
+                }
 	        }
 
             inline vec2 operator/( kmScalar rhs ) const
@@ -208,11 +222,6 @@ namespace km
 		return result;
 	};
 	
-	///< Checks for equality (with a small threshold epsilon)
-    inline const bool operator==(const vec2& lhs, const vec2& rhs)
-	{
-		return (kmVec2AreEqual(&lhs,&rhs) != 0);
-	};
 } //end of namespace km
 
 #endif
