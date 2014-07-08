@@ -149,12 +149,12 @@ kmVec3* kmAABBCentre(const kmAABB* aabb, kmVec3* pOut) {
 kmAABB* kmAABBExpandToContain(kmAABB* pOut, const kmAABB* pIn, const kmAABB* other) {
     kmAABB result;
 
-    result.min.x = fminf(pIn->min.x, other->min.x);
-    result.max.x = fmaxf(pIn->max.x, other->max.x);
-    result.min.y = fminf(pIn->min.y, other->min.y);
-    result.max.y = fmaxf(pIn->max.y, other->max.y);
-    result.min.z = fminf(pIn->min.z, other->min.z);
-    result.max.z = fmaxf(pIn->max.z, other->max.z);
+    result.min.x = (pIn->min.x < other->min.x)?pIn->min.x:other->min.x;
+    result.max.x = (pIn->max.x > other->max.x)?pIn->max.x:other->max.x;
+    result.min.y = (pIn->min.y < other->min.y)?pIn->min.y:other->min.y;
+    result.max.y = (pIn->max.y > other->max.y)?pIn->max.y:other->max.y;
+    result.min.z = (pIn->min.z < other->min.z)?pIn->min.z:other->min.z;
+    result.max.z = (pIn->max.z > other->max.z)?pIn->max.z:other->max.z;
 
     kmAABBAssign(pOut, &result);
 
