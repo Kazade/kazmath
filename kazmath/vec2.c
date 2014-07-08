@@ -30,6 +30,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "vec2.h"
 #include "utility.h"
 
+const kmVec2 KM_VEC2_POS_Y = { 0, 1 };
+const kmVec2 KM_VEC2_NEG_Y = { 0, -1 };
+const kmVec2 KM_VEC2_NEG_X = { -1, 0 };
+const kmVec2 KM_VEC2_POS_X = { 1, 0 };
+const kmVec2 KM_VEC2_ZERO = { 0, 0 };
+
 kmVec2* kmVec2Fill(kmVec2* pOut, kmScalar x, kmScalar y)
 {
     pOut->x = x;
@@ -171,7 +177,7 @@ kmVec2* kmVec2RotateBy(kmVec2* pOut, const kmVec2* pIn,
 {
    kmScalar x, y;
    const kmScalar radians = kmDegreesToRadians(degrees);
-   const kmScalar cs = cos(radians), sn = sin(radians);
+   const kmScalar cs = cosf(radians), sn = sinf(radians);
 
    pOut->x = pIn->x - center->x;
    pOut->y = pIn->y - center->y;

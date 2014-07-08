@@ -1424,14 +1424,13 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmRay3FromPointAndDirection
 }
 
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmRay3IntersectPlane
+JNIEXPORT jboolean JNICALL Java_kazmath_jkazmath_kmRay3IntersectPlane
   (JNIEnv *env, jclass class, jobject jo, jobject jr, jobject jp)
 {
 	kmVec3* o = (kmVec3*)(*env)->GetDirectBufferAddress(env, jo);
 	kmRay3* r = (kmRay3*)(*env)->GetDirectBufferAddress(env, jr);
 	kmPlane* p = (kmPlane*)(*env)->GetDirectBufferAddress(env, jp);
-	kmRay3IntersectPlane(o, r, p);
-	return jo;	
+    return kmRay3IntersectPlane(o, r, p);
 }
 
 

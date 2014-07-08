@@ -27,7 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assert.h>
 #include <memory.h>
 #include <string.h>
-
+#include "mat4.h"
 #include "utility.h"
 #include "mat3.h"
 #include "vec3.h"
@@ -51,7 +51,7 @@ kmQuaternion* kmQuaternionFill(kmQuaternion* pOut, kmScalar x, kmScalar y, kmSca
 	pOut->w = w;
 	return pOut;
 }
-///< Returns the dot product of the 2 quaternions
+/**< Returns the dot product of the 2 quaternions*/
 kmScalar kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2)
 {
 	/* A dot B = B dot A = AtBt + AxBx + AyBy + AzBz */
@@ -62,7 +62,7 @@ kmScalar kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2)
 			q1->z * q2->z);
 }
 
-///< Returns the exponential of the quaternion
+/**< Returns the exponential of the quaternion*/
 kmQuaternion* kmQuaternionExp(kmQuaternion* pOut, const kmQuaternion* pIn)
 {
 	assert(0);
@@ -70,7 +70,7 @@ kmQuaternion* kmQuaternionExp(kmQuaternion* pOut, const kmQuaternion* pIn)
 	return pOut;
 }
 
-///< Makes the passed quaternion an identity quaternion
+/**< Makes the passed quaternion an identity quaternion*/
 kmQuaternion* kmQuaternionIdentity(kmQuaternion* pOut)
 {
 	pOut->x = 0.0;
@@ -81,7 +81,7 @@ kmQuaternion* kmQuaternionIdentity(kmQuaternion* pOut)
 	return pOut;
 }
 
-///< Returns the inverse of the passed Quaternion
+/**< Returns the inverse of the passed Quaternion*/
 kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
 											const kmQuaternion* pIn)
 {
@@ -105,26 +105,26 @@ kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
 	return pOut;
 }
 
-///< Returns true if the quaternion is an identity quaternion
+/**< Returns true if the quaternion is an identity quaternion*/
 int kmQuaternionIsIdentity(const kmQuaternion* pIn)
 {
 	return (pIn->x == 0.0 && pIn->y == 0.0 && pIn->z == 0.0 &&
 				pIn->w == 1.0);
 }
 
-///< Returns the length of the quaternion
+/**< Returns the length of the quaternion*/
 kmScalar kmQuaternionLength(const kmQuaternion* pIn)
 {
     return sqrt(kmQuaternionLengthSq(pIn));
 }
 
-///< Returns the length of the quaternion squared (prevents a sqrt)
+/**< Returns the length of the quaternion squared (prevents a sqrt)*/
 kmScalar kmQuaternionLengthSq(const kmQuaternion* pIn)
 {
     return pIn->x * pIn->x + pIn->y * pIn->y + pIn->z * pIn->z + pIn->w * pIn->w;
 }
 
-///< Returns the natural logarithm
+/**< Returns the natural logarithm*/
 kmQuaternion* kmQuaternionLn(kmQuaternion* pOut,
 										const kmQuaternion* pIn)
 {
@@ -139,7 +139,7 @@ kmQuaternion* kmQuaternionLn(kmQuaternion* pOut,
 	return pOut;
 }
 
-///< Multiplies 2 quaternions together
+/**< Multiplies 2 quaternions together*/
 extern
 kmQuaternion* kmQuaternionMultiply(kmQuaternion* pOut,
                                  const kmQuaternion* qu1,
@@ -149,7 +149,7 @@ kmQuaternion* kmQuaternionMultiply(kmQuaternion* pOut,
     kmQuaternionAssign(&tmp1, qu1);
     kmQuaternionAssign(&tmp2, qu2);
 
-    //Just aliasing
+    /*Just aliasing*/
     kmQuaternion* q1 = &tmp1;
     kmQuaternion* q2 = &tmp2;
 
@@ -161,7 +161,7 @@ kmQuaternion* kmQuaternionMultiply(kmQuaternion* pOut,
 	return pOut;
 }
 
-///< Normalizes a quaternion
+/**< Normalizes a quaternion*/
 kmQuaternion* kmQuaternionNormalize(kmQuaternion* pOut,
 											const kmQuaternion* pIn)
 {
@@ -187,7 +187,7 @@ kmQuaternion* kmQuaternionNormalize(kmQuaternion* pOut,
 	return pOut;
 }
 
-///< Rotates a quaternion around an axis
+/**< Rotates a quaternion around an axis*/
 kmQuaternion* kmQuaternionRotationAxisAngle(kmQuaternion* pOut,
 									const kmVec3* pV,
 									kmScalar angle)
@@ -205,34 +205,34 @@ kmQuaternion* kmQuaternionRotationAxisAngle(kmQuaternion* pOut,
 	return pOut;
 }
 
-///< Creates a quaternion from a rotation matrix
+/**< Creates a quaternion from a rotation matrix*/
 kmQuaternion* kmQuaternionRotationMatrix(kmQuaternion* pOut,
 										const kmMat3* pIn)
 {
-/*
+#if 0
 Note: The OpenGL matrices are transposed from the description below
 taken from the Matrix and Quaternion FAQ
 
-    if ( mat[0] > mat[5] && mat[0] > mat[10] )  {	// Column 0:
+    if ( mat[0] > mat[5] && mat[0] > mat[10] )  {	/* Column 0:*/
         S  = sqrt( 1.0 + mat[0] - mat[5] - mat[10] ) * 2;
         X = 0.25 * S;
         Y = (mat[4] + mat[1] ) / S;
         Z = (mat[2] + mat[8] ) / S;
         W = (mat[9] - mat[6] ) / S;
-    } else if ( mat[5] > mat[10] ) {			// Column 1:
+    } else if ( mat[5] > mat[10] ) {			/* Column 1:*/
         S  = sqrt( 1.0 + mat[5] - mat[0] - mat[10] ) * 2;
         X = (mat[4] + mat[1] ) / S;
         Y = 0.25 * S;
         Z = (mat[9] + mat[6] ) / S;
         W = (mat[2] - mat[8] ) / S;
-    } else {						// Column 2:
+    } else {						/* Column 2:*/
         S  = sqrt( 1.0 + mat[10] - mat[0] - mat[5] ) * 2;
         X = (mat[2] + mat[8] ) / S;
         Y = (mat[9] + mat[6] ) / S;
         Z = 0.25 * S;
         W = (mat[4] - mat[1] ) / S;
     }
-*/
+#endif
 
 	kmScalar x, y, z, w;
 	kmScalar *pMatrix = NULL;
@@ -268,10 +268,10 @@ taken from the Matrix and Quaternion FAQ
 	diagonal = pMatrix[0] + pMatrix[5] + pMatrix[10] + 1;
 
 	if(diagonal > kmEpsilon) {
-		// Calculate the scale of the diagonal
+		/* Calculate the scale of the diagonal*/
 		scale = (kmScalar)sqrt(diagonal ) * 2;
 
-		// Calculate the x, y, x and w of the quaternion through the respective equation
+		/* Calculate the x, y, x and w of the quaternion through the respective equation*/
 		x = ( pMatrix[9] - pMatrix[6] ) / scale;
 		y = ( pMatrix[2] - pMatrix[8] ) / scale;
 		z = ( pMatrix[4] - pMatrix[1] ) / scale;
@@ -279,37 +279,37 @@ taken from the Matrix and Quaternion FAQ
 	}
 	else
 	{
-		// If the first element of the diagonal is the greatest value
+		/* If the first element of the diagonal is the greatest value*/
 		if ( pMatrix[0] > pMatrix[5] && pMatrix[0] > pMatrix[10] )
 		{
-			// Find the scale according to the first element, and double that value
+			/* Find the scale according to the first element, and double that value*/
 			scale = (kmScalar)sqrt( 1.0f + pMatrix[0] - pMatrix[5] - pMatrix[10] ) * 2.0f;
 
-			// Calculate the x, y, x and w of the quaternion through the respective equation
+			/* Calculate the x, y, x and w of the quaternion through the respective equation*/
 			x = 0.25f * scale;
 			y = (pMatrix[4] + pMatrix[1] ) / scale;
 			z = (pMatrix[2] + pMatrix[8] ) / scale;
 			w = (pMatrix[9] - pMatrix[6] ) / scale;
 		}
-		// Else if the second element of the diagonal is the greatest value
+		/* Else if the second element of the diagonal is the greatest value*/
 		else if (pMatrix[5] > pMatrix[10])
 		{
-			// Find the scale according to the second element, and double that value
+			/* Find the scale according to the second element, and double that value*/
 			scale = (kmScalar)sqrt( 1.0f + pMatrix[5] - pMatrix[0] - pMatrix[10] ) * 2.0f;
 
-			// Calculate the x, y, x and w of the quaternion through the respective equation
+			/* Calculate the x, y, x and w of the quaternion through the respective equation*/
 			x = (pMatrix[4] + pMatrix[1] ) / scale;
 			y = 0.25f * scale;
 			z = (pMatrix[9] + pMatrix[6] ) / scale;
 			w = (pMatrix[2] - pMatrix[8] ) / scale;
 		}
-		// Else the third element of the diagonal is the greatest value
+		/* Else the third element of the diagonal is the greatest value*/
 		else
 		{
-			// Find the scale according to the third element, and double that value
+			/* Find the scale according to the third element, and double that value*/
 			scale  = (kmScalar)sqrt( 1.0f + pMatrix[10] - pMatrix[0] - pMatrix[5] ) * 2.0f;
 
-			// Calculate the x, y, x and w of the quaternion through the respective equation
+			/* Calculate the x, y, x and w of the quaternion through the respective equation*/
 			x = (pMatrix[2] + pMatrix[8] ) / scale;
 			y = (pMatrix[9] + pMatrix[6] ) / scale;
 			z = 0.25f * scale;
@@ -325,7 +325,7 @@ taken from the Matrix and Quaternion FAQ
 	return pOut;
 }
 
-///< Create a quaternion from yaw, pitch and roll
+/**< Create a quaternion from yaw, pitch and roll*/
 kmQuaternion* kmQuaternionRotationPitchYawRoll(kmQuaternion* pOut,
                                                 kmScalar pitch,
                                                 kmScalar yaw,
@@ -335,7 +335,7 @@ kmQuaternion* kmQuaternionRotationPitchYawRoll(kmQuaternion* pOut,
     assert(yaw <= 2*kmPI);
     assert(roll <= 2*kmPI);
 
-    // Finds the Sin and Cosin for each half angles.
+    /* Finds the Sin and Cosin for each half angles.*/
     float sY = sinf(yaw * 0.5);
     float cY = cosf(yaw * 0.5);
     float sZ = sinf(roll * 0.5);
@@ -343,7 +343,7 @@ kmQuaternion* kmQuaternionRotationPitchYawRoll(kmQuaternion* pOut,
     float sX = sinf(pitch * 0.5);
     float cX = cosf(pitch * 0.5);
 
-    // Formula to construct a new Quaternion based on Euler Angles.
+    /* Formula to construct a new Quaternion based on Euler Angles.*/
     pOut->w = cY * cZ * cX - sY * sZ * sX;
     pOut->x = sY * sZ * cX + cY * cZ * sX;
     pOut->y = sY * cZ * cX + cY * sZ * sX;
@@ -352,7 +352,7 @@ kmQuaternion* kmQuaternionRotationPitchYawRoll(kmQuaternion* pOut,
     return pOut;
 }
 
-///< Interpolate between 2 quaternions
+/**< Interpolate between 2 quaternions*/
 kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut,
 								const kmQuaternion* q1,
 								const kmQuaternion* q2,
@@ -391,19 +391,19 @@ kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut,
 	return pOut;
 }
 
-///< Get the axis and angle of rotation from a quaternion
+/**< Get the axis and angle of rotation from a quaternion*/
 void kmQuaternionToAxisAngle(const kmQuaternion* pIn,
 								kmVec3* pAxis,
 								kmScalar* pAngle)
 {
-	kmScalar 	tempAngle;		// temp angle
-	kmScalar	scale;			// temp vars
+	kmScalar 	tempAngle;		/* temp angle*/
+	kmScalar	scale;			/* temp vars*/
 
 	tempAngle = acosf(pIn->w);
 	scale = sqrtf(kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z));
 
 	if (((scale > -kmEpsilon) && scale < kmEpsilon)
-		|| (scale < 2*kmPI + kmEpsilon && scale > 2*kmPI - kmEpsilon))		// angle is 0 or 360 so just simply set axis to 0,0,1 with angle 0
+		|| (scale < 2*kmPI + kmEpsilon && scale > 2*kmPI - kmEpsilon))		/* angle is 0 or 360 so just simply set axis to 0,0,1 with angle 0*/
 	{
 		*pAngle = 0.0f;
 
@@ -413,7 +413,7 @@ void kmQuaternionToAxisAngle(const kmQuaternion* pIn,
 	}
 	else
 	{
-		*pAngle = tempAngle * 2.0f;		// angle in radians
+		*pAngle = tempAngle * 2.0f;		/* angle in radians*/
 
 		pAxis->x = pIn->x / scale;
 		pAxis->y = pIn->y / scale;
@@ -502,7 +502,7 @@ kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const kmVec3* 
 
 			kmVec3Cross(&axis, &X, vec1);
 
-			//If axis is zero
+			/*If axis is zero*/
 			if (fabs(kmVec3LengthSq(&axis)) < kmEpsilon) {
 				kmVec3 Y;
 				Y.x = 0.0;
@@ -583,4 +583,27 @@ kmScalar kmQuaternionGetYaw(const kmQuaternion* q) {
 kmScalar kmQuaternionGetRoll(const kmQuaternion* q) {
     float result = atan2(2 * (q->x * q->y + q->w * q->z), q->w * q->w + q->x * q->x - q->y * q->y - q->z * q->z);
     return result;
+}
+
+kmQuaternion* kmQuaternionLookRotation(kmQuaternion* pOut, const kmVec3* direction, const kmVec3* up) {
+    kmMat3 tmp;
+    kmMat3LookAt(&tmp, &KM_VEC3_ZERO, direction, up);
+    return kmQuaternionNormalize(pOut, kmQuaternionRotationMatrix(pOut, &tmp));
+/*
+    if(!direction->x && !direction->y && !direction->z) {
+        return kmQuaternionIdentity(pOut);
+    }
+
+    kmVec3 right;
+    kmVec3Cross(&right, up, direction);
+
+    pOut->w = sqrtf(1.0f + right.x + up->y + direction->z) * 0.5f;
+
+    float w4_recip = 1.0f / (4.0f * pOut->w);
+
+    pOut->x = (up->z - direction->y) * w4_recip;
+    pOut->y = (direction->x - right.z) * w4_recip;
+    pOut->z = (right.y - up->x) * w4_recip;
+
+    return kmQuaternionNormalize(pOut, pOut);*/
 }

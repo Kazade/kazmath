@@ -174,7 +174,7 @@ kmMat3* kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, const kmScalar pFac
 /** Assigns the value of pIn to pOut */
 kmMat3* kmMat3Assign(kmMat3* pOut, const kmMat3* pIn)
 {
-	assert(pOut != pIn); //You have tried to self-assign!!
+	assert(pOut != pIn); /*You have tried to self-assign!!*/
 
 	memcpy(pOut->mat, pIn->mat, sizeof(kmScalar)*9);
 
@@ -227,7 +227,7 @@ kmMat3* kmMat3Rotation(kmMat3* pOut, const kmScalar radians)
 	pOut->mat[1] = sinf(radians);
 	pOut->mat[2] = 0.0f;
 
-	pOut->mat[3] = -sinf(radians);;
+	pOut->mat[3] = -sinf(radians);
 	pOut->mat[4] = cosf(radians);
 	pOut->mat[5] = 0.0f;
 
@@ -241,7 +241,7 @@ kmMat3* kmMat3Rotation(kmMat3* pOut, const kmScalar radians)
 /** Builds a scaling matrix */
 kmMat3* kmMat3Scaling(kmMat3* pOut, const kmScalar x, const kmScalar y)
 {
-//	memset(pOut->mat, 0, sizeof(kmScalar) * 9);
+/*	memset(pOut->mat, 0, sizeof(kmScalar) * 9);*/
 	kmMat3Identity(pOut);
 	pOut->mat[0] = x;
 	pOut->mat[4] = y;
@@ -251,11 +251,11 @@ kmMat3* kmMat3Scaling(kmMat3* pOut, const kmScalar x, const kmScalar y)
 
 kmMat3* kmMat3Translation(kmMat3* pOut, const kmScalar x, const kmScalar y)
 {
-//    memset(pOut->mat, 0, sizeof(kmScalar) * 9);
+/*    memset(pOut->mat, 0, sizeof(kmScalar) * 9);*/
 	kmMat3Identity(pOut);
 	pOut->mat[6] = x;
 	pOut->mat[7] = y;
-//    pOut->mat[8] = 1.0;
+/*    pOut->mat[8] = 1.0;*/
 
     return pOut;
 }
@@ -267,17 +267,17 @@ kmMat3* kmMat3RotationQuaternion(kmMat3* pOut, const kmQuaternion* pIn)
 	return NULL;
     }
 
-    // First row
+    /* First row */
     pOut->mat[0] = 1.0f - 2.0f * (pIn->y * pIn->y + pIn->z * pIn->z);
     pOut->mat[1] = 2.0f * (pIn->x * pIn->y - pIn->w * pIn->z);
     pOut->mat[2] = 2.0f * (pIn->x * pIn->z + pIn->w * pIn->y);
 
-    // Second row
+    /* Second row */
     pOut->mat[3] = 2.0f * (pIn->x * pIn->y + pIn->w * pIn->z);
     pOut->mat[4] = 1.0f - 2.0f * (pIn->x * pIn->x + pIn->z * pIn->z);
     pOut->mat[5] = 2.0f * (pIn->y * pIn->z - pIn->w * pIn->x);
 
-    // Third row
+    /* Third row */
     pOut->mat[6] = 2.0f * (pIn->x * pIn->z - pIn->w * pIn->y);
     pOut->mat[7] = 2.0f * (pIn->y * pIn->z + pIn->w * pIn->x);
     pOut->mat[8] = 1.0f - 2.0f * (pIn->x * pIn->x + pIn->y * pIn->y);
@@ -384,7 +384,7 @@ kmMat3* kmMat3RotationZ(kmMat3* pOut, const kmScalar radians)
 	pOut->mat[1] =-sinf(radians);
 	pOut->mat[2] = 0.0f;
 
-	pOut->mat[3] = sinf(radians);;
+	pOut->mat[3] = sinf(radians);
 	pOut->mat[4] = cosf(radians);
 	pOut->mat[5] = 0.0f;
 
@@ -425,3 +425,34 @@ kmVec3* kmMat3GetForwardVec3(kmVec3* pOut, const kmMat3* pIn) {
 	return pOut;
 }
 
+kmMat3* kmMat3LookAt(kmMat3* pOut, const kmVec3* pEye,
+                     const kmVec3* pCenter, const kmVec3* pUp)
+{
+    kmVec3 f, up, s, u;
+
+    kmVec3Subtract(&f, pCenter, pEye);
+    kmVec3Normalize(&f, &f);
+
+    kmVec3Assign(&up, pUp);
+    kmVec3Normalize(&up, &up);
+
+    kmVec3Cross(&s, &f, &up);
+    kmVec3Normalize(&s, &s);
+
+    kmVec3Cross(&u, &s, &f);
+    kmVec3Normalize(&s, &s);
+
+    pOut->mat[0] = s.x;
+    pOut->mat[3] = s.y;
+    pOut->mat[6] = s.z;
+
+    pOut->mat[1] = u.x;
+    pOut->mat[4] = u.y;
+    pOut->mat[7] = u.z;
+
+    pOut->mat[2] = -f.x;
+    pOut->mat[5] = -f.y;
+    pOut->mat[8] = -f.z;
+
+    return pOut;
+}

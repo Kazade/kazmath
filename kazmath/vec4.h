@@ -54,7 +54,7 @@ kmScalar kmVec4Length(const kmVec4* pIn);
 kmScalar kmVec4LengthSq(const kmVec4* pIn);
 kmVec4* kmVec4Lerp(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2, kmScalar t);
 kmVec4* kmVec4Normalize(kmVec4* pOut, const kmVec4* pIn);
-kmVec4* kmVec4Scale(kmVec4* pOut, const kmVec4* pIn, const kmScalar s); ///< Scales a vector to length s
+kmVec4* kmVec4Scale(kmVec4* pOut, const kmVec4* pIn, const kmScalar s); /**< Scales a vector to length s*/
 kmVec4* kmVec4Subtract(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2);
 kmVec4* kmVec4Mul( kmVec4* pOut,const kmVec4* pV1, const kmVec4* pV2 ); 
 kmVec4* kmVec4Div( kmVec4* pOut,const kmVec4* pV1, const kmVec4* pV2 ); 
@@ -70,4 +70,4 @@ kmVec4* kmVec4Assign(kmVec4* pOut, const kmVec4* pIn);
 }
 #endif
 
-#endif // VEC4_H_INCLUDED
+#endif /* VEC4_H_INCLUDED */

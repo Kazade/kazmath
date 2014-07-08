@@ -68,4 +68,3 @@ TEST(test_triangle_intersection) {
     CHECK_CLOSE(0.0f, normal.x, 0.001f);
     CHECK_CLOSE(1.0f, normal.y, 0.001f);
 }
-

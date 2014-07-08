@@ -99,3 +99,36 @@ TEST(test_rotation_around_axis) {
     kmQuaternionRotationAxisAngle(&rot2, &KM_VEC3_POS_X, kmDegreesToRadians(-90));
     CHECK_CLOSE(kmDegreesToRadians(-90), kmQuaternionGetPitch(&rot2), 0.0001);
 }
+
+TEST(test_look_rotation) {
+    kmQuaternion identity;
+    kmQuaternionIdentity(&identity);
+
+    kmVec3 zero;
+    kmVec3Zero(&zero);
+
+    kmQuaternion res;
+    kmQuaternionLookRotation(&res, &zero, &KM_VEC3_POS_Y);
+
+    //LookRotation on 0,0,0 should return an identity quaternion
+    CHECK(kmQuaternionAreEqual(&identity, &res));
+
+    kmQuaternionLookRotation(&res, &KM_VEC3_NEG_Z, &KM_VEC3_POS_Y);
+
+    //LookRotation on 0,0,1 should return an identity quaternion
+    CHECK(kmQuaternionAreEqual(&identity, &res));
+
+    //90 degree rotation around the Y-Axis (e.g. negative X)
+    kmQuaternion rot;
+    kmQuaternionRotationAxisAngle(&rot, &KM_VEC3_POS_Y, kmDegreesToRadians(90));
+
+    //Get the rotation from the negative X, it should be the same
+    kmQuaternionLookRotation(&res, &KM_VEC3_POS_X, &KM_VEC3_POS_Y);
+
+    CHECK(kmQuaternionAreEqual(&rot, &res));
+
+    kmQuaternionRotationAxisAngle(&rot, &KM_VEC3_POS_Y, kmDegreesToRadians(180));
+    //Get the rotation from the positive Z, it should be the same
+    kmQuaternionLookRotation(&res, &KM_VEC3_POS_Z, &KM_VEC3_POS_Y);
+    CHECK(kmQuaternionAreEqual(&rot, &res));
+}

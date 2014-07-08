@@ -74,11 +74,12 @@ kmMat3* kmMat3RotationQuaternion(kmMat3* pOut, const struct kmQuaternion* pIn);
 
 kmMat3* kmMat3RotationAxisAngle(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians);
 struct kmVec3* kmMat3RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat3* pIn);
+kmMat3* kmMat3LookAt(kmMat3* pOut, const struct kmVec3* pEye, const struct kmVec3* pCenter, const struct kmVec3* pUp);
 
 #ifdef __cplusplus
 }
 #endif
-#endif // MAT3_H_INCLUDED
+#endif /* MAT3_H_INCLUDED */
 
 
-#endif // header guard
+#endif /* header guard */

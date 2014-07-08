@@ -420,7 +420,7 @@ kmMat4* kmMat4RotationZ(kmMat4* pOut, const kmScalar radians)
 	pOut->mat[2] = 0.0f;
 	pOut->mat[3] = 0.0f;
 
-	pOut->mat[4] = -sinf(radians);;
+	pOut->mat[4] = -sinf(radians);
 	pOut->mat[5] = cosf(radians);
 	pOut->mat[6] = 0.0f;
 	pOut->mat[7] = 0.0f;
@@ -520,7 +520,7 @@ kmMat4* kmMat4Scaling(kmMat4* pOut, const kmScalar x, const kmScalar y,
 kmMat4* kmMat4Translation(kmMat4* pOut, const kmScalar x,
                           kmScalar y, const kmScalar z)
 {
-    //FIXME: Write a test for this
+    /*FIXME: Write a test for this*/
     memset(pOut->mat, 0, sizeof(kmScalar) * 16);
 
     pOut->mat[0] = 1.0f;
@@ -592,7 +592,7 @@ kmMat4* kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY,
 		return NULL;
 	}
 
-    //cos(r) / sin(r) = cot(r)
+    /*cos(r) / sin(r) = cot(r)*/
 	cotangent = cos(r) / s;
 
 	kmMat4Identity(pOut);

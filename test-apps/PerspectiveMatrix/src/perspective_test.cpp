@@ -55,16 +55,16 @@ void perspective_test::draw()
     axis.y = 0.0f;
     axis.z = 1.0f;
 
-    kmMat4RotationAxis(&rotation, &axis , kmDegreesToRadians(35.0f));
+    kmMat4RotationAxisAngle(&rotation, &axis , kmDegreesToRadians(35.0f));
     std::cout << "Rotation Matrix with Kazmath is: " << std::endl;
 	output_matrix(&rotation);
 
-    //glMultMatrixf(&rotation.m_Mat[0]);
+    //glMultMatrixf(&rotation.mat[0]);
 
     glRotatef(35.0f, 0.0f, 0.0f, 1.0f);
 
     kmMat4 modelview_matrix;
-	glGetFloatv(GL_MODELVIEW_MATRIX, &modelview_matrix.m_Mat[0]);
+	glGetFloatv(GL_MODELVIEW_MATRIX, &modelview_matrix.mat[0]);
 	std::cout << "Rotation Matrix with Fixed Function pipeline is: " << std::endl;
 	output_matrix(&modelview_matrix);
 
@@ -90,7 +90,7 @@ void perspective_test::output_matrix(const kmMat4* matrix)
 		std::cout << " | ";
 		for (int j = 0; j < 4; j++)
 		{
-			std::cout << std::setw(8) << matrix->m_Mat[i + 4 * j] << " ";
+			std::cout << std::setw(8) << matrix->mat[i + 4 * j] << " ";
 		}
 		std::cout << " | " << std::endl;
 	}
@@ -112,7 +112,7 @@ void perspective_test::resize(int x, int y)
 	gluPerspective(45.0f, (GLfloat)x / (GLfloat)y, 1.0f, 100.0f);
 
 	kmMat4 perspective_matrix;
-	glGetFloatv(GL_PROJECTION_MATRIX, &perspective_matrix.m_Mat[0]);
+	glGetFloatv(GL_PROJECTION_MATRIX, &perspective_matrix.mat[0]);
 	std::cout << "Projection Matrix with gluPerspective is: " << std::endl;
 	output_matrix(&perspective_matrix);
 

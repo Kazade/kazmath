@@ -73,12 +73,13 @@ kmVec3* kmVec3RotationToDirection(kmVec3* pOut, const kmVec3* pIn, const kmVec3*
 
 kmVec3* kmVec3ProjectOnToPlane(kmVec3* pOut, const kmVec3* point, const struct kmPlane* plane);
 
-extern kmVec3 KM_VEC3_NEG_Z;
-extern kmVec3 KM_VEC3_POS_Z;
-extern kmVec3 KM_VEC3_POS_Y;
-extern kmVec3 KM_VEC3_NEG_Y;
-extern kmVec3 KM_VEC3_NEG_X;
-extern kmVec3 KM_VEC3_POS_X;
+extern const kmVec3 KM_VEC3_NEG_Z;
+extern const kmVec3 KM_VEC3_POS_Z;
+extern const kmVec3 KM_VEC3_POS_Y;
+extern const kmVec3 KM_VEC3_NEG_Y;
+extern const kmVec3 KM_VEC3_NEG_X;
+extern const kmVec3 KM_VEC3_POS_X;
+extern const kmVec3 KM_VEC3_ZERO;
 
 #ifdef __cplusplus
 }
