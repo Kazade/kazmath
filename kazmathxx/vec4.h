@@ -86,6 +86,16 @@ namespace km
 				return result;
 			}
 
+            inline bool operator==( const vec4& rhs ) const
+            {
+                return (kmVec4AreEqual( this, &rhs) != 0);
+            }
+
+            inline bool operator!=(const vec4& rhs ) const
+            {
+                return (kmVec4AreEqual( this, &rhs) == 0);
+            }
+
             inline vec4 operator+( const vec4& rhs ) const
             {
                 return vec4( x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w );
@@ -233,11 +243,6 @@ namespace km
 		return result;
 	}
 	
-	///< Checks for equality (with a small threshold epsilon)
-	inline const bool operator==(const vec4& lhs, const vec4& rhs)
-	{
-		return (kmVec4AreEqual(&lhs,&rhs) != 0);
-	}
 } //end of namespace km
 
 #endif
