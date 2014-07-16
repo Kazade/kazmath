@@ -140,7 +140,6 @@ namespace km
             
 
             inline bool overlaps( const quad &other ) const{
-               // \TODO implement the overlap 
                 if( contains( other.pos ) || 
                     contains( other.pos + other.u ) || 
                     contains( other.pos + other.v ) || 
