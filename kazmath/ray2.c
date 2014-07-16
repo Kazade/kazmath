@@ -9,16 +9,31 @@ void kmRay2Fill(kmRay2* ray, kmScalar px, kmScalar py, kmScalar vx, kmScalar vy)
     ray->dir.y = vy;
 }
 
-kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, kmVec2* intersection) {
-    
-    kmScalar x1 = ray->start.x;
-    kmScalar y1 = ray->start.y;
-    kmScalar x2 = ray->start.x + ray->dir.x;
-    kmScalar y2 = ray->start.y + ray->dir.y;
-    kmScalar x3 = p1->x;
-    kmScalar y3 = p1->y;
-    kmScalar x4 = p2->x;
-    kmScalar y4 = p2->y;
+void kmRay2FillWithEndpoints( kmRay2 *ray, const kmVec2 *start, const kmVec2 *end ) {
+    ray->start.x = start->x; 
+    ray->start.y = start->y; 
+    ray->dir.x = start->x + end->x; 
+    ray->dir.y = start->y + end->y; 
+}
+ 
+
+/* 
+    Lines are defined by a pt and a vector. It outputs the vector multiply factor
+    that gives the intersection point 
+*/
+kmBool kmLine2WithLineIntersection(const kmVec2 *ptA, const kmVec2 *vecA, // first line 
+                                   const kmVec2 *ptB, const kmVec2 *vecB, // seconf line
+                                   kmScalar *outTA, kmScalar *outTB,
+                                   kmVec2 *outIntersection )
+{
+    kmScalar x1 = ptA->x;
+    kmScalar y1 = ptA->y;
+    kmScalar x2 = x1 + vecA->x;
+    kmScalar y2 = y1 + vecA->y;
+    kmScalar x3 = ptB->x;
+    kmScalar y3 = ptB->y;
+    kmScalar x4 = x3 + vecB->x;
+    kmScalar y4 = y3 + vecB->y;
 
     kmScalar denom = (y4 -y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
     
@@ -33,10 +48,53 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmV
     kmScalar x = x1 + ua * (x2 - x1);
     kmScalar y = y1 + ua * (y2 - y1);
     
-    if((0.0 <= ua) && (ua <= 1.0) && (0.0 <= ub) && (ub <= 1.0)) {
-        intersection->x = x;
-        intersection->y = y;
+    if( outTA ){ 
+        *outTA = ua;
+    }
+    if( outTB ){ 
+        *outTB = ub; 
+    }
+    if( outIntersection ){
+        outIntersection->x = x;
+        outIntersection->y = y; 
+    }
+    return KM_TRUE;
+} 
+
+kmBool kmSegment2WithSegmentIntersection( const kmRay2 *segmentA, const kmRay2 *segmentB, kmVec2 *intersection )
+{
+    kmScalar ua;
+    kmScalar ub;
+    kmVec2   pt; 
+
+    if( kmLine2WithLineIntersection( &(segmentA->start), &(segmentA->dir), 
+                                    &(segmentB->start), &(segmentB->start),
+                                    &ua, &ub, &pt ) && 
+        (0.0 <= ua) && (ua <= 1.0) && (0.0 <= ub) && (ub <= 1.0)) {
+        intersection->x = pt.x;
+        intersection->y = pt.y;
+        return KM_TRUE;    
+    }
+
+    return KM_FALSE;        
+} 
+
+kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, kmVec2* intersection) {
+    
+    kmScalar ua;
+    kmScalar ub;
+    kmVec2   pt; 
+
+    kmRay2   otherSegment; 
+    kmRay2FillWithEndpoints( &otherSegment, p1, p2 ); 
+
+    if( kmLine2WithLineIntersection( &(ray->start), &(ray->dir), 
+                                     &(otherSegment.start), &(otherSegment.dir),
+                                     &ua, &ub, &pt ) && 
+        (0.0 <= ua) && (0.0 <= ub) && (ub <= 1.0)) {
         
+        intersection->x = pt.x;
+        intersection->y = pt.y;
         return KM_TRUE;    
     }
 

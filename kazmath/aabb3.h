@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2011, Luke Benstead.
+Copyright (c) 2008, Luke Benstead.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -23,40 +23,37 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef RAY_2_H
-#define RAY_2_H
+#ifndef KAZMATH_AABB_H_INCLUDED
+#define KAZMATH_AABB_H_INCLUDED
 
+#include "vec3.h"
 #include "utility.h"
-#include "vec2.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct kmRay2 {
-    kmVec2 start;
-    kmVec2 dir;
-} kmRay2;
+/**
+ * A struture that represents an axis-aligned
+ * bounding box.
+ */
+typedef struct kmAABB33 {
+    kmVec3 min; /** The max corner of the box */
+    kmVec3 max; /** The min corner of the box */
+} kmAABB3;
 
-void kmRay2Fill(kmRay2* ray, kmScalar px, kmScalar py, kmScalar vx, kmScalar vy);
-void kmRay2FillWithEndpoints( kmRay2 *ray, const kmVec2 *start, const kmVec2 *end );
 
-kmBool kmLine2WithLineIntersection(const kmVec2 *ptA, const kmVec2 *vecA,
-                                   const kmVec2 *ptB, const kmVec2 *vecB,
-                                   kmScalar *outTA, kmScalar *outTB,
-                                   kmVec2 *outIntersection );
-
-kmBool kmSegment2WithSegmentIntersection( const kmRay2 *segmentA, 
-                                          const kmRay2 *segmentB, 
-                                          kmVec2 *intersection );
-
-kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, kmVec2* intersection);
-kmBool kmRay2IntersectTriangle(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, const kmVec2* p3, kmVec2* intersection, kmVec2* normal_out, kmScalar* distance);
-
-kmBool kmRay2IntersectBox(const kmRay2* ray, const kmVec2* p1, const kmVec2* p2, const kmVec2* p3, const kmVec2* p4,
-kmVec2* intersection, kmVec2* normal_out);
-
-kmBool kmRay2IntersectCircle(const kmRay2* ray, const kmVec2 centre, const kmScalar radius, kmVec2* intersection);
+kmAABB3* kmAABB3Initialize(kmAABB3* pBox, const kmVec3* centre, const kmScalar width, const kmScalar height, const kmScalar depth);
+int kmAABB3ContainsPoint(const kmAABB3* pBox, const kmVec3* pPoint);
+kmAABB3* kmAABB3Assign(kmAABB3* pOut, const kmAABB3* pIn);
+kmAABB3* kmAABB3Scale(kmAABB3* pOut, const kmAABB3* pIn, kmScalar s);
+kmBool kmAABB3IntersectsTriangle(kmAABB3* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3);
+kmEnum kmAABB3ContainsAABB(const kmAABB3* container, const kmAABB3* to_check);
+kmScalar kmAABB3DiameterX(const kmAABB3* aabb);
+kmScalar kmAABB3DiameterY(const kmAABB3* aabb);
+kmScalar kmAABB3DiameterZ(const kmAABB3* aabb);
+kmVec3* kmAABB3Centre(const kmAABB3* aabb, kmVec3* pOut);
+kmAABB3* kmAABB3ExpandToContain(kmAABB3* pOut, const kmAABB3* pIn, const kmAABB3* other);
 
 #ifdef __cplusplus
 }
