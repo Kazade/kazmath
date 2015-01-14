@@ -72,4 +72,4 @@ struct kmVec3* kmPlaneGetIntersection(struct kmVec3* pOut, const kmPlane* p1, co
 }
 #endif
 
-#endif // PLANE_H_INCLUDED
+#endif /* PLANE_H_INCLUDED */

@@ -113,6 +113,16 @@ namespace km
 				kmVec3InverseTransformNormal(&result,this, &mat);
 				return result;
 			}
+
+            inline bool operator==( const vec3& rhs ) const
+            {
+                return (kmVec3AreEqual( this, &rhs) != 0);
+            }
+
+            inline bool operator!=(const vec3& rhs ) const
+            {
+                return (kmVec3AreEqual( this, &rhs) == 0);
+            }
             
             inline vec3 operator+( const vec3& rhs ) const
             {
@@ -194,7 +204,7 @@ namespace km
 
             inline vec3 operator/( const vec3& rhs ) const
             {
-                if( rhs != .0 ){ 
+                if( rhs.x && rhs.y && rhs.z ){ 
                     return vec3( x / rhs.x, y / rhs.y, z / rhs.z );
                 }else{ 
                     return vec3( x, y , z );
@@ -252,11 +262,6 @@ namespace km
 		return result;
 	}
 	
-	///< Checks for equality (with a small threshold epsilon)
-	inline const bool operator==(const vec3& lhs, const vec3& rhs)
-	{
-		return (kmVec3AreEqual(&lhs,&rhs) != 0);
-	}
 } //end of namespace km
 
 #endif
