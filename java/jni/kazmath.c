@@ -7,7 +7,8 @@
 
 #include "kazmath_jkazmath.h"
 
-#include <aabb.h>
+#include <aabb2.h>
+#include <aabb3.h>
 #include <vec3.h>
 #include <vec4.h>
 #include <mat3.h>
@@ -747,72 +748,72 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3RotationQuaternion
 
 
 
-JNIEXPORT jint JNICALL Java_kazmath_jkazmath_kmAABBContainsPoint
+JNIEXPORT jint JNICALL Java_kazmath_jkazmath_kmAABB3ContainsPoint
   (JNIEnv *e, jclass c, jobject jb, jobject jp)
 {
-    kmAABB* b = (kmAABB*)(*e)->GetDirectBufferAddress(e, jb);    
+    kmAABB3* b = (kmAABB3*)(*e)->GetDirectBufferAddress(e, jb);
     kmVec3* p = (kmVec3*)(*e)->GetDirectBufferAddress(e, jp);
-    return kmAABBContainsPoint(b,p);
+    return kmAABB3ContainsPoint(b,p);
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmAABBAssign
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmAABB3Assign
   (JNIEnv *e, jclass c, jobject jo, jobject ji)
 {
-    kmAABB* o = (kmAABB*)(*e)->GetDirectBufferAddress(e, jo);  
-    kmAABB* i = (kmAABB*)(*e)->GetDirectBufferAddress(e, ji);
-    kmAABBAssign(o,i);
+    kmAABB3* o = (kmAABB3*)(*e)->GetDirectBufferAddress(e, jo);
+    kmAABB3* i = (kmAABB3*)(*e)->GetDirectBufferAddress(e, ji);
+    kmAABB3Assign(o,i);
     return jo;  
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmAABBScale
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmAABB3Scale
   (JNIEnv *e, jclass c, jobject jo, jobject ji, jfloat s)
 {
-    kmAABB* o = (kmAABB*)(*e)->GetDirectBufferAddress(e, jo);  
-    kmAABB* i = (kmAABB*)(*e)->GetDirectBufferAddress(e, ji);
-    kmAABBScale(o,i,s);
+    kmAABB3* o = (kmAABB3*)(*e)->GetDirectBufferAddress(e, jo);
+    kmAABB3* i = (kmAABB3*)(*e)->GetDirectBufferAddress(e, ji);
+    kmAABB3Scale(o,i,s);
     return jo;      
 }
 
-// kmBool kmAABBIntersectsTriangle(kmAABB* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3);
-JNIEXPORT jboolean JNICALL Java_kazmath_jkazmath_kmAABBIntersectsTriangle
+// kmBool kmAABB3IntersectsTriangle(kmAABB3* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3);
+JNIEXPORT jboolean JNICALL Java_kazmath_jkazmath_kmAABB3IntersectsTriangle
   (JNIEnv *e, jclass c, jobject jb, jobject jp1, jobject jp2, jobject jp3)
 {
-    kmAABB* b = (kmAABB*)(*e)->GetDirectBufferAddress(e, jb);
+    kmAABB3* b = (kmAABB3*)(*e)->GetDirectBufferAddress(e, jb);
     kmVec3* p1 = (kmVec3*)(*e)->GetDirectBufferAddress(e, jp1);
     kmVec3* p2 = (kmVec3*)(*e)->GetDirectBufferAddress(e, jp2);
     kmVec3* p3 = (kmVec3*)(*e)->GetDirectBufferAddress(e, jp3);
-    return kmAABBIntersectsTriangle(b,p1,p2,p3);
+    return kmAABB3IntersectsTriangle(b,p1,p2,p3);
 }
 
-//kmEnum kmAABBContainsAABB(const kmAABB* container, const kmAABB* to_check);
-JNIEXPORT jint JNICALL Java_kazmath_jkazmath_kmAABBContainsAABB
+//kmEnum kmAABB3ContainsAABB(const kmAABB3* container, const kmAABB3* to_check);
+JNIEXPORT jint JNICALL Java_kazmath_jkazmath_kmAABB3ContainsAABB
   (JNIEnv *e, jclass c, jobject ja, jobject jb)
 {
-    kmAABB* a = (kmAABB*)(*e)->GetDirectBufferAddress(e, ja);
-    kmAABB* b = (kmAABB*)(*e)->GetDirectBufferAddress(e, jb);
-    return kmAABBContainsAABB(a,b);
+    kmAABB3* a = (kmAABB3*)(*e)->GetDirectBufferAddress(e, ja);
+    kmAABB3* b = (kmAABB3*)(*e)->GetDirectBufferAddress(e, jb);
+    return kmAABB3ContainsAABB(a,b);
 }
 
-// kmScalar kmAABBDiameterX(const kmAABB* aabb);
-JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmAABBDiameterX
+// kmScalar kmAABB3DiameterX(const kmAABB3* aabb);
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmAABB3DiameterX
   (JNIEnv *e, jclass c, jobject jb)
 {
-    kmAABB* b = (kmAABB*)(*e)->GetDirectBufferAddress(e, jb);
-    return kmAABBDiameterX(b);    
+    kmAABB3* b = (kmAABB3*)(*e)->GetDirectBufferAddress(e, jb);
+    return kmAABB3DiameterX(b);
 }
 
-JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmAABBDiameterY
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmAABB3DiameterY
   (JNIEnv *e, jclass c, jobject jb)
 {
-    kmAABB* b = (kmAABB*)(*e)->GetDirectBufferAddress(e, jb);
-    return kmAABBDiameterY(b);    
+    kmAABB3* b = (kmAABB3*)(*e)->GetDirectBufferAddress(e, jb);
+    return kmAABB3DiameterY(b);
 }
 
-JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmAABBDiameterZ
+JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmAABB3DiameterZ
   (JNIEnv *e, jclass c, jobject jb)
 {
-    kmAABB* b = (kmAABB*)(*e)->GetDirectBufferAddress(e, jb);
-    return kmAABBDiameterZ(b);    
+    kmAABB3* b = (kmAABB3*)(*e)->GetDirectBufferAddress(e, jb);
+    return kmAABB3DiameterZ(b);
 }
 
 
@@ -1231,22 +1232,22 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmVec3Lerp
 	return jo;
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmAABBCentre
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmAABB3Centre
   (JNIEnv *e, jclass c, jobject jaabb, jobject jo)
 {
 	kmVec3* o = (kmVec3*)(*e)->GetDirectBufferAddress(e, jo);
-	kmAABB* a = (kmAABB*)(*e)->GetDirectBufferAddress(e, jaabb);
-	kmAABBCentre(a,o);
+    kmAABB3* a = (kmAABB3*)(*e)->GetDirectBufferAddress(e, jaabb);
+    kmAABB3Centre(a,o);
 	return jo;
 }
 
-//kmAABB* kmAABBInitialize(kmAABB* pBox, const kmVec3* centre, const kmScalar width, const kmScalar height, const kmScalar depth);
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmAABBInitialize
+//kmAABB3* kmAABB3Initialize(kmAABB3* pBox, const kmVec3* centre, const kmScalar width, const kmScalar height, const kmScalar depth);
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmAABB3Initialize
   (JNIEnv *e, jclass c, jobject jo, jobject jct, jfloat w, jfloat h, jfloat d)
 {
-	kmAABB* o = (kmAABB*)(*e)->GetDirectBufferAddress(e, jo);
+    kmAABB3* o = (kmAABB3*)(*e)->GetDirectBufferAddress(e, jo);
 	kmVec3* ct = (kmVec3*)(*e)->GetDirectBufferAddress(e, jct);
-	kmAABBInitialize(o, ct, w, h, d);
+    kmAABB3Initialize(o, ct, w, h, d);
 	return jo;
 }
 

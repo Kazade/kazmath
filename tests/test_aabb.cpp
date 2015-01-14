@@ -1,10 +1,10 @@
 #include <UnitTest++.h>
 #include <limits>
 
-#include "../kazmath/aabb.h"
+#include "../kazmath/aabb3.h"
 
 TEST(test_aabb_expand_to_contain) {
-    kmAABB box;
+    kmAABB3 box;
 
     box.min.x = -1;
     box.min.y = -1;
@@ -14,7 +14,7 @@ TEST(test_aabb_expand_to_contain) {
     box.max.y = 1;
     box.max.z = 1;
 
-    kmAABB other;
+    kmAABB3 other;
 
     other.max.y = other.min.z = other.max.z = 0;
 
@@ -22,7 +22,7 @@ TEST(test_aabb_expand_to_contain) {
     other.min.x = -2;
     other.min.y = -2;
 
-    kmAABBExpandToContain(&box, &box, &other);
+    kmAABB3ExpandToContain(&box, &box, &other);
 
     CHECK_EQUAL(box.max.x, 2);
     CHECK_EQUAL(box.min.x, -2);
@@ -31,28 +31,28 @@ TEST(test_aabb_expand_to_contain) {
 }
 
 TEST(test_aabb_contains) {
-    kmAABB box;
+    kmAABB3 box;
 
     kmVec3Fill(&box.min, -1, -1, -1);
     kmVec3Fill(&box.max, 1, 1, 1);
 
-    kmAABB inside;
+    kmAABB3 inside;
     kmVec3Fill(&inside.min, -0.5, -0.5, -0.5);
     kmVec3Fill(&inside.max, 0.5, 0.5, 0.5);
 
-    CHECK_EQUAL(KM_CONTAINS_ALL, kmAABBContainsAABB(&box, &inside));
-    CHECK_EQUAL(KM_CONTAINS_NONE, kmAABBContainsAABB(&inside, &box));
+    CHECK_EQUAL(KM_CONTAINS_ALL, kmAABB3ContainsAABB(&box, &inside));
+    CHECK_EQUAL(KM_CONTAINS_NONE, kmAABB3ContainsAABB(&inside, &box));
 
-    kmAABB partial;
+    kmAABB3 partial;
     kmVec3Fill(&partial.min, -0.5, -0.5, -0.5);
     kmVec3Fill(&partial.max, 1.5, 1.5, 1.5);
-    CHECK_EQUAL(KM_CONTAINS_PARTIAL, kmAABBContainsAABB(&box, &partial));
+    CHECK_EQUAL(KM_CONTAINS_PARTIAL, kmAABB3ContainsAABB(&box, &partial));
 }
 
 /*
 TEST(test_aabb_triangle_intersection) {
 
-    kmAABB box;
+    kmAABB3 box;
     box.min.x = -5.0f;
     box.min.y = -5.0f;
     box.min.z = std::numeric_limits<kmScalar>::min();
@@ -69,7 +69,7 @@ TEST(test_aabb_triangle_intersection) {
     };
     
     //Should intersect
-    CHECK(kmAABBIntersectsTriangle(&box, &tri1[0], &tri1[1], &tri1[2]));
+    CHECK(kmAABB3IntersectsTriangle(&box, &tri1[0], &tri1[1], &tri1[2]));
     
     //Triangle that entirely surrounds the box (should still return true)
     kmVec3 tri2 [] = {
@@ -77,7 +77,7 @@ TEST(test_aabb_triangle_intersection) {
         {  100.0f, 0.0f, 0.0f },
         {  100.0f, 100.0f, 0.0f },        
     };
-    CHECK(kmAABBIntersectsTriangle(&box, &tri2[0], &tri2[1], &tri2[2]));
+    CHECK(kmAABB3IntersectsTriangle(&box, &tri2[0], &tri2[1], &tri2[2]));
     
     //Triangle that is entirely outside of the box (should return false)
     kmVec3 tri3 [] = {
@@ -86,7 +86,7 @@ TEST(test_aabb_triangle_intersection) {
         {  20.0f, 10.0f, 0.0f },        
     };
     
-    CHECK(!kmAABBIntersectsTriangle(&box, &tri3[0], &tri3[1], &tri3[2]));
+    CHECK(!kmAABB3IntersectsTriangle(&box, &tri3[0], &tri3[1], &tri3[2]));
     
     //Triangle that intersects the box (should return true)
     kmVec3 tri4 [] = {
@@ -95,7 +95,7 @@ TEST(test_aabb_triangle_intersection) {
         {  10.0f, 10.0f, 0.0f },        
     };
     
-    CHECK(kmAABBIntersectsTriangle(&box, &tri4[0], &tri4[1], &tri4[2]));    
+    CHECK(kmAABB3IntersectsTriangle(&box, &tri4[0], &tri4[1], &tri4[2]));
 }*/
 
 

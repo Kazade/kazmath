@@ -33,7 +33,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "utility.h"
 #include "quaternion.h"
 #include "plane.h"
-#include "aabb.h"
+#include "aabb2.h"
+#include "aabb3.h"
 #include "ray2.h"
 #include "ray3.h"
 

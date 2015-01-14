@@ -22,7 +22,8 @@ SET(KAZMATH_HEADERS
     ${CMAKE_SOURCE_DIR}/kazmath/plane.h
     ${CMAKE_SOURCE_DIR}/kazmath/utility.h
     ${CMAKE_SOURCE_DIR}/kazmath/quaternion.h
-    ${CMAKE_SOURCE_DIR}/kazmath/aabb.h
+    ${CMAKE_SOURCE_DIR}/kazmath/aabb2.h
+    ${CMAKE_SOURCE_DIR}/kazmath/aabb3.h
     ${CMAKE_SOURCE_DIR}/kazmath/kazmath.h
 )
 
@@ -40,7 +41,8 @@ SET(KAZMATH_SOURCES
     ${CMAKE_SOURCE_DIR}/kazmath/vec2.c
     ${CMAKE_SOURCE_DIR}/kazmath/vec3.c
     ${CMAKE_SOURCE_DIR}/kazmath/utility.c
-    ${CMAKE_SOURCE_DIR}/kazmath/aabb.c
+    ${CMAKE_SOURCE_DIR}/kazmath/aabb2.c
+    ${CMAKE_SOURCE_DIR}/kazmath/aabb3.c
     ${CMAKE_SOURCE_DIR}/kazmath/ray2.c
     ${CMAKE_SOURCE_DIR}/kazmath/ray3.c
     ${CMAKE_SOURCE_DIR}/kazmath/GL/mat4stack.c
