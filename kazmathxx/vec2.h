@@ -196,6 +196,10 @@ namespace km
                 return *this;
             }
 
+            inline vec2 operator-(){ 
+                return vec2( -x, -y );
+            }
+
             inline kmScalar dot( const vec2& rhs )
             {
                 return kmVec2Dot(this, &rhs);

@@ -220,6 +220,10 @@ namespace km
                 return *this;
             }
 
+            inline vec4 operator-(){ 
+                return vec4( -x, -y, -z, -w );
+            }
+
             inline kmScalar dot( const vec4& rhs )
             {
                 return kmVec4Dot(this, &rhs);

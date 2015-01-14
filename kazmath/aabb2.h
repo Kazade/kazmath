@@ -23,10 +23,10 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef KAZMATH_AABB_H_INCLUDED
-#define KAZMATH_AABB_H_INCLUDED
+#ifndef KAZMATH_AABB2D_H_INCLUDED
+#define KAZMATH_AABB2D_H_INCLUDED
 
-#include "vec3.h"
+#include "vec2.h"
 #include "utility.h"
 
 #ifdef __cplusplus
@@ -37,23 +37,24 @@ extern "C" {
  * A struture that represents an axis-aligned
  * bounding box.
  */
-typedef struct kmAABB {
-    kmVec3 min; /** The max corner of the box */
-    kmVec3 max; /** The min corner of the box */
-} kmAABB;
+typedef struct kmAABB2 {
+    kmVec2 min; /** The max corner of the box */
+    kmVec2 max; /** The min corner of the box */
+} kmAABB2;
 
 
-kmAABB* kmAABBInitialize(kmAABB* pBox, const kmVec3* centre, const kmScalar width, const kmScalar height, const kmScalar depth);
-int kmAABBContainsPoint(const kmAABB* pBox, const kmVec3* pPoint);
-kmAABB* kmAABBAssign(kmAABB* pOut, const kmAABB* pIn);
-kmAABB* kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s);
-kmBool kmAABBIntersectsTriangle(kmAABB* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3);
-kmEnum kmAABBContainsAABB(const kmAABB* container, const kmAABB* to_check);
-kmScalar kmAABBDiameterX(const kmAABB* aabb);
-kmScalar kmAABBDiameterY(const kmAABB* aabb);
-kmScalar kmAABBDiameterZ(const kmAABB* aabb);
-kmVec3* kmAABBCentre(const kmAABB* aabb, kmVec3* pOut);
-kmAABB* kmAABBExpandToContain(kmAABB* pOut, const kmAABB* pIn, const kmAABB* other);
+kmAABB2* kmAABB2Initialize(kmAABB2* pBox, const kmVec2* centre, const kmScalar width, const kmScalar height, const kmScalar depth);
+kmAABB2* kmAABB2Sanitize(kmAABB2* pOut, const kmAABB2* pIn );
+int kmAABB2ContainsPoint(const kmAABB2* pBox, const kmVec2* pPoint);
+kmAABB2* kmAABB2Assign(kmAABB2* pOut, const kmAABB2* pIn);
+kmAABB2* kmAABB2Translate(kmAABB2* pOut, const kmAABB2* pIn, const kmVec2 *translation );
+kmAABB2* kmAABB2Scale(kmAABB2* pOut, const kmAABB2* pIn, kmScalar s);
+kmAABB2* kmAABB2ScaleWithPivot( kmAABB2* pOut, const kmAABB2* pIn, const kmVec2 *pivot, kmScalar s );
+kmEnum kmAABB2ContainsAABB(const kmAABB2* container, const kmAABB2* to_check);
+kmScalar kmAABB2DiameterX(const kmAABB2* aabb);
+kmScalar kmAABB2DiameterY(const kmAABB2* aabb);
+kmVec2* kmAABB2Centre(const kmAABB2* aabb, kmVec2* pOut);
+kmAABB2* kmAABB2ExpandToContain(kmAABB2* pOut, const kmAABB2* pIn, const kmAABB2* other);
 
 #ifdef __cplusplus
 }

@@ -23,14 +23,14 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "aabb.h"
+#include "aabb3.h"
 
 
 /**
     Initializes the AABB around a central point. If centre is NULL then the origin
     is used. Returns pBox.
 */
-kmAABB* kmAABBInitialize(kmAABB* pBox, const kmVec3* centre, const kmScalar width, const kmScalar height, const kmScalar depth) {
+kmAABB3* kmAABB3Initialize(kmAABB3* pBox, const kmVec3* centre, const kmScalar width, const kmScalar height, const kmScalar depth) {
     if(!pBox) return 0;
     
     kmVec3 origin;
@@ -52,7 +52,7 @@ kmAABB* kmAABBInitialize(kmAABB* pBox, const kmVec3* centre, const kmScalar widt
  * Returns KM_TRUE if point is in the specified AABB, returns
  * KM_FALSE otherwise.
  */
-int kmAABBContainsPoint(const kmAABB* pBox, const kmVec3* pPoint)
+int kmAABB3ContainsPoint(const kmAABB3* pBox, const kmVec3* pPoint)
 {
     if(pPoint->x >= pBox->min.x && pPoint->x <= pBox->max.x &&
        pPoint->y >= pBox->min.y && pPoint->y <= pBox->max.y &&
@@ -66,7 +66,7 @@ int kmAABBContainsPoint(const kmAABB* pBox, const kmVec3* pPoint)
 /**
  * Assigns pIn to pOut, returns pOut.
  */
-kmAABB* kmAABBAssign(kmAABB* pOut, const kmAABB* pIn)
+kmAABB3* kmAABB3Assign(kmAABB3* pOut, const kmAABB3* pIn)
 {
     kmVec3Assign(&pOut->min, &pIn->min);
     kmVec3Assign(&pOut->max, &pIn->max);
@@ -76,18 +76,18 @@ kmAABB* kmAABBAssign(kmAABB* pOut, const kmAABB* pIn)
 /**
  * Scales pIn by s, stores the resulting AABB in pOut. Returns pOut
  */
-kmAABB* kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s)
+kmAABB3* kmAABB3Scale(kmAABB3* pOut, const kmAABB3* pIn, kmScalar s)
 {
 	assert(0 && "Not implemented");
     return pOut;
 }
 
-kmBool kmAABBIntersectsTriangle(kmAABB* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3) {
+kmBool kmAABB3IntersectsTriangle(kmAABB3* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3) {
     assert(0 && "Not implemented");
     return KM_TRUE;
 }
 
-kmEnum kmAABBContainsAABB(const kmAABB* container, const kmAABB* to_check) {
+kmEnum kmAABB3ContainsAABB(const kmAABB3* container, const kmAABB3* to_check) {
     kmVec3 corners[8];
     kmEnum result = KM_CONTAINS_ALL;
     kmBool found = KM_FALSE;
@@ -102,7 +102,7 @@ kmEnum kmAABBContainsAABB(const kmAABB* container, const kmAABB* to_check) {
     kmVec3Fill(&corners[7], to_check->min.x, to_check->max.y, to_check->max.z);
         
     for(kmUchar i = 0; i < 8; ++i) {
-        if(!kmAABBContainsPoint(container, &corners[i])) {
+        if(!kmAABB3ContainsPoint(container, &corners[i])) {
             result = KM_CONTAINS_PARTIAL;
             if(found) {
                 /*If we previously found a corner that was within the container*/
@@ -121,33 +121,33 @@ kmEnum kmAABBContainsAABB(const kmAABB* container, const kmAABB* to_check) {
     return result;
 }
 
-kmScalar kmAABBDiameterX(const kmAABB* aabb) {
+kmScalar kmAABB3DiameterX(const kmAABB3* aabb) {
     return fabs(aabb->max.x - aabb->min.x);
 }
 
-kmScalar kmAABBDiameterY(const kmAABB* aabb) {
+kmScalar kmAABB3DiameterY(const kmAABB3* aabb) {
     return fabs(aabb->max.y - aabb->min.y);
 }
 
-kmScalar kmAABBDiameterZ(const kmAABB* aabb) {
+kmScalar kmAABB3DiameterZ(const kmAABB3* aabb) {
     return fabs(aabb->max.z - aabb->min.z);
 }
 
-kmVec3* kmAABBCentre(const kmAABB* aabb, kmVec3* pOut) {
+kmVec3* kmAABB3Centre(const kmAABB3* aabb, kmVec3* pOut) {
     kmVec3Add(pOut, &aabb->min, &aabb->max);
     kmVec3Scale(pOut, pOut, 0.5);
     return pOut;
 }
 
 /**
- * @brief kmAABBExpandToContain
+ * @brief kmAABB3ExpandToContain
  * @param pOut - The resulting AABB
  * @param pIn - The original AABB
  * @param other - Another AABB that you want pIn expanded to contain
  * @return
  */
-kmAABB* kmAABBExpandToContain(kmAABB* pOut, const kmAABB* pIn, const kmAABB* other) {
-    kmAABB result;
+kmAABB3* kmAABB3ExpandToContain(kmAABB3* pOut, const kmAABB3* pIn, const kmAABB3* other) {
+    kmAABB3 result;
 
     result.min.x = (pIn->min.x < other->min.x)?pIn->min.x:other->min.x;
     result.max.x = (pIn->max.x > other->max.x)?pIn->max.x:other->max.x;
@@ -156,7 +156,7 @@ kmAABB* kmAABBExpandToContain(kmAABB* pOut, const kmAABB* pIn, const kmAABB* oth
     result.min.z = (pIn->min.z < other->min.z)?pIn->min.z:other->min.z;
     result.max.z = (pIn->max.z > other->max.z)?pIn->max.z:other->max.z;
 
-    kmAABBAssign(pOut, &result);
+    kmAABB3Assign(pOut, &result);
 
     return pOut;
 }

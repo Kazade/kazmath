@@ -240,6 +240,10 @@ namespace km
                 return *this;
             }
 
+            inline vec3 operator-(){ 
+                return vec3( -x, -y, -z );
+            }
+
             inline kmScalar dot( const vec3& rhs )
             {
                 return kmVec3Dot(this, &rhs);
