@@ -19,9 +19,17 @@ TEST(test_line_segment_intersection) {
     
     ray.dir.y = -3.0f;
     
-    //Shouldn't reach the line (ray is too short)
-    CHECK(!kmRay2IntersectLineSegment(&ray, &line_start, &line_end, &intersect));
+    //The ray is a point, plus a direction to infinite, so it will 
+    //reach the line too, althought the direction vector is shorter
+    CHECK(kmRay2IntersectLineSegment(&ray, &line_start, &line_end, &intersect));
+   
+    // if we want to check two line segments are crossing we must 
+    // use the function that interprets the Ray as a segment
+    kmRay2 lineSegment;
+    kmRay2FillWithEndpoints(&lineSegment, &line_start, &line_end);
+    CHECK(!kmSegment2WithSegmentIntersection(&ray, &lineSegment, &intersect));
     
+
     ray.dir.y = -10.0f;
     ray.start.x = -100.0f;
     //Shouldn't reach the line (ray is too far to the left)
