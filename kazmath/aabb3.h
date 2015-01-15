@@ -23,8 +23,8 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef KAZMATH_AABB_H_INCLUDED
-#define KAZMATH_AABB_H_INCLUDED
+#ifndef KAZMATH_AABB3D_H_INCLUDED
+#define KAZMATH_AABB3D_H_INCLUDED
 
 #include "vec3.h"
 #include "utility.h"
@@ -37,7 +37,7 @@ extern "C" {
  * A struture that represents an axis-aligned
  * bounding box.
  */
-typedef struct kmAABB33 {
+typedef struct kmAABB3 {
     kmVec3 min; /** The max corner of the box */
     kmVec3 max; /** The min corner of the box */
 } kmAABB3;
