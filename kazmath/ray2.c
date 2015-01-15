@@ -12,8 +12,8 @@ void kmRay2Fill(kmRay2* ray, kmScalar px, kmScalar py, kmScalar vx, kmScalar vy)
 void kmRay2FillWithEndpoints( kmRay2 *ray, const kmVec2 *start, const kmVec2 *end ) {
     ray->start.x = start->x; 
     ray->start.y = start->y; 
-    ray->dir.x = start->x + end->x; 
-    ray->dir.y = start->y + end->y; 
+    ray->dir.x = end->x - start->x; 
+    ray->dir.y = end->y - start->y; 
 }
  
 
@@ -86,7 +86,7 @@ kmBool kmRay2IntersectLineSegment(const kmRay2* ray, const kmVec2* p1, const kmV
     kmVec2   pt; 
 
     kmRay2   otherSegment; 
-    kmRay2FillWithEndpoints( &otherSegment, p1, p2 ); 
+    kmRay2FillWithEndpoints(&otherSegment, p1, p2); 
 
     if( kmLine2WithLineIntersection( &(ray->start), &(ray->dir), 
                                      &(otherSegment.start), &(otherSegment.dir),
