@@ -92,3 +92,7 @@ kazmathxx/plane.h
 kazmathxx/mat4.h
 kazmathxx/mat3.h
 kazmathxx/aabb.h
+kazmath/aabb2.c
+kazmath/aabb2.h
+kazmath/aabb3.c
+kazmath/aabb3.h
