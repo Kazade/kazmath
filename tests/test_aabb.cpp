@@ -30,6 +30,25 @@ TEST(test_aabb_expand_to_contain) {
     CHECK_EQUAL(box.min.y, -2);
 }
 
+TEST(test_aabb_contains) {
+    kmAABB box;
+
+    kmVec3Fill(&box.min, -1, -1, -1);
+    kmVec3Fill(&box.max, 1, 1, 1);
+
+    kmAABB inside;
+    kmVec3Fill(&inside.min, -0.5, -0.5, -0.5);
+    kmVec3Fill(&inside.max, 0.5, 0.5, 0.5);
+
+    CHECK_EQUAL(KM_CONTAINS_ALL, kmAABBContainsAABB(&box, &inside));
+    CHECK_EQUAL(KM_CONTAINS_NONE, kmAABBContainsAABB(&inside, &box));
+
+    kmAABB partial;
+    kmVec3Fill(&partial.min, -0.5, -0.5, -0.5);
+    kmVec3Fill(&partial.max, 1.5, 1.5, 1.5);
+    CHECK_EQUAL(KM_CONTAINS_PARTIAL, kmAABBContainsAABB(&box, &partial));
+}
+
 /*
 TEST(test_aabb_triangle_intersection) {
 
