@@ -4,6 +4,7 @@ PROJECT(kazmath)
 
 option(KAZMATH_BUILD_TESTS "Build kazmath test suite" ON)
 option(KAZMATH_BUILD_JNI_WRAPPER "Build JNI wrapper" ON)
+option(KAZMATH_BUILD_GL_UTILS "Build gl utils" ON)
 
 IF (KAZMATH_BUILD_TESTS)
 	ENABLE_TESTING()
@@ -50,9 +51,15 @@ SET(KAZMATH_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/kazmath/aabb3.c
     ${CMAKE_CURRENT_LIST_DIR}/kazmath/ray2.c
     ${CMAKE_CURRENT_LIST_DIR}/kazmath/ray3.c
-    ${CMAKE_CURRENT_LIST_DIR}/kazmath/GL/mat4stack.c
-    ${CMAKE_CURRENT_LIST_DIR}/kazmath/GL/matrix.c
 )
+
+IF (KAZMATH_BUILD_GL_UTILS)
+	SET(KAZMATH_SOURCES
+		${KAZMATH_SOURCES}
+		${CMAKE_CURRENT_LIST_DIR}/kazmath/GL/mat4stack.c
+		${CMAKE_CURRENT_LIST_DIR}/kazmath/GL/matrix.c
+	)
+ENDIF (KAZMATH_BUILD_GL_UTILS)
 
 ADD_SUBDIRECTORY(kazmath)
 
