@@ -2,8 +2,14 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 PROJECT(kazmath)
 
-ENABLE_TESTING()
-FIND_PACKAGE(PkgConfig REQUIRED)
+option(KAZMATH_BUILD_TESTS "Build kazmath test suite" ON)
+option(KAZMATH_BUILD_JNI_WRAPPER "Build JNI wrapper" ON)
+option(KAZMATH_BUILD_GL_UTILS "Build gl utils" ON)
+
+IF (KAZMATH_BUILD_TESTS)
+    ENABLE_TESTING()
+    FIND_PACKAGE(PkgConfig REQUIRED)
+ENDIF (KAZMATH_BUILD_TESTS)
 
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 SET(INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib" CACHE PATH "Installation directory for libraries")
@@ -12,47 +18,58 @@ ADD_DEFINITIONS("-Wall -g")
 #ADD_DEFINITIONS("-DUSE_DOUBLE_PRECISION")
 
 SET(KAZMATH_HEADERS
-    ${CMAKE_SOURCE_DIR}/kazmath/vec2.h
-    ${CMAKE_SOURCE_DIR}/kazmath/vec3.h
-    ${CMAKE_SOURCE_DIR}/kazmath/vec4.h
-    ${CMAKE_SOURCE_DIR}/kazmath/mat4.h
-    ${CMAKE_SOURCE_DIR}/kazmath/mat3.h
-    ${CMAKE_SOURCE_DIR}/kazmath/ray2.h
-    ${CMAKE_SOURCE_DIR}/kazmath/ray3.h
-    ${CMAKE_SOURCE_DIR}/kazmath/plane.h
-    ${CMAKE_SOURCE_DIR}/kazmath/utility.h
-    ${CMAKE_SOURCE_DIR}/kazmath/quaternion.h
-    ${CMAKE_SOURCE_DIR}/kazmath/aabb2.h
-    ${CMAKE_SOURCE_DIR}/kazmath/aabb3.h
-    ${CMAKE_SOURCE_DIR}/kazmath/kazmath.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec2.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec3.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec4.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/mat4.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/mat3.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/ray2.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/ray3.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/plane.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/utility.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/quaternion.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/aabb2.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/aabb3.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/kazmath.h
 )
 
 SET(GL_UTILS_HEADERS
-    ${CMAKE_SOURCE_DIR}/kazmath/GL/mat4stack.h
-    ${CMAKE_SOURCE_DIR}/kazmath/GL/matrix.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/GL/mat4stack.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/GL/matrix.h
 )
 
 SET(KAZMATH_SOURCES
-    ${CMAKE_SOURCE_DIR}/kazmath/mat4.c
-    ${CMAKE_SOURCE_DIR}/kazmath/mat3.c    
-    ${CMAKE_SOURCE_DIR}/kazmath/plane.c      
-    ${CMAKE_SOURCE_DIR}/kazmath/vec4.c
-    ${CMAKE_SOURCE_DIR}/kazmath/quaternion.c 
-    ${CMAKE_SOURCE_DIR}/kazmath/vec2.c
-    ${CMAKE_SOURCE_DIR}/kazmath/vec3.c
-    ${CMAKE_SOURCE_DIR}/kazmath/utility.c
-    ${CMAKE_SOURCE_DIR}/kazmath/aabb2.c
-    ${CMAKE_SOURCE_DIR}/kazmath/aabb3.c
-    ${CMAKE_SOURCE_DIR}/kazmath/ray2.c
-    ${CMAKE_SOURCE_DIR}/kazmath/ray3.c
-    ${CMAKE_SOURCE_DIR}/kazmath/GL/mat4stack.c
-    ${CMAKE_SOURCE_DIR}/kazmath/GL/matrix.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/mat4.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/mat3.c    
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/plane.c      
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec4.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/quaternion.c 
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec2.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec3.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/utility.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/aabb2.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/aabb3.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/ray2.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/ray3.c
 )
 
-ADD_SUBDIRECTORY(kazmath)
-ADD_SUBDIRECTORY(tests)
+IF (KAZMATH_BUILD_GL_UTILS)
+    SET(KAZMATH_SOURCES
+        ${KAZMATH_SOURCES}
+        ${CMAKE_CURRENT_LIST_DIR}/kazmath/GL/mat4stack.c
+        ${CMAKE_CURRENT_LIST_DIR}/kazmath/GL/matrix.c
+    )
+ENDIF (KAZMATH_BUILD_GL_UTILS)
 
-ADD_SUBDIRECTORY(java)
+ADD_SUBDIRECTORY(kazmath)
+
+IF (KAZMATH_BUILD_TESTS)
+    ADD_SUBDIRECTORY(tests)
+ENDIF (KAZMATH_BUILD_TESTS)
+
+IF (KAZMATH_BUILD_JNI_WRAPPER)
+    ADD_SUBDIRECTORY(java)
+ENDIF (KAZMATH_BUILD_JNI_WRAPPER)
 
 SET(CPACK_PACKAGE_DEFAULT_LOCATION "/")
 SET(CPACK_GENERATOR "RPM")
