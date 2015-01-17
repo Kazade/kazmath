@@ -17,41 +17,41 @@ ADD_DEFINITIONS("-Wall -g")
 #ADD_DEFINITIONS("-DUSE_DOUBLE_PRECISION")
 
 SET(KAZMATH_HEADERS
-    ${CMAKE_SOURCE_DIR}/kazmath/vec2.h
-    ${CMAKE_SOURCE_DIR}/kazmath/vec3.h
-    ${CMAKE_SOURCE_DIR}/kazmath/vec4.h
-    ${CMAKE_SOURCE_DIR}/kazmath/mat4.h
-    ${CMAKE_SOURCE_DIR}/kazmath/mat3.h
-    ${CMAKE_SOURCE_DIR}/kazmath/ray2.h
-    ${CMAKE_SOURCE_DIR}/kazmath/ray3.h
-    ${CMAKE_SOURCE_DIR}/kazmath/plane.h
-    ${CMAKE_SOURCE_DIR}/kazmath/utility.h
-    ${CMAKE_SOURCE_DIR}/kazmath/quaternion.h
-    ${CMAKE_SOURCE_DIR}/kazmath/aabb2.h
-    ${CMAKE_SOURCE_DIR}/kazmath/aabb3.h
-    ${CMAKE_SOURCE_DIR}/kazmath/kazmath.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec2.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec3.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec4.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/mat4.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/mat3.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/ray2.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/ray3.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/plane.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/utility.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/quaternion.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/aabb2.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/aabb3.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/kazmath.h
 )
 
 SET(GL_UTILS_HEADERS
-    ${CMAKE_SOURCE_DIR}/kazmath/GL/mat4stack.h
-    ${CMAKE_SOURCE_DIR}/kazmath/GL/matrix.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/GL/mat4stack.h
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/GL/matrix.h
 )
 
 SET(KAZMATH_SOURCES
-    ${CMAKE_SOURCE_DIR}/kazmath/mat4.c
-    ${CMAKE_SOURCE_DIR}/kazmath/mat3.c    
-    ${CMAKE_SOURCE_DIR}/kazmath/plane.c      
-    ${CMAKE_SOURCE_DIR}/kazmath/vec4.c
-    ${CMAKE_SOURCE_DIR}/kazmath/quaternion.c 
-    ${CMAKE_SOURCE_DIR}/kazmath/vec2.c
-    ${CMAKE_SOURCE_DIR}/kazmath/vec3.c
-    ${CMAKE_SOURCE_DIR}/kazmath/utility.c
-    ${CMAKE_SOURCE_DIR}/kazmath/aabb2.c
-    ${CMAKE_SOURCE_DIR}/kazmath/aabb3.c
-    ${CMAKE_SOURCE_DIR}/kazmath/ray2.c
-    ${CMAKE_SOURCE_DIR}/kazmath/ray3.c
-    ${CMAKE_SOURCE_DIR}/kazmath/GL/mat4stack.c
-    ${CMAKE_SOURCE_DIR}/kazmath/GL/matrix.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/mat4.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/mat3.c    
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/plane.c      
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec4.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/quaternion.c 
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec2.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec3.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/utility.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/aabb2.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/aabb3.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/ray2.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/ray3.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/GL/mat4stack.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/GL/matrix.c
 )
 
 ADD_SUBDIRECTORY(kazmath)
