@@ -162,6 +162,7 @@ public class jkazmath {
     public static native int kmAABBContainsPoint( FloatBuffer pBox,  FloatBuffer pPoint);
     public static native FloatBuffer  kmAABBAssign(FloatBuffer pOut,  FloatBuffer pIn);
     public static native FloatBuffer  kmAABBScale(FloatBuffer pOut,  FloatBuffer pIn, float s);
+    public static native boolean kmAABBIntersectsAABB(FloatBuffer box, Floatbuffer to_check);
     public static native boolean kmAABBIntersectsTriangle(FloatBuffer box,  FloatBuffer p1,  FloatBuffer p2,  FloatBuffer p3);
     public static native int kmAABBContainsAABB( FloatBuffer container,  FloatBuffer to_check);
     public static native float kmAABBDiameterX( FloatBuffer aabb);

@@ -774,6 +774,16 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmAABB3Scale
     return jo;      
 }
 
+// kmBool kmAABB3IntersectsAABB(const kmAABB3* box, const kmAABB3* other);
+JNIEXPORT jboolean JNICALL Java_kazmath_jkazmath_kmAABB3IntersectsAABB
+  (JNIEnv *e, jclass c, jobject ja, jobject jb)
+{
+    kmAABB3* a = (kmAABB3*)(*e)->GetDirectBufferAddress(e, ja);
+    kmAABB3* b = (kmAABB3*)(*e)->GetDirectBufferAddress(e, jb);
+    return kmAABB3IntersectsAABB(a,b);
+}
+
+
 // kmBool kmAABB3IntersectsTriangle(kmAABB3* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3);
 JNIEXPORT jboolean JNICALL Java_kazmath_jkazmath_kmAABB3IntersectsTriangle
   (JNIEnv *e, jclass c, jobject jb, jobject jp1, jobject jp2, jobject jp3)

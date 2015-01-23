@@ -48,6 +48,7 @@ int kmAABB3ContainsPoint(const kmAABB3* pBox, const kmVec3* pPoint);
 kmAABB3* kmAABB3Assign(kmAABB3* pOut, const kmAABB3* pIn);
 kmAABB3* kmAABB3Scale(kmAABB3* pOut, const kmAABB3* pIn, kmScalar s);
 kmBool kmAABB3IntersectsTriangle(kmAABB3* box, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3);
+kmBool kmAABB3IntersectsAABB(const kmAABB3* box, const kmAABB3* other);
 kmEnum kmAABB3ContainsAABB(const kmAABB3* container, const kmAABB3* to_check);
 kmScalar kmAABB3DiameterX(const kmAABB3* aabb);
 kmScalar kmAABB3DiameterY(const kmAABB3* aabb);

@@ -87,6 +87,10 @@ kmBool kmAABB3IntersectsTriangle(kmAABB3* box, const kmVec3* p1, const kmVec3* p
     return KM_TRUE;
 }
 
+kmBool kmAABB3IntersectsAABB(const kmAABB3* box, const kmAABB3* other) {
+    return kmAABB3ContainsAABB(box, other) != KM_CONTAINS_NONE;
+}
+
 kmEnum kmAABB3ContainsAABB(const kmAABB3* container, const kmAABB3* to_check) {
     kmVec3 corners[8];
     kmEnum result = KM_CONTAINS_ALL;
