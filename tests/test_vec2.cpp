@@ -18,6 +18,17 @@ TEST(test_transform) {
     CHECK_CLOSE(0.0f, rotated.y, 0.001f);
 }
 
+TEST(test_vec2_reflect) {
+    kmVec2 incident;
+    kmVec2Fill(&incident, 1.0f, -1.0f);
+
+    kmVec2 reflected;
+    kmVec2Reflect(&reflected, &incident, &KM_VEC2_POS_Y);
+
+    CHECK_CLOSE(1.0f, reflected.x, 0.001f);
+    CHECK_CLOSE(1.0f, reflected.y, 0.001f);
+}
+
 TEST(test_degrees_between) {
     kmVec2 v1;
     kmVec2 v2;

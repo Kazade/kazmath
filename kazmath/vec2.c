@@ -237,3 +237,15 @@ kmVec2* kmVec2MidPointBetween(kmVec2* pOut, const kmVec2* v1, const kmVec2* v2) 
 
 	return pOut;
 }
+
+/**
+ * Reflects a vector about a given surface normal. The surface normal is
+ * assumed to be of unit length.
+ */
+kmVec2* kmVec2Reflect(kmVec2* pOut, const kmVec2* pIn, const kmVec2* normal) {
+	kmVec2 tmp;
+	kmVec2Scale(&tmp, normal, 2.0f * kmVec2Dot(pIn, normal));
+	kmVec2Subtract(pOut, pIn, &tmp);
+
+	return pOut;
+}
