@@ -73,6 +73,8 @@ kmVec3* kmVec3RotationToDirection(kmVec3* pOut, const kmVec3* pIn, const kmVec3*
 
 kmVec3* kmVec3ProjectOnToPlane(kmVec3* pOut, const kmVec3* point, const struct kmPlane* plane);
 
+kmVec3* kmVec3Reflect(kmVec3* pOut, const kmVec3* pIn, const kmVec3* normal); /**< Reflects a vector about a given surface normal. The surface normal is assumed to be of unit length. */
+
 extern const kmVec3 KM_VEC3_NEG_Z;
 extern const kmVec3 KM_VEC3_POS_Z;
 extern const kmVec3 KM_VEC3_POS_Y;

@@ -442,3 +442,15 @@ kmVec3* kmVec3ProjectOnToPlane(kmVec3* pOut, const kmVec3* point, const struct k
     kmRay3IntersectPlane(pOut, &ray, plane);
     return pOut;
 }
+
+/**
+ * Reflects a vector about a given surface normal. The surface normal is
+ * assumed to be of unit length.
+ */
+kmVec3* kmVec3Reflect(kmVec3* pOut, const kmVec3* pIn, const kmVec3* normal) {
+  kmVec3 tmp;
+  kmVec3Scale(&tmp, normal, 2.0f * kmVec3Dot(pIn, normal));
+  kmVec3Subtract(pOut, pIn, &tmp);
+
+  return pOut;
+}

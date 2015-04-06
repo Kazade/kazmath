@@ -63,6 +63,7 @@ kmVec2* kmVec2RotateBy(kmVec2* pOut, const kmVec2* pIn, const kmScalar degrees, 
 kmScalar kmVec2DegreesBetween(const kmVec2* v1, const kmVec2* v2);
 kmScalar kmVec2DistanceBetween(const kmVec2* v1, const kmVec2* v2);
 kmVec2* kmVec2MidPointBetween(kmVec2* pOut, const kmVec2* v1, const kmVec2* v2);
+kmVec2* kmVec2Reflect(kmVec2* pOut, const kmVec2* pIn, const kmVec2* normal); /**< Reflects a vector about a given surface normal. The surface normal is assumed to be of unit length. */
 
 extern const kmVec2 KM_VEC2_POS_Y;
 extern const kmVec2 KM_VEC2_NEG_Y;
