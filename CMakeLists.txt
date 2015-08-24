@@ -11,7 +11,12 @@ IF (KAZMATH_BUILD_TESTS)
     FIND_PACKAGE(PkgConfig REQUIRED)
 ENDIF (KAZMATH_BUILD_TESTS)
 
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -fPIC")
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+add_definitions(-D_DEFAULT_SOURCE)
+
 SET(INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib" CACHE PATH "Installation directory for libraries")
 
 ADD_DEFINITIONS("-Wall -g")
@@ -40,10 +45,10 @@ SET(GL_UTILS_HEADERS
 
 SET(KAZMATH_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/kazmath/mat4.c
-    ${CMAKE_CURRENT_LIST_DIR}/kazmath/mat3.c    
-    ${CMAKE_CURRENT_LIST_DIR}/kazmath/plane.c      
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/mat3.c
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/plane.c
     ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec4.c
-    ${CMAKE_CURRENT_LIST_DIR}/kazmath/quaternion.c 
+    ${CMAKE_CURRENT_LIST_DIR}/kazmath/quaternion.c
     ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec2.c
     ${CMAKE_CURRENT_LIST_DIR}/kazmath/vec3.c
     ${CMAKE_CURRENT_LIST_DIR}/kazmath/utility.c
