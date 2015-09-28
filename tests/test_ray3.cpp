@@ -36,3 +36,38 @@ TEST(test_ray_plane_intersection) {
     CHECK_CLOSE(10.0, result.y, 0.0001);
     CHECK_CLOSE(0.0, result.z, 0.0001);
 }
+
+TEST(test_ray_triangle_intersection) {
+    kmRay3 ray;
+    kmRay3Fill(&ray, 0, 0, 0, 0, -1, 0);
+
+    kmVec3 v0, v1, v2;
+    kmVec3Fill(&v0, -1, -1, -1);
+    kmVec3Fill(&v1, 0, -1, 1);
+    kmVec3Fill(&v2, 1, -1, -1);
+
+    kmScalar dist;
+    kmVec3 intersect;
+    kmVec3 normal;
+
+    kmBool ret = kmRay3IntersectTriangle(&ray, &v0, &v1, &v2, &intersect, &normal, &dist);
+
+    CHECK(ret);
+    CHECK_CLOSE(1.0, dist, 0.001);
+    CHECK_CLOSE(0, intersect.x, 0.001);
+    CHECK_CLOSE(-1, intersect.y, 0.001);
+    CHECK_CLOSE(0, intersect.z, 0.001);
+    CHECK_CLOSE(0, normal.x, 0.001);
+    CHECK_CLOSE(1, normal.y, 0.001);
+    CHECK_CLOSE(0, normal.z, 0.001);
+
+    // Shorten the ray
+    ray.dir.y = -0.5;
+    ret = kmRay3IntersectTriangle(&ray, &v0, &v1, &v2, &intersect, &normal, &dist);
+    CHECK(!ret);
+
+    // Now flip the ray
+    ray.dir.y = 1;
+    ret = kmRay3IntersectTriangle(&ray, &v0, &v1, &v2, &intersect, &normal, &dist);
+    CHECK(!ret);
+}
