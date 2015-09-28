@@ -309,8 +309,7 @@ int kmMat4AreEqual(const kmMat4* pMat1, const kmMat4* pMat2)
 
 	for (i = 0; i < 16; ++i)
 	{
-		if (!(pMat1->mat[i] + kmEpsilon > pMat2->mat[i] &&
-            pMat1->mat[i] - kmEpsilon < pMat2->mat[i])) {
+        if(!kmAlmostEqual(pMat1->mat[i], pMat2->mat[i])) {
 			return KM_FALSE;
         }
 	}

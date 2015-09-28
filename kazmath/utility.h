@@ -27,12 +27,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define UTILITY_H_INCLUDED
 
 #include <math.h>
+#include <float.h>
 
 #ifndef kmScalar
 #ifdef USE_DOUBLE_PRECISION
 #define kmScalar double
+#define kmEpsilon DBL_EPSILON
 #else
 #define kmScalar float
+#define kmEpsilon FLT_EPSILON
 #endif
 
 #endif
@@ -68,7 +71,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define kmPI 3.14159265358979323846f
 #define kmPIOver180  (kmPI / 180.0f)
 #define kmPIUnder180 (180.0 / kmPI)
-#define kmEpsilon 0.0001
 
 #define KM_CONTAINS_NONE (kmEnum)0
 #define KM_CONTAINS_PARTIAL (kmEnum)1

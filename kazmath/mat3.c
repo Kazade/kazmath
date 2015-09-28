@@ -205,9 +205,8 @@ int kmMat3AreEqual(const kmMat3* pMat1, const kmMat3* pMat2)
 	}
 
 	for (i = 0; i < 9; ++i) {
-		if (!(pMat1->mat[i] + kmEpsilon > pMat2->mat[i] &&
-            pMat1->mat[i] - kmEpsilon < pMat2->mat[i])) {
-			return KM_FALSE;
+        if(!kmAlmostEqual(pMat1->mat[i], pMat2->mat[i])) {
+            return KM_FALSE;
         }
 	}
 

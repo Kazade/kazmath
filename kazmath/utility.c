@@ -55,7 +55,7 @@ kmScalar kmMax(kmScalar lhs, kmScalar rhs) {
 }
 
 kmBool kmAlmostEqual(kmScalar lhs, kmScalar rhs) {
-    return (lhs + kmEpsilon > rhs && lhs - kmEpsilon < rhs);
+    return (fabs(lhs - rhs) <= kmEpsilon * fmax(1.0f, fmax(lhs, rhs)));
 }
 
 kmScalar kmClamp(kmScalar x, kmScalar min, kmScalar max)

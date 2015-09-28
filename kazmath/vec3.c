@@ -326,15 +326,13 @@ kmVec3* kmVec3Scale(kmVec3* pOut, const kmVec3* pIn, const kmScalar s)
 /**
  * Returns KM_TRUE if the 2 vectors are approximately equal
  */
-int kmVec3AreEqual(const kmVec3* p1, const kmVec3* p2)
+kmBool kmVec3AreEqual(const kmVec3* p1, const kmVec3* p2)
 {
-	if ((p1->x < (p2->x + kmEpsilon) && p1->x > (p2->x - kmEpsilon)) &&
-		(p1->y < (p2->y + kmEpsilon) && p1->y > (p2->y - kmEpsilon)) &&
-		(p1->z < (p2->z + kmEpsilon) && p1->z > (p2->z - kmEpsilon))) {
-		return 1;
-	}
+    if((!kmAlmostEqual(p1->x, p2->x)) || (!kmAlmostEqual(p1->y, p2->y)) || (!kmAlmostEqual(p1->z, p2->z))) {
+        return KM_FALSE;
+    }
 
-	return 0;
+    return KM_TRUE;
 }
 
 /**

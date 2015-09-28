@@ -63,7 +63,7 @@ kmVec3* kmVec3TransformNormal(kmVec3* pOut, const kmVec3* pV, const struct kmMat
 kmVec3* kmVec3TransformCoord(kmVec3* pOut, const kmVec3* pV, const struct kmMat4* pM); /**Transforms a 3D vector by a given matrix, projecting the result back into w = 1. */
 
 kmVec3* kmVec3Scale(kmVec3* pOut, const kmVec3* pIn, const kmScalar s); /** Scales a vector to length s */
-int 	kmVec3AreEqual(const kmVec3* p1, const kmVec3* p2);
+kmBool kmVec3AreEqual(const kmVec3* p1, const kmVec3* p2);
 kmVec3* kmVec3InverseTransform(kmVec3* pOut, const kmVec3* pV, const struct kmMat4* pM);
 kmVec3* kmVec3InverseTransformNormal(kmVec3* pOut, const kmVec3* pVect, const struct kmMat4* pM);
 kmVec3* kmVec3Assign(kmVec3* pOut, const kmVec3* pIn);

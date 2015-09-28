@@ -34,14 +34,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "quaternion.h"
 
 int kmQuaternionAreEqual(const kmQuaternion* p1, const kmQuaternion* p2) {
-    if ((p1->x < (p2->x + kmEpsilon) && p1->x > (p2->x - kmEpsilon)) &&
-        (p1->y < (p2->y + kmEpsilon) && p1->y > (p2->y - kmEpsilon)) &&
-        (p1->z < (p2->z + kmEpsilon) && p1->z > (p2->z - kmEpsilon)) &&
-        (p1->w < (p2->w + kmEpsilon) && p1->w > (p2->w - kmEpsilon))) {
-        return 1;
+    if((!kmAlmostEqual(p1->x, p2->x)) || (!kmAlmostEqual(p1->y, p2->y)) || (!kmAlmostEqual(p1->z, p2->z)) || (!kmAlmostEqual(p1->w, p2->w))) {
+        return KM_FALSE;
     }
 
-    return 0;
+    return KM_TRUE;
 }
 
 kmQuaternion* kmQuaternionFill(kmQuaternion* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w) {
