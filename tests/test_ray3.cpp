@@ -70,4 +70,19 @@ TEST(test_ray_triangle_intersection) {
     ray.dir.y = 1;
     ret = kmRay3IntersectTriangle(&ray, &v0, &v1, &v2, &intersect, &normal, &dist);
     CHECK(!ret);
+
+    ray.start.x = 0;
+    ray.start.y = 0.01;
+    ray.start.z = 0;
+
+    ray.dir.x = 0;
+    ray.dir.y = -0.3;
+    ray.dir.z = 0;
+
+    v0.y = 0;
+    v1.y = 0;
+    v2.y = 0;
+
+    ret = kmRay3IntersectTriangle(&ray, &v0, &v1, &v2, &intersect, &normal, &dist);
+    CHECK(ret);
 }
