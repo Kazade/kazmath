@@ -9,7 +9,7 @@ TEST(test_transform) {
     kmVec2Fill(&orig, 0.0, 1.0f);
     
     kmMat3 rotate;
-    kmMat3RotationZ(&rotate, kmDegreesToRadians(90.0f));
+    kmMat3FromRotationZ(&rotate, kmDegreesToRadians(90.0f));
     
     kmVec2 rotated;
     kmVec2Transform(&rotated, &orig, &rotate);

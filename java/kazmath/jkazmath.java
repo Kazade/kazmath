@@ -138,23 +138,21 @@ public class jkazmath {
     public static native int kmMat3IsIdentity( FloatBuffer pIn);
     public static native FloatBuffer kmMat3Transpose(FloatBuffer pOut,  FloatBuffer pIn);
     public static native float kmMat3Determinant( FloatBuffer pIn);
-    public static native FloatBuffer kmMat3Multiply(FloatBuffer pOut,  FloatBuffer pM1,  FloatBuffer pM2);
-    public static native FloatBuffer kmMat3ScalarMultiply(FloatBuffer pOut,  FloatBuffer pM,  float pFactor);
-    public static native FloatBuffer kmMat3RotationAxisAngle(FloatBuffer pOut,  FloatBuffer axis, float radians);
-    public static native FloatBuffer kmMat3RotationToAxisAngle(FloatBuffer pAxis, FloatBuffer radians,  FloatBuffer pIn);
-    public static native FloatBuffer kmMat3Assign(FloatBuffer pOut,  FloatBuffer pIn);
-    public static native FloatBuffer kmMat3AssignMat4(FloatBuffer pOut, FloatBuffer pIn);
+    public static native FloatBuffer kmMat3MultiplyMat3(FloatBuffer pOut,  FloatBuffer pM1,  FloatBuffer pM2);
+    public static native FloatBuffer kmMat3MultiplyScalar(FloatBuffer pOut,  FloatBuffer pM,  float pFactor);
+    public static native FloatBuffer kmMat3FromRotationAxisAngle(FloatBuffer pOut,  FloatBuffer axis, float radians);
+    public static native FloatBuffer kmMat3ExtractRotationAxisAngle(FloatBuffer pIn, FloatBuffer pAxis, FloatBuffer radians);
+    public static native FloatBuffer kmMat3AssignMat3(FloatBuffer pOut,  FloatBuffer pIn);
     public static native int kmMat3AreEqual( FloatBuffer pM1,  FloatBuffer pM2);
-    public static native FloatBuffer kmMat3GetUpVec3(FloatBuffer pOut,  FloatBuffer pIn);
-    public static native FloatBuffer kmMat3GetRightVec3(FloatBuffer pOut,  FloatBuffer pIn);
-    public static native FloatBuffer kmMat3GetForwardVec3(FloatBuffer pOut,  FloatBuffer pIn);
-    public static native FloatBuffer kmMat3RotationX(FloatBuffer pOut,  float radians);
-    public static native FloatBuffer kmMat3RotationY(FloatBuffer pOut,  float radians);
-    public static native FloatBuffer kmMat3RotationZ(FloatBuffer pOut,  float radians);
-    public static native FloatBuffer kmMat3Rotation(FloatBuffer pOut,  float radians);
-    public static native FloatBuffer kmMat3Scaling(FloatBuffer pOut,  float x,  float y);
-    public static native FloatBuffer kmMat3Translation(FloatBuffer pOut,  float x,  float y);
-    public static native FloatBuffer kmMat3RotationQuaternion(FloatBuffer pOut,  FloatBuffer pIn);
+    public static native FloatBuffer kmMat3ExtractUpVec3(FloatBuffer pIn,  FloatBuffer pOut);
+    public static native FloatBuffer kmMat3ExtractRightVec3(FloatBuffer pIn,  FloatBuffer pOut);
+    public static native FloatBuffer kmMat3ExtractForwardVec3(FloatBuffer pIn,  FloatBuffer pOut);
+    public static native FloatBuffer kmMat3FromRotationX(FloatBuffer pOut,  float radians);
+    public static native FloatBuffer kmMat3FromRotationY(FloatBuffer pOut,  float radians);
+    public static native FloatBuffer kmMat3FromRotationZ(FloatBuffer pOut,  float radians);
+    public static native FloatBuffer kmMat3FromScaling(FloatBuffer pOut,  float x,  float y);
+    public static native FloatBuffer kmMat3FromTranslation(FloatBuffer pOut,  float x,  float y);
+    public static native FloatBuffer kmMat3FromRotationQuaternion(FloatBuffer pOut,  FloatBuffer pIn);
 
     
     // aabb
@@ -162,7 +160,7 @@ public class jkazmath {
     public static native int kmAABBContainsPoint( FloatBuffer pBox,  FloatBuffer pPoint);
     public static native FloatBuffer  kmAABBAssign(FloatBuffer pOut,  FloatBuffer pIn);
     public static native FloatBuffer  kmAABBScale(FloatBuffer pOut,  FloatBuffer pIn, float s);
-    public static native boolean kmAABBIntersectsAABB(FloatBuffer box, Floatbuffer to_check);
+    public static native boolean kmAABBIntersectsAABB(FloatBuffer box, FloatBuffer to_check);
     public static native boolean kmAABBIntersectsTriangle(FloatBuffer box,  FloatBuffer p1,  FloatBuffer p2,  FloatBuffer p3);
     public static native int kmAABBContainsAABB( FloatBuffer container,  FloatBuffer to_check);
     public static native float kmAABBDiameterX( FloatBuffer aabb);

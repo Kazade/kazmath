@@ -87,7 +87,7 @@ kmMat4* kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left, kmScalar right
 kmMat4* kmMat4LookAt(kmMat4* pOut, const struct kmVec3* pEye, const struct kmVec3* pCenter, const struct kmVec3* pUp);
 
 kmMat4* kmMat4RotationAxisAngle(kmMat4* pOut, const struct kmVec3* axis, kmScalar radians);
-struct kmMat3* kmMat4ExtractRotation(struct kmMat3* pOut, const kmMat4* pIn);
+struct kmMat3* kmMat4ExtractRotationMat3(const kmMat4* pIn, struct kmMat3* pOut);
 struct kmPlane* kmMat4ExtractPlane(struct kmPlane* pOut, const kmMat4* pIn, const kmEnum plane);
 struct kmVec3* kmMat4RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat4* pIn);
 #ifdef __cplusplus

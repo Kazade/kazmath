@@ -129,7 +129,7 @@ TEST(test_mat4_rotation_z) {
 
     kmQuaternion from_matrix;
     kmMat3 rot;
-    kmMat3AssignMat4(&rot, &initialized);
+    kmMat4ExtractRotationMat3(&initialized, &rot);
     kmQuaternionRotationMatrix(&from_matrix, &rot);
 
     CHECK(kmQuaternionAreEqual(&q, &from_matrix));

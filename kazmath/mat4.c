@@ -672,7 +672,7 @@ kmMat4* kmMat4LookAt(kmMat4* pOut, const kmVec3* pEye,
  * Extract a 3x3 rotation matrix from the input 4x4 transformation.
  * Stores the result in pOut, returns pOut
  */
-kmMat3* kmMat4ExtractRotation(kmMat3* pOut, const kmMat4* pIn)
+kmMat3* kmMat4ExtractRotationMat3(const kmMat4* pIn, kmMat3* pOut)
 {
     pOut->mat[0] = pIn->mat[0];
     pOut->mat[1] = pIn->mat[1];
@@ -698,7 +698,7 @@ kmVec3* kmMat4RotationToAxisAngle(kmVec3* pAxis, kmScalar* radians, const kmMat4
     /*Surely not this easy?*/
     kmQuaternion temp;
     kmMat3 rotation;
-    kmMat4ExtractRotation(&rotation, pIn);
+    kmMat4ExtractRotationMat3(pIn, &rotation);
     kmQuaternionRotationMatrix(&temp, &rotation);
     kmQuaternionToAxisAngle(&temp, pAxis, radians);
     return pAxis;

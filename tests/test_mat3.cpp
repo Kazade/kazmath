@@ -90,11 +90,11 @@ TEST(test_mat3_axis_angle) {
     kmMat3 a;
     kmVec3 axisIn, axisOut;
     kmVec3Fill(&axisIn, 1.0f, 0.0f, 0.0f);
-    kmMat3RotationAxisAngle(&a, &axisIn, radians);
+    kmMat3FromRotationAxisAngle(&a, &axisIn, radians);
 
     //TODO: Check a is what we expect
 
-    kmMat3RotationToAxisAngle(&axisOut, &radiansOut, &a);
+    kmMat3ExtractRotationAxisAngle(&a, &axisOut, &radiansOut);
 
     print_vector3(&axisOut);
     print_vector3(&axisIn);
@@ -126,7 +126,7 @@ TEST(test_mat3_scaling) {
     expected.mat[0] = 1.0f;
     expected.mat[4] = 2.0f;
 
-    kmMat3Scaling(&actual, 1.0f, 2.0f);
+    kmMat3FromScaling(&actual, 1.0f, 2.0f);
 
     CHECK(kmMat3AreEqual(&expected, &actual));
 }
@@ -137,7 +137,7 @@ TEST(test_mat3_translation) {
     expected.mat[6] = 1.0f;
     expected.mat[7] = 2.0f;
 
-    kmMat3Translation(&actual, 1.0f, 2.0f);
+    kmMat3FromTranslation(&actual, 1.0f, 2.0f);
 
     CHECK(kmMat3AreEqual(&expected, &actual));
 }

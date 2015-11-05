@@ -48,33 +48,35 @@ kmMat3* kmMat3Fill(kmMat3* pOut, const kmScalar* pMat);
 kmMat3* kmMat3Adjugate(kmMat3* pOut, const kmMat3* pIn);
 kmMat3* kmMat3Identity(kmMat3* pOut);
 kmMat3* kmMat3Inverse(kmMat3* pOut, const kmMat3* pM);
-int  kmMat3IsIdentity(const kmMat3* pIn);
+kmBool kmMat3IsIdentity(const kmMat3* pIn);
 kmMat3* kmMat3Transpose(kmMat3* pOut, const kmMat3* pIn);
 kmScalar kmMat3Determinant(const kmMat3* pIn);
-kmMat3* kmMat3Multiply(kmMat3* pOut, const kmMat3* pM1, const kmMat3* pM2);
-kmMat3* kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, const kmScalar pFactor);
+kmBool kmMat3AreEqual(const kmMat3* pMat1, const kmMat3* pMat2);
 
-kmMat3* kmMat3Assign(kmMat3* pOut, const kmMat3* pIn);
-kmMat3* kmMat3AssignMat4(kmMat3* pOut, const struct kmMat4* pIn);
-int  kmMat3AreEqual(const kmMat3* pM1, const kmMat3* pM2);
+kmMat3* kmMat3AssignMat3(kmMat3* pOut, const kmMat3* pIn);
 
-struct kmVec3* kmMat3GetUpVec3(struct kmVec3* pOut, const kmMat3* pIn);
-struct kmVec3* kmMat3GetRightVec3(struct kmVec3* pOut, const kmMat3* pIn);
-struct kmVec3* kmMat3GetForwardVec3(struct kmVec3* pOut, const kmMat3* pIn);
+kmMat3* kmMat3MultiplyMat3(kmMat3* pOut, const kmMat3* lhs, const kmMat3* rhs);
+kmMat3* kmMat3MultiplyScalar(kmMat3* pOut, const kmMat3* lhs, const kmScalar rhs);
 
-kmMat3* kmMat3RotationX(kmMat3* pOut, const kmScalar radians);
-kmMat3* kmMat3RotationY(kmMat3* pOut, const kmScalar radians);
-kmMat3* kmMat3RotationZ(kmMat3* pOut, const kmScalar radians);
+kmMat3* kmMat3FromRotationX(kmMat3* pOut, const kmScalar radians);
+kmMat3* kmMat3FromRotationY(kmMat3* pOut, const kmScalar radians);
+kmMat3* kmMat3FromRotationZ(kmMat3* pOut, const kmScalar radians);
+kmMat3* kmMat3FromRotationXInDegrees(kmMat3* pOut, const kmScalar degrees);
+kmMat3* kmMat3FromRotationYInDegrees(kmMat3* pOut, const kmScalar degrees);
+kmMat3* kmMat3FromRotationZInDegrees(kmMat3* pOut, const kmScalar degrees);
+kmMat3* kmMat3FromRotationQuaternion(kmMat3* pOut, const struct kmQuaternion* quaternion);
+kmMat3* kmMat3FromRotationLookAt(kmMat3* pOut, const struct kmVec3* pEye, const struct kmVec3* pCentre, const struct kmVec3* pUp);
+kmMat3* kmMat3FromScaling(kmMat3* pOut, const kmScalar x, const kmScalar y);
+kmMat3* kmMat3FromTranslation(kmMat3* pOut, const kmScalar x, const kmScalar y);
+kmMat3* kmMat3FromRotationAxisAngle(kmMat3* pOut, const struct kmVec3* axis, const kmScalar radians);
+kmMat3* kmMat3FromRotationAxisAngleInDegrees(kmMat3* pOut, const struct kmVec3* axis, const kmScalar degrees);
 
-kmMat3* kmMat3Rotation(kmMat3* pOut, const kmScalar radians);
-kmMat3* kmMat3Scaling(kmMat3* pOut, const kmScalar x, const kmScalar y);
-kmMat3* kmMat3Translation(kmMat3* pOut, const kmScalar x, const kmScalar y);
+void kmMat3ExtractRotationAxisAngle(const kmMat3* self, struct kmVec3* axis, kmScalar* radians);
+void kmMat3ExtractRotationAxisAngleInDegrees(const kmMat3* self, struct kmVec3* axis, kmScalar* degrees);
 
-kmMat3* kmMat3RotationQuaternion(kmMat3* pOut, const struct kmQuaternion* pIn);
-
-kmMat3* kmMat3RotationAxisAngle(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians);
-struct kmVec3* kmMat3RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat3* pIn);
-kmMat3* kmMat3LookAt(kmMat3* pOut, const struct kmVec3* pEye, const struct kmVec3* pCenter, const struct kmVec3* pUp);
+struct kmVec3* kmMat3ExtractUpVec3(const kmMat3* self, struct kmVec3* pOut);
+struct kmVec3* kmMat3ExtractRightVec3(const kmMat3* self, struct kmVec3* pOut);
+struct kmVec3* kmMat3ExtractForwardVec3(const kmMat3* self, struct kmVec3* pOut);
 
 #ifdef __cplusplus
 }

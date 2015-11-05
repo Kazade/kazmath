@@ -606,48 +606,48 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3Multiply
     kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
     kmMat3* m1 = (kmMat3*)(*e)->GetDirectBufferAddress(e, jm1);    
     kmMat3* m2 = (kmMat3*)(*e)->GetDirectBufferAddress(e, jm2);
-    kmMat3Multiply(o,m1,m2);
+    kmMat3MultiplyMat3(o,m1,m2);
     return jo;
 }
 
 // kmMat3* const kmMat3ScalarMultiply(kmMat3* pOut, const kmMat3* pM, const kmScalar pFactor);
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3ScalarMultiply
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3MultiplyScalar
   (JNIEnv *e, jclass c, jobject jo, jobject jm, jfloat f)
 {
     kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
     kmMat3* m = (kmMat3*)(*e)->GetDirectBufferAddress(e, jm);
-    kmMat3ScalarMultiply(o,m,f);
+    kmMat3MultiplyScalar(o,m,f);
     return jo;
 }
 
 //kmMat3* const kmMat3RotationAxisAngle(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians);
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3RotationAxisAngle
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3FromRotationAxisAngle
   (JNIEnv *e, jclass c, jobject jo, jobject ja, jfloat r)
 {
     kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
     kmVec3* a = (kmVec3*)(*e)->GetDirectBufferAddress(e, ja);
-    kmMat3RotationAxisAngle(o,a,r);
+    kmMat3FromRotationAxisAngle(o,a,r);
     return jo;    
 }
 
 //struct kmVec3* const kmMat3RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat3* pIn);
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3RotationToAxisAngle
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3ExtractRotationAxisAngle
   (JNIEnv *e, jclass c, jobject ja, jobject jr, jobject ji)
 {
     kmVec3* a = (kmVec3*)(*e)->GetDirectBufferAddress(e, ja);
     kmScalar* r = (kmScalar*)(*e)->GetDirectBufferAddress(e, jr);
     kmMat3* i = (kmMat3*)(*e)->GetDirectBufferAddress(e, ji);
-    kmMat3RotationToAxisAngle(a,r,i);
+    kmMat3ExtractRotationAxisAngle(i, a,r);
     return ja;
 }
 
 // kmMat3* const kmMat3Assign(kmMat3* pOut, const kmMat3* pIn);
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3Assign
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3AssignMat3
   (JNIEnv *e, jclass c, jobject jo, jobject ji)
 {
     kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
     kmMat3* i = (kmMat3*)(*e)->GetDirectBufferAddress(e, ji);
-    kmMat3Assign(o,i);
+    kmMat3AssignMat3(o,i);
     return jo;    
 }
 
@@ -661,87 +661,79 @@ JNIEXPORT jint JNICALL Java_kazmath_jkazmath_kmMat3AreEqual
 }
 
 //struct kmVec3* const kmMat3GetUpVec3(struct kmVec3* pOut, const kmMat3* pIn);
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3GetUpVec3
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3ExtractUpVec3
   (JNIEnv *e, jclass c, jobject jo, jobject jm)
 {
     kmVec3* o = (kmVec3*)(*e)->GetDirectBufferAddress(e, jo);
     kmMat3* m = (kmMat3*)(*e)->GetDirectBufferAddress(e, jm);
-    kmMat3GetUpVec3(o,m);
+    kmMat3ExtractUpVec3(m, o);
     return jo; 
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3GetRightVec3
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3ExtractRightVec3
   (JNIEnv *e, jclass c, jobject jo, jobject jm)
 {
     kmVec3* o = (kmVec3*)(*e)->GetDirectBufferAddress(e, jo);
     kmMat3* m = (kmMat3*)(*e)->GetDirectBufferAddress(e, jm);
-    kmMat3GetRightVec3(o,m);
+    kmMat3ExtractRightVec3(m, o);
     return jo;     
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3GetForwardVec3
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3ExtractForwardVec3
   (JNIEnv *e, jclass c, jobject jo, jobject jm)
 {
     kmVec3* o = (kmVec3*)(*e)->GetDirectBufferAddress(e, jo);
     kmMat3* m = (kmMat3*)(*e)->GetDirectBufferAddress(e, jm);
-    kmMat3GetForwardVec3(o,m);
+    kmMat3ExtractForwardVec3(m, o);
     return jo;     
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3RotationX
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3FromRotationX
   (JNIEnv *e, jclass c, jobject jo, jfloat r)
 {
     kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
-    kmMat3RotationX(o,r);
+    kmMat3FromRotationX(o,r);
     return jo;
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3RotationY
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3FromRotationY
   (JNIEnv *e, jclass c, jobject jo, jfloat r)
 {
     kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
-    kmMat3RotationY(o,r);
+    kmMat3FromRotationY(o,r);
     return jo;
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3RotationZ
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3FromRotationZ
   (JNIEnv *e, jclass c, jobject jo, jfloat r)
 {
     kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
-    kmMat3RotationZ(o,r);
+    kmMat3FromRotationZ(o,r);
     return jo;
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3Rotation
-  (JNIEnv *e, jclass c, jobject jo, jfloat r)
-{
-    kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
-    kmMat3Rotation(o,r);
-    return jo;    
-}
-
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3Scaling
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3FromScaling
   (JNIEnv *e, jclass c, jobject jo, jfloat x, jfloat y)
 {
     kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
-    kmMat3Scaling(o,x,y);
+    kmMat3FromScaling(o,x,y);
     return jo;    
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3Translation
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3FromTranslation
   (JNIEnv *e, jclass c, jobject jo, jfloat x, jfloat y)
 {
     kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
-    kmMat3Translation(o,x,y);
+    kmMat3FromTranslation(o,x,y);
     return jo;        
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3RotationQuaternion
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3FromRotationQuaternion
   (JNIEnv *e, jclass c, jobject jo, jobject jq)
 {
     kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
     kmQuaternion* q = (kmQuaternion*)(*e)->GetDirectBufferAddress(e, jq);
-    kmMat3RotationQuaternion(o,q);
+    kmMat3FromRotationQuaternion(o,q);
     return jo;        
 }
 
@@ -1205,12 +1197,12 @@ JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat4RotationAxisAngle
     return jm;
 }
 
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat4ExtractRotation
+JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat4ExtractRotationMat3
   (JNIEnv *e, jclass c, jobject jo, jobject ji)
 {
     kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
     kmMat4* i = (kmMat4*)(*e)->GetDirectBufferAddress(e, ji);   
-    kmMat4ExtractRotation(o,i);
+    kmMat4ExtractRotationMat3(i, o);
     return jo;
 }
 
@@ -1289,15 +1281,6 @@ JNIEXPORT jfloat JNICALL Java_kazmath_jkazmath_kmRadiansToDegrees
   (JNIEnv *e, jclass c, jfloat n)
 {
 	return kmRadiansToDegrees(n);
-}
-
-JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmMat3AssignMat4
-  (JNIEnv *e, jclass c, jobject jo, jobject ji)
-{
-	kmMat3* o = (kmMat3*)(*e)->GetDirectBufferAddress(e, jo);
-	kmMat4* i = (kmMat4*)(*e)->GetDirectBufferAddress(e, ji);
-	kmMat3AssignMat4(o,i);
-	return jo;
 }
 
 JNIEXPORT jobject JNICALL Java_kazmath_jkazmath_kmPlaneFill

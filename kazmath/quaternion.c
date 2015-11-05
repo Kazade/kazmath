@@ -584,7 +584,7 @@ kmScalar kmQuaternionGetRoll(const kmQuaternion* q) {
 
 kmQuaternion* kmQuaternionLookRotation(kmQuaternion* pOut, const kmVec3* direction, const kmVec3* up) {
     kmMat3 tmp;
-    kmMat3LookAt(&tmp, &KM_VEC3_ZERO, direction, up);
+    kmMat3FromRotationLookAt(&tmp, &KM_VEC3_ZERO, direction, up);
     return kmQuaternionNormalize(pOut, kmQuaternionRotationMatrix(pOut, &tmp));
 /*
     if(!direction->x && !direction->y && !direction->z) {
