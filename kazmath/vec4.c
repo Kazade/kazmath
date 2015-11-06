@@ -173,10 +173,16 @@ int kmVec4AreEqual(const kmVec4* p1, const kmVec4* p2) {
 }
 
 kmVec4* kmVec4Assign(kmVec4* pOut, const kmVec4* pIn) {
-	assert(pOut != pIn);
-
-	memcpy(pOut, pIn, sizeof(kmScalar) * 4);
-
+  pOut->x = pIn->x;
+  pOut->y = pIn->y;
+  pOut->z = pIn->z;
+  pOut->w = pIn->w;
 	return pOut;
 }
 
+void kmVec4Swap(kmVec4* pA, kmVec4* pB) {
+  kmScalar x = pA->x;  pA->x = pB->x;  pB->x = x;
+  kmScalar y = pA->y;  pA->y = pB->y;  pB->y = y;
+  kmScalar z = pA->z;  pA->z = pB->z;  pB->z = z;
+  kmScalar w = pA->w;  pA->w = pB->w;  pB->w = w;
+}
