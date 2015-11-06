@@ -249,3 +249,12 @@ kmVec2* kmVec2Reflect(kmVec2* pOut, const kmVec2* pIn, const kmVec2* normal) {
 
 	return pOut;
 }
+
+void kmVec2Swap(kmVec2* pA, kmVec2* pB) {
+  kmScalar x = pA->x;
+  kmScalar y = pA->y;
+  pA->x = pB->x;
+  pA->y = pB->y;
+  pB->x = x;
+  pB->y = y;
+}

@@ -454,30 +454,11 @@ kmVec3* kmVec3Reflect(kmVec3* pOut, const kmVec3* pIn, const kmVec3* normal) {
 }
 
 /**
- *  copy the contents of a vector - for the lazy !
- */ 
-kmVec3* kmVec3Copy(kmVec3* pOut, const kmVec3* pIn) {
-	pOut->x = pIn->x;
-	pOut->y = pIn->y;
-	pOut->z = pIn->z;
-
-	return pOut;
-}
-
-/**
  * swaps the values in one vector with another
  * NB does not return a value unlike normal
  */
 void kmVec3Swap(kmVec3* a, kmVec3* b) {
-  kmScalar x = a->x;
-  kmScalar y = a->y;
-  kmScalar z = a->z;
-
-	a->x = b->x;
-	a->y = b->y;
-	a->z = b->z;
-  
-  b->x = x;
-  b->y = y;
-  b->z = z;
+  kmScalar x = a->x;	a->x = b->x;  b->x = x;
+  kmScalar y = a->y;	a->y = b->y;  b->y = y;
+  kmScalar z = a->z;	a->z = b->z;  b->z = z;
 }

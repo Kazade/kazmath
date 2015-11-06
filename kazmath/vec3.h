@@ -75,7 +75,6 @@ kmVec3* kmVec3ProjectOnToPlane(kmVec3* pOut, const kmVec3* point, const struct k
 
 kmVec3* kmVec3Reflect(kmVec3* pOut, const kmVec3* pIn, const kmVec3* normal); /**< Reflects a vector about a given surface normal. The surface normal is assumed to be of unit length. */
 
-kmVec3* kmVec3Copy(kmVec3* pOut, const kmVec3* pIn);
 void kmVec3Swap(kmVec3* a, kmVec3* b);
 
 extern const kmVec3 KM_VEC3_NEG_Z;
