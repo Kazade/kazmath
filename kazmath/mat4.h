@@ -90,6 +90,7 @@ kmMat4* kmMat4RotationAxisAngle(kmMat4* pOut, const struct kmVec3* axis, kmScala
 struct kmMat3* kmMat4ExtractRotationMat3(const kmMat4* pIn, struct kmMat3* pOut);
 struct kmPlane* kmMat4ExtractPlane(struct kmPlane* pOut, const kmMat4* pIn, const kmEnum plane);
 struct kmVec3* kmMat4RotationToAxisAngle(struct kmVec3* pAxis, kmScalar* radians, const kmMat4* pIn);
+struct kmVec3* kmMat4ExtractTranslationVec3(const kmMat4* pIn, struct kmVec3* pOut);
 #ifdef __cplusplus
 }
 #endif

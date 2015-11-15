@@ -788,3 +788,10 @@ kmPlane* kmMat4ExtractPlane(kmPlane* pOut, const kmMat4* pIn, const kmEnum plane
 
     return pOut;
 }
+
+kmVec3* kmMat4ExtractTranslationVec3(const kmMat4* pIn, struct kmVec3* pOut) {
+    pOut->x = pIn->mat[12];
+    pOut->y = pIn->mat[13];
+    pOut->z = pIn->mat[14];
+    return pOut;
+}
