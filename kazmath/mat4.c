@@ -69,7 +69,7 @@ kmMat4* kmMat4Identity(kmMat4* pOut)
  */
 kmMat4* kmMat4Inverse(kmMat4* pOut, const kmMat4* pM) {
     kmMat4 tmp;
-    double det;
+    kmScalar det;
     int i;
 
     tmp.mat[0] = pM->mat[5]  * pM->mat[10] * pM->mat[15] -

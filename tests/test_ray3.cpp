@@ -11,7 +11,7 @@ TEST(test_ray_plane_intersection) {
 
     kmRay3 r;
     kmVec3 start;
-    kmVec3Fill(&start, 0, 10, 10);
+    kmVec3Fill(&start, 0, 10, -10);
     kmRay3FromPointAndDirection(&r, &start, &KM_VEC3_POS_Z);
 
     kmVec3 result;
