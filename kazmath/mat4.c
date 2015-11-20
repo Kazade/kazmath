@@ -633,37 +633,36 @@ kmMat4* kmMat4OrthographicProjection(kmMat4* pOut, kmScalar left,
 kmMat4* kmMat4LookAt(kmMat4* pOut, const kmVec3* pEye,
                      const kmVec3* pCenter, const kmVec3* pUp)
 {
-    kmVec3 f, up, s, u;
-    kmMat4 translate;
-
+    kmVec3 f;
     kmVec3Subtract(&f, pCenter, pEye);
     kmVec3Normalize(&f, &f);
 
-    kmVec3Assign(&up, pUp);
-    kmVec3Normalize(&up, &up);
-
-    kmVec3Cross(&s, &f, &up);
+    kmVec3 s;
+    kmVec3Cross(&s, &f, pUp);
     kmVec3Normalize(&s, &s);
 
+    kmVec3 u;
     kmVec3Cross(&u, &s, &f);
-    kmVec3Normalize(&s, &s);
-
-    kmMat4Identity(pOut);
 
     pOut->mat[0] = s.x;
-    pOut->mat[4] = s.y;
-    pOut->mat[8] = s.z;
-
     pOut->mat[1] = u.x;
+    pOut->mat[2] = f.x;
+    pOut->mat[3] = 0.0;
+
+    pOut->mat[4] = s.y;
     pOut->mat[5] = u.y;
+    pOut->mat[6] = f.y;
+    pOut->mat[7] = 0.0;
+
+    pOut->mat[8] = s.z;
     pOut->mat[9] = u.z;
+    pOut->mat[10] = f.z;
+    pOut->mat[11] = 0.0;
 
-    pOut->mat[2] = -f.x;
-    pOut->mat[6] = -f.y;
-    pOut->mat[10] = -f.z;
-
-    kmMat4Translation(&translate, -pEye->x, -pEye->y, -pEye->z);
-    kmMat4Multiply(pOut, pOut, &translate);
+    pOut->mat[12] = -kmVec3Dot(&s, pEye);
+    pOut->mat[13] = -kmVec3Dot(&u, pEye);
+    pOut->mat[14] = -kmVec3Dot(&f, pEye);
+    pOut->mat[15] = 1.0;
 
     return pOut;
 }
