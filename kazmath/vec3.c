@@ -462,3 +462,14 @@ void kmVec3Swap(kmVec3* a, kmVec3* b) {
   kmScalar y = a->y;	a->y = b->y;  b->y = y;
   kmScalar z = a->z;	a->z = b->z;  b->z = z;
 }
+
+
+void kmVec3OrthoNormalize(kmVec3* normal, kmVec3* tangent) {
+    kmVec3 proj;
+
+    kmVec3Normalize(normal, normal);
+
+    kmVec3Scale(&proj, normal, kmVec3Dot(tangent, normal));
+    kmVec3Subtract(tangent, tangent, &proj);
+    kmVec3Normalize(tangent, tangent);
+}
