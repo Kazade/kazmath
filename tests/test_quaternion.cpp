@@ -132,3 +132,43 @@ TEST(test_look_rotation) {
     kmQuaternionLookRotation(&res, &KM_VEC3_POS_Z, &KM_VEC3_POS_Y);
     CHECK(kmQuaternionAreEqual(&rot, &res));
 }
+
+TEST(test_quaternion_axis_angle_conversion) {
+    kmVec3 axis;
+    kmScalar angle;
+    kmVec3Fill(&axis, 0.0, 1.0, 0.0);
+    angle = kmDegreesToRadians(50.0);
+
+    kmQuaternion rotation;
+    kmQuaternionRotationAxisAngle(&rotation, &axis, angle);
+
+    kmVec3 final_axis;
+    kmScalar final_angle;
+
+    kmQuaternionToAxisAngle(&rotation, &final_axis, &final_angle);
+
+    CHECK_CLOSE(angle, final_angle, kmEpsilon);
+    CHECK_CLOSE(axis.x, final_axis.x, kmEpsilon);
+    CHECK_CLOSE(axis.y, final_axis.y, kmEpsilon);
+    CHECK_CLOSE(axis.z, final_axis.z, kmEpsilon);
+}
+
+TEST(test_extract_rotation_around_axis) {
+    kmQuaternion rotation, extracted;
+    kmVec3 rot_axis, axis;
+
+    kmVec3Fill(&rot_axis, 1.0, 1.0, 0.0);
+    kmVec3Fill(&axis, 1.0, 0.0, 0.0);
+
+    kmQuaternionRotationAxisAngle(&rotation, &rot_axis, kmDegreesToRadians((15.0)));
+    kmQuaternionExtractRotationAroundAxis(&rotation, &axis, &extracted);
+
+    kmVec3 final_axis;
+    float final_angle;
+    kmQuaternionToAxisAngle(&extracted, &final_axis, &final_angle);
+
+    CHECK_CLOSE(kmDegreesToRadians(15), final_angle, 0.0001);
+    CHECK_CLOSE(1.0, final_axis.x, kmEpsilon);
+    CHECK_CLOSE(0.0, final_axis.y, kmEpsilon);
+    CHECK_CLOSE(0.0, final_axis.z, kmEpsilon);
+}

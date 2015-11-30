@@ -393,28 +393,26 @@ void kmQuaternionToAxisAngle(const kmQuaternion* pIn,
 								kmVec3* pAxis,
 								kmScalar* pAngle)
 {
-	kmScalar 	tempAngle;		/* temp angle*/
 	kmScalar	scale;			/* temp vars*/
+    kmQuaternion tmp;
 
-	tempAngle = acosf(pIn->w);
-	scale = sqrtf(kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z));
+    if(pIn->w > 1.0) {
+        kmQuaternionNormalize(&tmp, pIn);
+    } else {
+        kmQuaternionAssign(&tmp, pIn);
+    }
 
-	if (((scale > -kmEpsilon) && scale < kmEpsilon)
-		|| (scale < 2*kmPI + kmEpsilon && scale > 2*kmPI - kmEpsilon))		/* angle is 0 or 360 so just simply set axis to 0,0,1 with angle 0*/
-	{
-		*pAngle = 0.0f;
+    *pAngle = 2.0 * acosf(tmp.w);
+    scale = sqrtf(1.0 - kmSQR(tmp.w));
 
+    if (scale < kmEpsilon) {	/* angle is 0 or 360 so just simply set axis to 0,0,1 with angle 0*/
 		pAxis->x = 0.0f;
 		pAxis->y = 0.0f;
 		pAxis->z = 1.0f;
-	}
-	else
-	{
-		*pAngle = tempAngle * 2.0f;		/* angle in radians*/
-
-		pAxis->x = pIn->x / scale;
-		pAxis->y = pIn->y / scale;
-		pAxis->z = pIn->z / scale;
+    } else {
+        pAxis->x = tmp.x / scale;
+        pAxis->y = tmp.y / scale;
+        pAxis->z = tmp.z / scale;
 		kmVec3Normalize(pAxis, pAxis);
 	}
 }
@@ -600,4 +598,23 @@ kmQuaternion* kmQuaternionLookRotation(kmQuaternion* pOut, const kmVec3* directi
     kmVec3Cross(&rot_axis, &KM_VEC3_NEG_Z, direction);
     kmVec3Normalize(&rot_axis, &rot_axis);
     return kmQuaternionRotationAxisAngle(pOut, &rot_axis, rot_angle);
+}
+
+kmQuaternion* kmQuaternionExtractRotationAroundAxis(const kmQuaternion* pIn, const kmVec3* axis, kmQuaternion* pOut) {
+    /**
+        Given a quaternion, and an axis. This extracts the rotation around the axis into pOut as another quaternion.
+        Uses the swing-twist decomposition.
+
+        http://stackoverflow.com/questions/3684269/component-of-a-quaternion-rotation-around-an-axis/22401169?noredirect=1#comment34098058_22401169
+    */
+
+    kmVec3 ra;
+
+    kmVec3Fill(&ra, pIn->x, pIn->y, pIn->z);
+
+    kmScalar d = kmVec3Dot(&ra, axis);
+
+    kmQuaternionFill(pOut, axis->x * d, axis->y * d, axis->z * d, pIn->w);
+    kmQuaternionNormalize(pOut, pOut);
+    return pOut;
 }

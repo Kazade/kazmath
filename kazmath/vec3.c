@@ -473,3 +473,11 @@ void kmVec3OrthoNormalize(kmVec3* normal, kmVec3* tangent) {
     kmVec3Subtract(tangent, tangent, &proj);
     kmVec3Normalize(tangent, tangent);
 }
+
+kmVec3* kmVec3ProjectOnToVec3(const kmVec3* pIn, const kmVec3* other, kmVec3* projection) {
+    kmScalar scale = kmVec3Length(pIn) * kmVec3Dot(pIn, other);
+
+    kmVec3Normalize(projection, other);
+    kmVec3Scale(projection, projection, scale);
+    return projection;
+}

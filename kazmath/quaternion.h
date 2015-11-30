@@ -117,6 +117,8 @@ kmScalar kmQuaternionGetYaw(const kmQuaternion* q);
 kmScalar kmQuaternionGetRoll(const kmQuaternion* q);
 
 kmQuaternion* kmQuaternionLookRotation(kmQuaternion* pOut, const kmVec3* direction, const kmVec3* up);
+kmQuaternion* kmQuaternionExtractRotationAroundAxis(const kmQuaternion* pIn, const kmVec3* axis, kmQuaternion* pOut);
+
 
 #ifdef __cplusplus
 }
