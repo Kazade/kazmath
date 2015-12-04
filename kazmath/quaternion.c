@@ -175,10 +175,10 @@ kmQuaternion* kmQuaternionNormalize(kmQuaternion* pOut,
     }
 
     kmQuaternionFill(pOut,
-        pOut->x / length,
-        pOut->y / length,
-        pOut->z / length,
-        pOut->w / length
+        pIn->x / length,
+        pIn->y / length,
+        pIn->z / length,
+        pIn->w / length
     );
 
 	return pOut;
