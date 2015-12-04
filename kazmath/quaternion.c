@@ -618,3 +618,16 @@ kmQuaternion* kmQuaternionExtractRotationAroundAxis(const kmQuaternion* pIn, con
     kmQuaternionNormalize(pOut, pOut);
     return pOut;
 }
+
+/*
+ * Returns a Quaternion representing the angle between two vectors
+ */
+kmQuaternion* kmQuaternionBetweenVec3(kmQuaternion* pOut, const kmVec3* u, const kmVec3* v) {
+    kmVec3 w;
+    kmVec3Cross(&w, u, v);
+
+    kmQuaternion q;
+    kmQuaternionFill(&q, kmVec3Dot(u, v), w.x, w.y, w.z);
+    q.w += kmQuaternionLength(&q);
+    return kmQuaternionNormalize(pOut, &q);
+}
