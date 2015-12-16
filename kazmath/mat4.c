@@ -463,7 +463,7 @@ kmMat4* kmMat4RotationYawPitchRoll(kmMat4* pOut, const kmScalar pitch, const kmS
  * the result is stored in pOut, returns pOut
  */
 kmMat4* kmMat4RotationQuaternion(kmMat4* pOut, const kmQuaternion* pQ)
-{    
+{
     double xx = pQ->x * pQ->x;
     double xy = pQ->x * pQ->y;
     double xz = pQ->x * pQ->z;

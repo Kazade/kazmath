@@ -120,7 +120,7 @@ TEST(test_look_rotation) {
 
     //90 degree rotation around the Y-Axis (e.g. negative X)
     kmQuaternion rot;
-    kmQuaternionRotationAxisAngle(&rot, &KM_VEC3_POS_Y, kmDegreesToRadians(90));
+    kmQuaternionRotationAxisAngle(&rot, &KM_VEC3_POS_Y, -kmDegreesToRadians(90));
 
     //Get the rotation from the negative X, it should be the same
     kmQuaternionLookRotation(&res, &KM_VEC3_NEG_X, &KM_VEC3_POS_Y);

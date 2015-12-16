@@ -581,23 +581,15 @@ kmScalar kmQuaternionGetRoll(const kmQuaternion* q) {
 }
 
 kmQuaternion* kmQuaternionLookRotation(kmQuaternion* pOut, const kmVec3* direction, const kmVec3* upDirection) {
-    float dot = kmVec3Dot(&KM_VEC3_NEG_Z, direction);
+    kmMat4 lookAt;
+    kmMat4LookAt(&lookAt, &KM_VEC3_ZERO, direction, upDirection);
 
-    if(fabs(dot - (-1.0f)) < kmEpsilon) {
-        kmQuaternionRotationAxisAngle(pOut, upDirection, kmDegreesToRadians(180));
-        return pOut;
-    }
+    kmMat3 rot;
+    kmMat4ExtractRotationMat3(&lookAt, &rot);
 
-    if(fabs(dot - 1.0f) < kmEpsilon) {
-        kmQuaternionIdentity(pOut);
-        return pOut;
-    }
-
-    kmScalar rot_angle = (kmScalar) acosf(dot);
-    kmVec3 rot_axis;
-    kmVec3Cross(&rot_axis, &KM_VEC3_NEG_Z, direction);
-    kmVec3Normalize(&rot_axis, &rot_axis);
-    return kmQuaternionRotationAxisAngle(pOut, &rot_axis, rot_angle);
+    kmQuaternionRotationMatrix(pOut, &rot);
+    kmQuaternionNormalize(pOut, pOut);
+    return pOut;
 }
 
 kmQuaternion* kmQuaternionExtractRotationAroundAxis(const kmQuaternion* pIn, const kmVec3* axis, kmQuaternion* pOut) {
@@ -623,11 +615,16 @@ kmQuaternion* kmQuaternionExtractRotationAroundAxis(const kmQuaternion* pIn, con
  * Returns a Quaternion representing the angle between two vectors
  */
 kmQuaternion* kmQuaternionBetweenVec3(kmQuaternion* pOut, const kmVec3* u, const kmVec3* v) {
+    if(kmVec3AreEqual(u, v)) {
+        kmQuaternionIdentity(pOut);
+        return pOut;
+    }
+
+    kmScalar len = sqrtf(kmVec3LengthSq(u) * kmVec3LengthSq(v));
     kmVec3 w;
     kmVec3Cross(&w, u, v);
 
     kmQuaternion q;
-    kmQuaternionFill(&q, kmVec3Dot(u, v), w.x, w.y, w.z);
-    q.w += kmQuaternionLength(&q);
+    kmQuaternionFill(&q, w.x, w.y, w.z, kmVec3Dot(u, v) + len);
     return kmQuaternionNormalize(pOut, &q);
 }
