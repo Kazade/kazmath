@@ -73,6 +73,45 @@
 #define KAZMATH_CHECK_KMVEC4(L, idx) (*(kmVec4 **) luaL_checkudata(L, idx, KAZMATH_CLS_KMVEC4))
 #define KAZMATH_CHECK_KMAABB3(L, idx) (*(kmAABB3 **) luaL_checkudata(L, idx, KAZMATH_CLS_KMAABB3))
 
+#define VEC2_TO_ARRAY(L, vec) do {       \
+	lua_newtable(L);                 \
+	lua_pushnumber(L, vec->x);       \
+	lua_rawseti(L, -2, 1);           \
+	lua_pushnumber(L, vec->y);       \
+	lua_rawseti(L, -2, 2);           \
+} while(0)
+
+#define VEC3_TO_ARRAY(L, vec) do {       \
+	lua_newtable(L);                 \
+	lua_pushnumber(L, vec->x);       \
+	lua_rawseti(L, -2, 1);           \
+	lua_pushnumber(L, vec->y);       \
+	lua_rawseti(L, -2, 2);           \
+	lua_pushnumber(L, vec->z);       \
+	lua_rawseti(L, -2, 3);           \
+} while(0)
+
+#define VEC4_TO_ARRAY(L, vec) do {       \
+	lua_newtable(L);                 \
+	lua_pushnumber(L, vec->x);       \
+	lua_rawseti(L, -2, 1);           \
+	lua_pushnumber(L, vec->y);       \
+	lua_rawseti(L, -2, 2);           \
+	lua_pushnumber(L, vec->z);       \
+	lua_rawseti(L, -2, 3);           \
+	lua_pushnumber(L, vec->w);       \
+	lua_rawseti(L, -2, 4);           \
+} while(0)
+
+#define MAT_TO_ARRAY(L, pmat) do {                                                \
+	int idx;                                                                  \
+	lua_newtable(L);                                                          \
+	for (idx=0; idx < sizeof(pmat->mat)/sizeof(pmat->mat[0]); idx++) {        \
+	        lua_pushnumber(L, pmat->mat[idx]);                                \
+	        lua_rawseti(L, -2, idx+1);                                        \
+	}                                                                         \
+} while(0)
+
 static int luac__is_array(lua_State *L, int idx)
 {
 	int isarray = 0;
@@ -94,11 +133,10 @@ finished:
 	return isarray;
 }
 
-
 /**
  * kmQuaternion * kmQuaternionLookRotation(kmQuaternion * pOut, const kmVec3 * direction, const kmVec3 * up)
  */
-int lua__kmQuaternionLookRotation(lua_State *L)
+static int lua__kmQuaternionLookRotation(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmVec3 * direction = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -110,7 +148,7 @@ int lua__kmQuaternionLookRotation(lua_State *L)
 /**
  * kmRay3 * kmRay3Fill(kmRay3 * ray, kmScalar px, kmScalar py, kmScalar pz, kmScalar vx, kmScalar vy, kmScalar vz)
  */
-int lua__kmRay3Fill(lua_State *L)
+static int lua__kmRay3Fill(lua_State *L)
 {
 	kmRay3 * ray = (kmRay3 *)KAZMATH_CHECK_KMRAY3(L, 1);
 	kmScalar px = (kmScalar)luaL_checknumber(L, 2);
@@ -126,7 +164,7 @@ int lua__kmRay3Fill(lua_State *L)
 /**
  * kmVec2 * kmVec2Normalize(kmVec2 * pOut, const kmVec2 * pIn)
  */
-int lua__kmVec2Normalize(lua_State *L)
+static int lua__kmVec2Normalize(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * pIn = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -137,7 +175,7 @@ int lua__kmVec2Normalize(lua_State *L)
 /**
  * kmPlane * kmPlaneFromPointAndNormal(kmPlane * pOut, const struct kmVec3 * pPoint, const struct kmVec3 * pNormal)
  */
-int lua__kmPlaneFromPointAndNormal(lua_State *L)
+static int lua__kmPlaneFromPointAndNormal(lua_State *L)
 {
 	kmPlane * pOut = (kmPlane *)KAZMATH_CHECK_KMPLANE(L, 1);
 	const struct kmVec3 * pPoint = (const struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -149,7 +187,7 @@ int lua__kmPlaneFromPointAndNormal(lua_State *L)
 /**
  * kmVec4 * kmVec4Subtract(kmVec4 * pOut, const kmVec4 * pV1, const kmVec4 * pV2)
  */
-int lua__kmVec4Subtract(lua_State *L)
+static int lua__kmVec4Subtract(lua_State *L)
 {
 	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	const kmVec4 * pV1 = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 2);
@@ -161,7 +199,7 @@ int lua__kmVec4Subtract(lua_State *L)
 /**
  * kmScalar kmDegreesToRadians(kmScalar degrees)
  */
-int lua__kmDegreesToRadians(lua_State *L)
+static int lua__kmDegreesToRadians(lua_State *L)
 {
 	kmScalar ret;
 	kmScalar degrees = (kmScalar)luaL_checknumber(L, 1);
@@ -173,7 +211,7 @@ int lua__kmDegreesToRadians(lua_State *L)
 /**
  * kmVec2 * kmVec2Fill(kmVec2 * pOut, kmScalar x, kmScalar y)
  */
-int lua__kmVec2Fill(lua_State *L)
+static int lua__kmVec2Fill(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	kmScalar x = (kmScalar)luaL_checknumber(L, 2);
@@ -185,7 +223,7 @@ int lua__kmVec2Fill(lua_State *L)
 /**
  * kmVec2 * kmVec2MidPointBetween(kmVec2 * pOut, const kmVec2 * v1, const kmVec2 * v2)
  */
-int lua__kmVec2MidPointBetween(lua_State *L)
+static int lua__kmVec2MidPointBetween(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * v1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -197,7 +235,7 @@ int lua__kmVec2MidPointBetween(lua_State *L)
 /**
  * kmVec2 * kmVec2TransformCoord(kmVec2 * pOut, const kmVec2 * pV, const struct kmMat3 * pM)
  */
-int lua__kmVec2TransformCoord(lua_State *L)
+static int lua__kmVec2TransformCoord(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * pV = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -209,7 +247,7 @@ int lua__kmVec2TransformCoord(lua_State *L)
 /**
  * kmScalar kmVec4Length(const kmVec4 * pIn)
  */
-int lua__kmVec4Length(lua_State *L)
+static int lua__kmVec4Length(lua_State *L)
 {
 	kmScalar ret;
 	const kmVec4 * pIn = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
@@ -221,7 +259,7 @@ int lua__kmVec4Length(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionInverse(kmQuaternion * pOut, const kmQuaternion * pIn)
  */
-int lua__kmQuaternionInverse(lua_State *L)
+static int lua__kmQuaternionInverse(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -232,7 +270,7 @@ int lua__kmQuaternionInverse(lua_State *L)
 /**
  * kmMat3 * kmMat3AssignMat3(kmMat3 * pOut, const kmMat3 * pIn)
  */
-int lua__kmMat3AssignMat3(lua_State *L)
+static int lua__kmMat3AssignMat3(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmMat3 * pIn = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 2);
@@ -243,7 +281,7 @@ int lua__kmMat3AssignMat3(lua_State *L)
 /**
  * kmMat4 * kmMat4AssignMat3(kmMat4 * pOut, const struct kmMat3 * pIn)
  */
-int lua__kmMat4AssignMat3(lua_State *L)
+static int lua__kmMat4AssignMat3(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const struct kmMat3 * pIn = (const struct kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 2);
@@ -254,7 +292,7 @@ int lua__kmMat4AssignMat3(lua_State *L)
 /**
  * kmScalar kmSQR(kmScalar s)
  */
-int lua__kmSQR(lua_State *L)
+static int lua__kmSQR(lua_State *L)
 {
 	kmScalar ret;
 	kmScalar s = (kmScalar)luaL_checknumber(L, 1);
@@ -266,7 +304,7 @@ int lua__kmSQR(lua_State *L)
 /**
  * KM_POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane * pIn, const struct kmVec3 * pP)
  */
-int lua__kmPlaneClassifyPoint(lua_State *L)
+static int lua__kmPlaneClassifyPoint(lua_State *L)
 {
 	KM_POINT_CLASSIFICATION ret;
 	const kmPlane * pIn = (const kmPlane *)KAZMATH_CHECK_KMPLANE(L, 1);
@@ -279,7 +317,7 @@ int lua__kmPlaneClassifyPoint(lua_State *L)
 /**
  * kmScalar kmAABB3DiameterZ(const kmAABB3 * aabb)
  */
-int lua__kmAABB3DiameterZ(lua_State *L)
+static int lua__kmAABB3DiameterZ(lua_State *L)
 {
 	kmScalar ret;
 	const kmAABB3 * aabb = (const kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
@@ -291,7 +329,7 @@ int lua__kmAABB3DiameterZ(lua_State *L)
 /**
  * kmVec3 * kmVec3Mul(kmVec3 * pOut, const kmVec3 * pV1, const kmVec3 * pV2)
  */
-int lua__kmVec3Mul(lua_State *L)
+static int lua__kmVec3Mul(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pV1 = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -303,7 +341,7 @@ int lua__kmVec3Mul(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionMultiply(kmQuaternion * pOut, const kmQuaternion * q1, const kmQuaternion * q2)
  */
-int lua__kmQuaternionMultiply(lua_State *L)
+static int lua__kmQuaternionMultiply(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmQuaternion * q1 = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -315,7 +353,7 @@ int lua__kmQuaternionMultiply(lua_State *L)
 /**
  * kmVec4 * kmVec4Div(kmVec4 * pOut, const kmVec4 * pV1, const kmVec4 * pV2)
  */
-int lua__kmVec4Div(lua_State *L)
+static int lua__kmVec4Div(lua_State *L)
 {
 	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	const kmVec4 * pV1 = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 2);
@@ -327,7 +365,7 @@ int lua__kmVec4Div(lua_State *L)
 /**
  * kmMat4 * kmMat4RotationQuaternion(kmMat4 * pOut, const struct kmQuaternion * pQ)
  */
-int lua__kmMat4RotationQuaternion(lua_State *L)
+static int lua__kmMat4RotationQuaternion(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const struct kmQuaternion * pQ = (const struct kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -338,7 +376,7 @@ int lua__kmMat4RotationQuaternion(lua_State *L)
 /**
  * kmMat4 * kmMat4Translation(kmMat4 * pOut, const kmScalar x, const kmScalar y, const kmScalar z)
  */
-int lua__kmMat4Translation(lua_State *L)
+static int lua__kmMat4Translation(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const kmScalar x = (const kmScalar)luaL_checknumber(L, 2);
@@ -351,7 +389,7 @@ int lua__kmMat4Translation(lua_State *L)
 /**
  * struct kmVec3 * kmMat3ExtractUpVec3(const kmMat3 * self, struct kmVec3 * pOut)
  */
-int lua__kmMat3ExtractUpVec3(lua_State *L)
+static int lua__kmMat3ExtractUpVec3(lua_State *L)
 {
 	const kmMat3 * self = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	struct kmVec3 * pOut = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -362,7 +400,7 @@ int lua__kmMat3ExtractUpVec3(lua_State *L)
 /**
  * kmVec3 * kmAABB3Centre(const kmAABB3 * aabb, kmVec3 * pOut)
  */
-int lua__kmAABB3Centre(lua_State *L)
+static int lua__kmAABB3Centre(lua_State *L)
 {
 	const kmAABB3 * aabb = (const kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -373,7 +411,7 @@ int lua__kmAABB3Centre(lua_State *L)
 /**
  * kmAABB2 * kmAABB2ExpandToContain(kmAABB2 * pOut, const kmAABB2 * pIn, const kmAABB2 * other)
  */
-int lua__kmAABB2ExpandToContain(lua_State *L)
+static int lua__kmAABB2ExpandToContain(lua_State *L)
 {
 	kmAABB2 * pOut = (kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 1);
 	const kmAABB2 * pIn = (const kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 2);
@@ -385,7 +423,7 @@ int lua__kmAABB2ExpandToContain(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionNormalize(kmQuaternion * pOut, const kmQuaternion * pIn)
  */
-int lua__kmQuaternionNormalize(lua_State *L)
+static int lua__kmQuaternionNormalize(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -396,7 +434,7 @@ int lua__kmQuaternionNormalize(lua_State *L)
 /**
  * kmPlane * kmPlaneExtractFromMat4(kmPlane * pOut, const struct kmMat4 * pIn, kmInt row)
  */
-int lua__kmPlaneExtractFromMat4(lua_State *L)
+static int lua__kmPlaneExtractFromMat4(lua_State *L)
 {
 	kmPlane * pOut = (kmPlane *)KAZMATH_CHECK_KMPLANE(L, 1);
 	const struct kmMat4 * pIn = (const struct kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 2);
@@ -408,7 +446,7 @@ int lua__kmPlaneExtractFromMat4(lua_State *L)
 /**
  * kmBool kmSegment2WithSegmentIntersection(const kmRay2 * segmentA, const kmRay2 * segmentB, kmVec2 * intersection)
  */
-int lua__kmSegment2WithSegmentIntersection(lua_State *L)
+static int lua__kmSegment2WithSegmentIntersection(lua_State *L)
 {
 	kmBool ret;
 	const kmRay2 * segmentA = (const kmRay2 *)KAZMATH_CHECK_KMRAY2(L, 1);
@@ -422,7 +460,7 @@ int lua__kmSegment2WithSegmentIntersection(lua_State *L)
 /**
  * kmVec2 * kmVec2Transform(kmVec2 * pOut, const kmVec2 * pV1, const struct kmMat3 * pM)
  */
-int lua__kmVec2Transform(lua_State *L)
+static int lua__kmVec2Transform(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * pV1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -434,7 +472,7 @@ int lua__kmVec2Transform(lua_State *L)
 /**
  * kmVec2 * kmAABB2Centre(const kmAABB2 * aabb, kmVec2 * pOut)
  */
-int lua__kmAABB2Centre(lua_State *L)
+static int lua__kmAABB2Centre(lua_State *L)
 {
 	const kmAABB2 * aabb = (const kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 1);
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -445,7 +483,7 @@ int lua__kmAABB2Centre(lua_State *L)
 /**
  * kmMat3 * kmMat3FromRotationQuaternion(kmMat3 * pOut, const struct kmQuaternion * quaternion)
  */
-int lua__kmMat3FromRotationQuaternion(lua_State *L)
+static int lua__kmMat3FromRotationQuaternion(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const struct kmQuaternion * quaternion = (const struct kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -456,7 +494,7 @@ int lua__kmMat3FromRotationQuaternion(lua_State *L)
 /**
  * kmVec2 * kmVec2Subtract(kmVec2 * pOut, const kmVec2 * pV1, const kmVec2 * pV2)
  */
-int lua__kmVec2Subtract(lua_State *L)
+static int lua__kmVec2Subtract(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * pV1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -468,7 +506,7 @@ int lua__kmVec2Subtract(lua_State *L)
 /**
  * kmAABB3 * kmAABB3Assign(kmAABB3 * pOut, const kmAABB3 * pIn)
  */
-int lua__kmAABB3Assign(lua_State *L)
+static int lua__kmAABB3Assign(lua_State *L)
 {
 	kmAABB3 * pOut = (kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
 	const kmAABB3 * pIn = (const kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 2);
@@ -479,7 +517,7 @@ int lua__kmAABB3Assign(lua_State *L)
 /**
  * kmMat4 * kmMat4Scaling(kmMat4 * pOut, const kmScalar x, const kmScalar y, const kmScalar z)
  */
-int lua__kmMat4Scaling(lua_State *L)
+static int lua__kmMat4Scaling(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const kmScalar x = (const kmScalar)luaL_checknumber(L, 2);
@@ -492,7 +530,7 @@ int lua__kmMat4Scaling(lua_State *L)
 /**
  * struct kmMat3 * kmMat4ExtractRotationMat3(const kmMat4 * pIn, struct kmMat3 * pOut)
  */
-int lua__kmMat4ExtractRotationMat3(lua_State *L)
+static int lua__kmMat4ExtractRotationMat3(lua_State *L)
 {
 	const kmMat4 * pIn = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	struct kmMat3 * pOut = (struct kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 2);
@@ -503,7 +541,7 @@ int lua__kmMat4ExtractRotationMat3(lua_State *L)
 /**
  * kmVec3 * kmVec3InverseTransformNormal(kmVec3 * pOut, const kmVec3 * pVect, const struct kmMat4 * pM)
  */
-int lua__kmVec3InverseTransformNormal(lua_State *L)
+static int lua__kmVec3InverseTransformNormal(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pVect = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -515,7 +553,7 @@ int lua__kmVec3InverseTransformNormal(lua_State *L)
 /**
  * kmAABB2 * kmAABB2Initialize(kmAABB2 * pBox, const kmVec2 * centre, const kmScalar width, const kmScalar height, const kmScalar depth)
  */
-int lua__kmAABB2Initialize(lua_State *L)
+static int lua__kmAABB2Initialize(lua_State *L)
 {
 	kmAABB2 * pBox = (kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 1);
 	const kmVec2 * centre = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -529,7 +567,7 @@ int lua__kmAABB2Initialize(lua_State *L)
 /**
  * kmBool kmAABB3IntersectsAABB(const kmAABB3 * box, const kmAABB3 * other)
  */
-int lua__kmAABB3IntersectsAABB(lua_State *L)
+static int lua__kmAABB3IntersectsAABB(lua_State *L)
 {
 	kmBool ret;
 	const kmAABB3 * box = (const kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
@@ -542,7 +580,7 @@ int lua__kmAABB3IntersectsAABB(lua_State *L)
 /**
  * kmMat4 * kmMat4Fill(kmMat4 * pOut, const kmScalar * pMat)
  */
-int lua__kmMat4Fill(lua_State *L)
+static int lua__kmMat4Fill(lua_State *L)
 {
 	const size_t rlen = sizeof(kmMat4)/sizeof(kmScalar);
 	kmScalar pMat[rlen];
@@ -558,7 +596,7 @@ int lua__kmMat4Fill(lua_State *L)
 /**
  * kmAABB3 * kmAABB3ExpandToContain(kmAABB3 * pOut, const kmAABB3 * pIn, const kmAABB3 * other)
  */
-int lua__kmAABB3ExpandToContain(lua_State *L)
+static int lua__kmAABB3ExpandToContain(lua_State *L)
 {
 	kmAABB3 * pOut = (kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
 	const kmAABB3 * pIn = (const kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 2);
@@ -570,7 +608,7 @@ int lua__kmAABB3ExpandToContain(lua_State *L)
 /**
  * kmPlane * kmPlaneFromPoints(kmPlane * pOut, const struct kmVec3 * p1, const struct kmVec3 * p2, const struct kmVec3 * p3)
  */
-int lua__kmPlaneFromPoints(lua_State *L)
+static int lua__kmPlaneFromPoints(lua_State *L)
 {
 	kmPlane * pOut = (kmPlane *)KAZMATH_CHECK_KMPLANE(L, 1);
 	const struct kmVec3 * p1 = (const struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -583,7 +621,7 @@ int lua__kmPlaneFromPoints(lua_State *L)
 /**
  * kmBool kmMat3IsIdentity(const kmMat3 * pIn)
  */
-int lua__kmMat3IsIdentity(lua_State *L)
+static int lua__kmMat3IsIdentity(lua_State *L)
 {
 	kmBool ret;
 	const kmMat3 * pIn = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
@@ -595,7 +633,7 @@ int lua__kmMat3IsIdentity(lua_State *L)
 /**
  * kmMat4 * kmMat4Identity(kmMat4 * pOut)
  */
-int lua__kmMat4Identity(lua_State *L)
+static int lua__kmMat4Identity(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	kmMat4Identity(pOut);
@@ -605,7 +643,7 @@ int lua__kmMat4Identity(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionFill(kmQuaternion * pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w)
  */
-int lua__kmQuaternionFill(lua_State *L)
+static int lua__kmQuaternionFill(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	kmScalar x = (kmScalar)luaL_checknumber(L, 2);
@@ -619,7 +657,7 @@ int lua__kmQuaternionFill(lua_State *L)
 /**
  * kmPlane * kmPlaneNormalize(kmPlane * pOut, const kmPlane * pP)
  */
-int lua__kmPlaneNormalize(lua_State *L)
+static int lua__kmPlaneNormalize(lua_State *L)
 {
 	kmPlane * pOut = (kmPlane *)KAZMATH_CHECK_KMPLANE(L, 1);
 	const kmPlane * pP = (const kmPlane *)KAZMATH_CHECK_KMPLANE(L, 2);
@@ -630,7 +668,7 @@ int lua__kmPlaneNormalize(lua_State *L)
 /**
  * kmVec4 * kmVec4Assign(kmVec4 * pOut, const kmVec4 * pIn)
  */
-int lua__kmVec4Assign(lua_State *L)
+static int lua__kmVec4Assign(lua_State *L)
 {
 	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	const kmVec4 * pIn = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 2);
@@ -641,7 +679,7 @@ int lua__kmVec4Assign(lua_State *L)
 /**
  * kmScalar kmQuaternionGetRoll(const kmQuaternion * q)
  */
-int lua__kmQuaternionGetRoll(lua_State *L)
+static int lua__kmQuaternionGetRoll(lua_State *L)
 {
 	kmScalar ret;
 	const kmQuaternion * q = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
@@ -653,7 +691,7 @@ int lua__kmQuaternionGetRoll(lua_State *L)
 /**
  * kmAABB3 * kmAABB3Initialize(kmAABB3 * pBox, const kmVec3 * centre, const kmScalar width, const kmScalar height, const kmScalar depth)
  */
-int lua__kmAABB3Initialize(lua_State *L)
+static int lua__kmAABB3Initialize(lua_State *L)
 {
 	kmAABB3 * pBox = (kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
 	const kmVec3 * centre = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -667,7 +705,7 @@ int lua__kmAABB3Initialize(lua_State *L)
 /**
  * kmBool kmMat3AreEqual(const kmMat3 * pMat1, const kmMat3 * pMat2)
  */
-int lua__kmMat3AreEqual(lua_State *L)
+static int lua__kmMat3AreEqual(lua_State *L)
 {
 	kmBool ret;
 	const kmMat3 * pMat1 = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
@@ -680,7 +718,7 @@ int lua__kmMat3AreEqual(lua_State *L)
 /**
  * kmVec4 * kmVec4Normalize(kmVec4 * pOut, const kmVec4 * pIn)
  */
-int lua__kmVec4Normalize(lua_State *L)
+static int lua__kmVec4Normalize(lua_State *L)
 {
 	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	const kmVec4 * pIn = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 2);
@@ -691,7 +729,7 @@ int lua__kmVec4Normalize(lua_State *L)
 /**
  * kmMat3 * kmMat3FromRotationXInDegrees(kmMat3 * pOut, const kmScalar degrees)
  */
-int lua__kmMat3FromRotationXInDegrees(lua_State *L)
+static int lua__kmMat3FromRotationXInDegrees(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmScalar degrees = (const kmScalar)luaL_checknumber(L, 2);
@@ -702,7 +740,7 @@ int lua__kmMat3FromRotationXInDegrees(lua_State *L)
 /**
  * kmVec3 * kmVec3ProjectOnToPlane(kmVec3 * pOut, const kmVec3 * point, const struct kmPlane * plane)
  */
-int lua__kmVec3ProjectOnToPlane(lua_State *L)
+static int lua__kmVec3ProjectOnToPlane(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * point = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -714,7 +752,7 @@ int lua__kmVec3ProjectOnToPlane(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionScale(kmQuaternion * pOut, const kmQuaternion * pIn, kmScalar s)
  */
-int lua__kmQuaternionScale(lua_State *L)
+static int lua__kmQuaternionScale(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -726,7 +764,7 @@ int lua__kmQuaternionScale(lua_State *L)
 /**
  * struct kmVec3 * kmQuaternionMultiplyVec3(struct kmVec3 * pOut, const kmQuaternion * q, const struct kmVec3 * v)
  */
-int lua__kmQuaternionMultiplyVec3(lua_State *L)
+static int lua__kmQuaternionMultiplyVec3(lua_State *L)
 {
 	struct kmVec3 * pOut = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmQuaternion * q = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -738,7 +776,7 @@ int lua__kmQuaternionMultiplyVec3(lua_State *L)
 /**
  * kmScalar kmVec2Dot(const kmVec2 * pV1, const kmVec2 * pV2)
  */
-int lua__kmVec2Dot(lua_State *L)
+static int lua__kmVec2Dot(lua_State *L)
 {
 	kmScalar ret;
 	const kmVec2 * pV1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
@@ -751,7 +789,7 @@ int lua__kmVec2Dot(lua_State *L)
 /**
  * void kmRay2FillWithEndpoints(kmRay2 * ray, const kmVec2 * start, const kmVec2 * end)
  */
-int lua__kmRay2FillWithEndpoints(lua_State *L)
+static int lua__kmRay2FillWithEndpoints(lua_State *L)
 {
 	kmRay2 * ray = (kmRay2 *)KAZMATH_CHECK_KMRAY2(L, 1);
 	const kmVec2 * start = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -763,7 +801,7 @@ int lua__kmRay2FillWithEndpoints(lua_State *L)
 /**
  * kmMat3 * kmMat3Inverse(kmMat3 * pOut, const kmMat3 * pM)
  */
-int lua__kmMat3Inverse(lua_State *L)
+static int lua__kmMat3Inverse(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmMat3 * pM = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 2);
@@ -774,7 +812,7 @@ int lua__kmMat3Inverse(lua_State *L)
 /**
  * kmMat3 * kmMat3Transpose(kmMat3 * pOut, const kmMat3 * pIn)
  */
-int lua__kmMat3Transpose(lua_State *L)
+static int lua__kmMat3Transpose(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmMat3 * pIn = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 2);
@@ -785,7 +823,7 @@ int lua__kmMat3Transpose(lua_State *L)
 /**
  * int kmQuaternionIsIdentity(const kmQuaternion * pIn)
  */
-int lua__kmQuaternionIsIdentity(lua_State *L)
+static int lua__kmQuaternionIsIdentity(lua_State *L)
 {
 	int ret;
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
@@ -797,7 +835,7 @@ int lua__kmQuaternionIsIdentity(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionSlerp(kmQuaternion * pOut, const kmQuaternion * q1, const kmQuaternion * q2, kmScalar t)
  */
-int lua__kmQuaternionSlerp(lua_State *L)
+static int lua__kmQuaternionSlerp(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmQuaternion * q1 = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -810,7 +848,7 @@ int lua__kmQuaternionSlerp(lua_State *L)
 /**
  * kmVec3 * kmVec3Lerp(kmVec3 * pOut, const kmVec3 * pV1, const kmVec3 * pV2, kmScalar t)
  */
-int lua__kmVec3Lerp(lua_State *L)
+static int lua__kmVec3Lerp(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pV1 = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -823,7 +861,7 @@ int lua__kmVec3Lerp(lua_State *L)
 /**
  * kmAABB3 * kmAABB3Scale(kmAABB3 * pOut, const kmAABB3 * pIn, kmScalar s)
  */
-int lua__kmAABB3Scale(lua_State *L)
+static int lua__kmAABB3Scale(lua_State *L)
 {
 	kmAABB3 * pOut = (kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
 	const kmAABB3 * pIn = (const kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 2);
@@ -835,7 +873,7 @@ int lua__kmAABB3Scale(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionRotationBetweenVec3(kmQuaternion * pOut, const struct kmVec3 * vec1, const struct kmVec3 * vec2, const struct kmVec3 * fallback)
  */
-int lua__kmQuaternionRotationBetweenVec3(lua_State *L)
+static int lua__kmQuaternionRotationBetweenVec3(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const struct kmVec3 * vec1 = (const struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -848,7 +886,7 @@ int lua__kmQuaternionRotationBetweenVec3(lua_State *L)
 /**
  * kmScalar kmVec3LengthSq(const kmVec3 * pIn)
  */
-int lua__kmVec3LengthSq(lua_State *L)
+static int lua__kmVec3LengthSq(lua_State *L)
 {
 	kmScalar ret;
 	const kmVec3 * pIn = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
@@ -860,7 +898,7 @@ int lua__kmVec3LengthSq(lua_State *L)
 /**
  * kmMat4 * kmMat4LookAt(kmMat4 * pOut, const struct kmVec3 * pEye, const struct kmVec3 * pCenter, const struct kmVec3 * pUp)
  */
-int lua__kmMat4LookAt(lua_State *L)
+static int lua__kmMat4LookAt(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const struct kmVec3 * pEye = (const struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -873,7 +911,7 @@ int lua__kmMat4LookAt(lua_State *L)
 /**
  * kmScalar kmClamp(kmScalar x, kmScalar min, kmScalar max)
  */
-int lua__kmClamp(lua_State *L)
+static int lua__kmClamp(lua_State *L)
 {
 	kmScalar ret;
 	kmScalar x = (kmScalar)luaL_checknumber(L, 1);
@@ -887,7 +925,7 @@ int lua__kmClamp(lua_State *L)
 /**
  * kmMat3 * kmMat3Adjugate(kmMat3 * pOut, const kmMat3 * pIn)
  */
-int lua__kmMat3Adjugate(lua_State *L)
+static int lua__kmMat3Adjugate(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmMat3 * pIn = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 2);
@@ -898,7 +936,7 @@ int lua__kmMat3Adjugate(lua_State *L)
 /**
  * int kmVec2AreEqual(const kmVec2 * p1, const kmVec2 * p2)
  */
-int lua__kmVec2AreEqual(lua_State *L)
+static int lua__kmVec2AreEqual(lua_State *L)
 {
 	int ret;
 	const kmVec2 * p1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
@@ -911,7 +949,7 @@ int lua__kmVec2AreEqual(lua_State *L)
 /**
  * struct kmVec3 * kmMat4GetForwardVec3LH(struct kmVec3 * pOut, const kmMat4 * pIn)
  */
-int lua__kmMat4GetForwardVec3LH(lua_State *L)
+static int lua__kmMat4GetForwardVec3LH(lua_State *L)
 {
 	struct kmVec3 * pOut = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmMat4 * pIn = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 2);
@@ -922,7 +960,7 @@ int lua__kmMat4GetForwardVec3LH(lua_State *L)
 /**
  * kmEnum kmAABB2ContainsAABB(const kmAABB2 * container, const kmAABB2 * to_check)
  */
-int lua__kmAABB2ContainsAABB(lua_State *L)
+static int lua__kmAABB2ContainsAABB(lua_State *L)
 {
 	kmEnum ret;
 	const kmAABB2 * container = (const kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 1);
@@ -935,7 +973,7 @@ int lua__kmAABB2ContainsAABB(lua_State *L)
 /**
  * kmBool kmRay3IntersectTriangle(const kmRay3 * ray, const kmVec3 * v0, const kmVec3 * v1, const kmVec3 * v2, kmVec3 * intersection, kmVec3 * normal, kmScalar * distance)
  */
-int lua__kmRay3IntersectTriangle(lua_State *L)
+static int lua__kmRay3IntersectTriangle(lua_State *L)
 {
 	kmBool ret;
 	kmScalar distance = 0.0;
@@ -954,7 +992,7 @@ int lua__kmRay3IntersectTriangle(lua_State *L)
 /**
  * kmMat3 * kmMat3FromScaling(kmMat3 * pOut, const kmScalar x, const kmScalar y)
  */
-int lua__kmMat3FromScaling(lua_State *L)
+static int lua__kmMat3FromScaling(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmScalar x = (const kmScalar)luaL_checknumber(L, 2);
@@ -966,7 +1004,7 @@ int lua__kmMat3FromScaling(lua_State *L)
 /**
  * kmScalar kmQuaternionGetPitch(const kmQuaternion * q)
  */
-int lua__kmQuaternionGetPitch(lua_State *L)
+static int lua__kmQuaternionGetPitch(lua_State *L)
 {
 	kmScalar ret;
 	const kmQuaternion * q = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
@@ -978,7 +1016,7 @@ int lua__kmQuaternionGetPitch(lua_State *L)
 /**
  * kmVec4 * kmVec4Mul(kmVec4 * pOut, const kmVec4 * pV1, const kmVec4 * pV2)
  */
-int lua__kmVec4Mul(lua_State *L)
+static int lua__kmVec4Mul(lua_State *L)
 {
 	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	const kmVec4 * pV1 = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 2);
@@ -990,7 +1028,7 @@ int lua__kmVec4Mul(lua_State *L)
 /**
  * void kmVec3OrthoNormalize(kmVec3 * normal, kmVec3 * tangent)
  */
-int lua__kmVec3OrthoNormalize(lua_State *L)
+static int lua__kmVec3OrthoNormalize(lua_State *L)
 {
 	kmVec3 * normal = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	kmVec3 * tangent = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1001,7 +1039,7 @@ int lua__kmVec3OrthoNormalize(lua_State *L)
 /**
  * int kmMat4AreEqual(const kmMat4 * pM1, const kmMat4 * pM2)
  */
-int lua__kmMat4AreEqual(lua_State *L)
+static int lua__kmMat4AreEqual(lua_State *L)
 {
 	int ret;
 	const kmMat4 * pM1 = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
@@ -1014,7 +1052,7 @@ int lua__kmMat4AreEqual(lua_State *L)
 /**
  * kmScalar kmPlaneDot(const kmPlane * pP, const struct kmVec4 * pV)
  */
-int lua__kmPlaneDot(lua_State *L)
+static int lua__kmPlaneDot(lua_State *L)
 {
 	kmScalar ret;
 	const kmPlane * pP = (const kmPlane *)KAZMATH_CHECK_KMPLANE(L, 1);
@@ -1027,7 +1065,7 @@ int lua__kmPlaneDot(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionIdentity(kmQuaternion * pOut)
  */
-int lua__kmQuaternionIdentity(lua_State *L)
+static int lua__kmQuaternionIdentity(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	kmQuaternionIdentity(pOut);
@@ -1037,7 +1075,7 @@ int lua__kmQuaternionIdentity(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionRotationMatrix(kmQuaternion * pOut, const struct kmMat3 * pIn)
  */
-int lua__kmQuaternionRotationMatrix(lua_State *L)
+static int lua__kmQuaternionRotationMatrix(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const struct kmMat3 * pIn = (const struct kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 2);
@@ -1048,7 +1086,7 @@ int lua__kmQuaternionRotationMatrix(lua_State *L)
 /**
  * struct kmVec3 * kmMat4GetRightVec3(struct kmVec3 * pOut, const kmMat4 * pIn)
  */
-int lua__kmMat4GetRightVec3(lua_State *L)
+static int lua__kmMat4GetRightVec3(lua_State *L)
 {
 	struct kmVec3 * pOut = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmMat4 * pIn = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 2);
@@ -1059,7 +1097,7 @@ int lua__kmMat4GetRightVec3(lua_State *L)
 /**
  * kmScalar kmQuaternionLengthSq(const kmQuaternion * pIn)
  */
-int lua__kmQuaternionLengthSq(lua_State *L)
+static int lua__kmQuaternionLengthSq(lua_State *L)
 {
 	kmScalar ret;
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
@@ -1071,7 +1109,7 @@ int lua__kmQuaternionLengthSq(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionAssign(kmQuaternion * pOut, const kmQuaternion * pIn)
  */
-int lua__kmQuaternionAssign(lua_State *L)
+static int lua__kmQuaternionAssign(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -1082,7 +1120,7 @@ int lua__kmQuaternionAssign(lua_State *L)
 /**
  * kmScalar kmVec2LengthSq(const kmVec2 * pIn)
  */
-int lua__kmVec2LengthSq(lua_State *L)
+static int lua__kmVec2LengthSq(lua_State *L)
 {
 	kmScalar ret;
 	const kmVec2 * pIn = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
@@ -1094,7 +1132,7 @@ int lua__kmVec2LengthSq(lua_State *L)
 /**
  * kmScalar kmMat3Determinant(const kmMat3 * pIn)
  */
-int lua__kmMat3Determinant(lua_State *L)
+static int lua__kmMat3Determinant(lua_State *L)
 {
 	kmScalar ret;
 	const kmMat3 * pIn = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
@@ -1106,7 +1144,7 @@ int lua__kmMat3Determinant(lua_State *L)
 /**
  * kmMat3 * kmMat3Fill(kmMat3 * pOut, const kmScalar * pMat)
  */
-int lua__kmMat3Fill(lua_State *L)
+static int lua__kmMat3Fill(lua_State *L)
 {
 	const size_t rlen = sizeof(kmMat3)/sizeof(kmScalar);
 	kmScalar pMat[rlen];
@@ -1120,7 +1158,7 @@ int lua__kmMat3Fill(lua_State *L)
 /**
  * struct kmVec3 * kmMat4RotationToAxisAngle(struct kmVec3 * pAxis, kmScalar * radians, const kmMat4 * pIn)
  */
-int lua__kmMat4RotationToAxisAngle(lua_State *L)
+static int lua__kmMat4RotationToAxisAngle(lua_State *L)
 {
 	kmScalar radians = 0.0;
 	struct kmVec3 * pAxis = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
@@ -1134,10 +1172,12 @@ int lua__kmMat4RotationToAxisAngle(lua_State *L)
 /**
  * kmBool kmRay2IntersectCircle(const kmRay2 * ray, const kmVec2 centre, const kmScalar radius, kmVec2 * intersection)
  */
-int lua__kmRay2IntersectCircle(lua_State *L)
+static int lua__kmRay2IntersectCircle(lua_State *L)
 {
 	kmBool ret;
 	const kmRay2 * ray = (const kmRay2 *)KAZMATH_CHECK_KMRAY2(L, 1);
+	(void) ret;
+	(void) ray;
 	return luaL_error(L, "Not implemented");
 	/*
 	const kmVec2 centre = (const kmVec2)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -1152,7 +1192,7 @@ int lua__kmRay2IntersectCircle(lua_State *L)
 /**
  * kmRay3 * kmRay3FromPointAndDirection(kmRay3 * ray, const kmVec3 * point, const kmVec3 * direction)
  */
-int lua__kmRay3FromPointAndDirection(lua_State *L)
+static int lua__kmRay3FromPointAndDirection(lua_State *L)
 {
 	kmRay3 * ray = (kmRay3 *)KAZMATH_CHECK_KMRAY3(L, 1);
 	const kmVec3 * point = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1164,7 +1204,7 @@ int lua__kmRay3FromPointAndDirection(lua_State *L)
 /**
  * kmVec3 * kmVec3Transform(kmVec3 * pOut, const kmVec3 * pV1, const struct kmMat4 * pM)
  */
-int lua__kmVec3Transform(lua_State *L)
+static int lua__kmVec3Transform(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pV1 = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1176,7 +1216,7 @@ int lua__kmVec3Transform(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionAdd(kmQuaternion * pOut, const kmQuaternion * pQ1, const kmQuaternion * pQ2)
  */
-int lua__kmQuaternionAdd(lua_State *L)
+static int lua__kmQuaternionAdd(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmQuaternion * pQ1 = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -1188,7 +1228,7 @@ int lua__kmQuaternionAdd(lua_State *L)
 /**
  * kmScalar kmVec4Dot(const kmVec4 * pV1, const kmVec4 * pV2)
  */
-int lua__kmVec4Dot(lua_State *L)
+static int lua__kmVec4Dot(lua_State *L)
 {
 	kmScalar ret;
 	const kmVec4 * pV1 = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
@@ -1201,7 +1241,7 @@ int lua__kmVec4Dot(lua_State *L)
 /**
  * kmVec3 * kmVec3GetHorizontalAngle(kmVec3 * pOut, const kmVec3 * pIn)
  */
-int lua__kmVec3GetHorizontalAngle(lua_State *L)
+static int lua__kmVec3GetHorizontalAngle(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pIn = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1212,7 +1252,7 @@ int lua__kmVec3GetHorizontalAngle(lua_State *L)
 /**
  * kmScalar kmRadiansToDegrees(kmScalar radians)
  */
-int lua__kmRadiansToDegrees(lua_State *L)
+static int lua__kmRadiansToDegrees(lua_State *L)
 {
 	kmScalar ret;
 	kmScalar radians = (kmScalar)luaL_checknumber(L, 1);
@@ -1224,7 +1264,7 @@ int lua__kmRadiansToDegrees(lua_State *L)
 /**
  * kmVec3 * kmQuaternionGetUpVec3(kmVec3 * pOut, const kmQuaternion * pIn)
  */
-int lua__kmQuaternionGetUpVec3(lua_State *L)
+static int lua__kmQuaternionGetUpVec3(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -1235,7 +1275,7 @@ int lua__kmQuaternionGetUpVec3(lua_State *L)
 /**
  * kmVec2 * kmVec2RotateBy(kmVec2 * pOut, const kmVec2 * pIn, const kmScalar degrees, const kmVec2 * center)
  */
-int lua__kmVec2RotateBy(lua_State *L)
+static int lua__kmVec2RotateBy(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * pIn = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -1248,7 +1288,7 @@ int lua__kmVec2RotateBy(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionExp(kmQuaternion * pOut, const kmQuaternion * pIn)
  */
-int lua__kmQuaternionExp(lua_State *L)
+static int lua__kmQuaternionExp(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -1259,7 +1299,7 @@ int lua__kmQuaternionExp(lua_State *L)
 /**
  * kmVec3 * kmVec3Zero(kmVec3 * pOut)
  */
-int lua__kmVec3Zero(lua_State *L)
+static int lua__kmVec3Zero(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	kmVec3Zero(pOut);
@@ -1269,7 +1309,7 @@ int lua__kmVec3Zero(lua_State *L)
 /**
  * kmMat3 * kmMat3MultiplyScalar(kmMat3 * pOut, const kmMat3 * lhs, const kmScalar rhs)
  */
-int lua__kmMat3MultiplyScalar(lua_State *L)
+static int lua__kmMat3MultiplyScalar(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmMat3 * lhs = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 2);
@@ -1281,7 +1321,7 @@ int lua__kmMat3MultiplyScalar(lua_State *L)
 /**
  * kmScalar kmQuaternionDot(const kmQuaternion * q1, const kmQuaternion * q2)
  */
-int lua__kmQuaternionDot(lua_State *L)
+static int lua__kmQuaternionDot(lua_State *L)
 {
 	kmScalar ret;
 	const kmQuaternion * q1 = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
@@ -1294,7 +1334,7 @@ int lua__kmQuaternionDot(lua_State *L)
 /**
  * kmVec4 * kmVec4Scale(kmVec4 * pOut, const kmVec4 * pIn, const kmScalar s)
  */
-int lua__kmVec4Scale(lua_State *L)
+static int lua__kmVec4Scale(lua_State *L)
 {
 	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	const kmVec4 * pIn = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 2);
@@ -1306,7 +1346,7 @@ int lua__kmVec4Scale(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionLn(kmQuaternion * pOut, const kmQuaternion * pIn)
  */
-int lua__kmQuaternionLn(lua_State *L)
+static int lua__kmQuaternionLn(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -1317,7 +1357,7 @@ int lua__kmQuaternionLn(lua_State *L)
 /**
  * void kmQuaternionToAxisAngle(const kmQuaternion * pIn, struct kmVec3 * pVector, kmScalar * pAngle)
  */
-int lua__kmQuaternionToAxisAngle(lua_State *L)
+static int lua__kmQuaternionToAxisAngle(lua_State *L)
 {
 	kmScalar angle = 0.0;
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
@@ -1330,7 +1370,7 @@ int lua__kmQuaternionToAxisAngle(lua_State *L)
 /**
  * void kmRay2Fill(kmRay2 * ray, kmScalar px, kmScalar py, kmScalar vx, kmScalar vy)
  */
-int lua__kmRay2Fill(lua_State *L)
+static int lua__kmRay2Fill(lua_State *L)
 {
 	kmRay2 * ray = (kmRay2 *)KAZMATH_CHECK_KMRAY2(L, 1);
 	kmScalar px = (kmScalar)luaL_checknumber(L, 2);
@@ -1344,7 +1384,7 @@ int lua__kmRay2Fill(lua_State *L)
 /**
  * struct kmVec3 * kmMat4ExtractTranslationVec3(const kmMat4 * pIn, struct kmVec3 * pOut)
  */
-int lua__kmMat4ExtractTranslationVec3(lua_State *L)
+static int lua__kmMat4ExtractTranslationVec3(lua_State *L)
 {
 	const kmMat4 * pIn = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	struct kmVec3 * pOut = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1355,7 +1395,7 @@ int lua__kmMat4ExtractTranslationVec3(lua_State *L)
 /**
  * kmVec3 * kmVec3Normalize(kmVec3 * pOut, const kmVec3 * pIn)
  */
-int lua__kmVec3Normalize(lua_State *L)
+static int lua__kmVec3Normalize(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pIn = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1366,7 +1406,7 @@ int lua__kmVec3Normalize(lua_State *L)
 /**
  * kmVec3 * kmVec3RotationToDirection(kmVec3 * pOut, const kmVec3 * pIn, const kmVec3 * forwards)
  */
-int lua__kmVec3RotationToDirection(lua_State *L)
+static int lua__kmVec3RotationToDirection(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pIn = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1378,7 +1418,7 @@ int lua__kmVec3RotationToDirection(lua_State *L)
 /**
  * kmVec4 * kmVec4Transform(kmVec4 * pOut, const kmVec4 * pV, const struct kmMat4 * pM)
  */
-int lua__kmVec4Transform(lua_State *L)
+static int lua__kmVec4Transform(lua_State *L)
 {
 	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	const kmVec4 * pV = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 2);
@@ -1390,7 +1430,7 @@ int lua__kmVec4Transform(lua_State *L)
 /**
  * kmVec3 * kmVec3Reflect(kmVec3 * pOut, const kmVec3 * pIn, const kmVec3 * normal)
  */
-int lua__kmVec3Reflect(lua_State *L)
+static int lua__kmVec3Reflect(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pIn = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1402,7 +1442,7 @@ int lua__kmVec3Reflect(lua_State *L)
 /**
  * kmAABB2 * kmAABB2ScaleWithPivot(kmAABB2 * pOut, const kmAABB2 * pIn, const kmVec2 * pivot, kmScalar s)
  */
-int lua__kmAABB2ScaleWithPivot(lua_State *L)
+static int lua__kmAABB2ScaleWithPivot(lua_State *L)
 {
 	kmAABB2 * pOut = (kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 1);
 	const kmAABB2 * pIn = (const kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 2);
@@ -1415,7 +1455,7 @@ int lua__kmAABB2ScaleWithPivot(lua_State *L)
 /**
  * int kmAABB3ContainsPoint(const kmAABB3 * pBox, const kmVec3 * pPoint)
  */
-int lua__kmAABB3ContainsPoint(lua_State *L)
+static int lua__kmAABB3ContainsPoint(lua_State *L)
 {
 	int ret;
 	const kmAABB3 * pBox = (const kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
@@ -1428,7 +1468,7 @@ int lua__kmAABB3ContainsPoint(lua_State *L)
 /**
  * kmScalar kmAABB2DiameterY(const kmAABB2 * aabb)
  */
-int lua__kmAABB2DiameterY(lua_State *L)
+static int lua__kmAABB2DiameterY(lua_State *L)
 {
 	kmScalar ret;
 	const kmAABB2 * aabb = (const kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 1);
@@ -1440,7 +1480,7 @@ int lua__kmAABB2DiameterY(lua_State *L)
 /**
  * kmMat3 * kmMat3FromRotationYInDegrees(kmMat3 * pOut, const kmScalar degrees)
  */
-int lua__kmMat3FromRotationYInDegrees(lua_State *L)
+static int lua__kmMat3FromRotationYInDegrees(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmScalar degrees = (const kmScalar)luaL_checknumber(L, 2);
@@ -1451,7 +1491,7 @@ int lua__kmMat3FromRotationYInDegrees(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionSubtract(kmQuaternion * pOut, const kmQuaternion * pQ1, const kmQuaternion * pQ2)
  */
-int lua__kmQuaternionSubtract(lua_State *L)
+static int lua__kmQuaternionSubtract(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmQuaternion * pQ1 = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -1463,7 +1503,7 @@ int lua__kmQuaternionSubtract(lua_State *L)
 /**
  * kmScalar kmAABB2DiameterX(const kmAABB2 * aabb)
  */
-int lua__kmAABB2DiameterX(lua_State *L)
+static int lua__kmAABB2DiameterX(lua_State *L)
 {
 	kmScalar ret;
 	const kmAABB2 * aabb = (const kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 1);
@@ -1475,7 +1515,7 @@ int lua__kmAABB2DiameterX(lua_State *L)
 /**
  * kmVec3 * kmVec3Subtract(kmVec3 * pOut, const kmVec3 * pV1, const kmVec3 * pV2)
  */
-int lua__kmVec3Subtract(lua_State *L)
+static int lua__kmVec3Subtract(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pV1 = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1487,7 +1527,7 @@ int lua__kmVec3Subtract(lua_State *L)
 /**
  * kmBool kmRay2IntersectBox(const kmRay2 * ray, const kmVec2 * p1, const kmVec2 * p2, const kmVec2 * p3, const kmVec2 * p4, kmVec2 * intersection, kmVec2 * normal_out)
  */
-int lua__kmRay2IntersectBox(lua_State *L)
+static int lua__kmRay2IntersectBox(lua_State *L)
 {
 	kmBool ret;
 	const kmRay2 * ray = (const kmRay2 *)KAZMATH_CHECK_KMRAY2(L, 1);
@@ -1505,7 +1545,7 @@ int lua__kmRay2IntersectBox(lua_State *L)
 /**
  * kmVec3 * kmQuaternionGetForwardVec3RH(kmVec3 * pOut, const kmQuaternion * pIn)
  */
-int lua__kmQuaternionGetForwardVec3RH(lua_State *L)
+static int lua__kmQuaternionGetForwardVec3RH(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -1516,7 +1556,7 @@ int lua__kmQuaternionGetForwardVec3RH(lua_State *L)
 /**
  * kmBool kmRay2IntersectTriangle(const kmRay2 * ray, const kmVec2 * p1, const kmVec2 * p2, const kmVec2 * p3, kmVec2 * intersection, kmVec2 * normal_out, kmScalar * distance)
  */
-int lua__kmRay2IntersectTriangle(lua_State *L)
+static int lua__kmRay2IntersectTriangle(lua_State *L)
 {
 	kmBool ret;
 	kmScalar distance = 0.0;
@@ -1535,7 +1575,7 @@ int lua__kmRay2IntersectTriangle(lua_State *L)
 /**
  * kmAABB2 * kmAABB2Sanitize(kmAABB2 * pOut, const kmAABB2 * pIn)
  */
-int lua__kmAABB2Sanitize(lua_State *L)
+static int lua__kmAABB2Sanitize(lua_State *L)
 {
 	kmAABB2 * pOut = (kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 1);
 	const kmAABB2 * pIn = (const kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 2);
@@ -1546,7 +1586,7 @@ int lua__kmAABB2Sanitize(lua_State *L)
 /**
  * void kmVec2Swap(kmVec2 * pA, kmVec2 * pB)
  */
-int lua__kmVec2Swap(lua_State *L)
+static int lua__kmVec2Swap(lua_State *L)
 {
 	kmVec2 * pA = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	kmVec2 * pB = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -1557,7 +1597,7 @@ int lua__kmVec2Swap(lua_State *L)
 /**
  * kmVec2 * kmVec2Div(kmVec2 * pOut, const kmVec2 * pV1, const kmVec2 * pV2)
  */
-int lua__kmVec2Div(lua_State *L)
+static int lua__kmVec2Div(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * pV1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -1569,7 +1609,7 @@ int lua__kmVec2Div(lua_State *L)
 /**
  * int kmVec4AreEqual(const kmVec4 * p1, const kmVec4 * p2)
  */
-int lua__kmVec4AreEqual(lua_State *L)
+static int lua__kmVec4AreEqual(lua_State *L)
 {
 	int ret;
 	const kmVec4 * p1 = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
@@ -1582,7 +1622,7 @@ int lua__kmVec4AreEqual(lua_State *L)
 /**
  * kmVec4 * kmVec4Add(kmVec4 * pOut, const kmVec4 * pV1, const kmVec4 * pV2)
  */
-int lua__kmVec4Add(lua_State *L)
+static int lua__kmVec4Add(lua_State *L)
 {
 	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	const kmVec4 * pV1 = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 2);
@@ -1594,7 +1634,7 @@ int lua__kmVec4Add(lua_State *L)
 /**
  * kmMat3 * kmMat3FromRotationZInDegrees(kmMat3 * pOut, const kmScalar degrees)
  */
-int lua__kmMat3FromRotationZInDegrees(lua_State *L)
+static int lua__kmMat3FromRotationZInDegrees(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmScalar degrees = (const kmScalar)luaL_checknumber(L, 2);
@@ -1605,7 +1645,7 @@ int lua__kmMat3FromRotationZInDegrees(lua_State *L)
 /**
  * kmScalar kmPlaneDotNormal(const kmPlane * pP, const struct kmVec3 * pV)
  */
-int lua__kmPlaneDotNormal(lua_State *L)
+static int lua__kmPlaneDotNormal(lua_State *L)
 {
 	kmScalar ret;
 	const kmPlane * pP = (const kmPlane *)KAZMATH_CHECK_KMPLANE(L, 1);
@@ -1618,7 +1658,7 @@ int lua__kmPlaneDotNormal(lua_State *L)
 /**
  * kmVec3 * kmVec3Fill(kmVec3 * pOut, kmScalar x, kmScalar y, kmScalar z)
  */
-int lua__kmVec3Fill(lua_State *L)
+static int lua__kmVec3Fill(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	kmScalar x = (kmScalar)luaL_checknumber(L, 2);
@@ -1631,7 +1671,7 @@ int lua__kmVec3Fill(lua_State *L)
 /**
  * kmVec3 * kmVec3TransformCoord(kmVec3 * pOut, const kmVec3 * pV, const struct kmMat4 * pM)
  */
-int lua__kmVec3TransformCoord(lua_State *L)
+static int lua__kmVec3TransformCoord(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pV = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1643,7 +1683,7 @@ int lua__kmVec3TransformCoord(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionRotationPitchYawRoll(kmQuaternion * pOut, kmScalar pitch, kmScalar yaw, kmScalar roll)
  */
-int lua__kmQuaternionRotationPitchYawRoll(lua_State *L)
+static int lua__kmQuaternionRotationPitchYawRoll(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	kmScalar pitch = (kmScalar)luaL_checknumber(L, 2);
@@ -1656,7 +1696,7 @@ int lua__kmQuaternionRotationPitchYawRoll(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionBetweenVec3(kmQuaternion * pOut, const kmVec3 * v1, const kmVec3 * v2)
  */
-int lua__kmQuaternionBetweenVec3(lua_State *L)
+static int lua__kmQuaternionBetweenVec3(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmVec3 * v1 = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1668,7 +1708,7 @@ int lua__kmQuaternionBetweenVec3(lua_State *L)
 /**
  * kmMat3 * kmMat3Identity(kmMat3 * pOut)
  */
-int lua__kmMat3Identity(lua_State *L)
+static int lua__kmMat3Identity(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	kmMat3Identity(pOut);
@@ -1678,7 +1718,7 @@ int lua__kmMat3Identity(lua_State *L)
 /**
  * kmVec2 * kmVec2Reflect(kmVec2 * pOut, const kmVec2 * pIn, const kmVec2 * normal)
  */
-int lua__kmVec2Reflect(lua_State *L)
+static int lua__kmVec2Reflect(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * pIn = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -1690,7 +1730,7 @@ int lua__kmVec2Reflect(lua_State *L)
 /**
  * kmScalar kmVec3Length(const kmVec3 * pIn)
  */
-int lua__kmVec3Length(lua_State *L)
+static int lua__kmVec3Length(lua_State *L)
 {
 	kmScalar ret;
 	const kmVec3 * pIn = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
@@ -1702,7 +1742,7 @@ int lua__kmVec3Length(lua_State *L)
 /**
  * int kmQuaternionAreEqual(const kmQuaternion * p1, const kmQuaternion * p2)
  */
-int lua__kmQuaternionAreEqual(lua_State *L)
+static int lua__kmQuaternionAreEqual(lua_State *L)
 {
 	int ret;
 	const kmQuaternion * p1 = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
@@ -1715,7 +1755,7 @@ int lua__kmQuaternionAreEqual(lua_State *L)
 /**
  * kmScalar kmVec4LengthSq(const kmVec4 * pIn)
  */
-int lua__kmVec4LengthSq(lua_State *L)
+static int lua__kmVec4LengthSq(lua_State *L)
 {
 	kmScalar ret;
 	const kmVec4 * pIn = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
@@ -1727,7 +1767,7 @@ int lua__kmVec4LengthSq(lua_State *L)
 /**
  * kmScalar kmVec2DegreesBetween(const kmVec2 * v1, const kmVec2 * v2)
  */
-int lua__kmVec2DegreesBetween(lua_State *L)
+static int lua__kmVec2DegreesBetween(lua_State *L)
 {
 	kmScalar ret;
 	const kmVec2 * v1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
@@ -1740,7 +1780,7 @@ int lua__kmVec2DegreesBetween(lua_State *L)
 /**
  * kmScalar kmVec3Dot(const kmVec3 * pV1, const kmVec3 * pV2)
  */
-int lua__kmVec3Dot(lua_State *L)
+static int lua__kmVec3Dot(lua_State *L)
 {
 	kmScalar ret;
 	const kmVec3 * pV1 = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
@@ -1753,7 +1793,7 @@ int lua__kmVec3Dot(lua_State *L)
 /**
  * kmBool kmRay2IntersectLineSegment(const kmRay2 * ray, const kmVec2 * p1, const kmVec2 * p2, kmVec2 * intersection)
  */
-int lua__kmRay2IntersectLineSegment(lua_State *L)
+static int lua__kmRay2IntersectLineSegment(lua_State *L)
 {
 	kmBool ret;
 	const kmRay2 * ray = (const kmRay2 *)KAZMATH_CHECK_KMRAY2(L, 1);
@@ -1768,7 +1808,7 @@ int lua__kmRay2IntersectLineSegment(lua_State *L)
 /**
  * kmAABB2 * kmAABB2Assign(kmAABB2 * pOut, const kmAABB2 * pIn)
  */
-int lua__kmAABB2Assign(lua_State *L)
+static int lua__kmAABB2Assign(lua_State *L)
 {
 	kmAABB2 * pOut = (kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 1);
 	const kmAABB2 * pIn = (const kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 2);
@@ -1779,7 +1819,7 @@ int lua__kmAABB2Assign(lua_State *L)
 /**
  * kmVec4 * kmVec4Lerp(kmVec4 * pOut, const kmVec4 * pV1, const kmVec4 * pV2, kmScalar t)
  */
-int lua__kmVec4Lerp(lua_State *L)
+static int lua__kmVec4Lerp(lua_State *L)
 {
 	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	const kmVec4 * pV1 = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 2);
@@ -1792,7 +1832,7 @@ int lua__kmVec4Lerp(lua_State *L)
 /**
  * kmScalar kmAABB3DiameterX(const kmAABB3 * aabb)
  */
-int lua__kmAABB3DiameterX(lua_State *L)
+static int lua__kmAABB3DiameterX(lua_State *L)
 {
 	kmScalar ret;
 	const kmAABB3 * aabb = (const kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
@@ -1804,7 +1844,7 @@ int lua__kmAABB3DiameterX(lua_State *L)
 /**
  * kmScalar kmAABB3DiameterY(const kmAABB3 * aabb)
  */
-int lua__kmAABB3DiameterY(lua_State *L)
+static int lua__kmAABB3DiameterY(lua_State *L)
 {
 	kmScalar ret;
 	const kmAABB3 * aabb = (const kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
@@ -1816,7 +1856,7 @@ int lua__kmAABB3DiameterY(lua_State *L)
 /**
  * kmPlane * kmPlaneFill(kmPlane * plane, kmScalar a, kmScalar b, kmScalar c, kmScalar d)
  */
-int lua__kmPlaneFill(lua_State *L)
+static int lua__kmPlaneFill(lua_State *L)
 {
 	kmPlane * plane = (kmPlane *)KAZMATH_CHECK_KMPLANE(L, 1);
 	kmScalar a = (kmScalar)luaL_checknumber(L, 2);
@@ -1830,7 +1870,7 @@ int lua__kmPlaneFill(lua_State *L)
 /**
  * int kmAABB2ContainsPoint(const kmAABB2 * pBox, const kmVec2 * pPoint)
  */
-int lua__kmAABB2ContainsPoint(lua_State *L)
+static int lua__kmAABB2ContainsPoint(lua_State *L)
 {
 	int ret;
 	const kmAABB2 * pBox = (const kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 1);
@@ -1843,7 +1883,7 @@ int lua__kmAABB2ContainsPoint(lua_State *L)
 /**
  * kmVec2 * kmVec2Add(kmVec2 * pOut, const kmVec2 * pV1, const kmVec2 * pV2)
  */
-int lua__kmVec2Add(lua_State *L)
+static int lua__kmVec2Add(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * pV1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -1855,7 +1895,7 @@ int lua__kmVec2Add(lua_State *L)
 /**
  * kmMat4 * kmMat4OrthographicProjection(kmMat4 * pOut, kmScalar left, kmScalar right, kmScalar bottom, kmScalar top, kmScalar nearVal, kmScalar farVal)
  */
-int lua__kmMat4OrthographicProjection(lua_State *L)
+static int lua__kmMat4OrthographicProjection(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	kmScalar left = (kmScalar)luaL_checknumber(L, 2);
@@ -1871,7 +1911,7 @@ int lua__kmMat4OrthographicProjection(lua_State *L)
 /**
  * kmBool kmRay3IntersectPlane(kmVec3 * pOut, const kmRay3 * ray, const struct kmPlane * plane)
  */
-int lua__kmRay3IntersectPlane(lua_State *L)
+static int lua__kmRay3IntersectPlane(lua_State *L)
 {
 	kmBool ret;
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
@@ -1885,7 +1925,7 @@ int lua__kmRay3IntersectPlane(lua_State *L)
 /**
  * kmMat4 * kmMat4Assign(kmMat4 * pOut, const kmMat4 * pIn)
  */
-int lua__kmMat4Assign(lua_State *L)
+static int lua__kmMat4Assign(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const kmMat4 * pIn = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 2);
@@ -1896,7 +1936,7 @@ int lua__kmMat4Assign(lua_State *L)
 /**
  * struct kmVec3 * kmPlaneGetIntersection(struct kmVec3 * pOut, const kmPlane * p1, const kmPlane * p2, const kmPlane * p3)
  */
-int lua__kmPlaneGetIntersection(lua_State *L)
+static int lua__kmPlaneGetIntersection(lua_State *L)
 {
 	struct kmVec3 * pOut = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmPlane * p1 = (const kmPlane *)KAZMATH_CHECK_KMPLANE(L, 2);
@@ -1909,7 +1949,7 @@ int lua__kmPlaneGetIntersection(lua_State *L)
 /**
  * kmVec3 * kmVec3TransformNormal(kmVec3 * pOut, const kmVec3 * pV, const struct kmMat4 * pM)
  */
-int lua__kmVec3TransformNormal(lua_State *L)
+static int lua__kmVec3TransformNormal(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pV = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1921,7 +1961,7 @@ int lua__kmVec3TransformNormal(lua_State *L)
 /**
  * struct kmVec3 * kmMat4GetForwardVec3RH(struct kmVec3 * pOut, const kmMat4 * pIn)
  */
-int lua__kmMat4GetForwardVec3RH(lua_State *L)
+static int lua__kmMat4GetForwardVec3RH(lua_State *L)
 {
 	struct kmVec3 * pOut = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmMat4 * pIn = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 2);
@@ -1932,7 +1972,7 @@ int lua__kmMat4GetForwardVec3RH(lua_State *L)
 /**
  * kmBool kmVec3AreEqual(const kmVec3 * p1, const kmVec3 * p2)
  */
-int lua__kmVec3AreEqual(lua_State *L)
+static int lua__kmVec3AreEqual(lua_State *L)
 {
 	kmBool ret;
 	const kmVec3 * p1 = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
@@ -1945,7 +1985,7 @@ int lua__kmVec3AreEqual(lua_State *L)
 /**
  * kmVec4 * kmVec4MultiplyMat4(kmVec4 * pOut, const kmVec4 * pV, const struct kmMat4 * pM)
  */
-int lua__kmVec4MultiplyMat4(lua_State *L)
+static int lua__kmVec4MultiplyMat4(lua_State *L)
 {
 	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	const kmVec4 * pV = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 2);
@@ -1957,7 +1997,7 @@ int lua__kmVec4MultiplyMat4(lua_State *L)
 /**
  * kmVec3 * kmVec3Cross(kmVec3 * pOut, const kmVec3 * pV1, const kmVec3 * pV2)
  */
-int lua__kmVec3Cross(lua_State *L)
+static int lua__kmVec3Cross(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pV1 = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1969,7 +2009,7 @@ int lua__kmVec3Cross(lua_State *L)
 /**
  * kmScalar kmVec2DistanceBetween(const kmVec2 * v1, const kmVec2 * v2)
  */
-int lua__kmVec2DistanceBetween(lua_State *L)
+static int lua__kmVec2DistanceBetween(lua_State *L)
 {
 	kmScalar ret;
 	const kmVec2 * v1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
@@ -1982,7 +2022,7 @@ int lua__kmVec2DistanceBetween(lua_State *L)
 /**
  * kmVec3 * kmVec3Div(kmVec3 * pOut, const kmVec3 * pV1, const kmVec3 * pV2)
  */
-int lua__kmVec3Div(lua_State *L)
+static int lua__kmVec3Div(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pV1 = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -1994,7 +2034,7 @@ int lua__kmVec3Div(lua_State *L)
 /**
  * kmBool kmLine2WithLineIntersection(const kmVec2 * ptA, const kmVec2 * vecA, const kmVec2 * ptB, const kmVec2 * vecB, kmScalar * outTA, kmScalar * outTB, kmVec2 * outIntersection)
  */
-int lua__kmLine2WithLineIntersection(lua_State *L)
+static int lua__kmLine2WithLineIntersection(lua_State *L)
 {
 	kmBool ret;
 	kmScalar outTA = 0.0;
@@ -2015,7 +2055,7 @@ int lua__kmLine2WithLineIntersection(lua_State *L)
 /**
  * struct kmVec3 * kmMat4GetUpVec3(struct kmVec3 * pOut, const kmMat4 * pIn)
  */
-int lua__kmMat4GetUpVec3(lua_State *L)
+static int lua__kmMat4GetUpVec3(lua_State *L)
 {
 	struct kmVec3 * pOut = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmMat4 * pIn = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 2);
@@ -2026,7 +2066,7 @@ int lua__kmMat4GetUpVec3(lua_State *L)
 /**
  * kmMat4 * kmMat4Transpose(kmMat4 * pOut, const kmMat4 * pIn)
  */
-int lua__kmMat4Transpose(lua_State *L)
+static int lua__kmMat4Transpose(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const kmMat4 * pIn = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 2);
@@ -2037,7 +2077,7 @@ int lua__kmMat4Transpose(lua_State *L)
 /**
  * void kmMat3ExtractRotationAxisAngleInDegrees(const kmMat3 * self, struct kmVec3 * axis, kmScalar * degrees)
  */
-int lua__kmMat3ExtractRotationAxisAngleInDegrees(lua_State *L)
+static int lua__kmMat3ExtractRotationAxisAngleInDegrees(lua_State *L)
 {
 	kmScalar degrees = 0.0;
 	const kmMat3 * self = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
@@ -2050,7 +2090,7 @@ int lua__kmMat3ExtractRotationAxisAngleInDegrees(lua_State *L)
 /**
  * kmScalar kmLerp(kmScalar x, kmScalar y, kmScalar factor)
  */
-int lua__kmLerp(lua_State *L)
+static int lua__kmLerp(lua_State *L)
 {
 	kmScalar ret;
 	kmScalar x = (kmScalar)luaL_checknumber(L, 1);
@@ -2064,7 +2104,7 @@ int lua__kmLerp(lua_State *L)
 /**
  * kmMat4 * kmMat4RotationTranslation(kmMat4 * pOut, const struct kmMat3 * rotation, const struct kmVec3 * translation)
  */
-int lua__kmMat4RotationTranslation(lua_State *L)
+static int lua__kmMat4RotationTranslation(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const struct kmMat3 * rotation = (const struct kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 2);
@@ -2076,7 +2116,7 @@ int lua__kmMat4RotationTranslation(lua_State *L)
 /**
  * kmEnum kmAABB3ContainsAABB(const kmAABB3 * container, const kmAABB3 * to_check)
  */
-int lua__kmAABB3ContainsAABB(lua_State *L)
+static int lua__kmAABB3ContainsAABB(lua_State *L)
 {
 	kmEnum ret;
 	const kmAABB3 * container = (const kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
@@ -2089,7 +2129,7 @@ int lua__kmAABB3ContainsAABB(lua_State *L)
 /**
  * struct kmPlane * kmMat4ExtractPlane(struct kmPlane * pOut, const kmMat4 * pIn, const kmEnum plane)
  */
-int lua__kmMat4ExtractPlane(lua_State *L)
+static int lua__kmMat4ExtractPlane(lua_State *L)
 {
 	struct kmPlane * pOut = (struct kmPlane *)KAZMATH_CHECK_KMPLANE(L, 1);
 	const kmMat4 * pIn = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 2);
@@ -2101,7 +2141,7 @@ int lua__kmMat4ExtractPlane(lua_State *L)
 /**
  * kmVec2 * kmVec2Lerp(kmVec2 * pOut, const kmVec2 * pV1, const kmVec2 * pV2, kmScalar t)
  */
-int lua__kmVec2Lerp(lua_State *L)
+static int lua__kmVec2Lerp(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * pV1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -2114,7 +2154,7 @@ int lua__kmVec2Lerp(lua_State *L)
 /**
  * kmMat3 * kmMat3FromRotationZ(kmMat3 * pOut, const kmScalar radians)
  */
-int lua__kmMat3FromRotationZ(lua_State *L)
+static int lua__kmMat3FromRotationZ(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmScalar radians = (const kmScalar)luaL_checknumber(L, 2);
@@ -2125,7 +2165,7 @@ int lua__kmMat3FromRotationZ(lua_State *L)
 /**
  * kmMat3 * kmMat3FromRotationX(kmMat3 * pOut, const kmScalar radians)
  */
-int lua__kmMat3FromRotationX(lua_State *L)
+static int lua__kmMat3FromRotationX(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmScalar radians = (const kmScalar)luaL_checknumber(L, 2);
@@ -2136,7 +2176,7 @@ int lua__kmMat3FromRotationX(lua_State *L)
 /**
  * kmMat3 * kmMat3FromRotationY(kmMat3 * pOut, const kmScalar radians)
  */
-int lua__kmMat3FromRotationY(lua_State *L)
+static int lua__kmMat3FromRotationY(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmScalar radians = (const kmScalar)luaL_checknumber(L, 2);
@@ -2147,7 +2187,7 @@ int lua__kmMat3FromRotationY(lua_State *L)
 /**
  * kmVec3 * kmVec3ProjectOnToVec3(const kmVec3 * pIn, const kmVec3 * other, kmVec3 * projection)
  */
-int lua__kmVec3ProjectOnToVec3(lua_State *L)
+static int lua__kmVec3ProjectOnToVec3(lua_State *L)
 {
 	const kmVec3 * pIn = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * other = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2159,7 +2199,7 @@ int lua__kmVec3ProjectOnToVec3(lua_State *L)
 /**
  * kmVec4 * kmVec4TransformArray(kmVec4 * pOut, unsigned int outStride, const kmVec4 * pV, unsigned int vStride, const struct kmMat4 * pM, unsigned int count)
  */
-int lua__kmVec4TransformArray(lua_State *L)
+static int lua__kmVec4TransformArray(lua_State *L)
 {
 	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	unsigned int outStride = (unsigned int)luaL_checkinteger(L, 2);
@@ -2174,7 +2214,7 @@ int lua__kmVec4TransformArray(lua_State *L)
 /**
  * kmMat3 * kmMat3FromTranslation(kmMat3 * pOut, const kmScalar x, const kmScalar y)
  */
-int lua__kmMat3FromTranslation(lua_State *L)
+static int lua__kmMat3FromTranslation(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmScalar x = (const kmScalar)luaL_checknumber(L, 2);
@@ -2186,7 +2226,7 @@ int lua__kmMat3FromTranslation(lua_State *L)
 /**
  * kmAABB2 * kmAABB2Translate(kmAABB2 * pOut, const kmAABB2 * pIn, const kmVec2 * translation)
  */
-int lua__kmAABB2Translate(lua_State *L)
+static int lua__kmAABB2Translate(lua_State *L)
 {
 	kmAABB2 * pOut = (kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 1);
 	const kmAABB2 * pIn = (const kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 2);
@@ -2198,7 +2238,7 @@ int lua__kmAABB2Translate(lua_State *L)
 /**
  * kmScalar kmVec2Cross(const kmVec2 * pV1, const kmVec2 * pV2)
  */
-int lua__kmVec2Cross(lua_State *L)
+static int lua__kmVec2Cross(lua_State *L)
 {
 	kmScalar ret;
 	const kmVec2 * pV1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
@@ -2211,7 +2251,7 @@ int lua__kmVec2Cross(lua_State *L)
 /**
  * kmMat4 * kmMat4PerspectiveProjection(kmMat4 * pOut, kmScalar fovY, kmScalar aspect, kmScalar zNear, kmScalar zFar)
  */
-int lua__kmMat4PerspectiveProjection(lua_State *L)
+static int lua__kmMat4PerspectiveProjection(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	kmScalar fovY = (kmScalar)luaL_checknumber(L, 2);
@@ -2225,7 +2265,7 @@ int lua__kmMat4PerspectiveProjection(lua_State *L)
 /**
  * struct kmVec3 * kmPlaneIntersectLine(struct kmVec3 * pOut, const kmPlane * pP, const struct kmVec3 * pV1, const struct kmVec3 * pV2)
  */
-int lua__kmPlaneIntersectLine(lua_State *L)
+static int lua__kmPlaneIntersectLine(lua_State *L)
 {
 	struct kmVec3 * pOut = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmPlane * pP = (const kmPlane *)KAZMATH_CHECK_KMPLANE(L, 2);
@@ -2238,7 +2278,7 @@ int lua__kmPlaneIntersectLine(lua_State *L)
 /**
  * kmScalar kmVec2Length(const kmVec2 * pIn)
  */
-int lua__kmVec2Length(lua_State *L)
+static int lua__kmVec2Length(lua_State *L)
 {
 	kmScalar ret;
 	const kmVec2 * pIn = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
@@ -2250,7 +2290,7 @@ int lua__kmVec2Length(lua_State *L)
 /**
  * struct kmVec3 * kmMat3ExtractRightVec3(const kmMat3 * self, struct kmVec3 * pOut)
  */
-int lua__kmMat3ExtractRightVec3(lua_State *L)
+static int lua__kmMat3ExtractRightVec3(lua_State *L)
 {
 	const kmMat3 * self = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	struct kmVec3 * pOut = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2261,7 +2301,7 @@ int lua__kmMat3ExtractRightVec3(lua_State *L)
 /**
  * void kmVec3Swap(kmVec3 * a, kmVec3 * b)
  */
-int lua__kmVec3Swap(lua_State *L)
+static int lua__kmVec3Swap(lua_State *L)
 {
 	kmVec3 * a = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	kmVec3 * b = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2272,7 +2312,7 @@ int lua__kmVec3Swap(lua_State *L)
 /**
  * kmVec3 * kmVec3InverseTransform(kmVec3 * pOut, const kmVec3 * pV, const struct kmMat4 * pM)
  */
-int lua__kmVec3InverseTransform(lua_State *L)
+static int lua__kmVec3InverseTransform(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pV = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2284,7 +2324,7 @@ int lua__kmVec3InverseTransform(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionExtractRotationAroundAxis(const kmQuaternion * pIn, const kmVec3 * axis, kmQuaternion * pOut)
  */
-int lua__kmQuaternionExtractRotationAroundAxis(lua_State *L)
+static int lua__kmQuaternionExtractRotationAroundAxis(lua_State *L)
 {
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmVec3 * axis = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2296,7 +2336,7 @@ int lua__kmQuaternionExtractRotationAroundAxis(lua_State *L)
 /**
  * kmScalar kmQuaternionLength(const kmQuaternion * pIn)
  */
-int lua__kmQuaternionLength(lua_State *L)
+static int lua__kmQuaternionLength(lua_State *L)
 {
 	kmScalar ret;
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
@@ -2308,7 +2348,7 @@ int lua__kmQuaternionLength(lua_State *L)
 /**
  * kmScalar kmQuaternionGetYaw(const kmQuaternion * q)
  */
-int lua__kmQuaternionGetYaw(lua_State *L)
+static int lua__kmQuaternionGetYaw(lua_State *L)
 {
 	kmScalar ret;
 	const kmQuaternion * q = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
@@ -2320,7 +2360,7 @@ int lua__kmQuaternionGetYaw(lua_State *L)
 /**
  * kmVec3 * kmQuaternionGetForwardVec3LH(kmVec3 * pOut, const kmQuaternion * pIn)
  */
-int lua__kmQuaternionGetForwardVec3LH(lua_State *L)
+static int lua__kmQuaternionGetForwardVec3LH(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -2331,7 +2371,7 @@ int lua__kmQuaternionGetForwardVec3LH(lua_State *L)
 /**
  * kmVec3 * kmVec3Scale(kmVec3 * pOut, const kmVec3 * pIn, const kmScalar s)
  */
-int lua__kmVec3Scale(lua_State *L)
+static int lua__kmVec3Scale(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pIn = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2343,7 +2383,7 @@ int lua__kmVec3Scale(lua_State *L)
 /**
  * kmMat4 * kmMat4Inverse(kmMat4 * pOut, const kmMat4 * pM)
  */
-int lua__kmMat4Inverse(lua_State *L)
+static int lua__kmMat4Inverse(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const kmMat4 * pM = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 2);
@@ -2354,7 +2394,7 @@ int lua__kmMat4Inverse(lua_State *L)
 /**
  * kmVec4 * kmVec4Fill(kmVec4 * pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w)
  */
-int lua__kmVec4Fill(lua_State *L)
+static int lua__kmVec4Fill(lua_State *L)
 {
 	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	kmScalar x = (kmScalar)luaL_checknumber(L, 2);
@@ -2368,7 +2408,7 @@ int lua__kmVec4Fill(lua_State *L)
 /**
  * kmVec3 * kmVec3Add(kmVec3 * pOut, const kmVec3 * pV1, const kmVec3 * pV2)
  */
-int lua__kmVec3Add(lua_State *L)
+static int lua__kmVec3Add(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pV1 = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2380,7 +2420,7 @@ int lua__kmVec3Add(lua_State *L)
 /**
  * kmBool kmAlmostEqual(kmScalar lhs, kmScalar rhs)
  */
-int lua__kmAlmostEqual(lua_State *L)
+static int lua__kmAlmostEqual(lua_State *L)
 {
 	kmBool ret;
 	kmScalar lhs = (kmScalar)luaL_checknumber(L, 1);
@@ -2393,7 +2433,7 @@ int lua__kmAlmostEqual(lua_State *L)
 /**
  * void kmMat3ExtractRotationAxisAngle(const kmMat3 * self, struct kmVec3 * axis, kmScalar * radians)
  */
-int lua__kmMat3ExtractRotationAxisAngle(lua_State *L)
+static int lua__kmMat3ExtractRotationAxisAngle(lua_State *L)
 {
 	kmScalar radians = 0.0;
 	const kmMat3 * self = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
@@ -2406,7 +2446,7 @@ int lua__kmMat3ExtractRotationAxisAngle(lua_State *L)
 /**
  * kmAABB2 * kmAABB2Scale(kmAABB2 * pOut, const kmAABB2 * pIn, kmScalar s)
  */
-int lua__kmAABB2Scale(lua_State *L)
+static int lua__kmAABB2Scale(lua_State *L)
 {
 	kmAABB2 * pOut = (kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 1);
 	const kmAABB2 * pIn = (const kmAABB2 *)KAZMATH_CHECK_KMAABB2(L, 2);
@@ -2418,7 +2458,7 @@ int lua__kmAABB2Scale(lua_State *L)
 /**
  * kmPlane * kmPlaneScale(kmPlane * pOut, const kmPlane * pP, kmScalar s)
  */
-int lua__kmPlaneScale(lua_State *L)
+static int lua__kmPlaneScale(lua_State *L)
 {
 	kmPlane * pOut = (kmPlane *)KAZMATH_CHECK_KMPLANE(L, 1);
 	const kmPlane * pP = (const kmPlane *)KAZMATH_CHECK_KMPLANE(L, 2);
@@ -2430,7 +2470,7 @@ int lua__kmPlaneScale(lua_State *L)
 /**
  * kmVec3 * kmQuaternionGetRightVec3(kmVec3 * pOut, const kmQuaternion * pIn)
  */
-int lua__kmQuaternionGetRightVec3(lua_State *L)
+static int lua__kmQuaternionGetRightVec3(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
@@ -2441,7 +2481,7 @@ int lua__kmQuaternionGetRightVec3(lua_State *L)
 /**
  * kmScalar kmMax(kmScalar lhs, kmScalar rhs)
  */
-int lua__kmMax(lua_State *L)
+static int lua__kmMax(lua_State *L)
 {
 	kmScalar ret;
 	kmScalar lhs = (kmScalar)luaL_checknumber(L, 1);
@@ -2454,7 +2494,7 @@ int lua__kmMax(lua_State *L)
 /**
  * void kmVec4Swap(kmVec4 * pA, kmVec4 * pB)
  */
-int lua__kmVec4Swap(lua_State *L)
+static int lua__kmVec4Swap(lua_State *L)
 {
 	kmVec4 * pA = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	kmVec4 * pB = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 2);
@@ -2465,7 +2505,7 @@ int lua__kmVec4Swap(lua_State *L)
 /**
  * struct kmVec3 * kmMat3ExtractForwardVec3(const kmMat3 * self, struct kmVec3 * pOut)
  */
-int lua__kmMat3ExtractForwardVec3(lua_State *L)
+static int lua__kmMat3ExtractForwardVec3(lua_State *L)
 {
 	const kmMat3 * self = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	struct kmVec3 * pOut = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2476,7 +2516,7 @@ int lua__kmMat3ExtractForwardVec3(lua_State *L)
 /**
  * kmMat4 * kmMat4Multiply(kmMat4 * pOut, const kmMat4 * pM1, const kmMat4 * pM2)
  */
-int lua__kmMat4Multiply(lua_State *L)
+static int lua__kmMat4Multiply(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const kmMat4 * pM1 = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 2);
@@ -2488,7 +2528,7 @@ int lua__kmMat4Multiply(lua_State *L)
 /**
  * kmMat3 * kmMat3MultiplyMat3(kmMat3 * pOut, const kmMat3 * lhs, const kmMat3 * rhs)
  */
-int lua__kmMat3MultiplyMat3(lua_State *L)
+static int lua__kmMat3MultiplyMat3(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmMat3 * lhs = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 2);
@@ -2500,7 +2540,7 @@ int lua__kmMat3MultiplyMat3(lua_State *L)
 /**
  * kmMat3 * kmMat3FromRotationAxisAngle(kmMat3 * pOut, const struct kmVec3 * axis, const kmScalar radians)
  */
-int lua__kmMat3FromRotationAxisAngle(lua_State *L)
+static int lua__kmMat3FromRotationAxisAngle(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const struct kmVec3 * axis = (const struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2512,7 +2552,7 @@ int lua__kmMat3FromRotationAxisAngle(lua_State *L)
 /**
  * kmVec2 * kmVec2Scale(kmVec2 * pOut, const kmVec2 * pIn, const kmScalar s)
  */
-int lua__kmVec2Scale(lua_State *L)
+static int lua__kmVec2Scale(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * pIn = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -2524,7 +2564,7 @@ int lua__kmVec2Scale(lua_State *L)
 /**
  * kmMat3 * kmMat3FromRotationAxisAngleInDegrees(kmMat3 * pOut, const struct kmVec3 * axis, const kmScalar degrees)
  */
-int lua__kmMat3FromRotationAxisAngleInDegrees(lua_State *L)
+static int lua__kmMat3FromRotationAxisAngleInDegrees(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const struct kmVec3 * axis = (const struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2536,7 +2576,7 @@ int lua__kmMat3FromRotationAxisAngleInDegrees(lua_State *L)
 /**
  * kmBool kmAABB3IntersectsTriangle(kmAABB3 * box, const kmVec3 * p1, const kmVec3 * p2, const kmVec3 * p3)
  */
-int lua__kmAABB3IntersectsTriangle(lua_State *L)
+static int lua__kmAABB3IntersectsTriangle(lua_State *L)
 {
 	kmBool ret;
 	kmAABB3 * box = (kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
@@ -2551,7 +2591,7 @@ int lua__kmAABB3IntersectsTriangle(lua_State *L)
 /**
  * kmMat4 * kmMat4RotationYawPitchRoll(kmMat4 * pOut, const kmScalar pitch, const kmScalar yaw, const kmScalar roll)
  */
-int lua__kmMat4RotationYawPitchRoll(lua_State *L)
+static int lua__kmMat4RotationYawPitchRoll(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const kmScalar pitch = (const kmScalar)luaL_checknumber(L, 2);
@@ -2564,7 +2604,7 @@ int lua__kmMat4RotationYawPitchRoll(lua_State *L)
 /**
  * int kmMat4IsIdentity(const kmMat4 * pIn)
  */
-int lua__kmMat4IsIdentity(lua_State *L)
+static int lua__kmMat4IsIdentity(lua_State *L)
 {
 	int ret;
 	const kmMat4 * pIn = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
@@ -2576,7 +2616,7 @@ int lua__kmMat4IsIdentity(lua_State *L)
 /**
  * kmMat3 * kmMat3FromRotationLookAt(kmMat3 * pOut, const struct kmVec3 * pEye, const struct kmVec3 * pCentre, const struct kmVec3 * pUp)
  */
-int lua__kmMat3FromRotationLookAt(lua_State *L)
+static int lua__kmMat3FromRotationLookAt(lua_State *L)
 {
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const struct kmVec3 * pEye = (const struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2589,7 +2629,7 @@ int lua__kmMat3FromRotationLookAt(lua_State *L)
 /**
  * kmVec2 * kmVec2Assign(kmVec2 * pOut, const kmVec2 * pIn)
  */
-int lua__kmVec2Assign(lua_State *L)
+static int lua__kmVec2Assign(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * pIn = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -2600,7 +2640,7 @@ int lua__kmVec2Assign(lua_State *L)
 /**
  * kmScalar kmPlaneDotCoord(const kmPlane * pP, const struct kmVec3 * pV)
  */
-int lua__kmPlaneDotCoord(lua_State *L)
+static int lua__kmPlaneDotCoord(lua_State *L)
 {
 	kmScalar ret;
 	const kmPlane * pP = (const kmPlane *)KAZMATH_CHECK_KMPLANE(L, 1);
@@ -2613,7 +2653,7 @@ int lua__kmPlaneDotCoord(lua_State *L)
 /**
  * kmScalar kmMin(kmScalar lhs, kmScalar rhs)
  */
-int lua__kmMin(lua_State *L)
+static int lua__kmMin(lua_State *L)
 {
 	kmScalar ret;
 	kmScalar lhs = (kmScalar)luaL_checknumber(L, 1);
@@ -2626,7 +2666,7 @@ int lua__kmMin(lua_State *L)
 /**
  * kmMat4 * kmMat4RotationZ(kmMat4 * pOut, const kmScalar radians)
  */
-int lua__kmMat4RotationZ(lua_State *L)
+static int lua__kmMat4RotationZ(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const kmScalar radians = (const kmScalar)luaL_checknumber(L, 2);
@@ -2637,7 +2677,7 @@ int lua__kmMat4RotationZ(lua_State *L)
 /**
  * kmMat4 * kmMat4RotationY(kmMat4 * pOut, const kmScalar radians)
  */
-int lua__kmMat4RotationY(lua_State *L)
+static int lua__kmMat4RotationY(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const kmScalar radians = (const kmScalar)luaL_checknumber(L, 2);
@@ -2648,7 +2688,7 @@ int lua__kmMat4RotationY(lua_State *L)
 /**
  * kmMat4 * kmMat4RotationX(kmMat4 * pOut, const kmScalar radians)
  */
-int lua__kmMat4RotationX(lua_State *L)
+static int lua__kmMat4RotationX(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const kmScalar radians = (const kmScalar)luaL_checknumber(L, 2);
@@ -2659,7 +2699,7 @@ int lua__kmMat4RotationX(lua_State *L)
 /**
  * kmMat4 * kmMat4RotationAxisAngle(kmMat4 * pOut, const struct kmVec3 * axis, kmScalar radians)
  */
-int lua__kmMat4RotationAxisAngle(lua_State *L)
+static int lua__kmMat4RotationAxisAngle(lua_State *L)
 {
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const struct kmVec3 * axis = (const struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2671,7 +2711,7 @@ int lua__kmMat4RotationAxisAngle(lua_State *L)
 /**
  * kmVec3 * kmVec3Assign(kmVec3 * pOut, const kmVec3 * pIn)
  */
-int lua__kmVec3Assign(lua_State *L)
+static int lua__kmVec3Assign(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pIn = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2682,7 +2722,7 @@ int lua__kmVec3Assign(lua_State *L)
 /**
  * kmPlane * kmPlaneFromNormalAndDistance(kmPlane * plane, const struct kmVec3 * normal, const kmScalar dist)
  */
-int lua__kmPlaneFromNormalAndDistance(lua_State *L)
+static int lua__kmPlaneFromNormalAndDistance(lua_State *L)
 {
 	kmPlane * plane = (kmPlane *)KAZMATH_CHECK_KMPLANE(L, 1);
 	const struct kmVec3 * normal = (const struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2694,7 +2734,7 @@ int lua__kmPlaneFromNormalAndDistance(lua_State *L)
 /**
  * kmVec3 * kmVec3MultiplyMat3(kmVec3 * pOut, const kmVec3 * pV, const struct kmMat3 * pM)
  */
-int lua__kmVec3MultiplyMat3(lua_State *L)
+static int lua__kmVec3MultiplyMat3(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pV = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2706,7 +2746,7 @@ int lua__kmVec3MultiplyMat3(lua_State *L)
 /**
  * kmVec2 * kmVec2Mul(kmVec2 * pOut, const kmVec2 * pV1, const kmVec2 * pV2)
  */
-int lua__kmVec2Mul(lua_State *L)
+static int lua__kmVec2Mul(lua_State *L)
 {
 	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * pV1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
@@ -2718,7 +2758,7 @@ int lua__kmVec2Mul(lua_State *L)
 /**
  * kmVec3 * kmVec3MultiplyMat4(kmVec3 * pOut, const kmVec3 * pV, const struct kmMat4 * pM)
  */
-int lua__kmVec3MultiplyMat4(lua_State *L)
+static int lua__kmVec3MultiplyMat4(lua_State *L)
 {
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * pV = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2730,7 +2770,7 @@ int lua__kmVec3MultiplyMat4(lua_State *L)
 /**
  * kmQuaternion * kmQuaternionRotationAxisAngle(kmQuaternion * pOut, const struct kmVec3 * pV, kmScalar angle)
  */
-int lua__kmQuaternionRotationAxisAngle(lua_State *L)
+static int lua__kmQuaternionRotationAxisAngle(lua_State *L)
 {
 	kmQuaternion * pOut = (kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const struct kmVec3 * pV = (const struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
@@ -2748,12 +2788,31 @@ static int lua__kmMat3_new(lua_State *L)
 	return 1;
 }
 
+static int lua__kmMat3_new_with_array(lua_State *L)
+{
+	const size_t rlen = sizeof(kmMat3)/sizeof(kmScalar);
+	kmScalar pMat[rlen];
+	kmMat3 *p;
+	KAZMATH_CHECK_ARRAY_LEN(L, 2, rlen);
+	KAZMATH_FILL_ARRAY(L, 2, pMat, kmScalar, lua_tonumber);
+	p = malloc(sizeof(*p));
+	kmMat3Fill(p, pMat);
+	KAZMATH_LUA_BIND_META(L, kmMat3, p, KAZMATH_CLS_KMMAT3);
+	return 1;
+}
 
 static int lua__kmMat3_gc(lua_State *L)
 {
 	kmMat3 *p = KAZMATH_CHECK_KMMAT3(L, 1);
 	free(p);
 	return 0;
+}
+
+static int lua__kmMat3ToArray(lua_State *L)
+{
+	kmMat3 *p = KAZMATH_CHECK_KMMAT3(L, 1);
+	MAT_TO_ARRAY(L, p);
+	return 1;
 }
 
 static int lua__kmRay2_new(lua_State *L)
@@ -2811,6 +2870,19 @@ static int lua__kmMat4_new(lua_State *L)
 	return 1;
 }
 
+static int lua__kmMat4_new_with_array(lua_State *L)
+{
+	const size_t rlen = sizeof(kmMat4)/sizeof(kmScalar);
+	kmScalar pMat[rlen];
+	kmMat4 *p;
+	KAZMATH_CHECK_ARRAY_LEN(L, 1, rlen);
+	KAZMATH_FILL_ARRAY(L, 1, pMat, kmScalar, lua_tonumber);
+	p = malloc(sizeof(*p));
+	kmMat4Fill(p, pMat);
+	KAZMATH_LUA_BIND_META(L, kmMat4, p, KAZMATH_CLS_KMMAT4);
+	return 1;
+}
+
 static int lua__kmMat4_gc(lua_State *L)
 {
 	kmMat4 *p = KAZMATH_CHECK_KMMAT4(L, 1);
@@ -2818,6 +2890,12 @@ static int lua__kmMat4_gc(lua_State *L)
 	return 0;
 }
 
+static int lua__kmMat4ToArray(lua_State *L)
+{
+	kmMat4 *p = KAZMATH_CHECK_KMMAT4(L, 1);
+	MAT_TO_ARRAY(L, p);
+	return 1;
+}
 
 static int lua__kmAABB2_new(lua_State *L)
 {
@@ -2855,6 +2933,24 @@ static int lua__kmVec2_new(lua_State *L)
 	return 1;
 }
 
+static int lua__kmVec2_new_with_tbl(lua_State *L)
+{
+	kmVec2 *p;
+	kmScalar x;
+	kmScalar y;
+	luaL_checktype(L, 1, LUA_TTABLE);
+	do {
+		lua_getfield(L, 1, "x");
+		x = luaL_checknumber(L, -1);
+		lua_getfield(L, 1, "y");
+		y = luaL_checknumber(L, -1);
+	} while (0);
+	p = malloc(sizeof(*p));
+	kmVec2Fill(p, x, y);
+	KAZMATH_LUA_BIND_META(L, kmVec2, p, KAZMATH_CLS_KMVEC2);
+	return 1;
+}
+
 static int lua__kmVec2_gc(lua_State *L)
 {
 	kmVec2 *p = KAZMATH_CHECK_KMVEC2(L, 1);
@@ -2862,9 +2958,48 @@ static int lua__kmVec2_gc(lua_State *L)
 	return 0;
 }
 
+static int lua__kmVec2ToArray(lua_State *L)
+{
+	kmVec2 * pOut = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
+	VEC2_TO_ARRAY(L, pOut);
+	return 1;
+}
+
+static int lua__kmVec2ToTbl(lua_State *L)
+{
+	kmVec2 * pvec = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
+	lua_newtable(L);
+	lua_pushnumber(L, pvec->x);
+	lua_setfield(L, -2, "x");
+	lua_pushnumber(L, pvec->y);
+	lua_setfield(L, -2, "y");
+	return 1;
+}
+
 static int lua__kmVec3_new(lua_State *L)
 {
 	kmVec3 *p = malloc(sizeof(*p));
+	KAZMATH_LUA_BIND_META(L, kmVec3, p, KAZMATH_CLS_KMVEC3);
+	return 1;
+}
+
+static int lua__kmVec3_new_with_tbl(lua_State *L)
+{
+	kmVec3 *p;
+	kmScalar x;
+	kmScalar y;
+	kmScalar z;
+	luaL_checktype(L, 1, LUA_TTABLE);
+	do {
+		lua_getfield(L, 1, "x");
+		x = luaL_checknumber(L, -1);
+		lua_getfield(L, 1, "y");
+		y = luaL_checknumber(L, -1);
+		lua_getfield(L, 1, "z");
+		z = luaL_checknumber(L, -1);
+	} while (0);
+	p = malloc(sizeof(*p));
+	kmVec3Fill(p, x, y, z);
 	KAZMATH_LUA_BIND_META(L, kmVec3, p, KAZMATH_CLS_KMVEC3);
 	return 1;
 }
@@ -2876,9 +3011,53 @@ static int lua__kmVec3_gc(lua_State *L)
 	return 0;
 }
 
+static int lua__kmVec3ToArray(lua_State *L)
+{
+	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
+	VEC3_TO_ARRAY(L, pOut);
+	return 1;
+}
+
+static int lua__kmVec3ToTbl(lua_State *L)
+{
+	kmVec3 * pvec = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
+	lua_newtable(L);
+	lua_pushnumber(L, pvec->x);
+	lua_setfield(L, -2, "x");
+	lua_pushnumber(L, pvec->y);
+	lua_setfield(L, -2, "y");
+	lua_pushnumber(L, pvec->z);
+	lua_setfield(L, -2, "z");
+	return 1;
+}
+
 static int lua__kmVec4_new(lua_State *L)
 {
 	kmVec4 *p = malloc(sizeof(*p));
+	KAZMATH_LUA_BIND_META(L, kmVec4, p, KAZMATH_CLS_KMVEC4);
+	return 1;
+}
+
+static int lua__kmVec4_new_with_tbl(lua_State *L)
+{
+	kmVec4 *p;
+	kmScalar x;
+	kmScalar y;
+	kmScalar z;
+	kmScalar w;
+	luaL_checktype(L, 1, LUA_TTABLE);
+	do {
+		lua_getfield(L, 1, "x");
+		x = luaL_checknumber(L, -1);
+		lua_getfield(L, 1, "y");
+		y = luaL_checknumber(L, -1);
+		lua_getfield(L, 1, "z");
+		z = luaL_checknumber(L, -1);
+		lua_getfield(L, 1, "w");
+		w = luaL_checknumber(L, -1);
+	} while (0);
+	p = malloc(sizeof(*p));
+	kmVec4Fill(p, x, y, z, w);
 	KAZMATH_LUA_BIND_META(L, kmVec4, p, KAZMATH_CLS_KMVEC4);
 	return 1;
 }
@@ -2889,6 +3068,29 @@ static int lua__kmVec4_gc(lua_State *L)
 	free(p);
 	return 0;
 }
+
+static int lua__kmVec4ToArray(lua_State *L)
+{
+	kmVec4 * pOut = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
+	VEC4_TO_ARRAY(L, pOut);
+	return 1;
+}
+
+static int lua__kmVec4ToTbl(lua_State *L)
+{
+	kmVec4 * pvec = (kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
+	lua_newtable(L);
+	lua_pushnumber(L, pvec->x);
+	lua_setfield(L, -2, "x");
+	lua_pushnumber(L, pvec->y);
+	lua_setfield(L, -2, "y");
+	lua_pushnumber(L, pvec->z);
+	lua_setfield(L, -2, "z");
+	lua_pushnumber(L, pvec->w);
+	lua_setfield(L, -2, "w");
+	return 1;
+}
+
 
 static int lua__kmAABB3_new(lua_State *L)
 {
@@ -2935,6 +3137,7 @@ static int opencls__kmMat3(lua_State *L)
 		{"MultiplyMat3", lua__kmMat3MultiplyMat3},
 		{"MultiplyScalar", lua__kmMat3MultiplyScalar},
 		{"Transpose", lua__kmMat3Transpose},
+		{"ToArray", lua__kmMat3ToArray},
 		{NULL, NULL},
 	};
 	luaL_newmetatable(L, KAZMATH_CLS_KMMAT3);
@@ -3066,6 +3269,7 @@ static int opencls__kmMat4(lua_State *L)
 		{"Scaling", lua__kmMat4Scaling},
 		{"Translation", lua__kmMat4Translation},
 		{"Transpose", lua__kmMat4Transpose},
+		{"ToArray", lua__kmMat4ToArray},
 		{NULL, NULL},
 	};
 	luaL_newmetatable(L, KAZMATH_CLS_KMMAT4);
@@ -3158,6 +3362,8 @@ static int opencls__kmVec2(lua_State *L)
 		{"Swap", lua__kmVec2Swap},
 		{"Transform", lua__kmVec2Transform},
 		{"TransformCoord", lua__kmVec2TransformCoord},
+		{"ToArray", lua__kmVec2ToArray},
+		{"ToTbl", lua__kmVec2ToTbl},
 		{NULL, NULL},
 	};
 	luaL_newmetatable(L, KAZMATH_CLS_KMVEC2);
@@ -3202,6 +3408,8 @@ static int opencls__kmVec3(lua_State *L)
 		{"TransformCoord", lua__kmVec3TransformCoord},
 		{"TransformNormal", lua__kmVec3TransformNormal},
 		{"Zero", lua__kmVec3Zero},
+		{"ToArray", lua__kmVec3ToArray},
+		{"ToTbl", lua__kmVec3ToTbl},
 		{NULL, NULL},
 	};
 	luaL_newmetatable(L, KAZMATH_CLS_KMVEC3);
@@ -3234,6 +3442,8 @@ static int opencls__kmVec4(lua_State *L)
 		{"Swap", lua__kmVec4Swap},
 		{"Transform", lua__kmVec4Transform},
 		{"TransformArray", lua__kmVec4TransformArray},
+		{"ToArray", lua__kmVec4ToArray},
+		{"ToTbl", lua__kmVec4ToTbl},
 		{NULL, NULL},
 	};
 	luaL_newmetatable(L, KAZMATH_CLS_KMVEC4);
@@ -3275,17 +3485,37 @@ static int opencls__kmAABB3(lua_State *L)
 int luaopen_kazmath(lua_State *L)
 {
 	luaL_Reg lfuncs[] = {
+		/* Utility */
+		{"kmAlmostEqual", lua__kmAlmostEqual},
+		{"kmClamp", lua__kmClamp},
+		{"kmDegreesToRadians", lua__kmDegreesToRadians},
+		{"kmLerp", lua__kmLerp},
+		{"kmLine2WithLineIntersection", lua__kmLine2WithLineIntersection},
+		{"kmRadiansToDegrees", lua__kmRadiansToDegrees},
+		{"kmSQR", lua__kmSQR},
+		{"kmSegment2WithSegmentIntersection", lua__kmSegment2WithSegmentIntersection},
+		{"kmMax", lua__kmMax},
+		{"kmMin", lua__kmMin},
+
+		/* new */
 		{"kmMat3_new", lua__kmMat3_new},
+		{"kmMat3_new_with_array", lua__kmMat3_new_with_array},
 		{"kmRay2_new", lua__kmRay2_new},
 		{"kmRay3_new", lua__kmRay3_new},
 		{"kmQuaternion_new", lua__kmQuaternion_new},
 		{"kmMat4_new", lua__kmMat4_new},
+		{"kmMat4_new_with_array", lua__kmMat4_new_with_array},
 		{"kmAABB2_new", lua__kmAABB2_new},
 		{"kmPlane_new", lua__kmPlane_new},
 		{"kmVec2_new", lua__kmVec2_new},
+		{"kmVec2_new_with_tbl", lua__kmVec2_new_with_tbl},
 		{"kmVec3_new", lua__kmVec3_new},
+		{"kmVec3_new_with_tbl", lua__kmVec3_new_with_tbl},
 		{"kmVec4_new", lua__kmVec4_new},
+		{"kmVec4_new_with_tbl", lua__kmVec4_new_with_tbl},
 		{"kmAABB3_new", lua__kmAABB3_new},
+
+		/* AABB2 */
 		{"kmAABB2Assign", lua__kmAABB2Assign},
 		{"kmAABB2Centre", lua__kmAABB2Centre},
 		{"kmAABB2ContainsAABB", lua__kmAABB2ContainsAABB},
@@ -3298,6 +3528,8 @@ int luaopen_kazmath(lua_State *L)
 		{"kmAABB2Scale", lua__kmAABB2Scale},
 		{"kmAABB2ScaleWithPivot", lua__kmAABB2ScaleWithPivot},
 		{"kmAABB2Translate", lua__kmAABB2Translate},
+
+		/* AABB3 */
 		{"kmAABB3Assign", lua__kmAABB3Assign},
 		{"kmAABB3Centre", lua__kmAABB3Centre},
 		{"kmAABB3ContainsAABB", lua__kmAABB3ContainsAABB},
@@ -3310,11 +3542,8 @@ int luaopen_kazmath(lua_State *L)
 		{"kmAABB3IntersectsAABB", lua__kmAABB3IntersectsAABB},
 		{"kmAABB3IntersectsTriangle", lua__kmAABB3IntersectsTriangle},
 		{"kmAABB3Scale", lua__kmAABB3Scale},
-		{"kmAlmostEqual", lua__kmAlmostEqual},
-		{"kmClamp", lua__kmClamp},
-		{"kmDegreesToRadians", lua__kmDegreesToRadians},
-		{"kmLerp", lua__kmLerp},
-		{"kmLine2WithLineIntersection", lua__kmLine2WithLineIntersection},
+
+		/* Mat3 */
 		{"kmMat3Adjugate", lua__kmMat3Adjugate},
 		{"kmMat3AreEqual", lua__kmMat3AreEqual},
 		{"kmMat3AssignMat3", lua__kmMat3AssignMat3},
@@ -3343,6 +3572,8 @@ int luaopen_kazmath(lua_State *L)
 		{"kmMat3MultiplyMat3", lua__kmMat3MultiplyMat3},
 		{"kmMat3MultiplyScalar", lua__kmMat3MultiplyScalar},
 		{"kmMat3Transpose", lua__kmMat3Transpose},
+
+		/* Mat4 */
 		{"kmMat4AreEqual", lua__kmMat4AreEqual},
 		{"kmMat4Assign", lua__kmMat4Assign},
 		{"kmMat4AssignMat3", lua__kmMat4AssignMat3},
@@ -3372,8 +3603,8 @@ int luaopen_kazmath(lua_State *L)
 		{"kmMat4Scaling", lua__kmMat4Scaling},
 		{"kmMat4Translation", lua__kmMat4Translation},
 		{"kmMat4Transpose", lua__kmMat4Transpose},
-		{"kmMax", lua__kmMax},
-		{"kmMin", lua__kmMin},
+
+		/* Plane */
 		{"kmPlaneClassifyPoint", lua__kmPlaneClassifyPoint},
 		{"kmPlaneDot", lua__kmPlaneDot},
 		{"kmPlaneDotCoord", lua__kmPlaneDotCoord},
@@ -3387,6 +3618,8 @@ int luaopen_kazmath(lua_State *L)
 		{"kmPlaneIntersectLine", lua__kmPlaneIntersectLine},
 		{"kmPlaneNormalize", lua__kmPlaneNormalize},
 		{"kmPlaneScale", lua__kmPlaneScale},
+
+		/* Quaternion */
 		{"kmQuaternionAdd", lua__kmQuaternionAdd},
 		{"kmQuaternionAreEqual", lua__kmQuaternionAreEqual},
 		{"kmQuaternionAssign", lua__kmQuaternionAssign},
@@ -3420,19 +3653,22 @@ int luaopen_kazmath(lua_State *L)
 		{"kmQuaternionSlerp", lua__kmQuaternionSlerp},
 		{"kmQuaternionSubtract", lua__kmQuaternionSubtract},
 		{"kmQuaternionToAxisAngle", lua__kmQuaternionToAxisAngle},
-		{"kmRadiansToDegrees", lua__kmRadiansToDegrees},
+
+		/* Ray2 */
 		{"kmRay2Fill", lua__kmRay2Fill},
 		{"kmRay2FillWithEndpoints", lua__kmRay2FillWithEndpoints},
 		{"kmRay2IntersectBox", lua__kmRay2IntersectBox},
 		{"kmRay2IntersectCircle", lua__kmRay2IntersectCircle},
 		{"kmRay2IntersectLineSegment", lua__kmRay2IntersectLineSegment},
 		{"kmRay2IntersectTriangle", lua__kmRay2IntersectTriangle},
+
+		/* Ray3 */
 		{"kmRay3Fill", lua__kmRay3Fill},
 		{"kmRay3FromPointAndDirection", lua__kmRay3FromPointAndDirection},
 		{"kmRay3IntersectPlane", lua__kmRay3IntersectPlane},
 		{"kmRay3IntersectTriangle", lua__kmRay3IntersectTriangle},
-		{"kmSQR", lua__kmSQR},
-		{"kmSegment2WithSegmentIntersection", lua__kmSegment2WithSegmentIntersection},
+
+		/* Vec2 */
 		{"kmVec2Add", lua__kmVec2Add},
 		{"kmVec2AreEqual", lua__kmVec2AreEqual},
 		{"kmVec2Assign", lua__kmVec2Assign},
@@ -3455,6 +3691,8 @@ int luaopen_kazmath(lua_State *L)
 		{"kmVec2Swap", lua__kmVec2Swap},
 		{"kmVec2Transform", lua__kmVec2Transform},
 		{"kmVec2TransformCoord", lua__kmVec2TransformCoord},
+
+		/* Vec3 */
 		{"kmVec3Add", lua__kmVec3Add},
 		{"kmVec3AreEqual", lua__kmVec3AreEqual},
 		{"kmVec3Assign", lua__kmVec3Assign},
@@ -3484,6 +3722,8 @@ int luaopen_kazmath(lua_State *L)
 		{"kmVec3TransformCoord", lua__kmVec3TransformCoord},
 		{"kmVec3TransformNormal", lua__kmVec3TransformNormal},
 		{"kmVec3Zero", lua__kmVec3Zero},
+
+		/* Vec4 */
 		{"kmVec4Add", lua__kmVec4Add},
 		{"kmVec4AreEqual", lua__kmVec4AreEqual},
 		{"kmVec4Assign", lua__kmVec4Assign},
@@ -3501,6 +3741,19 @@ int luaopen_kazmath(lua_State *L)
 		{"kmVec4Swap", lua__kmVec4Swap},
 		{"kmVec4Transform", lua__kmVec4Transform},
 		{"kmVec4TransformArray", lua__kmVec4TransformArray},
+
+		{"kmVec2ToArray", lua__kmVec2ToArray},
+		{"kmVec3ToArray", lua__kmVec3ToArray},
+		{"kmVec4ToArray", lua__kmVec4ToArray},
+
+		{"kmMat3ToArray", lua__kmMat3ToArray},
+		{"kmMat4ToArray", lua__kmMat4ToArray},
+
+		{"kmVec2ToTbl", lua__kmVec2ToTbl},
+		{"kmVec3ToTbl", lua__kmVec3ToTbl},
+		{"kmVec4ToTbl", lua__kmVec4ToTbl},
+
+
 		{NULL, NULL}
 	};
 	opencls__kmMat3(L);
