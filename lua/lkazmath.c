@@ -415,7 +415,7 @@ int lua__kmSegment2WithSegmentIntersection(lua_State *L)
 	const kmRay2 * segmentB = (const kmRay2 *)KAZMATH_CHECK_KMRAY2(L, 2);
 	kmVec2 * intersection = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 3);
 	ret = kmSegment2WithSegmentIntersection(segmentA, segmentB, intersection);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -535,7 +535,7 @@ int lua__kmAABB3IntersectsAABB(lua_State *L)
 	const kmAABB3 * box = (const kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 1);
 	const kmAABB3 * other = (const kmAABB3 *)KAZMATH_CHECK_KMAABB3(L, 2);
 	ret = kmAABB3IntersectsAABB(box, other);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -588,7 +588,7 @@ int lua__kmMat3IsIdentity(lua_State *L)
 	kmBool ret;
 	const kmMat3 * pIn = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	ret = kmMat3IsIdentity(pIn);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -673,7 +673,7 @@ int lua__kmMat3AreEqual(lua_State *L)
 	const kmMat3 * pMat1 = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	const kmMat3 * pMat2 = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 2);
 	ret = kmMat3AreEqual(pMat1, pMat2);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -790,7 +790,7 @@ int lua__kmQuaternionIsIdentity(lua_State *L)
 	int ret;
 	const kmQuaternion * pIn = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	ret = kmQuaternionIsIdentity(pIn);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -904,7 +904,7 @@ int lua__kmVec2AreEqual(lua_State *L)
 	const kmVec2 * p1 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 1);
 	const kmVec2 * p2 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
 	ret = kmVec2AreEqual(p1, p2);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -1007,7 +1007,7 @@ int lua__kmMat4AreEqual(lua_State *L)
 	const kmMat4 * pM1 = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	const kmMat4 * pM2 = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 2);
 	ret = kmMat4AreEqual(pM1, pM2);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -1498,7 +1498,7 @@ int lua__kmRay2IntersectBox(lua_State *L)
 	kmVec2 * intersection = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 6);
 	kmVec2 * normal_out = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 7);
 	ret = kmRay2IntersectBox(ray, p1, p2, p3, p4, intersection, normal_out);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -1575,7 +1575,7 @@ int lua__kmVec4AreEqual(lua_State *L)
 	const kmVec4 * p1 = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 1);
 	const kmVec4 * p2 = (const kmVec4 *)KAZMATH_CHECK_KMVEC4(L, 2);
 	ret = kmVec4AreEqual(p1, p2);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -1708,7 +1708,7 @@ int lua__kmQuaternionAreEqual(lua_State *L)
 	const kmQuaternion * p1 = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 1);
 	const kmQuaternion * p2 = (const kmQuaternion *)KAZMATH_CHECK_KMQUATERNION(L, 2);
 	ret = kmQuaternionAreEqual(p1, p2);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -1761,7 +1761,7 @@ int lua__kmRay2IntersectLineSegment(lua_State *L)
 	const kmVec2 * p2 = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 3);
 	kmVec2 * intersection = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 4);
 	ret = kmRay2IntersectLineSegment(ray, p1, p2, intersection);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -1873,11 +1873,13 @@ int lua__kmMat4OrthographicProjection(lua_State *L)
  */
 int lua__kmRay3IntersectPlane(lua_State *L)
 {
+	kmBool ret;
 	kmVec3 * pOut = (kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmRay3 * ray = (const kmRay3 *)KAZMATH_CHECK_KMRAY3(L, 2);
 	const struct kmPlane * plane = (const struct kmPlane *)KAZMATH_CHECK_KMPLANE(L, 3);
-	kmRay3IntersectPlane(pOut, ray, plane);
-	return 0;
+	ret = kmRay3IntersectPlane(pOut, ray, plane);
+	lua_pushboolean(L, ret);
+	return 1;
 }
 
 /**
@@ -1936,7 +1938,7 @@ int lua__kmVec3AreEqual(lua_State *L)
 	const kmVec3 * p1 = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
 	const kmVec3 * p2 = (const kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
 	ret = kmVec3AreEqual(p1, p2);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -2384,7 +2386,7 @@ int lua__kmAlmostEqual(lua_State *L)
 	kmScalar lhs = (kmScalar)luaL_checknumber(L, 1);
 	kmScalar rhs = (kmScalar)luaL_checknumber(L, 2);
 	ret = kmAlmostEqual(lhs, rhs);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -2567,7 +2569,7 @@ int lua__kmMat4IsIdentity(lua_State *L)
 	int ret;
 	const kmMat4 * pIn = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 	ret = kmMat4IsIdentity(pIn);
-	lua_pushinteger(L, (lua_Integer)ret);
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
@@ -3031,7 +3033,6 @@ static int opencls__kmQuaternion(lua_State *L)
 	lua_setfield(L, -2, "__gc");
 	return 1;
 }
-
 
 static int opencls__kmMat4(lua_State *L)
 {
