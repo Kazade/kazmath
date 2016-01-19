@@ -1,7 +1,7 @@
 l = require "lkazmath"
 
 do
-	local vec2 = l.kmVec2_new_with_tbl({x=1,y=2})
+	local vec2 = l.kmVec2NewWithTbl({x=1,y=2})
 	local tbl = vec2:ToTbl()
 	assert(tbl.x == 1)
 	assert(tbl.y == 2)
@@ -9,7 +9,7 @@ do
 end
 
 do
-	local vec3 = l.kmVec3_new()
+	local vec3 = l.kmVec3New()
 	local tbl = vec3:ToTbl()
 	assert(tbl.x == 0)
 	assert(tbl.y == 0)
@@ -22,7 +22,7 @@ end
 
 do
 	local array = {1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6}
-	local mat4 = l.kmMat4_new_with_array(array)
+	local mat4 = l.kmMat4NewWithArray(array)
 	local newarray = mat4:ToArray()
 	assert(#array == #newarray)
 end

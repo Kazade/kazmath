@@ -1162,7 +1162,8 @@ static int lua__kmMat4RotationToAxisAngle(lua_State *L)
 {
 	kmScalar radians = 0.0;
 	struct kmVec3 * pAxis = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 1);
-	/* args removed. WARNING By Roc */
+	/* NOTE By Roc */
+	/* args removed */
 	const kmMat4 * pIn = (const kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 2);
 	kmMat4RotationToAxisAngle(pAxis, &radians, pIn);
 	lua_pushnumber(L, radians);
@@ -2043,7 +2044,8 @@ static int lua__kmLine2WithLineIntersection(lua_State *L)
 	const kmVec2 * vecA = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 2);
 	const kmVec2 * ptB = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 3);
 	const kmVec2 * vecB = (const kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 4);
-	/* args removed. WARNING By Roc */
+	/* NOTE By Roc */
+	/* args removed */
 	kmVec2 * outIntersection = (kmVec2 *)KAZMATH_CHECK_KMVEC2(L, 5);
 	ret = kmLine2WithLineIntersection(ptA, vecA, ptB, vecB, &outTA, &outTB, outIntersection);
 	lua_pushboolean(L, ret);
@@ -2769,14 +2771,14 @@ static int lua__kmQuaternionRotationAxisAngle(lua_State *L)
 
 
 
-static int lua__kmMat3_new(lua_State *L)
+static int lua__kmMat3New(lua_State *L)
 {
 	kmMat3 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmMat3, p, KAZMATH_CLS_KMMAT3);
 	return 1;
 }
 
-static int lua__kmMat3_new_with_array(lua_State *L)
+static int lua__kmMat3NewWithArray(lua_State *L)
 {
 	const size_t rlen = sizeof(kmMat3)/sizeof(kmScalar);
 	kmScalar pMat[rlen];
@@ -2803,7 +2805,7 @@ static int lua__kmMat3ToArray(lua_State *L)
 	return 1;
 }
 
-static int lua__kmRay2_new(lua_State *L)
+static int lua__kmRay2New(lua_State *L)
 {
 	kmRay2 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmRay2, p, KAZMATH_CLS_KMRAY2);
@@ -2817,7 +2819,7 @@ static int lua__kmRay2_gc(lua_State *L)
 	return 0;
 }
 
-static int lua__kmRay3_new(lua_State *L)
+static int lua__kmRay3New(lua_State *L)
 {
 	kmRay3 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmRay3, p, KAZMATH_CLS_KMRAY3);
@@ -2834,7 +2836,7 @@ static int lua__kmRay3_gc(lua_State *L)
 	
 
 
-static int lua__kmQuaternion_new(lua_State *L)
+static int lua__kmQuaternionNew(lua_State *L)
 {
 	kmQuaternion *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmQuaternion, p, KAZMATH_CLS_KMQUATERNION);
@@ -2851,14 +2853,14 @@ static int lua__kmQuaternion_gc(lua_State *L)
 	
 
 
-static int lua__kmMat4_new(lua_State *L)
+static int lua__kmMat4New(lua_State *L)
 {
 	kmMat4 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmMat4, p, KAZMATH_CLS_KMMAT4);
 	return 1;
 }
 
-static int lua__kmMat4_new_with_array(lua_State *L)
+static int lua__kmMat4NewWithArray(lua_State *L)
 {
 	const size_t rlen = sizeof(kmMat4)/sizeof(kmScalar);
 	kmScalar pMat[rlen];
@@ -2885,7 +2887,7 @@ static int lua__kmMat4ToArray(lua_State *L)
 	return 1;
 }
 
-static int lua__kmAABB2_new(lua_State *L)
+static int lua__kmAABB2New(lua_State *L)
 {
 	kmAABB2 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmAABB2, p, KAZMATH_CLS_KMAABB2);
@@ -2899,7 +2901,7 @@ static int lua__kmAABB2_gc(lua_State *L)
 	return 0;
 }
 
-static int lua__kmPlane_new(lua_State *L)
+static int lua__kmPlaneNew(lua_State *L)
 {
 	kmPlane *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmPlane, p, KAZMATH_CLS_KMPLANE);
@@ -2914,14 +2916,14 @@ static int lua__kmPlane_gc(lua_State *L)
 	return 0;
 }
 
-static int lua__kmVec2_new(lua_State *L)
+static int lua__kmVec2New(lua_State *L)
 {
 	kmVec2 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmVec2, p, KAZMATH_CLS_KMVEC2);
 	return 1;
 }
 
-static int lua__kmVec2_new_with_tbl(lua_State *L)
+static int lua__kmVec2NewWithTbl(lua_State *L)
 {
 	kmVec2 *p;
 	kmScalar x;
@@ -2964,14 +2966,14 @@ static int lua__kmVec2ToTbl(lua_State *L)
 	return 1;
 }
 
-static int lua__kmVec3_new(lua_State *L)
+static int lua__kmVec3New(lua_State *L)
 {
 	kmVec3 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmVec3, p, KAZMATH_CLS_KMVEC3);
 	return 1;
 }
 
-static int lua__kmVec3_new_with_tbl(lua_State *L)
+static int lua__kmVec3NewWithTbl(lua_State *L)
 {
 	kmVec3 *p;
 	kmScalar x;
@@ -3019,14 +3021,14 @@ static int lua__kmVec3ToTbl(lua_State *L)
 	return 1;
 }
 
-static int lua__kmVec4_new(lua_State *L)
+static int lua__kmVec4New(lua_State *L)
 {
 	kmVec4 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmVec4, p, KAZMATH_CLS_KMVEC4);
 	return 1;
 }
 
-static int lua__kmVec4_new_with_tbl(lua_State *L)
+static int lua__kmVec4NewWithTbl(lua_State *L)
 {
 	kmVec4 *p;
 	kmScalar x;
@@ -3080,7 +3082,7 @@ static int lua__kmVec4ToTbl(lua_State *L)
 }
 
 
-static int lua__kmAABB3_new(lua_State *L)
+static int lua__kmAABB3New(lua_State *L)
 {
 	kmAABB3 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmAABB3, p, KAZMATH_CLS_KMAABB3);
@@ -3485,22 +3487,22 @@ int luaopen_lkazmath(lua_State *L)
 		{"kmMin", lua__kmMin},
 
 		/* new */
-		{"kmMat3_new", lua__kmMat3_new},
-		{"kmMat3_new_with_array", lua__kmMat3_new_with_array},
-		{"kmRay2_new", lua__kmRay2_new},
-		{"kmRay3_new", lua__kmRay3_new},
-		{"kmQuaternion_new", lua__kmQuaternion_new},
-		{"kmMat4_new", lua__kmMat4_new},
-		{"kmMat4_new_with_array", lua__kmMat4_new_with_array},
-		{"kmAABB2_new", lua__kmAABB2_new},
-		{"kmPlane_new", lua__kmPlane_new},
-		{"kmVec2_new", lua__kmVec2_new},
-		{"kmVec2_new_with_tbl", lua__kmVec2_new_with_tbl},
-		{"kmVec3_new", lua__kmVec3_new},
-		{"kmVec3_new_with_tbl", lua__kmVec3_new_with_tbl},
-		{"kmVec4_new", lua__kmVec4_new},
-		{"kmVec4_new_with_tbl", lua__kmVec4_new_with_tbl},
-		{"kmAABB3_new", lua__kmAABB3_new},
+		{"kmMat3New", lua__kmMat3New},
+		{"kmMat3NewWithArray", lua__kmMat3NewWithArray},
+		{"kmRay2New", lua__kmRay2New},
+		{"kmRay3New", lua__kmRay3New},
+		{"kmQuaternionNew", lua__kmQuaternionNew},
+		{"kmMat4New", lua__kmMat4New},
+		{"kmMat4NewWithArray", lua__kmMat4NewWithArray},
+		{"kmAABB2New", lua__kmAABB2New},
+		{"kmPlaneNew", lua__kmPlaneNew},
+		{"kmVec2New", lua__kmVec2New},
+		{"kmVec2NewWithTbl", lua__kmVec2NewWithTbl},
+		{"kmVec3New", lua__kmVec3New},
+		{"kmVec3NewWithTbl", lua__kmVec3NewWithTbl},
+		{"kmVec4New", lua__kmVec4New},
+		{"kmVec4NewWithTbl", lua__kmVec4NewWithTbl},
+		{"kmAABB3New", lua__kmAABB3New},
 
 		/* AABB2 */
 		{"kmAABB2Assign", lua__kmAABB2Assign},
