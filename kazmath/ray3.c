@@ -22,6 +22,8 @@ kmRay3* kmRay3FromPointAndDirection(kmRay3* ray, const kmVec3* point, const kmVe
 kmBool kmRay3IntersectPlane(kmVec3* pOut, const kmRay3* ray, const kmPlane* plane) {
     /*t = - (A*org.x + B*org.y + C*org.z + D) / (A*dir.x + B*dir.y + C*dir.z )*/
 
+    kmVec3 scaled_dir;
+    kmScalar t;
     kmScalar d = (plane->a * ray->dir.x +
                   plane->b * ray->dir.y +
                   plane->c * ray->dir.z);
@@ -31,7 +33,7 @@ kmBool kmRay3IntersectPlane(kmVec3* pOut, const kmRay3* ray, const kmPlane* plan
       return KM_FALSE;
     }
 
-    kmScalar t = -(plane->a * ray->start.x +
+    t = -(plane->a * ray->start.x +
                    plane->b * ray->start.y +
                    plane->c * ray->start.z + plane->d) / d;
 
@@ -40,7 +42,6 @@ kmBool kmRay3IntersectPlane(kmVec3* pOut, const kmRay3* ray, const kmPlane* plan
       return KM_FALSE;
     }
 
-    kmVec3 scaled_dir;
     kmVec3Scale(&scaled_dir, &ray->dir, t);
     kmVec3Add(pOut, &ray->start, &scaled_dir);
     return KM_TRUE;
@@ -59,7 +60,7 @@ kmBool kmRay3IntersectTriangle(const kmRay3* ray, const kmVec3* v0, const kmVec3
     kmVec3Cross(&pvec, &dir, &e2);
     det = kmVec3Dot(&e1, &pvec);
 
-    // Backfacing, discard.
+    /* Backfacing, discard. */
     if(det < kmEpsilon) {
         return KM_FALSE;
     }
@@ -85,10 +86,10 @@ kmBool kmRay3IntersectTriangle(const kmRay3* ray, const kmVec3* v0, const kmVec3
 
     t = inv_det * kmVec3Dot(&e2, &qvec);
     if(t > kmEpsilon && (t*t) <= kmVec3LengthSq(&ray->dir)) {
-        *distance = t; // Distance
-        kmVec3Cross(normal, &e1, &e2); //Surface normal of collision
-        kmVec3Normalize(normal, normal);
         kmVec3 scaled;
+        *distance = t; /* Distance */
+        kmVec3Cross(normal, &e1, &e2); /* Surface normal of collision */
+        kmVec3Normalize(normal, normal);
         kmVec3Normalize(&scaled, &dir);
         kmVec3Scale(&scaled, &scaled, *distance);
         kmVec3Add(intersection, &ray->start, &scaled);

@@ -89,12 +89,13 @@ kmVec3* kmVec3Lerp(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2, kmScalar 
   */
 kmVec3* kmVec3Normalize(kmVec3* pOut, const kmVec3* pIn)
 {
+	kmVec3 v;
+        kmScalar l;
         if (!pIn->x && !pIn->y && !pIn->z)
                 return kmVec3Assign(pOut, pIn);
 
-        kmScalar l = 1.0f / kmVec3Length(pIn);
+        l = 1.0f / kmVec3Length(pIn);
 
-	kmVec3 v;
 	v.x = pIn->x * l;
 	v.y = pIn->y * l;
 	v.z = pIn->z * l;
@@ -458,9 +459,18 @@ kmVec3* kmVec3Reflect(kmVec3* pOut, const kmVec3* pIn, const kmVec3* normal) {
  * NB does not return a value unlike normal
  */
 void kmVec3Swap(kmVec3* a, kmVec3* b) {
-  kmScalar x = a->x;	a->x = b->x;  b->x = x;
-  kmScalar y = a->y;	a->y = b->y;  b->y = y;
-  kmScalar z = a->z;	a->z = b->z;  b->z = z;
+	kmScalar x, y,z;
+	x = a->x;
+	a->x = b->x;
+	b->x = x;
+
+	y = a->y;
+	a->y = b->y;
+	b->y = y;
+
+	z = a->z;
+	a->z = b->z;
+	b->z = z;
 }
 
 

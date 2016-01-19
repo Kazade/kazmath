@@ -22,7 +22,7 @@
 #endif
 
 #define KAZMATH_CHECK_ARRAY_LEN(L, idx, rqlen) do {                                                        \
-	size_t len;                                                                                        \
+	size_t len = 0;                                                                                        \
 	int isarray = luac__is_array(L, idx);                                                              \
 	if (isarray) {                                                                                     \
 	        len = lua_objlen(L, idx);                                                                  \
@@ -583,7 +583,7 @@ static int lua__kmAABB3IntersectsAABB(lua_State *L)
 static int lua__kmMat4Fill(lua_State *L)
 {
 	const size_t rlen = sizeof(kmMat4)/sizeof(kmScalar);
-	kmScalar pMat[rlen];
+	kmScalar pMat[sizeof(kmMat4)/sizeof(kmScalar)];
 	kmMat4 * pOut = (kmMat4 *)KAZMATH_CHECK_KMMAT4(L, 1);
 
 	KAZMATH_CHECK_ARRAY_LEN(L, 2, rlen);
@@ -1147,7 +1147,7 @@ static int lua__kmMat3Determinant(lua_State *L)
 static int lua__kmMat3Fill(lua_State *L)
 {
 	const size_t rlen = sizeof(kmMat3)/sizeof(kmScalar);
-	kmScalar pMat[rlen];
+	kmScalar pMat[sizeof(kmMat3)/sizeof(kmScalar)];
 	kmMat3 * pOut = (kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
 	KAZMATH_CHECK_ARRAY_LEN(L, 2, rlen);
 	KAZMATH_FILL_ARRAY(L, 2, pMat, kmScalar, lua_tonumber);
@@ -2781,7 +2781,7 @@ static int lua__kmMat3New(lua_State *L)
 static int lua__kmMat3NewWithArray(lua_State *L)
 {
 	const size_t rlen = sizeof(kmMat3)/sizeof(kmScalar);
-	kmScalar pMat[rlen];
+	kmScalar pMat[sizeof(kmMat3)/sizeof(kmScalar)];
 	kmMat3 *p;
 	KAZMATH_CHECK_ARRAY_LEN(L, 1, rlen);
 	KAZMATH_FILL_ARRAY(L, 1, pMat, kmScalar, lua_tonumber);
@@ -2863,7 +2863,7 @@ static int lua__kmMat4New(lua_State *L)
 static int lua__kmMat4NewWithArray(lua_State *L)
 {
 	const size_t rlen = sizeof(kmMat4)/sizeof(kmScalar);
-	kmScalar pMat[rlen];
+	kmScalar pMat[sizeof(kmMat4)/sizeof(kmScalar)];
 	kmMat4 *p;
 	KAZMATH_CHECK_ARRAY_LEN(L, 1, rlen);
 	KAZMATH_FILL_ARRAY(L, 1, pMat, kmScalar, lua_tonumber);
