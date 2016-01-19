@@ -96,3 +96,5 @@ kazmath/aabb2.c
 kazmath/aabb2.h
 kazmath/aabb3.c
 kazmath/aabb3.h
+lua/lkazmath.c
+lua/CMakeLists.txt

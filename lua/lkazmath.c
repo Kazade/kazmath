@@ -23,12 +23,12 @@
 
 #define KAZMATH_CHECK_ARRAY_LEN(L, idx, rqlen) do {                                                        \
 	size_t len;                                                                                        \
-	int isarray = luac__is_array(L, 2);                                                                \
+	int isarray = luac__is_array(L, idx);                                                              \
 	if (isarray) {                                                                                     \
-	        len = lua_objlen(L, 2);                                                                    \
+	        len = lua_objlen(L, idx);                                                                  \
 	}                                                                                                  \
 	if (!isarray || len != rqlen) {                                                                    \
-	        return luaL_error(L, "#%d array(len=%d) required in %s", idx, rqlen, __FUNCTION__);        \
+	        return luaL_error(L, "#%d array(len=%d/%d) required in %s", idx, len, rqlen, __FUNCTION__);        \
 	}                                                                                                  \
 } while(0)
 
@@ -2074,18 +2074,6 @@ static int lua__kmMat4Transpose(lua_State *L)
 	return 0;
 }
 
-/**
- * void kmMat3ExtractRotationAxisAngleInDegrees(const kmMat3 * self, struct kmVec3 * axis, kmScalar * degrees)
- */
-static int lua__kmMat3ExtractRotationAxisAngleInDegrees(lua_State *L)
-{
-	kmScalar degrees = 0.0;
-	const kmMat3 * self = (const kmMat3 *)KAZMATH_CHECK_KMMAT3(L, 1);
-	struct kmVec3 * axis = (struct kmVec3 *)KAZMATH_CHECK_KMVEC3(L, 2);
-	kmMat3ExtractRotationAxisAngleInDegrees(self, axis, &degrees);
-	lua_pushnumber(L, degrees);
-	return 1;
-}
 
 /**
  * kmScalar kmLerp(kmScalar x, kmScalar y, kmScalar factor)
@@ -2783,7 +2771,7 @@ static int lua__kmQuaternionRotationAxisAngle(lua_State *L)
 
 static int lua__kmMat3_new(lua_State *L)
 {
-	kmMat3 *p = malloc(sizeof(*p));
+	kmMat3 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmMat3, p, KAZMATH_CLS_KMMAT3);
 	return 1;
 }
@@ -2793,9 +2781,9 @@ static int lua__kmMat3_new_with_array(lua_State *L)
 	const size_t rlen = sizeof(kmMat3)/sizeof(kmScalar);
 	kmScalar pMat[rlen];
 	kmMat3 *p;
-	KAZMATH_CHECK_ARRAY_LEN(L, 2, rlen);
-	KAZMATH_FILL_ARRAY(L, 2, pMat, kmScalar, lua_tonumber);
-	p = malloc(sizeof(*p));
+	KAZMATH_CHECK_ARRAY_LEN(L, 1, rlen);
+	KAZMATH_FILL_ARRAY(L, 1, pMat, kmScalar, lua_tonumber);
+	p = calloc(1, sizeof(*p));
 	kmMat3Fill(p, pMat);
 	KAZMATH_LUA_BIND_META(L, kmMat3, p, KAZMATH_CLS_KMMAT3);
 	return 1;
@@ -2817,7 +2805,7 @@ static int lua__kmMat3ToArray(lua_State *L)
 
 static int lua__kmRay2_new(lua_State *L)
 {
-	kmRay2 *p = malloc(sizeof(*p));
+	kmRay2 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmRay2, p, KAZMATH_CLS_KMRAY2);
 	return 1;
 }
@@ -2831,7 +2819,7 @@ static int lua__kmRay2_gc(lua_State *L)
 
 static int lua__kmRay3_new(lua_State *L)
 {
-	kmRay3 *p = malloc(sizeof(*p));
+	kmRay3 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmRay3, p, KAZMATH_CLS_KMRAY3);
 	return 1;
 }
@@ -2848,7 +2836,7 @@ static int lua__kmRay3_gc(lua_State *L)
 
 static int lua__kmQuaternion_new(lua_State *L)
 {
-	kmQuaternion *p = malloc(sizeof(*p));
+	kmQuaternion *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmQuaternion, p, KAZMATH_CLS_KMQUATERNION);
 	return 1;
 }
@@ -2865,7 +2853,7 @@ static int lua__kmQuaternion_gc(lua_State *L)
 
 static int lua__kmMat4_new(lua_State *L)
 {
-	kmMat4 *p = malloc(sizeof(*p));
+	kmMat4 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmMat4, p, KAZMATH_CLS_KMMAT4);
 	return 1;
 }
@@ -2877,7 +2865,7 @@ static int lua__kmMat4_new_with_array(lua_State *L)
 	kmMat4 *p;
 	KAZMATH_CHECK_ARRAY_LEN(L, 1, rlen);
 	KAZMATH_FILL_ARRAY(L, 1, pMat, kmScalar, lua_tonumber);
-	p = malloc(sizeof(*p));
+	p = calloc(1, sizeof(*p));
 	kmMat4Fill(p, pMat);
 	KAZMATH_LUA_BIND_META(L, kmMat4, p, KAZMATH_CLS_KMMAT4);
 	return 1;
@@ -2899,7 +2887,7 @@ static int lua__kmMat4ToArray(lua_State *L)
 
 static int lua__kmAABB2_new(lua_State *L)
 {
-	kmAABB2 *p = malloc(sizeof(*p));
+	kmAABB2 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmAABB2, p, KAZMATH_CLS_KMAABB2);
 	return 1;
 }
@@ -2913,7 +2901,7 @@ static int lua__kmAABB2_gc(lua_State *L)
 
 static int lua__kmPlane_new(lua_State *L)
 {
-	kmPlane *p = malloc(sizeof(*p));
+	kmPlane *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmPlane, p, KAZMATH_CLS_KMPLANE);
 	return 1;
 }
@@ -2928,7 +2916,7 @@ static int lua__kmPlane_gc(lua_State *L)
 
 static int lua__kmVec2_new(lua_State *L)
 {
-	kmVec2 *p = malloc(sizeof(*p));
+	kmVec2 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmVec2, p, KAZMATH_CLS_KMVEC2);
 	return 1;
 }
@@ -2945,7 +2933,7 @@ static int lua__kmVec2_new_with_tbl(lua_State *L)
 		lua_getfield(L, 1, "y");
 		y = luaL_checknumber(L, -1);
 	} while (0);
-	p = malloc(sizeof(*p));
+	p = calloc(1, sizeof(*p));
 	kmVec2Fill(p, x, y);
 	KAZMATH_LUA_BIND_META(L, kmVec2, p, KAZMATH_CLS_KMVEC2);
 	return 1;
@@ -2978,7 +2966,7 @@ static int lua__kmVec2ToTbl(lua_State *L)
 
 static int lua__kmVec3_new(lua_State *L)
 {
-	kmVec3 *p = malloc(sizeof(*p));
+	kmVec3 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmVec3, p, KAZMATH_CLS_KMVEC3);
 	return 1;
 }
@@ -2998,7 +2986,7 @@ static int lua__kmVec3_new_with_tbl(lua_State *L)
 		lua_getfield(L, 1, "z");
 		z = luaL_checknumber(L, -1);
 	} while (0);
-	p = malloc(sizeof(*p));
+	p = calloc(1, sizeof(*p));
 	kmVec3Fill(p, x, y, z);
 	KAZMATH_LUA_BIND_META(L, kmVec3, p, KAZMATH_CLS_KMVEC3);
 	return 1;
@@ -3033,7 +3021,7 @@ static int lua__kmVec3ToTbl(lua_State *L)
 
 static int lua__kmVec4_new(lua_State *L)
 {
-	kmVec4 *p = malloc(sizeof(*p));
+	kmVec4 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmVec4, p, KAZMATH_CLS_KMVEC4);
 	return 1;
 }
@@ -3056,7 +3044,7 @@ static int lua__kmVec4_new_with_tbl(lua_State *L)
 		lua_getfield(L, 1, "w");
 		w = luaL_checknumber(L, -1);
 	} while (0);
-	p = malloc(sizeof(*p));
+	p = calloc(1, sizeof(*p));
 	kmVec4Fill(p, x, y, z, w);
 	KAZMATH_LUA_BIND_META(L, kmVec4, p, KAZMATH_CLS_KMVEC4);
 	return 1;
@@ -3094,7 +3082,7 @@ static int lua__kmVec4ToTbl(lua_State *L)
 
 static int lua__kmAABB3_new(lua_State *L)
 {
-	kmAABB3 *p = malloc(sizeof(*p));
+	kmAABB3 *p = calloc(1, sizeof(*p));
 	KAZMATH_LUA_BIND_META(L, kmAABB3, p, KAZMATH_CLS_KMAABB3);
 	return 1;
 }
@@ -3116,7 +3104,6 @@ static int opencls__kmMat3(lua_State *L)
 		{"ExtractForwardVec3", lua__kmMat3ExtractForwardVec3},
 		{"ExtractRightVec3", lua__kmMat3ExtractRightVec3},
 		{"ExtractRotationAxisAngle", lua__kmMat3ExtractRotationAxisAngle},
-		{"ExtractRotationAxisAngleInDegrees", lua__kmMat3ExtractRotationAxisAngleInDegrees},
 		{"ExtractUpVec3", lua__kmMat3ExtractUpVec3},
 		{"Fill", lua__kmMat3Fill},
 		{"FromRotationAxisAngle", lua__kmMat3FromRotationAxisAngle},
@@ -3482,7 +3469,7 @@ static int opencls__kmAABB3(lua_State *L)
 	return 1;
 }
 
-int luaopen_kazmath(lua_State *L)
+int luaopen_lkazmath(lua_State *L)
 {
 	luaL_Reg lfuncs[] = {
 		/* Utility */
@@ -3551,7 +3538,6 @@ int luaopen_kazmath(lua_State *L)
 		{"kmMat3ExtractForwardVec3", lua__kmMat3ExtractForwardVec3},
 		{"kmMat3ExtractRightVec3", lua__kmMat3ExtractRightVec3},
 		{"kmMat3ExtractRotationAxisAngle", lua__kmMat3ExtractRotationAxisAngle},
-		{"kmMat3ExtractRotationAxisAngleInDegrees", lua__kmMat3ExtractRotationAxisAngleInDegrees},
 		{"kmMat3ExtractUpVec3", lua__kmMat3ExtractUpVec3},
 		{"kmMat3Fill", lua__kmMat3Fill},
 		{"kmMat3FromRotationAxisAngle", lua__kmMat3FromRotationAxisAngle},
