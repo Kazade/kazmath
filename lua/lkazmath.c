@@ -1,10 +1,35 @@
+/**
+ * The MIT License (MIT)
+ * 
+ * Copyright (c) 2016 Roc<RocAltair@gmail.com>
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ */
+
 #include <lua.h>
 #include <lauxlib.h>
 #include <stdint.h>
 #include <stdlib.h>
 
-#include <utility.h>
 #include <kazmath.h>
+#include <utility.h>
 #include <aabb2.h>
 #include <aabb3.h>
 #include <mat3.h>
@@ -21,15 +46,16 @@
 #  define luaL_newlib(L,l) (lua_newtable(L), luaL_register(L,NULL,l))
 #endif
 
-#define KAZMATH_CHECK_ARRAY_LEN(L, idx, rqlen) do {                                                        \
-	size_t len = 0;                                                                                        \
-	int isarray = luac__is_array(L, idx);                                                              \
-	if (isarray) {                                                                                     \
-	        len = lua_objlen(L, idx);                                                                  \
-	}                                                                                                  \
-	if (!isarray || len != rqlen) {                                                                    \
-	        return luaL_error(L, "#%d array(len=%d/%d) required in %s", idx, len, rqlen, __FUNCTION__);        \
-	}                                                                                                  \
+#define KAZMATH_CHECK_ARRAY_LEN(L, idx, rqlen) do {                                \
+	size_t len = 0;                                                            \
+	int isarray = luac__is_array(L, idx);                                      \
+	if (isarray) {                                                             \
+	        len = lua_objlen(L, idx);                                          \
+	}                                                                          \
+	if (!isarray || len != rqlen) {                                            \
+	        return luaL_error(L, "#%d array(len=%d/%d) required in %s",        \
+	                          idx, len, rqlen, __FUNCTION__);                  \
+	}                                                                          \
 } while(0)
 
 #define KAZMATH_FILL_ARRAY(L, arridx, array, type, tofunc) do {     \
@@ -41,6 +67,11 @@
 	        lua_pop(L, 1);                                      \
 	}                                                           \
 } while(0)
+
+#define KAZMATH_LUA_SETMACRO(L, index, name, var)        \
+	(lua_pushstring(L, name),                        \
+	lua_pushinteger(L, var),                         \
+	lua_settable(L, index >= 0 ? index : index - 2))
 
 #define KAZMATH_LUA_BIND_META(L, type_t, ptr, mname) do {           \
 	type_t **my__p = lua_newuserdata(L, sizeof(void *));        \
@@ -3756,5 +3787,27 @@ int luaopen_lkazmath(lua_State *L)
 	opencls__kmVec4(L);
 	opencls__kmAABB3(L);
 	luaL_newlib(L, lfuncs);
+
+	do {
+		/* see kmAABB2ContainsAABB, kmAABB3ContainsAABB */
+		KAZMATH_LUA_SETMACRO(L, -1, "KM_CONTAINS_NONE", KM_CONTAINS_NONE);
+		KAZMATH_LUA_SETMACRO(L, -1, "KM_CONTAINS_PARTIAL", KM_CONTAINS_PARTIAL);
+		KAZMATH_LUA_SETMACRO(L, -1, "KM_CONTAINS_ALL", KM_CONTAINS_ALL);
+
+		/* see kmMat4ExtractPlane, param plane */
+		KAZMATH_LUA_SETMACRO(L, -1, "KM_PLANE_LEFT", KM_PLANE_LEFT);
+		KAZMATH_LUA_SETMACRO(L, -1, "KM_PLANE_RIGHT", KM_PLANE_RIGHT);
+		KAZMATH_LUA_SETMACRO(L, -1, "KM_PLANE_BOTTOM", KM_PLANE_BOTTOM);
+		KAZMATH_LUA_SETMACRO(L, -1, "KM_PLANE_TOP", KM_PLANE_TOP);
+		KAZMATH_LUA_SETMACRO(L, -1, "KM_PLANE_NEAR", KM_PLANE_NEAR);
+		KAZMATH_LUA_SETMACRO(L, -1, "KM_PLANE_FAR", KM_PLANE_FAR);
+
+		/* see kmPlaneClassifyPoint */
+		KAZMATH_LUA_SETMACRO(L, -1, "POINT_BEHIND_PLANE", POINT_BEHIND_PLANE);
+		KAZMATH_LUA_SETMACRO(L, -1, "POINT_ON_PLANE", POINT_ON_PLANE);
+		KAZMATH_LUA_SETMACRO(L, -1, "POINT_INFRONT_OF_PLANE", POINT_INFRONT_OF_PLANE);
+
+	} while (0);
+
 	return 1;
 }
