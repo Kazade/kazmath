@@ -403,9 +403,15 @@ kmVec3* kmVec3RotationToDirection(kmVec3* pOut, const kmVec3* pIn, const kmVec3*
    const kmScalar xr = kmDegreesToRadians(pIn->x);
    const kmScalar yr = kmDegreesToRadians(pIn->y);
    const kmScalar zr = kmDegreesToRadians(pIn->z);
-   const kmScalar cr = cos(xr), sr = sin(xr);
-   const kmScalar cp = cos(yr), sp = sin(yr);
-   const kmScalar cy = cos(zr), sy = sin(zr);
+
+   const kmScalar cr = cos(xr);
+   const kmScalar sr = sin(xr);
+
+   const kmScalar cp = cos(yr);
+   const kmScalar sp = sin(yr);
+
+   const kmScalar cy = cos(zr);
+   const kmScalar sy = sin(zr);
 
    const kmScalar srsp = sr*sp;
    const kmScalar crsp = cr*sp;
