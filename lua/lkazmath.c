@@ -82,9 +82,9 @@
 } while(0)
 
 
-#define KAZMATH_EXTEND_NEW_NUMBER_FIELD(fname)        \
-	if (strcmp(fieldname, #fname) == 0) {         \
-	        ptr->fname = value;                   \
+#define KAZMATH_EXTEND_NEW_NUMBER_FIELD(fname, rfname)        \
+	if (strcmp(fieldname, #fname) == 0) {                 \
+	        ptr->rfname = value;                          \
 	}
 
 #define KAZMATH_LUA_NEWINDEX_FILED(L, FIELD_MAP, ptr)                 \
@@ -122,9 +122,9 @@
 	lua_settop(L, top);                                                             \
 } while(0);
 
-#define KAZMATH_EXTEND_NUMBER_FIELD(fname)                                    \
+#define KAZMATH_EXTEND_NUMBER_FIELD(fname, rfname)                    \
 	if (strcmp(fieldname, #fname) == 0) {                         \
-	        lua_pushnumber(L, (lua_Number)((ptr)->fname));        \
+	        lua_pushnumber(L, (lua_Number)((ptr)->rfname));       \
 	        return 1;                                             \
 	}
 
@@ -133,7 +133,7 @@
 	if (type == LUA_TSTRING) {                                        \
 	        size_t sz;                                                \
 	        const char * fieldname = lua_tolstring(L, 2, &sz);        \
-	        FIELD_MAP(KAZMATH_EXTEND_NUMBER_FIELD);                           \
+	        FIELD_MAP(KAZMATH_EXTEND_NUMBER_FIELD);                   \
 	}                                                                 \
 } while(0);
 	
@@ -173,11 +173,19 @@
 #define KAZMATH_CHECK_KMVEC4(L, idx) (*(kmVec4 **) luaL_checkudata(L, idx, KAZMATH_CLS_KMVEC4))
 #define KAZMATH_CHECK_KMAABB3(L, idx) (*(kmAABB3 **) luaL_checkudata(L, idx, KAZMATH_CLS_KMAABB3))
 
-#define KAZMATH_KMVEC2_FIELD_MAP(XX) XX(x) XX(y)
-#define KAZMATH_KMVEC3_FIELD_MAP(XX) XX(x) XX(y) XX(z)
-#define KAZMATH_KMVEC4_FIELD_MAP(XX) XX(x) XX(y) XX(z) XX(w)
-#define KAZMATH_KMQUATERNION_FIELD_MAP(XX) XX(x) XX(y) XX(z) XX(w)
-#define KAZMATH_KMPLANE_FIELD_MAP(XX) XX(a) XX(b) XX(c) XX(d)
+#define KAZMATH_KMVEC2_FIELD_MAP(XX) XX(x, x) XX(y, y)
+#define KAZMATH_KMVEC3_FIELD_MAP(XX) XX(x, x) XX(y, y) XX(z, z)
+#define KAZMATH_KMVEC4_FIELD_MAP(XX) XX(x, x) XX(y, y) XX(z, z) XX(w, w)
+#define KAZMATH_KMQUATERNION_FIELD_MAP(XX) XX(x, x) XX(y, y) XX(z, z) XX(w, w)
+#define KAZMATH_KMPLANE_FIELD_MAP(XX) XX(a, a) XX(b, b) XX(c, c) XX(d, d)
+
+#define KAZMATH_KMRAY2_FIELD_MAP(XX)           \
+	XX(px, start.x) XX(py, start.y)        \
+	XX(vx, dir.x) XX(vy, dir.y)
+
+#define KAZMATH_KMRAY3_FIELD_MAP(XX)                           \
+	XX(px, start.x) XX(py, start.y) XX(pz, start.z)        \
+	XX(vx, dir.x) XX(vy, dir.y) XX(vy, dir.z)
 
 #define VEC2_TO_ARRAY(L, vec) do {       \
 	lua_newtable(L);                 \
@@ -2925,6 +2933,21 @@ static int lua__kmRay2_gc(lua_State *L)
 	return 0;
 }
 
+static int lua__kmRay2_newindex(lua_State *L)
+{
+	kmRay2 *ptr = KAZMATH_CHECK_KMRAY2(L, 1);
+	KAZMATH_LUA_NEWINDEX_FILED(L, KAZMATH_KMRAY2_FIELD_MAP, ptr);
+	return 0;
+}
+
+static int lua__kmRay2_index(lua_State *L)
+{
+	kmRay2 *ptr = KAZMATH_CHECK_KMRAY2(L, 1);
+	KAZMATH_LUA_INDEX_METHOD(L, KAZMATH_CLS_KMRAY2);
+	KAZMATH_LUA_INDEX_FIELD(L, KAZMATH_KMRAY2_FIELD_MAP, ptr);
+	return 0;
+}
+
 static int lua__kmRay3New(lua_State *L)
 {
 	kmRay3 *p = calloc(1, sizeof(*p));
@@ -2939,7 +2962,21 @@ static int lua__kmRay3_gc(lua_State *L)
 	free(p);
 	return 0;
 }
-	
+
+static int lua__kmRay3_newindex(lua_State *L)
+{
+	kmRay3 *ptr = KAZMATH_CHECK_KMRAY3(L, 1);
+	KAZMATH_LUA_NEWINDEX_FILED(L, KAZMATH_KMRAY3_FIELD_MAP, ptr);
+	return 0;
+}
+
+static int lua__kmRay3_index(lua_State *L)
+{
+	kmRay3 *ptr = KAZMATH_CHECK_KMRAY3(L, 1);
+	KAZMATH_LUA_INDEX_METHOD(L, KAZMATH_CLS_KMRAY3);
+	KAZMATH_LUA_INDEX_FIELD(L, KAZMATH_KMRAY3_FIELD_MAP, ptr);
+	return 0;
+}
 
 
 static int lua__kmQuaternionNew(lua_State *L)
@@ -3260,7 +3297,6 @@ static int lua__kmVec4ToTbl(lua_State *L)
 	return 1;
 }
 
-
 static int lua__kmAABB3New(lua_State *L)
 {
 	kmAABB3 *p = calloc(1, sizeof(*p));
@@ -3332,7 +3368,11 @@ static int opencls__kmRay2(lua_State *L)
 	luaL_newmetatable(L, KAZMATH_CLS_KMRAY2);
 	lua_newtable(L);
 	luaL_register(L, NULL, lmethods);
+	lua_setfield(L, -2, "__method");
+	lua_pushcfunction(L, lua__kmRay2_index);
 	lua_setfield(L, -2, "__index");
+	lua_pushcfunction(L, lua__kmRay2_newindex);
+	lua_setfield(L, -2, "__newindex");
 	lua_pushcfunction(L, lua__kmRay2_gc);
 	lua_setfield(L, -2, "__gc");
 	return 1;
@@ -3351,12 +3391,15 @@ static int opencls__kmRay3(lua_State *L)
 	luaL_newmetatable(L, KAZMATH_CLS_KMRAY3);
 	lua_newtable(L);
 	luaL_register(L, NULL, lmethods);
+	lua_setfield(L, -2, "__method");
+	lua_pushcfunction(L, lua__kmRay3_index);
 	lua_setfield(L, -2, "__index");
+	lua_pushcfunction(L, lua__kmRay3_newindex);
+	lua_setfield(L, -2, "__newindex");
 	lua_pushcfunction(L, lua__kmRay3_gc);
 	lua_setfield(L, -2, "__gc");
 	return 1;
 }
-
 
 static int opencls__kmQuaternion(lua_State *L)
 {
