@@ -185,7 +185,7 @@
 
 #define KAZMATH_KMRAY3_FIELD_MAP(XX)                           \
 	XX(px, start.x) XX(py, start.y) XX(pz, start.z)        \
-	XX(vx, dir.x) XX(vy, dir.y) XX(vy, dir.z)
+	XX(vx, dir.x) XX(vy, dir.y) XX(vz, dir.z)
 
 #define VEC2_TO_ARRAY(L, vec) do {       \
 	lua_newtable(L);                 \
