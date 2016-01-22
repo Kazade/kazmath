@@ -18,6 +18,21 @@ assert(tbl.z == 3)
 
 ```
 
+## Get or Set Fields As a Table
+
+Implemented for kmVec*, kmRay*, kmPlane, kmQuaternion
+
+for exmaple
+```
+local vec2 = lkazmath.kmVec2New()
+vec2.x = 5
+assert(vec2.x == 5)
+
+local ray2 = lkazmath.kmRay2New()
+ray2.px = 2
+assert(ray2.px == 2)
+```
+
 ## Method for OOP Style
 any function for a object starts with <ObjectTypeName>
 has been bind onto the userdata
