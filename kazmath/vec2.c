@@ -143,12 +143,13 @@ kmVec2* kmVec2Scale(kmVec2* pOut, const kmVec2* pIn, const kmScalar s)
 	return pOut;
 }
 
-int kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2)
+kmBool kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2)
 {
-	return (
-				(p1->x < p2->x + kmEpsilon && p1->x > p2->x - kmEpsilon) &&
-				(p1->y < p2->y + kmEpsilon && p1->y > p2->y - kmEpsilon)
-			);
+    if((!kmAlmostEqual(p1->x, p2->x)) || (!kmAlmostEqual(p1->y, p2->y))) {
+        return KM_FALSE;
+    }
+
+    return KM_TRUE;
 }
 
 /**
