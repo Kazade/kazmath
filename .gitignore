@@ -2,3 +2,4 @@
 *.orig
 *.o
 build
+tests/main.cpp
