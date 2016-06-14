@@ -464,7 +464,7 @@ kmMat4* kmMat4RotationYawPitchRoll(kmMat4* pOut, const kmScalar pitch, const kmS
  * the result is stored in pOut, returns pOut
  */
 kmMat4* kmMat4RotationQuaternion(kmMat4* pOut, const kmQuaternion* pQ)
-{    
+{
     double xx = pQ->x * pQ->x;
     double xy = pQ->x * pQ->y;
     double xz = pQ->x * pQ->z;
@@ -648,22 +648,22 @@ kmMat4* kmMat4LookAt(kmMat4* pOut, const kmVec3* pEye,
 
     pOut->mat[0] = s.x;
     pOut->mat[1] = u.x;
-    pOut->mat[2] = f.x;
+    pOut->mat[2] = -f.x;
     pOut->mat[3] = 0.0;
 
     pOut->mat[4] = s.y;
     pOut->mat[5] = u.y;
-    pOut->mat[6] = f.y;
+    pOut->mat[6] = -f.y;
     pOut->mat[7] = 0.0;
 
     pOut->mat[8] = s.z;
     pOut->mat[9] = u.z;
-    pOut->mat[10] = f.z;
+    pOut->mat[10] = -f.z;
     pOut->mat[11] = 0.0;
 
     pOut->mat[12] = -kmVec3Dot(&s, pEye);
     pOut->mat[13] = -kmVec3Dot(&u, pEye);
-    pOut->mat[14] = -kmVec3Dot(&f, pEye);
+    pOut->mat[14] = kmVec3Dot(&f, pEye);
     pOut->mat[15] = 1.0;
 
     return pOut;

@@ -400,37 +400,33 @@ kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut,
 }
 
 /**< Get the axis and angle of rotation from a quaternion*/
-void kmQuaternionToAxisAngle(const kmQuaternion* pIn,
-								kmVec3* pAxis,
-								kmScalar* pAngle)
+void kmQuaternionToAxisAngle(const kmQuaternion* pIn, kmVec3* pAxis, kmScalar* pAngle)
 {
 	kmScalar	scale;			/* temp vars*/
-    kmQuaternion tmp;
+	kmQuaternion tmp;
 
-    if(pIn->w > 1.0) {
-        kmQuaternionNormalize(&tmp, pIn);
-    } else {
-        kmQuaternionAssign(&tmp, pIn);
-    }
+	if(pIn->w > 1.0) {
+		kmQuaternionNormalize(&tmp, pIn);
+	} else {
+		kmQuaternionAssign(&tmp, pIn);
+	}
 
-    *pAngle = 2.0 * acosf(tmp.w);
-    scale = sqrtf(1.0 - kmSQR(tmp.w));
+	*pAngle = 2.0 * acosf(tmp.w);
+	scale = sqrtf(1.0 - kmSQR(tmp.w));
 
-    if (scale < kmEpsilon) {	/* angle is 0 or 360 so just simply set axis to 0,0,1 with angle 0*/
+	if (scale < kmEpsilon) {	/* angle is 0 or 360 so just simply set axis to 0,0,1 with angle 0*/
 		pAxis->x = 0.0f;
 		pAxis->y = 0.0f;
 		pAxis->z = 1.0f;
-    } else {
-        pAxis->x = tmp.x / scale;
-        pAxis->y = tmp.y / scale;
-        pAxis->z = tmp.z / scale;
+	} else {
+		pAxis->x = tmp.x / scale;
+		pAxis->y = tmp.y / scale;
+		pAxis->z = tmp.z / scale;
 		kmVec3Normalize(pAxis, pAxis);
 	}
 }
 
-kmQuaternion* kmQuaternionScale(kmQuaternion* pOut,
-										const kmQuaternion* pIn,
-										kmScalar s)
+kmQuaternion* kmQuaternionScale(kmQuaternion* pOut, const kmQuaternion* pIn, kmScalar s)
 {
 	pOut->x = pIn->x * s;
 	pOut->y = pIn->y * s;
@@ -592,24 +588,15 @@ kmScalar kmQuaternionGetRoll(const kmQuaternion* q) {
 }
 
 kmQuaternion* kmQuaternionLookRotation(kmQuaternion* pOut, const kmVec3* direction, const kmVec3* upDirection) {
-    kmScalar rot_angle;
-    kmVec3 rot_axis;
-    float dot = kmVec3Dot(&KM_VEC3_NEG_Z, direction);
+    kmMat4 lookAt;
+    kmMat3 rot;
+    kmMat4LookAt(&lookAt, &KM_VEC3_ZERO, direction, upDirection);
 
-    if(fabs(dot - (-1.0f)) < kmEpsilon) {
-        kmQuaternionRotationAxisAngle(pOut, upDirection, kmDegreesToRadians(180));
-        return pOut;
-    }
+    kmMat4ExtractRotationMat3(&lookAt, &rot);
 
-    if(fabs(dot - 1.0f) < kmEpsilon) {
-        kmQuaternionIdentity(pOut);
-        return pOut;
-    }
-
-    rot_angle = (kmScalar) acosf(dot);
-    kmVec3Cross(&rot_axis, &KM_VEC3_NEG_Z, direction);
-    kmVec3Normalize(&rot_axis, &rot_axis);
-    return kmQuaternionRotationAxisAngle(pOut, &rot_axis, rot_angle);
+    kmQuaternionRotationMatrix(pOut, &rot);
+    kmQuaternionNormalize(pOut, pOut);
+    return pOut;
 }
 
 kmQuaternion* kmQuaternionExtractRotationAroundAxis(const kmQuaternion* pIn, const kmVec3* axis, kmQuaternion* pOut) {
@@ -637,10 +624,17 @@ kmQuaternion* kmQuaternionExtractRotationAroundAxis(const kmQuaternion* pIn, con
  */
 kmQuaternion* kmQuaternionBetweenVec3(kmQuaternion* pOut, const kmVec3* u, const kmVec3* v) {
     kmVec3 w;
+    kmScalar len;
     kmQuaternion q;
+
+    if(kmVec3AreEqual(u, v)) {
+        kmQuaternionIdentity(pOut);
+        return pOut;
+    }
+
+    len = sqrtf(kmVec3LengthSq(u) * kmVec3LengthSq(v));
     kmVec3Cross(&w, u, v);
 
-    kmQuaternionFill(&q, kmVec3Dot(u, v), w.x, w.y, w.z);
-    q.w += kmQuaternionLength(&q);
+    kmQuaternionFill(&q, w.x, w.y, w.z, kmVec3Dot(u, v) + len);
     return kmQuaternionNormalize(pOut, &q);
 }

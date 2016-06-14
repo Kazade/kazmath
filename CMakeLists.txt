@@ -9,7 +9,7 @@ option(KAZMATH_BUILD_LUA_WRAPPER "Build Lua wrapper" ON)
 
 IF (KAZMATH_BUILD_TESTS)
     ENABLE_TESTING()
-    FIND_PACKAGE(PkgConfig REQUIRED)
+    FIND_PACKAGE(PythonLibs REQUIRED)
 ENDIF (KAZMATH_BUILD_TESTS)
 
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c89 -Werror=declaration-after-statement")
