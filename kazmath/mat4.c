@@ -445,12 +445,13 @@ kmMat4* kmMat4RotationYawPitchRoll(kmMat4* pOut, const kmScalar pitch, const kmS
 {
 
     kmMat4 yaw_matrix;
+    kmMat4 roll_matrix;
+    kmMat4 pitch_matrix;
+
     kmMat4RotationY(&yaw_matrix, yaw);
 
-    kmMat4 pitch_matrix;
     kmMat4RotationX(&pitch_matrix, pitch);
 
-    kmMat4 roll_matrix;
     kmMat4RotationZ(&roll_matrix, roll);
 
     kmMat4Multiply(pOut, &pitch_matrix, &roll_matrix);
@@ -585,7 +586,7 @@ kmMat4* kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY,
 	kmScalar r = kmDegreesToRadians(fovY / 2);
 	kmScalar deltaZ = zFar - zNear;
 	kmScalar s = sin(r);
-    kmScalar cotangent = 0;
+	kmScalar cotangent = 0;
 
 	if (deltaZ == 0 || s == 0 || aspect == 0) {
 		return NULL;
@@ -634,14 +635,15 @@ kmMat4* kmMat4LookAt(kmMat4* pOut, const kmVec3* pEye,
                      const kmVec3* pCenter, const kmVec3* pUp)
 {
     kmVec3 f;
+    kmVec3 s;
+    kmVec3 u;
+
     kmVec3Subtract(&f, pCenter, pEye);
     kmVec3Normalize(&f, &f);
 
-    kmVec3 s;
     kmVec3Cross(&s, &f, pUp);
     kmVec3Normalize(&s, &s);
 
-    kmVec3 u;
     kmVec3Cross(&u, &s, &f);
 
     pOut->mat[0] = s.x;

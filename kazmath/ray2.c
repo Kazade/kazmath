@@ -21,8 +21,8 @@ void kmRay2FillWithEndpoints( kmRay2 *ray, const kmVec2 *start, const kmVec2 *en
     Lines are defined by a pt and a vector. It outputs the vector multiply factor
     that gives the intersection point 
 */
-kmBool kmLine2WithLineIntersection(const kmVec2 *ptA, const kmVec2 *vecA, // first line 
-                                   const kmVec2 *ptB, const kmVec2 *vecB, // seconf line
+kmBool kmLine2WithLineIntersection(const kmVec2 *ptA, const kmVec2 *vecA, /* first line */
+                                   const kmVec2 *ptB, const kmVec2 *vecB, /* seconf line */
                                    kmScalar *outTA, kmScalar *outTB,
                                    kmVec2 *outIntersection )
 {
@@ -36,17 +36,24 @@ kmBool kmLine2WithLineIntersection(const kmVec2 *ptA, const kmVec2 *vecA, // fir
     kmScalar y4 = y3 + vecB->y;
 
     kmScalar denom = (y4 -y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
+
+    kmScalar ua;
+    kmScalar ub;
+    
+    kmScalar x;
+    kmScalar y;
+
     
     /*If denom is zero, the lines are parallel*/
     if(denom > -kmEpsilon && denom < kmEpsilon) {
         return KM_FALSE;
     }
     
-    kmScalar ua = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denom;
-    kmScalar ub = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / denom;
+    ua = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denom;
+    ub = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / denom;
     
-    kmScalar x = x1 + ua * (x2 - x1);
-    kmScalar y = y1 + ua * (y2 - y1);
+    x = x1 + ua * (x2 - x1);
+    y = y1 + ua * (y2 - y1);
     
     if( outTA ){ 
         *outTA = ua;
@@ -117,16 +124,18 @@ void calculate_line_normal(kmVec2 p1, kmVec2 p2, kmVec2 other_point, kmVec2* nor
     */
     
     kmVec2 edge, other_edge;
+    kmScalar d;
+    kmVec2 n;
+
     kmVec2Subtract(&edge, &p2, &p1);
     kmVec2Subtract(&other_edge, &other_point, &p1);
     kmVec2Normalize(&edge, &edge);
     kmVec2Normalize(&other_edge, &other_edge);
     
-    kmVec2 n;
     n.x = edge.y;
     n.y = -edge.x;
     
-    kmScalar d = kmVec2Dot(&n, &other_edge);
+    d = kmVec2Dot(&n, &other_edge);
     if(d > 0.0f) {
         n.x = -n.x;
         n.y = -n.y;
@@ -212,12 +221,12 @@ kmVec2* intersection, kmVec2* normal_out) {
     kmScalar distance = 10000.0f;
     
     const kmVec2* points[4];
+    unsigned int i = 0;
     points[0] = p1;
     points[1] = p2;
     points[2] = p3; 
     points[3] = p4;
 
-    unsigned int i = 0;
     for(; i < 4; ++i) {
         const kmVec2* this_point = points[i];
         const kmVec2* next_point = (i == 3) ? points[0] : points[i+1];

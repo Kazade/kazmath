@@ -83,11 +83,12 @@ kmVec4* kmVec4Lerp(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2, kmScalar 
 
 /** Normalizes a 4D vector. The result is stored in pOut. pOut is returned*/
 kmVec4* kmVec4Normalize(kmVec4* pOut, const kmVec4* pIn) {
+	kmScalar l;
     if (!pIn->x && !pIn->y && !pIn->z && !pIn->w){
         return kmVec4Assign(pOut, pIn);
     }
 
-	kmScalar l = 1.0f / kmVec4Length(pIn);
+	l = 1.0f / kmVec4Length(pIn);
     pOut->x = pIn->x * l;
 	pOut->y = pIn->y * l;
 	pOut->z = pIn->z * l;
@@ -181,8 +182,9 @@ kmVec4* kmVec4Assign(kmVec4* pOut, const kmVec4* pIn) {
 }
 
 void kmVec4Swap(kmVec4* pA, kmVec4* pB) {
-  kmScalar x = pA->x;  pA->x = pB->x;  pB->x = x;
-  kmScalar y = pA->y;  pA->y = pB->y;  pB->y = y;
-  kmScalar z = pA->z;  pA->z = pB->z;  pB->z = z;
-  kmScalar w = pA->w;  pA->w = pB->w;  pB->w = w;
+	kmScalar x, y, z, w;
+  x = pA->x;  pA->x = pB->x;  pB->x = x;
+  y = pA->y;  pA->y = pB->y;  pB->y = y;
+  z = pA->z;  pA->z = pB->z;  pB->z = z;
+  w = pA->w;  pA->w = pB->w;  pB->w = w;
 }

@@ -31,10 +31,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     is used. Returns pBox.
 */
 kmAABB3* kmAABB3Initialize(kmAABB3* pBox, const kmVec3* centre, const kmScalar width, const kmScalar height, const kmScalar depth) {
+    kmVec3 origin;
+    kmVec3* point;
     if(!pBox) return 0;
     
-    kmVec3 origin;
-    kmVec3* point = centre ? (kmVec3*) centre : &origin;
+    point = centre ? (kmVec3*) centre : &origin;
     kmVec3Zero(&origin);
     
     pBox->min.x = point->x - (width / 2);
