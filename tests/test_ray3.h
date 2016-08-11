@@ -2,9 +2,30 @@
 
 #include "../kazmath/ray3.h"
 #include "../kazmath/plane.h"
+#include "../kazmath/aabb3.h"
 
 class TestRay3 : public TestCase {
 public:
+    void test_ray_aabb_intersection() {
+        kmAABB3 aabb;
+        kmAABB3Initialize(&aabb, &KM_VEC3_ZERO, 5, 5, 5);
+
+        kmRay3 ray;
+        kmVec3Fill(&ray.start, 0, 10, 0);
+        kmVec3Fill(&ray.dir, 0, -10, 0);
+
+        kmVec3 intersect;
+        float dist;
+
+        kmBool ret = kmRay3IntersectAABB3(&ray, &aabb, &intersect, &dist);
+
+        assert_true(ret);
+        assert_close(dist, 7.5, kmEpsilon);
+        assert_close(intersect.x, 0, kmEpsilon);
+        assert_close(intersect.y, 2.5, kmEpsilon);
+        assert_close(intersect.z, 0, kmEpsilon);
+    }
+
     void test_ray_plane_intersection() {
         kmPlane p;
         kmPlaneFromNormalAndDistance(&p, &KM_VEC3_NEG_Z, 0);

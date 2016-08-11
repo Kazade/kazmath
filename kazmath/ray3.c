@@ -1,5 +1,6 @@
 #include "plane.h"
 #include "ray3.h"
+#include "aabb3.h"
 
 kmRay3* kmRay3Fill(kmRay3* ray, kmScalar px, kmScalar py, kmScalar pz, kmScalar vx, kmScalar vy, kmScalar vz) {
     ray->start.x = px;
@@ -17,6 +18,40 @@ kmRay3* kmRay3FromPointAndDirection(kmRay3* ray, const kmVec3* point, const kmVe
     kmVec3Assign(&ray->start, point);
     kmVec3Assign(&ray->dir, direction);
     return ray;
+}
+
+kmBool kmRay3IntersectAABB3(const kmRay3* ray, const kmAABB3* aabb, kmVec3* intersection, kmScalar* distance) {
+    //http://gamedev.stackexchange.com/a/18459/15125
+    kmVec3 rdir, dirfrac, diff;
+    kmVec3Normalize(&rdir, &ray->dir);
+    kmVec3Fill(&dirfrac, 1.0 / rdir.x, 1.0 / rdir.y, 1.0 / rdir.z);
+
+    kmScalar t1 = (aabb->min.x - ray->start.x) * dirfrac.x;
+    kmScalar t2 = (aabb->max.x - ray->start.x) * dirfrac.x;
+    kmScalar t3 = (aabb->min.y - ray->start.y) * dirfrac.y;
+    kmScalar t4 = (aabb->max.y - ray->start.y) * dirfrac.y;
+    kmScalar t5 = (aabb->min.z - ray->start.z) * dirfrac.z;
+    kmScalar t6 = (aabb->max.z - ray->start.z) * dirfrac.z;
+
+    kmScalar tmin = kmMax(kmMax(kmMin(t1, t2), kmMin(t3, t4)), kmMin(t5, t6));
+    kmScalar tmax = kmMin(kmMin(kmMax(t1, t2), kmMax(t3, t4)), kmMax(t5, t6));
+
+    // if tmax < 0, ray (line) is intersecting AABB, but whole AABB is behind us
+    if(tmax < 0) {
+        return KM_FALSE;
+    }
+
+    // if tmin > tmax, ray doesn't intersect AABB
+    if (tmin > tmax) {
+        return KM_FALSE;
+    }
+
+    if(distance) *distance = tmin;
+    if(intersection) {
+        kmVec3Scale(&diff, &rdir, tmin);
+        kmVec3Add(intersection, &ray->start, &diff);
+    }
+    return KM_TRUE;
 }
 
 kmBool kmRay3IntersectPlane(kmVec3* pOut, const kmRay3* ray, const kmPlane* plane) {
