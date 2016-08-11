@@ -92,6 +92,7 @@ kmBool kmAABB3IntersectsAABB(const kmAABB3* box, const kmAABB3* other) {
 }
 
 kmEnum kmAABB3ContainsAABB(const kmAABB3* container, const kmAABB3* to_check) {
+    kmUchar i;
     kmVec3 corners[8];
     kmEnum result = KM_CONTAINS_ALL;
     kmBool found = KM_FALSE;
@@ -105,7 +106,7 @@ kmEnum kmAABB3ContainsAABB(const kmAABB3* container, const kmAABB3* to_check) {
     kmVec3Fill(&corners[6], to_check->max.x, to_check->max.y, to_check->max.z);
     kmVec3Fill(&corners[7], to_check->min.x, to_check->max.y, to_check->max.z);
         
-    for(kmUchar i = 0; i < 8; ++i) {
+    for(i = 0; i < 8; ++i) {
         if(!kmAABB3ContainsPoint(container, &corners[i])) {
             result = KM_CONTAINS_PARTIAL;
             if(found) {
