@@ -31,10 +31,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     is used. Returns pBox.
 */
 kmAABB2* kmAABB2Initialize( kmAABB2* pBox, const kmVec2* centre, const kmScalar width, const kmScalar height, const kmScalar depth) {
+    kmVec2 origin;
+    kmVec2 * point;
     if(!pBox) return 0;
     
-    kmVec2 origin;
-    kmVec2* point = centre ? (kmVec2*) centre : &origin;
+    point = centre ? (kmVec2*) centre : &origin;
     kmVec2Fill(&origin, .0f, .0f);
     
     pBox->min.x = point->x - (width / 2);
@@ -132,14 +133,17 @@ kmAABB2* kmAABB2ScaleWithPivot( kmAABB2* pOut, const kmAABB2* pIn, const kmVec2 
 
 kmEnum kmAABB2ContainsAABB(const kmAABB2* container, const kmAABB2* to_check) {
     kmVec2 corners[4];
+    int nContains;
     kmVec2Fill(&corners[0], to_check->min.x, to_check->min.y);
     kmVec2Fill(&corners[1], to_check->max.x, to_check->min.y);
     kmVec2Fill(&corners[2], to_check->max.x, to_check->max.y);
     kmVec2Fill(&corners[3], to_check->min.x, to_check->max.y);
     
-    // since KM_TRUE equals 1 , we can count the number of contained points
-    // by actually adding the results: 
-    int nContains = kmAABB2ContainsPoint( container, &corners[0] ) +
+    /*
+     * since KM_TRUE equals 1 , we can count the number of contained points
+     * by actually adding the results: 
+     */
+    nContains = kmAABB2ContainsPoint( container, &corners[0] ) +
                     kmAABB2ContainsPoint( container, &corners[1] ) +
                     kmAABB2ContainsPoint( container, &corners[2] ) +
                     kmAABB2ContainsPoint( container, &corners[3] );

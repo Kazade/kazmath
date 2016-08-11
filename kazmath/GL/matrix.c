@@ -84,12 +84,14 @@ km_mat4_stack_context *lookUpContext(void *contextRef)
 
 km_mat4_stack_context *registerContext(void *contextRef)
 {
+    km_mat4_stack_context *existingContext = NULL;
     lazyInitialize();
     
-    km_mat4_stack_context *existingContext = lookUpContext(contextRef);
+    existingContext = lookUpContext(contextRef);
     if (!existingContext) {
         km_mat4_stack_context_list *entry = contexts;
         km_mat4_stack_context_list *last = NULL;
+        km_mat4_stack_context_list *newEntry = NULL;
         
         pthread_mutex_lock(&contexts_mutex);
         if (entry) {
@@ -99,7 +101,7 @@ km_mat4_stack_context *registerContext(void *contextRef)
         }
         pthread_mutex_unlock(&contexts_mutex);
         
-        km_mat4_stack_context_list *newEntry = (km_mat4_stack_context_list *)malloc(sizeof(km_mat4_stack_context_list));
+        newEntry = (km_mat4_stack_context_list *)malloc(sizeof(km_mat4_stack_context_list));
         memset(newEntry, 0, sizeof(km_mat4_stack_context_list));
         newEntry->context.contextRef = contextRef;
         newEntry->context.entry = newEntry;
