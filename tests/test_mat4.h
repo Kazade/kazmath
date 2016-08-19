@@ -58,13 +58,6 @@ public:
         kmMat4RotationQuaternion(&tmp, &quat);
 
         assert_true(kmMat4AreEqual(&tmp, &mat));
-
-        kmQuaternionInverse(&quat, &quat);
-        kmMat4RotationQuaternion(&tmp, &quat);
-
-        kmMat4Inverse(&mat, &mat);
-
-        assert_true(kmMat4AreEqual(&tmp, &mat));
     }
 
 

@@ -124,6 +124,9 @@ public:
         kmQuaternion rot;
         kmQuaternionRotationAxisAngle(&rot, &KM_VEC3_POS_Y, -kmDegreesToRadians(90));
 
+        assert_close(0.707, rot.w, 0.001);
+        assert_close(-0.707, rot.y, 0.001);
+
         //Get the rotation from the negative X, it should be the same
         kmQuaternionLookRotation(&res, &KM_VEC3_NEG_X, &KM_VEC3_POS_Y);
 
