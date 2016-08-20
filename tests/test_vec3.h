@@ -46,4 +46,19 @@ public:
         assert_close(0.0, normalized_projection.y, kmEpsilon);
         assert_close(0.0, normalized_projection.z, kmEpsilon);
     }
+
+    void test_vec3_project_onto_plane() {
+        kmPlane plane;
+        kmPlaneFill(&plane, 0, 1, 0, 0);
+
+        kmVec3 v;
+        kmVec3Fill(&v, 1.0, 1.0, 0.0);
+
+        kmVec3 o;
+        kmVec3ProjectOnToPlane(&o, &v, &plane);
+
+        assert_close(o.x, 1, 0.001);
+        assert_close(o.y, 0, 0.001);
+        assert_close(o.z, 0, 0.001);
+    }
 };
