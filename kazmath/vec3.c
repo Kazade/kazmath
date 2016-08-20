@@ -438,13 +438,12 @@ kmVec3* kmVec3RotationToDirection(kmVec3* pOut, const kmVec3* pIn, const kmVec3*
 }
 
 kmVec3* kmVec3ProjectOnToPlane(kmVec3* pOut, const kmVec3* point, const struct kmPlane* plane) {
-    kmRay3 ray;
-    kmVec3Assign(&ray.start, point);
-    ray.dir.x = -plane->a;
-    ray.dir.y = -plane->b;
-    ray.dir.z = -plane->c;
-
-    kmRay3IntersectPlane(pOut, &ray, plane);
+    kmVec3 N;
+    kmVec3Fill(&N, plane->a, plane->b, plane->c);
+    kmVec3Normalize(&N, &N);
+    kmScalar distance = -kmVec3Dot(&N, point);
+    kmVec3Scale(&N, &N, distance);
+    kmVec3Add(pOut, point, &N);
     return pOut;
 }
 
