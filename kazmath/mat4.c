@@ -584,7 +584,7 @@ kmMat4* kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY,
                                     kmScalar zFar)
 {
 	kmScalar r = kmDegreesToRadians(fovY / 2);
-	kmScalar deltaZ = zFar - zNear;
+    kmScalar deltaZ = zNear - zFar;
 	kmScalar s = sin(r);
 	kmScalar cotangent = 0;
 
@@ -598,9 +598,9 @@ kmMat4* kmMat4PerspectiveProjection(kmMat4* pOut, kmScalar fovY,
 	kmMat4Identity(pOut);
 	pOut->mat[0] = cotangent / aspect;
 	pOut->mat[5] = cotangent;
-	pOut->mat[10] = -(zFar + zNear) / deltaZ;
+    pOut->mat[10] = (zFar + zNear) / deltaZ;
 	pOut->mat[11] = -1;
-	pOut->mat[14] = -2 * zNear * zFar / deltaZ;
+    pOut->mat[14] = (2 * zFar * zNear) / deltaZ;
 	pOut->mat[15] = 0;
 
 	return pOut;
