@@ -23,6 +23,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <stdlib.h>
 #include "aabb3.h"
 
 
@@ -89,7 +90,29 @@ kmBool kmAABB3IntersectsTriangle(kmAABB3* box, const kmVec3* p1, const kmVec3* p
 }
 
 kmBool kmAABB3IntersectsAABB(const kmAABB3* box, const kmAABB3* other) {
-    return kmAABB3ContainsAABB(box, other) != KM_CONTAINS_NONE;
+    /* Probably should store center point and radius for things like this */
+
+    kmScalar acx = (box->min.x + box->max.x) * 0.5;
+    kmScalar acy = (box->min.y + box->max.y) * 0.5;
+    kmScalar acz = (box->min.z + box->max.z) * 0.5;
+
+    kmScalar bcx = (other->min.x + other->max.x) * 0.5;
+    kmScalar bcy = (other->min.y + other->max.y) * 0.5;
+    kmScalar bcz = (other->min.z + other->max.z) * 0.5;
+
+    kmScalar arx = (box->max.x - box->min.x) * 0.5;
+    kmScalar ary = (box->max.y - box->min.y) * 0.5;
+    kmScalar arz = (box->max.z - box->min.z) * 0.5;
+
+    kmScalar brx = (other->max.x - other->min.x) * 0.5;
+    kmScalar bry = (other->max.y - other->min.y) * 0.5;
+    kmScalar brz = (other->max.z - other->min.z) * 0.5;
+
+    kmBool x = abs(acx - bcx) <= (arx + brx);
+    kmBool y = abs(acy - bcy) <= (ary + bry);
+    kmBool z = abs(acz - bcz) <= (arz + brz);
+
+    return x && y && z;
 }
 
 kmEnum kmAABB3ContainsAABB(const kmAABB3* container, const kmAABB3* to_check) {
