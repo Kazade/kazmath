@@ -48,7 +48,7 @@ kmQuaternion* kmQuaternionFill(kmQuaternion* pOut, kmScalar x, kmScalar y, kmSca
 	pOut->w = w;
 	return pOut;
 }
-/**< Returns the dot product of the 2 quaternions*/
+
 kmScalar kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2)
 {
 	/* A dot B = B dot A = AtBt + AxBx + AyBy + AzBz */
@@ -59,7 +59,6 @@ kmScalar kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2)
 			q1->z * q2->z);
 }
 
-/**< Returns the exponential of the quaternion*/
 kmQuaternion* kmQuaternionExp(kmQuaternion* pOut, const kmQuaternion* pIn)
 {
 	assert(0);
@@ -67,7 +66,6 @@ kmQuaternion* kmQuaternionExp(kmQuaternion* pOut, const kmQuaternion* pIn)
 	return pOut;
 }
 
-/**< Makes the passed quaternion an identity quaternion*/
 kmQuaternion* kmQuaternionIdentity(kmQuaternion* pOut)
 {
 	pOut->x = 0.0;
@@ -78,7 +76,6 @@ kmQuaternion* kmQuaternionIdentity(kmQuaternion* pOut)
 	return pOut;
 }
 
-/**< Returns the inverse of the passed Quaternion*/
 kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
 											const kmQuaternion* pIn)
 {
@@ -102,28 +99,24 @@ kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
 	return pOut;
 }
 
-/**< Returns true if the quaternion is an identity quaternion*/
 int kmQuaternionIsIdentity(const kmQuaternion* pIn)
 {
 	return (pIn->x == 0.0 && pIn->y == 0.0 && pIn->z == 0.0 &&
 				pIn->w == 1.0);
 }
 
-/**< Returns the length of the quaternion*/
 kmScalar kmQuaternionLength(const kmQuaternion* pIn)
 {
     return sqrt(kmQuaternionLengthSq(pIn));
 }
 
-/**< Returns the length of the quaternion squared (prevents a sqrt)*/
 kmScalar kmQuaternionLengthSq(const kmQuaternion* pIn)
 {
     return pIn->x * pIn->x + pIn->y * pIn->y + pIn->z * pIn->z + pIn->w * pIn->w;
 }
 
-/**< Returns the natural logarithm*/
 kmQuaternion* kmQuaternionLn(kmQuaternion* pOut,
-										const kmQuaternion* pIn)
+                             const kmQuaternion* pIn)
 {
 	/*
 		A unit quaternion, is defined by:
@@ -136,11 +129,9 @@ kmQuaternion* kmQuaternionLn(kmQuaternion* pOut,
 	return pOut;
 }
 
-/**< Multiplies 2 quaternions together*/
-extern
 kmQuaternion* kmQuaternionMultiply(kmQuaternion* pOut,
-                                 const kmQuaternion* qu1,
-                                 const kmQuaternion* qu2)
+                                   const kmQuaternion* qu1,
+                                   const kmQuaternion* qu2)
 {
     kmQuaternion* q1 = NULL;
     kmQuaternion* q2 = NULL;
@@ -160,9 +151,8 @@ kmQuaternion* kmQuaternionMultiply(kmQuaternion* pOut,
 	return pOut;
 }
 
-/**< Normalizes a quaternion*/
 kmQuaternion* kmQuaternionNormalize(kmQuaternion* pOut,
-											const kmQuaternion* pIn)
+                                    const kmQuaternion* pIn)
 {
 	kmScalar length = kmQuaternionLength(pIn);
 
@@ -186,27 +176,25 @@ kmQuaternion* kmQuaternionNormalize(kmQuaternion* pOut,
 	return pOut;
 }
 
-/**< Rotates a quaternion around an axis*/
 kmQuaternion* kmQuaternionRotationAxisAngle(kmQuaternion* pOut,
-									const kmVec3* pV,
-									kmScalar angle)
+                                            const kmVec3* pV,
+                                            kmScalar angle)
 {
-    kmScalar rad = angle * 0.5f;
+	kmScalar rad = angle * 0.5f;
 	kmScalar scale	= sinf(rad);
 
 	pOut->x = pV->x * scale;
 	pOut->y = pV->y * scale;
 	pOut->z = pV->z * scale;
-    pOut->w = cosf(rad);
+	pOut->w = cosf(rad);
 
 	kmQuaternionNormalize(pOut, pOut);
 
 	return pOut;
 }
 
-/**< Creates a quaternion from a rotation matrix*/
 kmQuaternion* kmQuaternionRotationMatrix(kmQuaternion* pOut,
-										const kmMat3* pIn)
+                                         const kmMat3* pIn)
 {
 #if 0
 Note: The OpenGL matrices are transposed from the description below
@@ -324,7 +312,6 @@ taken from the Matrix and Quaternion FAQ
 	return pOut;
 }
 
-/**< Create a quaternion from yaw, pitch and roll*/
 kmQuaternion* kmQuaternionRotationPitchYawRoll(kmQuaternion* pOut,
                                                 kmScalar pitch,
                                                 kmScalar yaw,
@@ -357,7 +344,6 @@ kmQuaternion* kmQuaternionRotationPitchYawRoll(kmQuaternion* pOut,
     return pOut;
 }
 
-/**< Interpolate between 2 quaternions*/
 kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut,
 								const kmQuaternion* q1,
 								const kmQuaternion* q2,
@@ -399,7 +385,6 @@ kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut,
 	return pOut;
 }
 
-/**< Get the axis and angle of rotation from a quaternion*/
 void kmQuaternionToAxisAngle(const kmQuaternion* pIn, kmVec3* pAxis, kmScalar* pAngle)
 {
 	kmScalar	scale;			/* temp vars*/
@@ -462,18 +447,11 @@ kmQuaternion* kmQuaternionAdd(kmQuaternion* pOut, const kmQuaternion* pQ1, const
 	return pOut;
 }
 
-/** Adapted from the OGRE engine!
-
-	Gets the shortest arc quaternion to rotate this vector to the destination
-	vector.
-@remarks
-	If you call this with a dest vector that is close to the inverse
-	of this vector, we will rotate 180 degrees around the 'fallbackAxis'
-	(if specified, or a generated axis if not) since in this case
-	ANY axis of rotation is valid.
-*/
-
-kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const kmVec3* vec1, const kmVec3* vec2, const kmVec3* fallback) {
+/** Adapted from the OGRE engine! */
+kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut,
+                                              const kmVec3* vec1,
+                                              const kmVec3* vec2,
+                                              const kmVec3* fallback) {
 
 	kmVec3 v1, v2;
     kmScalar a;
@@ -601,10 +579,7 @@ kmQuaternion* kmQuaternionLookRotation(kmQuaternion* pOut, const kmVec3* directi
 
 kmQuaternion* kmQuaternionExtractRotationAroundAxis(const kmQuaternion* pIn, const kmVec3* axis, kmQuaternion* pOut) {
     /**
-        Given a quaternion, and an axis. This extracts the rotation around the axis into pOut as another quaternion.
-        Uses the swing-twist decomposition.
-
-        http://stackoverflow.com/questions/3684269/component-of-a-quaternion-rotation-around-an-axis/22401169?noredirect=1#comment34098058_22401169
+       http://stackoverflow.com/questions/3684269/component-of-a-quaternion-rotation-around-an-axis/22401169?noredirect=1#comment34098058_22401169
     */
 
     kmVec3 ra;
@@ -619,9 +594,6 @@ kmQuaternion* kmQuaternionExtractRotationAroundAxis(const kmQuaternion* pIn, con
     return pOut;
 }
 
-/*
- * Returns a Quaternion representing the angle between two vectors
- */
 kmQuaternion* kmQuaternionBetweenVec3(kmQuaternion* pOut, const kmVec3* u, const kmVec3* v) {
     kmVec3 w;
     kmScalar len;

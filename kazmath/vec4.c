@@ -41,9 +41,6 @@ kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w)
     return pOut;
 }
 
-
-/** Adds 2 4D vectors together. The result is store in pOut, the function returns*/
-/** pOut so that it can be nested in another function.*/
 kmVec4* kmVec4Add(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2) {
 	pOut->x = pV1->x + pV2->x;
 	pOut->y = pV1->y + pV2->y;
@@ -53,7 +50,6 @@ kmVec4* kmVec4Add(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2) {
 	return pOut;
 }
 
-/** Returns the dot product of 2 4D vectors*/
 kmScalar kmVec4Dot(const kmVec4* pV1, const kmVec4* pV2) {
 	return (  pV1->x * pV2->x
 			+ pV1->y * pV2->y
@@ -61,18 +57,14 @@ kmScalar kmVec4Dot(const kmVec4* pV1, const kmVec4* pV2) {
 			+ pV1->w * pV2->w );
 }
 
-/** Returns the length of a 4D vector, this uses a sqrt so if the squared length will do use*/
-/** kmVec4LengthSq*/
 kmScalar kmVec4Length(const kmVec4* pIn) {
 	return sqrtf(kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z) + kmSQR(pIn->w));
 }
 
-/** Returns the length of the 4D vector squared.*/
 kmScalar kmVec4LengthSq(const kmVec4* pIn) {
 	return kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z) + kmSQR(pIn->w);
 }
 
-/** Returns the interpolation of 2 4D vectors based on t.*/
 kmVec4* kmVec4Lerp(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2, kmScalar t) {
     pOut->x = pV1->x + t * ( pV2->x - pV1->x ); 
     pOut->y = pV1->y + t * ( pV2->y - pV1->y ); 
@@ -81,7 +73,6 @@ kmVec4* kmVec4Lerp(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2, kmScalar 
     return pOut;
 }
 
-/** Normalizes a 4D vector. The result is stored in pOut. pOut is returned*/
 kmVec4* kmVec4Normalize(kmVec4* pOut, const kmVec4* pIn) {
 	kmScalar l;
     if (!pIn->x && !pIn->y && !pIn->z && !pIn->w){
@@ -97,7 +88,6 @@ kmVec4* kmVec4Normalize(kmVec4* pOut, const kmVec4* pIn) {
 	return pOut;
 }
 
-/** Scales a vector to the required length. This performs a Normalize before multiplying by S.*/
 kmVec4* kmVec4Scale(kmVec4* pOut, const kmVec4* pIn, const kmScalar s) {
 	kmVec4Normalize(pOut, pIn);
 
@@ -108,7 +98,6 @@ kmVec4* kmVec4Scale(kmVec4* pOut, const kmVec4* pIn, const kmScalar s) {
 	return pOut;
 }
 
-/** Subtracts one 4D pV2 from pV1. The result is stored in pOut. pOut is returned*/
 kmVec4* kmVec4Subtract(kmVec4* pOut, const kmVec4* pV1, const kmVec4* pV2) {
 	pOut->x = pV1->x - pV2->x;
 	pOut->y = pV1->y - pV2->y;
@@ -136,7 +125,6 @@ kmVec4* kmVec4Div( kmVec4* pOut,const kmVec4* pV1, const kmVec4* pV2 ) {
     return pOut;
 }
 
-/** Multiplies a 4D vector by a matrix, the result is stored in pOut, and pOut is returned.*/
 kmVec4* kmVec4MultiplyMat4(kmVec4* pOut, const kmVec4* pV, const struct kmMat4* pM) {
     pOut->x = pV->x * pM->mat[0] + pV->y * pM->mat[4] + pV->z * pM->mat[8] + pV->w * pM->mat[12];
     pOut->y = pV->x * pM->mat[1] + pV->y * pM->mat[5] + pV->z * pM->mat[9] + pV->w * pM->mat[13];
@@ -149,7 +137,6 @@ kmVec4* kmVec4Transform(kmVec4* pOut, const kmVec4* pV, const kmMat4* pM) {
     return kmVec4MultiplyMat4(pOut, pV, pM);
 }
 
-/** Loops through an input array transforming each vec4 by the matrix.*/
 kmVec4* kmVec4TransformArray(kmVec4* pOut, unsigned int outStride,
 			const kmVec4* pV, unsigned int vStride, const kmMat4* pM, unsigned int count) {
     unsigned int i = 0;

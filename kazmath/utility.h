@@ -80,8 +80,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
+/**
+ * Returns the square of s (e.g. s*s)
+ */
 extern kmScalar kmSQR(kmScalar s);
+
+/**
+ * Returns degrees as radians.
+ */
 extern kmScalar kmDegreesToRadians(kmScalar degrees);
+
+/**
+ * Returns radians as degrees
+ */
 extern kmScalar kmRadiansToDegrees(kmScalar radians);
 
 extern kmScalar kmMin(kmScalar lhs, kmScalar rhs);

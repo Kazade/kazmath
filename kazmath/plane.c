@@ -82,10 +82,6 @@ kmPlane* kmPlaneFromPointAndNormal(kmPlane* pOut, const kmVec3* pPoint, const km
     return pOut;
 }
 
-/**
- * Creates a plane from 3 points. The result is stored in pOut.
- * pOut is returned.
- */
 kmPlane* kmPlaneFromPoints(kmPlane* pOut, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3)
 {
     /*
@@ -184,18 +180,15 @@ kmPlane* kmPlaneScale(kmPlane* pOut, const kmPlane* pP, kmScalar s)
     return NULL;
 }
 
-/**
- * Returns POINT_INFRONT_OF_PLANE if pP is infront of pIn. Returns
- * POINT_BEHIND_PLANE if it is behind. Returns POINT_ON_PLANE otherwise
- */
 KM_POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane* pIn, const kmVec3* pP)
 {
    /* This function will determine if a point is on, in front of, or behind*/
    /* the plane.  First we store the dot product of the plane and the point.*/
    kmScalar distance = pIn->a * pP->x + pIn->b * pP->y + pIn->c * pP->z + pIn->d;
 
-   /* Simply put if the dot product is greater than 0 then it is infront of it.*/
-   /* If it is less than 0 then it is behind it.  And if it is 0 then it is on it.*/
+   /* Simply put if the dot product is greater than 0 then it is in
+    * front of it.  If it is less than 0 then it is behind it.  And if
+    * it is 0 then it is on it.*/
    if(distance > kmEpsilon) return POINT_INFRONT_OF_PLANE;
    if(distance < -kmEpsilon) return POINT_BEHIND_PLANE;
 

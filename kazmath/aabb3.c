@@ -27,10 +27,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "aabb3.h"
 
 
-/**
-    Initializes the AABB around a central point. If centre is NULL then the origin
-    is used. Returns pBox.
-*/
 kmAABB3* kmAABB3Initialize(kmAABB3* pBox, const kmVec3* centre, const kmScalar width, const kmScalar height, const kmScalar depth) {
     kmVec3 origin;
     kmVec3* point;
@@ -50,10 +46,6 @@ kmAABB3* kmAABB3Initialize(kmAABB3* pBox, const kmVec3* centre, const kmScalar w
     return pBox;
 }
 
-/**
- * Returns KM_TRUE if point is in the specified AABB, returns
- * KM_FALSE otherwise.
- */
 int kmAABB3ContainsPoint(const kmAABB3* pBox, const kmVec3* pPoint)
 {
     if(pPoint->x >= pBox->min.x && pPoint->x <= pBox->max.x &&
@@ -65,9 +57,6 @@ int kmAABB3ContainsPoint(const kmAABB3* pBox, const kmVec3* pPoint)
     return KM_FALSE;
 }
 
-/**
- * Assigns pIn to pOut, returns pOut.
- */
 kmAABB3* kmAABB3Assign(kmAABB3* pOut, const kmAABB3* pIn)
 {
     kmVec3Assign(&pOut->min, &pIn->min);
@@ -75,9 +64,6 @@ kmAABB3* kmAABB3Assign(kmAABB3* pOut, const kmAABB3* pIn)
     return pOut;
 }
 
-/**
- * Scales pIn by s, stores the resulting AABB in pOut. Returns pOut
- */
 kmAABB3* kmAABB3Scale(kmAABB3* pOut, const kmAABB3* pIn, kmScalar s)
 {
 	assert(0 && "Not implemented");
@@ -168,13 +154,6 @@ kmVec3* kmAABB3Centre(const kmAABB3* aabb, kmVec3* pOut) {
     return pOut;
 }
 
-/**
- * @brief kmAABB3ExpandToContain
- * @param pOut - The resulting AABB
- * @param pIn - The original AABB
- * @param other - Another AABB that you want pIn expanded to contain
- * @return
- */
 kmAABB3* kmAABB3ExpandToContain(kmAABB3* pOut, const kmAABB3* pIn, const kmAABB3* other) {
     kmAABB3 result;
 
