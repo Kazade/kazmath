@@ -39,7 +39,6 @@ kmMat3* kmMat3Fill(kmMat3* pOut, const kmScalar* pMat)
     return pOut;
 }
 
-/** Sets pOut to an identity matrix returns pOut*/
 kmMat3* kmMat3Identity(kmMat3* pOut)
 {
 	memset(pOut->mat, 0, sizeof(kmScalar) * 9);
@@ -94,23 +93,21 @@ kmMat3* kmMat3Inverse(kmMat3* pOut, const kmMat3* pM)
 
     detInv = 1.0 / determinate;
 
-	kmMat3Adjugate(&adjugate, pM);
+    kmMat3Adjugate(&adjugate, pM);
     kmMat3MultiplyScalar(pOut, &adjugate, detInv);
 
 	return pOut;
 }
 
-/** Returns true if pIn is an identity matrix */
 kmBool kmMat3IsIdentity(const kmMat3* pIn)
 {
-	static kmScalar identity [] = { 	1.0f, 0.0f, 0.0f,
-										0.0f, 1.0f, 0.0f,
-										0.0f, 0.0f, 1.0f};
+    static kmScalar identity [] = { 1.0f, 0.0f, 0.0f,
+                                    0.0f, 1.0f, 0.0f,
+                                    0.0f, 0.0f, 1.0f};
 
-	return (memcmp(identity, pIn->mat, sizeof(kmScalar) * 9) == 0);
+    return (memcmp(identity, pIn->mat, sizeof(kmScalar) * 9) == 0);
 }
 
-/** Sets pOut to the transpose of pIn, returns pOut */
 kmMat3* kmMat3Transpose(kmMat3* pOut, const kmMat3* pIn)
 {
     kmScalar temp[9];
@@ -132,7 +129,6 @@ kmMat3* kmMat3Transpose(kmMat3* pOut, const kmMat3* pIn)
 	return pOut;
 }
 
-/* Multiplies pM1 with pM2, stores the result in pOut, returns pOut */
 kmMat3* kmMat3MultiplyMat3(kmMat3* pOut, const kmMat3* pM1, const kmMat3* pM2)
 {
 	kmScalar mat[9];
@@ -156,7 +152,8 @@ kmMat3* kmMat3MultiplyMat3(kmMat3* pOut, const kmMat3* pM1, const kmMat3* pM2)
 	return pOut;
 }
 
-kmMat3* kmMat3MultiplyScalar(kmMat3* pOut, const kmMat3* pM, const kmScalar pFactor)
+kmMat3* kmMat3MultiplyScalar(kmMat3* pOut, const kmMat3* pM,
+                             const kmScalar pFactor)
 {
     kmScalar mat[9];
     int i;
@@ -171,7 +168,6 @@ kmMat3* kmMat3MultiplyScalar(kmMat3* pOut, const kmMat3* pM, const kmScalar pFac
 	return pOut;
 }
 
-/** Assigns the value of pIn to pOut */
 kmMat3* kmMat3AssignMat3(kmMat3* pOut, const kmMat3* pIn)
 {
 	assert(pOut != pIn); /*You have tried to self-assign!!*/
@@ -181,7 +177,6 @@ kmMat3* kmMat3AssignMat3(kmMat3* pOut, const kmMat3* pIn)
 	return pOut;
 }
 
-/** Returns true if the 2 matrices are equal (approximately) */
 kmBool kmMat3AreEqual(const kmMat3* pMat1, const kmMat3* pMat2)
 {
 	int i;
@@ -199,7 +194,6 @@ kmBool kmMat3AreEqual(const kmMat3* pMat1, const kmMat3* pMat2)
 }
 
 
-/** Builds a scaling matrix */
 kmMat3* kmMat3FromScaling(kmMat3* pOut, const kmScalar x, const kmScalar y)
 {
 /*	memset(pOut->mat, 0, sizeof(kmScalar) * 9);*/
@@ -246,7 +240,8 @@ kmMat3* kmMat3FromRotationQuaternion(kmMat3* pOut, const kmQuaternion* pIn)
     return pOut;
 }
 
-kmMat3* kmMat3FromRotationAxisAngle(kmMat3* pOut, const struct kmVec3* axis, kmScalar radians)
+kmMat3* kmMat3FromRotationAxisAngle(kmMat3* pOut, const struct kmVec3* axis,
+                                    kmScalar radians)
 {
     kmScalar rcos = cosf(radians);
     kmScalar rsin = sinf(radians);
@@ -278,13 +273,10 @@ void kmMat3ExtractRotationAxisAngle(const kmMat3* pIn, kmVec3* pAxis, kmScalar* 
     kmQuaternionToAxisAngle(&temp, pAxis, radians);
 }
 
-/**
- * Builds an X-axis rotation matrix and stores it in pOut, returns pOut
- */
 kmMat3* kmMat3FromRotationX(kmMat3* pOut, const kmScalar radians)
 {
 	/*
-		 |  1  0       0      |
+	     |  1  0       0      |
 	 M = |  0  cos(A) -sin(A) |
 	     |  0  sin(A)  cos(A) |
 
@@ -305,10 +297,6 @@ kmMat3* kmMat3FromRotationX(kmMat3* pOut, const kmScalar radians)
 	return pOut;
 }
 
-/**
- * Builds a rotation matrix using the rotation around the Y-axis
- * The result is stored in pOut, pOut is returned.
- */
 kmMat3* kmMat3FromRotationY(kmMat3* pOut, const kmScalar radians)
 {
 	/*
@@ -332,10 +320,6 @@ kmMat3* kmMat3FromRotationY(kmMat3* pOut, const kmScalar radians)
 	return pOut;
 }
 
-/**
- * Builds a rotation matrix around the Z-axis. The resulting
- * matrix is stored in pOut. pOut is returned.
- */
 kmMat3* kmMat3FromRotationZ(kmMat3* pOut, const kmScalar radians)
 {
 	/*

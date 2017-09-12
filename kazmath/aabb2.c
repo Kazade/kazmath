@@ -26,10 +26,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "aabb2.h"
 
 
-/**
-    Initializes the AABB around a central point. If centre is NULL then the origin
-    is used. Returns pBox.
-*/
 kmAABB2* kmAABB2Initialize( kmAABB2* pBox, const kmVec2* centre, const kmScalar width, const kmScalar height, const kmScalar depth) {
     kmVec2 origin;
     kmVec2 * point;
@@ -47,10 +43,6 @@ kmAABB2* kmAABB2Initialize( kmAABB2* pBox, const kmVec2* centre, const kmScalar 
     return pBox;
 }
 
-/** 
- *  Makes sure that min corresponds to the minimum values and max 
- *  to the maximum
- */
 kmAABB2* kmAABB2Sanitize(kmAABB2* pOut, const kmAABB2* pIn)
 {
     if( pIn->min.x <= pIn->max.x ){
@@ -72,10 +64,6 @@ kmAABB2* kmAABB2Sanitize(kmAABB2* pOut, const kmAABB2* pIn)
     return pOut;
 }
 
-/**
- * Returns KM_TRUE if point is in the specified AABB, returns
- * KM_FALSE otherwise.
- */
 int kmAABB2ContainsPoint(const kmAABB2* pBox, const kmVec2* pPoint)
 {
     if(pPoint->x >= pBox->min.x && pPoint->x <= pBox->max.x &&
@@ -86,9 +74,6 @@ int kmAABB2ContainsPoint(const kmAABB2* pBox, const kmVec2* pPoint)
     return KM_FALSE;
 }
 
-/**
- * Assigns pIn to pOut, returns pOut.
- */
 kmAABB2* kmAABB2Assign(kmAABB2* pOut, const kmAABB2* pIn)
 {
     kmVec2Assign(&pOut->min, &pIn->min);
@@ -103,11 +88,6 @@ kmAABB2* kmAABB2Translate( kmAABB2* pOut, const kmAABB2* pIn, const kmVec2 *tran
     return pOut;
 }
 
-/**
- * Scales pIn by s, stores the resulting AABB in pOut. Returns pOut. 
- * It modifies both points, so position of the box will be changed. Use
- * kmAABB2ScaleWithPivot to specify the origin of the scale.
- */
 kmAABB2* kmAABB2Scale(kmAABB2* pOut, const kmAABB2* pIn, kmScalar s)
 {
     kmVec2Scale( &(pOut->max), &(pIn->max), s ); 
@@ -115,9 +95,6 @@ kmAABB2* kmAABB2Scale(kmAABB2* pOut, const kmAABB2* pIn, kmScalar s)
     return pOut;
 }
 
-/** 
- * Scales pIn by s, using pivot as the origin for the scale.
- */
 kmAABB2* kmAABB2ScaleWithPivot( kmAABB2* pOut, const kmAABB2* pIn, const kmVec2 *pivot, kmScalar s )
 {
     kmVec2 translate;
@@ -171,13 +148,6 @@ kmVec2* kmAABB2Centre(const kmAABB2* aabb, kmVec2* pOut) {
     return pOut;
 }
 
-/**
- * @brief kmAABB2ExpandToContain
- * @param pOut - The resulting AABB
- * @param pIn - The original AABB
- * @param other - Another AABB that you want pIn expanded to contain
- * @return
- */
 kmAABB2* kmAABB2ExpandToContain(kmAABB2* pOut, const kmAABB2* pIn, const kmAABB2* other) {
     kmAABB2 result;
 

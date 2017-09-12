@@ -153,10 +153,6 @@ kmBool kmVec2AreEqual(const kmVec2* p1, const kmVec2* p2)
     return KM_TRUE;
 }
 
-/**
- * Assigns pIn to pOut. Returns pOut. If pIn and pOut are the same
- * then nothing happens but pOut is still returned
- */
 kmVec2* kmVec2Assign(kmVec2* pOut, const kmVec2* pIn) {
 	if (pOut == pIn) {
 		return pOut;
@@ -168,10 +164,7 @@ kmVec2* kmVec2Assign(kmVec2* pOut, const kmVec2* pIn) {
 	return pOut;
 }
 
-/**
- * Rotates the point anticlockwise around a center
- * by an amount of degrees.
- *
+/*
  * Code ported from Irrlicht: http://irrlicht.sourceforge.net/
  */
 kmVec2* kmVec2RotateBy(kmVec2* pOut, const kmVec2* pIn,
@@ -194,9 +187,6 @@ kmVec2* kmVec2RotateBy(kmVec2* pOut, const kmVec2* pIn,
    return pOut;
 }
 
-/**
- * 	Returns the angle in degrees between the two vectors
- */
 kmScalar kmVec2DegreesBetween(const kmVec2* v1, const kmVec2* v2) {
 	kmVec2 t1, t2;
 	kmScalar cross;
@@ -224,17 +214,12 @@ kmScalar kmVec2DegreesBetween(const kmVec2* v1, const kmVec2* v2) {
 	return kmRadiansToDegrees(atan2(cross, dot));
 }
 
-/**
- * Returns the distance between the two points
- */
 kmScalar kmVec2DistanceBetween(const kmVec2* v1, const kmVec2* v2) {
 	kmVec2 diff;
 	kmVec2Subtract(&diff, v2, v1);
 	return fabs(kmVec2Length(&diff));
 }
-/**
- * Returns the point mid-way between two others
- */
+
 kmVec2* kmVec2MidPointBetween(kmVec2* pOut, const kmVec2* v1, const kmVec2* v2) {
 	kmVec2 sum;
     kmVec2Add(&sum, v1, v2);
@@ -244,10 +229,6 @@ kmVec2* kmVec2MidPointBetween(kmVec2* pOut, const kmVec2* v1, const kmVec2* v2) 
 	return pOut;
 }
 
-/**
- * Reflects a vector about a given surface normal. The surface normal is
- * assumed to be of unit length.
- */
 kmVec2* kmVec2Reflect(kmVec2* pOut, const kmVec2* pIn, const kmVec2* normal) {
 	kmVec2 tmp;
 	kmVec2Scale(&tmp, normal, 2.0f * kmVec2Dot(pIn, normal));

@@ -17,10 +17,6 @@ void kmRay2FillWithEndpoints( kmRay2 *ray, const kmVec2 *start, const kmVec2 *en
 }
  
 
-/* 
-    Lines are defined by a pt and a vector. It outputs the vector multiply factor
-    that gives the intersection point 
-*/
 kmBool kmLine2WithLineIntersection(const kmVec2 *ptA, const kmVec2 *vecA, /* first line */
                                    const kmVec2 *ptB, const kmVec2 *vecB, /* seconf line */
                                    kmScalar *outTA, kmScalar *outTB,

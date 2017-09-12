@@ -46,10 +46,6 @@ const kmVec3 KM_VEC3_NEG_X = { -1, 0, 0 };
 const kmVec3 KM_VEC3_POS_X = { 1, 0, 0 };
 const kmVec3 KM_VEC3_ZERO = { 0, 0, 0 };
 
-/**
- * Fill a kmVec3 structure using 3 floating point values
- * The result is store in pOut, returns pOut
- */
 kmVec3* kmVec3Fill(kmVec3* pOut, kmScalar x, kmScalar y, kmScalar z)
 {
     pOut->x = x;
@@ -59,23 +55,16 @@ kmVec3* kmVec3Fill(kmVec3* pOut, kmScalar x, kmScalar y, kmScalar z)
 }
 
 
-/**
- * Returns the length of the vector
- */
 kmScalar kmVec3Length(const kmVec3* pIn)
 {
 	return sqrtf(kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z));
 }
 
-/**
- * Returns the square of the length of the vector
- */
 kmScalar kmVec3LengthSq(const kmVec3* pIn)
 {
 	return kmSQR(pIn->x) + kmSQR(pIn->y) + kmSQR(pIn->z);
 }
 
-/** Returns the interpolation of 2 4D vectors based on t.*/
 kmVec3* kmVec3Lerp(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2, kmScalar t) {
     pOut->x = pV1->x + t * ( pV2->x - pV1->x ); 
     pOut->y = pV1->y + t * ( pV2->y - pV1->y ); 
@@ -83,10 +72,6 @@ kmVec3* kmVec3Lerp(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2, kmScalar 
     return pOut;
 }
 
- /**
-  * Returns the vector passed in set to unit length
-  * the result is stored in pOut.
-  */
 kmVec3* kmVec3Normalize(kmVec3* pOut, const kmVec3* pIn)
 {
 	kmVec3 v;
@@ -107,10 +92,6 @@ kmVec3* kmVec3Normalize(kmVec3* pOut, const kmVec3* pIn)
 	return pOut;
 }
 
-/**
- * Returns a vector perpendicular to 2 other vectors.
- * The result is stored in pOut.
- */
 kmVec3* kmVec3Cross(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 {
 
@@ -127,9 +108,6 @@ kmVec3* kmVec3Cross(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 	return pOut;
 }
 
-/**
- * Returns the cosine of the angle between 2 vectors
- */
 kmScalar kmVec3Dot(const kmVec3* pV1, const kmVec3* pV2)
 {
 	return (  pV1->x * pV2->x
@@ -137,10 +115,6 @@ kmScalar kmVec3Dot(const kmVec3* pV1, const kmVec3* pV2)
 			+ pV1->z * pV2->z );
 }
 
-/**
- * Adds 2 vectors and returns the result. The resulting
- * vector is stored in pOut.
- */
 kmVec3* kmVec3Add(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 {
 	kmVec3 v;
@@ -156,10 +130,6 @@ kmVec3* kmVec3Add(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 	return pOut;
 }
 
- /**
-  * Subtracts 2 vectors and returns the result. The result is stored in
-  * pOut.
-  */
 kmVec3* kmVec3Subtract(kmVec3* pOut, const kmVec3* pV1, const kmVec3* pV2)
 {
 	kmVec3 v;
@@ -204,11 +174,6 @@ kmVec3* kmVec3MultiplyMat3(kmVec3* pOut, const kmVec3* pV, const kmMat3* pM) {
 
     return pOut;
 }
-
-/**
- * Multiplies vector (x, y, z, 1) by a given matrix. The result
- * is stored in pOut. pOut is returned.
- */
 
 kmVec3* kmVec3MultiplyMat4(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM) {
     kmVec3 v;
@@ -311,10 +276,6 @@ kmVec3* kmVec3TransformNormal(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 
 }
 
-/**
- * Scales a vector to length s. Does not normalize first,
- * you should do that!
- */
 kmVec3* kmVec3Scale(kmVec3* pOut, const kmVec3* pIn, const kmScalar s)
 {
 	pOut->x = pIn->x * s;
@@ -324,9 +285,6 @@ kmVec3* kmVec3Scale(kmVec3* pOut, const kmVec3* pIn, const kmScalar s)
 	return pOut;
 }
 
-/**
- * Returns KM_TRUE if the 2 vectors are approximately equal
- */
 kmBool kmVec3AreEqual(const kmVec3* p1, const kmVec3* p2)
 {
     if((!kmAlmostEqual(p1->x, p2->x)) || (!kmAlmostEqual(p1->y, p2->y)) || (!kmAlmostEqual(p1->z, p2->z))) {
@@ -336,10 +294,6 @@ kmBool kmVec3AreEqual(const kmVec3* p1, const kmVec3* p2)
     return KM_TRUE;
 }
 
-/**
- * Assigns pIn to pOut. Returns pOut. If pIn and pOut are the same
- * then nothing happens but pOut is still returned
- */
 kmVec3* kmVec3Assign(kmVec3* pOut, const kmVec3* pIn) {
 	if (pOut == pIn) {
 		return pOut;
@@ -352,9 +306,6 @@ kmVec3* kmVec3Assign(kmVec3* pOut, const kmVec3* pIn) {
 	return pOut;
 }
 
-/**
- * Sets all the elements of pOut to zero. Returns pOut.
- */
 kmVec3* kmVec3Zero(kmVec3* pOut) {
 	pOut->x = 0.0f;
 	pOut->y = 0.0f;
@@ -363,14 +314,7 @@ kmVec3* kmVec3Zero(kmVec3* pOut) {
 	return pOut;
 }
 
-/**
- * Get the rotations that would make a (0,0,1) direction vector point in the same direction as this direction vector.
- * Useful for orienting vector towards a point.
- *
- * Returns a rotation vector containing the X (pitch) and Y (raw) rotations (in degrees) that when applied to a
- * +Z (e.g. 0, 0, 1) direction vector would make it point in the same direction as this vector. The Z (roll) rotation
- * is always 0, since two Euler rotations are sufficient to point in any given direction.
- *
+/*
  * Code ported from Irrlicht: http://irrlicht.sourceforge.net/
  */
 kmVec3* kmVec3GetHorizontalAngle(kmVec3* pOut, const kmVec3 *pIn) {
@@ -391,11 +335,7 @@ kmVec3* kmVec3GetHorizontalAngle(kmVec3* pOut, const kmVec3 *pIn) {
    return pOut;
 }
 
-/**
- * Builds a direction vector from input vector.
- * Input vector is assumed to be rotation vector composed from 3 Euler angle rotations, in degrees.
- * The forwards vector will be rotated by the input vector
- *
+/*
  * Code ported from Irrlicht: http://irrlicht.sourceforge.net/
  */
 kmVec3* kmVec3RotationToDirection(kmVec3* pOut, const kmVec3* pIn, const kmVec3* forwards)
@@ -447,10 +387,6 @@ kmVec3* kmVec3ProjectOnToPlane(kmVec3* pOut, const kmVec3* point, const struct k
     return pOut;
 }
 
-/**
- * Reflects a vector about a given surface normal. The surface normal is
- * assumed to be of unit length.
- */
 kmVec3* kmVec3Reflect(kmVec3* pOut, const kmVec3* pIn, const kmVec3* normal) {
   kmVec3 tmp;
   kmVec3Scale(&tmp, normal, 2.0f * kmVec3Dot(pIn, normal));
@@ -459,10 +395,6 @@ kmVec3* kmVec3Reflect(kmVec3* pOut, const kmVec3* pIn, const kmVec3* normal) {
   return pOut;
 }
 
-/**
- * swaps the values in one vector with another
- * NB does not return a value unlike normal
- */
 void kmVec3Swap(kmVec3* a, kmVec3* b) {
 	kmScalar x, y,z;
 	x = a->x;
@@ -489,7 +421,8 @@ void kmVec3OrthoNormalize(kmVec3* normal, kmVec3* tangent) {
     kmVec3Normalize(tangent, tangent);
 }
 
-kmVec3* kmVec3ProjectOnToVec3(const kmVec3* w, const kmVec3* v, kmVec3* projection) {
+kmVec3* kmVec3ProjectOnToVec3(const kmVec3* w, const kmVec3* v,
+                              kmVec3* projection) {
     kmVec3 unitW, unitV;
     kmVec3Normalize(&unitW, w);
     kmVec3Normalize(&unitV, v);
