@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "kaztest/kaztest.h"
 #include "../kazmath/quaternion.h"
 #include "../kazmath/vec3.h"
