@@ -1,4 +1,4 @@
-#include <math.h>
+#include <cmath>
 
 #include "kaztest/kaztest.h"
 #include "../kazmath/quaternion.h"
@@ -32,10 +32,10 @@ public:
         kmQuaternion result;
         kmQuaternionSlerp(&result, &initial, &dest, step);
 
-        assert_true(!isnan(result.x));
-        assert_true(!isnan(result.y));
-        assert_true(!isnan(result.z));
-        assert_true(!isnan(result.w));
+        assert_true(!std::isnan(result.x));
+        assert_true(!std::isnan(result.y));
+        assert_true(!std::isnan(result.z));
+        assert_true(!std::isnan(result.w));
     }
 
     void test_quaternion_get_up_vector() {
